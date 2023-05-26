@@ -1,0 +1,14 @@
+{
+  "helloWorld": "Hello World!",
+  "@helloWorld": {
+    "description": "The conventional newborn programmer greeting"
+  },
+  "searchHint": "Search...",
+  "@searchHint": {
+    "description": " Its search hint text"
+  },
+  "video": "Video",
+  "@video": {
+    "description": "Video text for nav bra and title"
+  }
+}

@@ -54,4 +54,8 @@ class AppSpacing {
   static SizedBox horizontal_14 = SizedBox(
     width: 14.w,
   );
+  int a = 0;
+  void newSomeThing() {
+    
+  }
 }

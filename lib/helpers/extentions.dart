@@ -13,3 +13,12 @@ extension SliverExtentions on Widget {
         child: this,
       );
 }
+
+extension WillScope on Scaffold {
+  WillPopScope toWillScope() => WillPopScope(
+        child: this,
+        onWillPop: () async {
+          return false;
+        },
+      );
+}
