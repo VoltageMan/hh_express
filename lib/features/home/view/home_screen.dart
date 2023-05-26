@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:hh_express/features/mainScreen/view/main_app_bar.dart';
-import 'package:hh_express/helpers/routes.dart';
-import 'package:hh_express/helpers/spacers.dart';
 import 'package:hh_express/settings/consts.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -48,52 +44,62 @@ class _HomeScreenState extends State<HomeScreen> {
                     width: 1.5.sp,
                   ),
                 ),
-                height: 152.h,
+                height: 151.h,
               ),
               SizedBox(
                 height: 15.h,
-                child: FittedBox(
-                  child: Text(
-                    'Luis Vuiton Some',
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleMedium!
-                        .copyWith(fontSize: 13.sp),
-                  ),
+                width:9999999999999999.w,
+                child: Text(
+                  'Luis Vuiton Pizdesssss gapjyk collobaration with offWthite',
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleMedium!
+                      .copyWith(fontSize: 13.sp),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
               Container(
                 height: 28.h,
                 margin: EdgeInsets.symmetric(vertical: 10.h),
                 child: Text(
-                  'Lorem Ipsum Dolar sit amet dalse huy znaet ',
+                  'Lorem Ipsum Dolar sit amet dalse huy znaet, i tak dlya testa some text here is its is',
                   maxLines: 2,
-                  overflow: TextOverflow.clip,
+                  overflow: TextOverflow.ellipsis,
                   style: Theme.of(context).textTheme.titleSmall,
                 ),
               ),
-              SizedBox(
+              Container(
+                alignment: Alignment.bottomCenter,
                 height: 17.h,
                 width: double.infinity,
                 child: Row(
                   children: [
-                    FittedBox(
-                      child: Text(
-                        '500 Tmt',
-                        style: Theme.of(context).textTheme.titleLarge,
-                        textAlign: TextAlign.start,
+                    Expanded(
+                      child: FittedBox(
+                        child: Text(
+                          '5000079 Tmt',
+                          style: Theme.of(context).textTheme.titleLarge,
+                          textAlign: TextAlign.start,
+                        ),
                       ),
                     ),
                     SizedBox(
                       width: 10.w,
                     ),
-                    FittedBox(
-                      child: Text(
-                        '700 Tmt',
-                        style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                            decoration: TextDecoration.lineThrough,
-                            decorationThickness: 2.sp),
-                        textAlign: TextAlign.start,
+                    Expanded(
+                      child: FittedBox(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          '700 Tmt',
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall!
+                              .copyWith(
+                                  decoration: TextDecoration.lineThrough,
+                                  decorationThickness: 2.sp),
+                          textAlign: TextAlign.start,
+                        ),
                       ),
                     ),
                   ],

@@ -10,7 +10,7 @@ class MainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MainAppBar(
-        title: 'title',
+        title: null,
       ),
       body: HomeScreen(),
       bottomNavigationBar: const MyBNavigationBar(),
