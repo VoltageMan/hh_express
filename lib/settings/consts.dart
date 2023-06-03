@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hh_express/helpers/extentions.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AppPaddings {
   static EdgeInsets left_12 = EdgeInsets.only(left: 12.w);
@@ -91,8 +93,9 @@ class AppColors {
 }
 
 class AppDurations {
-  static Duration duration_500ms = const Duration(milliseconds: 500);
   static Duration duration_250ms = const Duration(milliseconds: 250);
+  static Duration duration_500ms = const Duration(milliseconds: 500);
+  static Duration duration_1500ms = const Duration(milliseconds: 1500);
 }
 
 class AssetsPath {
@@ -108,4 +111,27 @@ class AssetsPath {
     'assets/icons/navBarIcons/cart.svg',
     'assets/icons/navBarIcons/profile.svg',
   ];
+}
+
+class AppTitles {
+  static void init(BuildContext context) {
+    final l10n = context.l10n;
+    navBarTitles = [
+      l10n.home,
+      l10n.video,
+      l10n.category,
+      l10n.cart,
+      l10n.profile,
+    ];
+    exit = l10n.exit;
+    cancle = l10n.cancle;
+    confirmExit = l10n.exitConfirm;
+    searchHint = l10n.searchHint;
+  }
+
+  static List<String>? navBarTitles;
+  static String? exit;
+  static String? cancle;
+  static String? confirmExit;
+  static String? searchHint;
 }

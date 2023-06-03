@@ -1,27 +1,59 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hh_express/features/home/view/home_screen.dart';
+import 'package:hh_express/features/home/view/some_screen.dart';
+import 'package:hh_express/features/mainScreen/view/main_screen.dart';
+import 'package:hh_express/helpers/extentions.dart';
+import 'package:hh_express/settings/consts.dart';
 
 class AppRoutes {
-  static const home = '/home';
+  static const List navBar = [
+    '/home',
+    '/video',
+    '/category',
+    '/cart',
+    '/profile',
+  ];
 }
 
 final appRouter = GoRouter(
+  initialLocation: AppRoutes.navBar.first,
   routes: [
     ShellRoute(
-      routes: [
-        GoRoute(
-          path: AppRoutes.home,
-          builder: (context, state) {
-            return HomeScreen();
+      pageBuilder: (mainContext, mainState, mainChild) {
+        return CustomTransitionPage(
+          child: const SizedBox(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            final title = mainState.extra as String?;
+            return MainScreen(
+              title: title,
+              body: mainChild,
+            );
           },
-        ),
-      ],
-      builder: (context, state, child) {
-        return child;
+        );
       },
-    )
+      routes: List.generate(
+        AppRoutes.navBar.length,
+        (index) {
+          final path = AppRoutes.navBar[index] as String;
+          return GoRoute(
+            name: path.replaceAll('/', ''),
+            path: path,
+            pageBuilder: (context, state) {
+              return CustomTransitionPage(
+                child: index == 0
+                    ? MainScreen.bodies[index]
+                    : SomeScreen(title: AppTitles.navBarTitles![index]),
+                transitionsBuilder:
+                    (context, animation, secondaryAnimation, child) {
+                  return child;
+                },
+              );
+            },
+          );
+        },
+      ),
+    ),
   ],
 );
-
-final locale = ValueNotifier<String>('en');

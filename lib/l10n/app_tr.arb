@@ -1,5 +1,12 @@
 {
     "helloWorld": "Salam",
     "searchHint": "Gozlemek...",
-    "video": "Viedo"
+    "home": "Esasy",
+    "video": "Wideo",
+    "category": "Kategoriýa",
+    "cart": "Sebet",
+    "profile": "Profilim",
+    "exit": "Çykmak",
+    "cancle": "Goý bolsun",
+    "exitConfirm": "Siz hakykatdan hem çykmak isleyarsinizmi?"
 }

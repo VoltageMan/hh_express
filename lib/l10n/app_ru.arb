@@ -1,5 +1,12 @@
 {
     "helloWorld": "qq",
     "searchHint": "Поиск...",
-    "video": "Видео"
+    "home": "Главная",
+    "video": "Видео",
+    "category": "Категория",
+    "cart": "Корзина",
+    "profile": "Профиль",
+    "exit": "Выход",
+    "cancle": "Отмена",
+    "exitConfirm": "Вы точно хотите выйти?"
 }

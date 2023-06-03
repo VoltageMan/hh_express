@@ -1,9 +1,12 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/features/home/bloc/home_bloc.dart';
-import 'package:hh_express/features/mainScreen/view/main_screen.dart';
 import 'package:hh_express/helpers/routes.dart';
+import 'package:hh_express/settings/consts.dart';
+import 'package:hh_express/settings/globals.dart';
 import 'package:hh_express/settings/theme.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -22,6 +25,7 @@ class MyApp extends StatelessWidget {
           return ValueListenableBuilder(
             valueListenable: locale,
             builder: (context, locale, child) {
+              log(locale);
               return MaterialApp.router(
                 supportedLocales: AppLocalizations.supportedLocales,
                 routerConfig: appRouter,
@@ -30,14 +34,13 @@ class MyApp extends StatelessWidget {
                 debugShowCheckedModeBanner: false,
                 localizationsDelegates: AppLocalizations.localizationsDelegates,
                 builder: (context, child) {
+                  AppTitles.init(context);
                   return Navigator(
-                    onGenerateRoute: (settings) {
-                      return MaterialPageRoute(
-                        builder: (context) {
-                          return MainScreen();
-                        },
-                      );
-                    },
+                    onGenerateRoute: (settings) => MaterialPageRoute(
+                      builder: (context) {
+                        return child!;
+                      },
+                    ),
                   );
                 },
               );

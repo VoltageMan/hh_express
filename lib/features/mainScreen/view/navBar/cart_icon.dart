@@ -8,8 +8,10 @@ import 'package:hh_express/settings/consts.dart';
 class CartIcon extends StatelessWidget {
   const CartIcon({super.key});
   static const isCartEmpty = false;
+
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context).bottomNavigationBarTheme;
     return GestureDetector(
       onTap: () => bodyIndex.value = 3,
       child: Container(
@@ -30,8 +32,8 @@ class CartIcon extends StatelessWidget {
                     MyImageIcon(
                       path: AssetsPath.navBarIcons[3],
                       color: isSelected
-                          ? AppColors.mainOrange
-                          : AppColors.darkGrey,
+                          ? theme.selectedItemColor
+                          : theme.unselectedItemColor,
                       iconSize: 20.8.w,
                     ),
                     SizedBox(
@@ -39,12 +41,10 @@ class CartIcon extends StatelessWidget {
                       width: double.infinity,
                     ),
                     Text(
-                      MyBNavigationBar.titles[3],
-                      style: Theme.of(context).textTheme.labelSmall!.copyWith(
-                            color: bodyIndex == 3
-                                ? AppColors.mainOrange
-                                : AppColors.darkGrey,
-                          ),
+                      AppTitles.navBarTitles![3],
+                      style: isSelected
+                          ? theme.selectedLabelStyle
+                          : theme.unselectedLabelStyle,
                     )
                   ],
                 );
@@ -58,31 +58,32 @@ class CartIcon extends StatelessWidget {
   }
 }
 
-/// add State Manager to text
+/// add State Manager
 class CartBadge extends StatelessWidget {
   const CartBadge({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Container(
       margin: EdgeInsets.only(top: 4.h, right: 13.w),
       padding: EdgeInsets.all(2.5.sp),
-      decoration: const BoxDecoration(
-        color: AppColors.white,
+      decoration: BoxDecoration(
+        color: theme.bottomNavigationBarTheme.backgroundColor,
         shape: BoxShape.circle,
       ),
       child: Container(
         height: 20.sp,
         width: 20.sp,
-        padding: EdgeInsets.all(3.sp),
-        decoration: const BoxDecoration(
-          color: AppColors.mainOrange,
+        padding: theme.badgeTheme.padding,
+        decoration: BoxDecoration(
+          color: theme.badgeTheme.backgroundColor,
           shape: BoxShape.circle,
         ),
         child: FittedBox(
           child: Text(
             '20',
-            style: Theme.of(context).textTheme.labelSmall!,
+            style: theme.badgeTheme.textStyle!,
             textAlign: TextAlign.center,
           ),
         ),

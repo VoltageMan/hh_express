@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'dart:developer' as devtools show log;
 
 extension Log on Object {
@@ -22,3 +23,15 @@ extension WillScope on Scaffold {
         },
       );
 }
+
+extension L10n on BuildContext {
+  AppLocalizations get l10n => AppLocalizations.of(this)!;
+}
+
+extension FromStringtoInt on String {
+  int get toInt => int.parse(this);
+}
+
+// extension FromMaterialStateProperty on MaterialStateProperty{
+//   dynamic get resolve => this.resolve);
+// }

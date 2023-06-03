@@ -11,36 +11,78 @@ class AppTheme {
     appBarTheme: const AppBarTheme(
       color: AppColors.white,
     ),
+    fontFamily: GoogleFonts.rubik().fontFamily,
+    badgeTheme: BadgeThemeData(
+      textColor: AppColors.white,
+      backgroundColor: AppColors.mainOrange,
+      alignment: Alignment.center,
+      padding: EdgeInsets.all(3.sp),
+      textStyle: TextStyle(
+        fontWeight: FontWeight.w700,
+        fontSize: 10.sp,
+        color: AppColors.white,
+      ),
+    ),
+    inputDecorationTheme: InputDecorationTheme(
+      fillColor: AppColors.lightGrey,
+      hintStyle: TextStyle(
+        fontWeight: FontWeight.w400,
+        color: AppColors.darkGrey,
+        fontSize: 14.sp,
+      ),
+    ),
+    hintColor: AppColors.darkGrey,
+    textButtonTheme: TextButtonThemeData(
+      style: TextButton.styleFrom(
+        alignment: Alignment.center,
+        
+        textStyle: TextStyle(
+          fontWeight: FontWeight.w400,
+          color: AppColors.mainOrange,
+          fontSize: 14.sp,
+        ),
+      ),
+    ),
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      backgroundColor: AppColors.white,
+      selectedItemColor: AppColors.mainOrange,
+      selectedLabelStyle: TextStyle(
+        fontWeight: FontWeight.w700,
+        fontSize: 10.sp,
+        color: AppColors.mainOrange,
+      ),
+      unselectedLabelStyle: TextStyle(
+        fontWeight: FontWeight.w700,
+        fontSize: 10.sp,
+        color: AppColors.darkGrey,
+      ),
+      unselectedItemColor: AppColors.darkGrey,
+    ),
     textTheme: TextTheme(
-      displayLarge: GoogleFonts.rubik(
+      displayLarge: TextStyle(
         fontWeight: FontWeight.w600,
         fontSize: 70.sp,
         color: AppColors.white,
       ),
-      displayMedium: GoogleFonts.rubik(
+      displayMedium: TextStyle(
         fontWeight: FontWeight.w400,
         fontSize: 20.sp,
         color: AppColors.white,
       ),
-      titleMedium: GoogleFonts.rubik(
+      titleMedium: TextStyle(
         fontWeight: FontWeight.w600,
         fontSize: 18.sp,
         color: AppColors.darkBlue,
       ),
-      titleSmall: GoogleFonts.rubik(
+      titleSmall: TextStyle(
         fontWeight: FontWeight.w400,
         fontSize: 12.sp,
         color: AppColors.darkGrey,
       ),
-      titleLarge: GoogleFonts.rubik(
+      titleLarge: TextStyle(
         fontSize: 14.sp,
         fontWeight: FontWeight.w700,
         color: AppColors.darkBlue,
-      ),
-      labelSmall: GoogleFonts.rubik(
-        fontWeight: FontWeight.w700,
-        fontSize: 10.sp,
-        color: AppColors.white,
       ),
     ),
   );

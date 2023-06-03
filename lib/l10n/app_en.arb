@@ -1,14 +1,12 @@
 {
   "helloWorld": "Hello World!",
-  "@helloWorld": {
-    "description": "The conventional newborn programmer greeting"
-  },
   "searchHint": "Search...",
-  "@searchHint": {
-    "description": " Its search hint text"
-  },
+  "home": "Home",
   "video": "Video",
-  "@video": {
-    "description": "Video text for nav bra and title"
-  }
+  "category": "Category",
+  "cart": "Cart",
+  "profile": "Profile",
+  "exit": "Exit",
+  "cancle": "Cancle",
+  "exitConfirm": "Do you really want to exit?"
 }
