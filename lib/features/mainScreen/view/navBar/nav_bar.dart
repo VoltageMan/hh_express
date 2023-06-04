@@ -22,7 +22,9 @@ class MyNavBar extends StatelessWidget {
         children: List.generate(
           5,
           (index) => index == 3
-              ? const CartIcon()
+              ? CartIcon(
+                  onTap: () => bodyIndex.value = 3,
+                )
               : GestureDetector(
                   onTap: () {
                     bodyIndex.value = index;

@@ -6,14 +6,15 @@ import 'package:hh_express/features/widgets/svg_icons.dart';
 import 'package:hh_express/settings/consts.dart';
 
 class CartIcon extends StatelessWidget {
-  const CartIcon({super.key});
+  const CartIcon({super.key, required  this.onTap,});
   static const isCartEmpty = false;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).bottomNavigationBarTheme;
     return GestureDetector(
-      onTap: () => bodyIndex.value = 3,
+      onTap: onTap,
       child: Container(
         color: AppColors.transparent,
         height: 72.h,

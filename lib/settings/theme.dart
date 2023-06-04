@@ -6,6 +6,10 @@ import 'package:hh_express/settings/consts.dart';
 class AppTheme {
   static final mainTheme = ThemeData();
 
+  static TextStyle lineThroughTitleSmall(BuildContext context) =>
+      Theme.of(context).textTheme.titleSmall!.copyWith(
+          decoration: TextDecoration.lineThrough, decorationThickness: 2.sp);
+
   static final lightTheme = ThemeData(
     scaffoldBackgroundColor: AppColors.white,
     appBarTheme: const AppBarTheme(
@@ -35,7 +39,6 @@ class AppTheme {
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
         alignment: Alignment.center,
-        
         textStyle: TextStyle(
           fontWeight: FontWeight.w400,
           color: AppColors.mainOrange,

@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/features/widgets/place_holder.dart';
 import 'package:hh_express/settings/consts.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:hh_express/settings/theme.dart';
 
 class HomeProdWidget extends StatelessWidget {
   const HomeProdWidget({super.key, required this.index});
@@ -26,7 +27,6 @@ class HomeProdWidget extends StatelessWidget {
               borderRadius: AppBorderRadiuses.borderRadius_6circular,
             ),
             padding: EdgeInsets.all(1.5.sp),
-            height: 151.h,
             margin: EdgeInsets.only(bottom: 10.h),
             child: ClipRRect(
               borderRadius: AppBorderRadiuses.borderRadius_4circular,
@@ -44,20 +44,16 @@ class HomeProdWidget extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(
-            height: 15.h,
-            child: Text(
-              'Луис вуитон коллобарация с гуччи пздц вешь',
-              style: Theme.of(context)
-                  .textTheme
-                  .titleMedium!
-                  .copyWith(fontSize: 13.sp),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            ),
+          Text(
+            'Луис вуитон коллобарация с гуччи пздц вешь',
+            style: Theme.of(context)
+                .textTheme
+                .titleMedium!
+                .copyWith(fontSize: 13.sp),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
           ),
           Container(
-            height: 28.h,
             margin: EdgeInsets.symmetric(vertical: 10.h),
             child: Text(
               'Lorem Ipsum Dolar sit amet dalse huy znaet, i tak dlya testa some text here is its is',
@@ -68,7 +64,6 @@ class HomeProdWidget extends StatelessWidget {
           ),
           Container(
             alignment: Alignment.bottomCenter,
-            height: 17.h,
             width: double.infinity,
             child: Row(
               children: [
@@ -88,12 +83,7 @@ class HomeProdWidget extends StatelessWidget {
                         alignment: Alignment.centerLeft,
                         child: Text(
                           '700 Tmt',
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleSmall!
-                              .copyWith(
-                                  decoration: TextDecoration.lineThrough,
-                                  decorationThickness: 2.sp),
+                          style: AppTheme.lineThroughTitleSmall(context),
                           textAlign: TextAlign.start,
                         ),
                       )
