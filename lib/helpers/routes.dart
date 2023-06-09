@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hh_express/features/filter/details/view/filter_details.dart';
 import 'package:hh_express/features/home/view/some_screen.dart';
 import 'package:hh_express/features/mainScreen/view/main_screen.dart';
-import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/settings/consts.dart';
 
 class AppRoutes {
@@ -15,7 +15,11 @@ class AppRoutes {
     '/cart',
     '/profile',
   ];
+  static const filterDetails = '/filterDetails';
 }
+
+
+
 
 final appRouter = GoRouter(
   initialLocation: AppRoutes.navBar.first,
@@ -55,5 +59,12 @@ final appRouter = GoRouter(
         },
       ),
     ),
+    GoRoute(
+      path: AppRoutes.filterDetails,
+      name: AppRoutes.filterDetails.replaceAll('/', ''),
+      builder: (context, state) {
+        return const FilterDetailsScreen();
+      },
+    )
   ],
 );

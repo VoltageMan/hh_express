@@ -8,6 +8,9 @@ class AppSpacing {
   static SizedBox horizontal_4 = SizedBox(
     width: 4.w,
   );
+  static SizedBox horizontal_5 = SizedBox(
+    width: 5.w,
+  );
   static SizedBox vertical_12 = SizedBox(
     height: 12.h,
   );
@@ -50,12 +53,12 @@ class AppSpacing {
   );
   static SizedBox vertical_14 = SizedBox(
     height: 14.h,
+  ); static SizedBox vertical_15 = SizedBox(
+    height: 15.h,
   );
   static SizedBox horizontal_14 = SizedBox(
     width: 14.w,
   );
   int a = 0;
-  void newSomeThing() {
-    
-  }
+  void newSomeThing() {}
 }

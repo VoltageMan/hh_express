@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hh_express/features/widgets/place_holder.dart';
+import 'package:hh_express/features/components/widgets/place_holder.dart';
+import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/settings/consts.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:hh_express/settings/theme.dart';
 
 class HomeProdWidget extends StatelessWidget {
-  const HomeProdWidget({super.key, required this.index});
+  const HomeProdWidget({super.key, required this.index, this.prod});
   final int index;
-  static const hasDiscount = true;
+  final dynamic prod;
   @override
   Widget build(BuildContext context) {
+    final hasDiscount = index % 2 == 1;
+    final isLoading = prod != null;
     return Padding(
       padding: EdgeInsets.only(
         top: 12.h,
@@ -22,75 +25,95 @@ class HomeProdWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
+            height: 150.h,
             decoration: BoxDecoration(
               color: AppColors.lightGrey,
-              borderRadius: AppBorderRadiuses.borderRadius_6circular,
+              borderRadius: AppBorderRadiuses.border_6,
             ),
-            padding: EdgeInsets.all(1.5.sp),
+            padding: EdgeInsets.symmetric(vertical: 1.5.h, horizontal: 1.w),
             margin: EdgeInsets.only(bottom: 10.h),
-            child: ClipRRect(
-              borderRadius: AppBorderRadiuses.borderRadius_4circular,
-              child: CachedNetworkImage(
-                imageUrl: index % 2 == 0
-                    ? 'https://docs.flutter.dev/assets/images/dash/dash-fainting.gif'
-                    : 'https://cdn.pixabay.com/photo/2020/05/31/16/53/bookmarks-5243253_640.jpg',
-                placeholder: (context, url) {
-                  return const MyShimerPlaceHolder();
-                },
-                imageBuilder: (context, imageProvider) {
-                  return MyShimerPlaceHolder();
-                },
-                fit: BoxFit.cover,
-              ),
-            ),
+            child: isLoading
+                ? MyShimerPlaceHolder(
+                    radius: BorderRadius.circular(4.r),
+                  )
+                : ClipRRect(
+                    borderRadius: AppBorderRadiuses.border_4,
+                    child: CachedNetworkImage(
+                      imageUrl: index % 2 == 0
+                          ? 'https://cdn.pixabay.com/photo/2020/05/25/17/21/link-5219567_1280.jpg'
+                          : 'https://cdn.pixabay.com/photo/2020/05/31/16/53/bookmarks-5243253_640.jpg',
+                      placeholder: (context, url) {
+                        return const MyShimerPlaceHolder();
+                      },
+                      errorWidget: (context, url, error) =>
+                          const MyShimerPlaceHolder(),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
           ),
-          Text(
-            'Луис вуитон коллобарация с гуччи пздц вешь',
-            style: Theme.of(context)
-                .textTheme
-                .titleMedium!
-                .copyWith(fontSize: 13.sp),
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-          ),
-          Container(
-            margin: EdgeInsets.symmetric(vertical: 10.h),
-            child: Text(
-              'Lorem Ipsum Dolar sit amet dalse huy znaet, i tak dlya testa some text here is its is',
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              style: Theme.of(context).textTheme.titleSmall,
-            ),
-          ),
-          Container(
-            alignment: Alignment.bottomCenter,
-            width: double.infinity,
-            child: Row(
-              children: [
-                FittedBox(
-                  alignment: Alignment.centerLeft,
+          isLoading
+              ? MyShimerPlaceHolder(
+                  radius: AppBorderRadiuses.border_2,
+                  height: 15.h,
+                )
+              : Text(
+                  'Луис вуитон коллобарация с гуччи пздц вешь',
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleMedium!
+                      .copyWith(fontSize: 13.sp),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+          isLoading
+              ? MyShimerPlaceHolder(
+                  margin: AppPaddings.vertic_10,
+                  radius: AppBorderRadiuses.border_2,
+                  height: 28.h,
+                )
+              : Container(
+                  margin: AppPaddings.vertic_10,
                   child: Text(
-                    '509 Tmt',
-                    style: Theme.of(context).textTheme.titleLarge,
-                    textAlign: TextAlign.start,
+                    'Lorem Ipsum Dolar sit amet dalse huy znaet, i tak dlya testa some text here is its is',
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context).textTheme.titleSmall,
                   ),
                 ),
-                SizedBox(
-                  width: 10.w,
-                ),
-                hasDiscount
-                    ? FittedBox(
+          isLoading
+              ? MyShimerPlaceHolder(
+                  height: 17.h,
+                  radius: AppBorderRadiuses.border_2,
+                )
+              : Container(
+                  alignment: Alignment.bottomCenter,
+                  width: double.infinity,
+                  child: Row(
+                    children: [
+                      FittedBox(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          '700 Tmt',
-                          style: AppTheme.lineThroughTitleSmall(context),
+                          '509 Tmt',
+                          style: Theme.of(context).textTheme.titleLarge,
                           textAlign: TextAlign.start,
                         ),
-                      )
-                    : const SizedBox(),
-              ],
-            ),
-          )
+                      ),
+                      SizedBox(
+                        width: 10.w,
+                      ),
+                      hasDiscount
+                          ? FittedBox(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                '700Tmt',
+                                style: AppTheme.lineThroughTitleSmall(context),
+                                textAlign: TextAlign.start,
+                              ),
+                            )
+                          : const SizedBox(),
+                    ],
+                  ),
+                )
         ],
       ),
     );

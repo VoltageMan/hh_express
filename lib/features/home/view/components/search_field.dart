@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart' as svgProv;
-import 'package:hh_express/features/widgets/svg_icons.dart';
+import 'package:hh_express/features/components/widgets/svg_icons.dart';
 import 'package:hh_express/settings/consts.dart';
 
 class HomeSearchField extends StatefulWidget {
@@ -24,7 +24,7 @@ class _HoemSearchFieldState extends State<HomeSearchField> {
       width: 246.w,
       decoration: BoxDecoration(
         color: theme.fillColor,
-        borderRadius: AppBorderRadiuses.borderRadius_6circular,
+        borderRadius: AppBorderRadiuses.border_6,
       ),
       child: TextField(
         maxLines: 1,

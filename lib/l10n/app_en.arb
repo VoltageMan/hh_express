@@ -8,5 +8,13 @@
   "profile": "Profile",
   "exit": "Exit",
   "cancle": "Cancle",
-  "exitConfirm": "Do you really want to exit?"
+  "exitConfirm": "Do you really want to exit?",
+  "filter": "Filter",
+  "removeAll": "Remove all",
+  "all": "All",
+  "registration": "Registration",
+  "code": "Code",
+  "phoneNumber": "Phone number",
+  "name": "Name",
+  "resterTitle": "Enter your phone number to continue to the hh platform"
 }

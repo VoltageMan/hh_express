@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hh_express/app/app.dart';
 import 'package:hh_express/features/home/view/home_screen.dart';
 import 'package:hh_express/features/mainScreen/view/components/main_app_bar.dart';
-import 'package:hh_express/features/mainScreen/view/navBar/nav_bar.dart';
+import 'package:hh_express/features/mainScreen/view/components/navBar/nav_bar.dart';
 import 'package:hh_express/helpers/confirm_exit.dart';
+import 'package:hh_express/helpers/modal_sheets.dart';
 import 'dart:developer';
 
 import 'package:hh_express/helpers/routes.dart';
@@ -21,6 +24,7 @@ class MainScreen extends StatefulWidget {
     Center(child: Text('NothingYet')),
     Center(child: Text('NothingYet')),
   ];
+  static final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   State<MainScreen> createState() => _MainScreenState();
@@ -29,8 +33,6 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
-    // TODO: implement initState
-    super.initState();
     bodyIndex.addListener(
       () {
         final index = bodyIndex.value;
@@ -38,13 +40,21 @@ class _MainScreenState extends State<MainScreen> {
             extra: AppTitles.navBarTitles![index]);
       },
     );
+
+    super.initState();
   }
 
   bool _dialogShown = false;
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
+        if (ModelBottomSheetHelper.sheetShown) {
+          Navigator.pop(ModelBottomSheetHelper.currentContext!);
+          return false;
+        }
+
         if (_dialogShown) return true;
         log('pop Scoup');
         _dialogShown = true;
@@ -53,6 +63,7 @@ class _MainScreenState extends State<MainScreen> {
         return exit;
       },
       child: Scaffold(
+        key: MainScreen.scaffoldKey,
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.white,
         appBar: MainAppBar(

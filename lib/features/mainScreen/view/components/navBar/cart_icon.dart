@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hh_express/features/mainScreen/view/navBar/nav_bar.dart';
-import 'package:hh_express/features/widgets/svg_icons.dart';
+import 'package:hh_express/features/mainScreen/view/components/navBar/nav_bar.dart';
+import 'package:hh_express/features/components/widgets/svg_icons.dart';
 import 'package:hh_express/settings/consts.dart';
 
 class CartIcon extends StatelessWidget {

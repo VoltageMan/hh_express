@@ -32,6 +32,9 @@ extension FromStringtoInt on String {
   int get toInt => int.parse(this);
 }
 
+extension MaterialResolve on Color {
+  MaterialStateColor get colorSolve => MaterialStateColor.resolveWith((states) => this);
+}
 // extension FromMaterialStateProperty on MaterialStateProperty{
 //   dynamic get resolve => this.resolve);
 // }

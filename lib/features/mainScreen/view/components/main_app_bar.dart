@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/features/home/view/components/search_field.dart';
-import 'package:hh_express/features/mainScreen/view/navBar/nav_bar.dart';
-import 'package:hh_express/features/widgets/svg_icons.dart';
+import 'package:hh_express/features/components/widgets/svg_icons.dart';
+import 'package:hh_express/helpers/extentions.dart';
+import 'package:hh_express/helpers/modal_sheets.dart';
 import 'package:hh_express/settings/consts.dart';
 
 class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -37,6 +38,8 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
                   child: MyImageIcon(
                     path: AssetsPath.filterIcon,
                     iconSize: 20.8.w,
+                    onTap: () =>
+                        ModelBottomSheetHelper.showFilterSheet(context),
                   ),
                 ),
                 MyImageIcon(

@@ -8,5 +8,13 @@
     "profile": "Profilim",
     "exit": "Çykmak",
     "cancle": "Goý bolsun",
-    "exitConfirm": "Siz hakykatdan hem çykmak isleyarsinizmi?"
+    "exitConfirm": "Siz hakykatdan hem çykmak isleyarsinizmi?",
+    "filter": "Filter",
+    "removeAll": "Hemmesini aýyr",
+    "all": "Hemme",
+    "registration": "Registrasiýa",
+    "code": "Kod",
+    "phoneNumber": "Telefon Belgiňiz",
+    "name": "Ady",
+    "resisterTitle": "hh platformasyna dowam etmek üçin telafon belgiňizi giriziň"
 }

@@ -5,21 +5,24 @@ import 'package:shimmer/shimmer.dart';
 
 /// Place holder
 class MyShimerPlaceHolder extends StatelessWidget {
-  const MyShimerPlaceHolder({super.key, this.child});
-  final Widget? child;
+  const MyShimerPlaceHolder({super.key, this.height, this.radius, this.margin});
+  final double? height;
+  final BorderRadius? radius;
+  final EdgeInsets? margin;
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
       period: AppDurations.duration_1500ms,
       baseColor: AppColors.shimmerBaseColor,
       highlightColor: AppColors.shimmerHighlightColor,
-      child: child ??
-          Container(
-            height: 151.h,
-            decoration: BoxDecoration(
-              color: AppColors.shimmerBodyColor,
-            ),
-          ),
+      child: Container(
+        margin: margin,
+        height: height,
+        decoration: BoxDecoration(
+          borderRadius: radius,
+          color: AppColors.shimmerBodyColor,
+        ),
+      ),
     );
   }
 }

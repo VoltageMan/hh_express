@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hh_express/features/mainScreen/view/navBar/cart_icon.dart';
-import 'package:hh_express/features/widgets/svg_icons.dart';
+import 'package:hh_express/features/mainScreen/view/components/navBar/cart_icon.dart';
+import 'package:hh_express/features/components/widgets/svg_icons.dart';
 import 'package:hh_express/settings/consts.dart';
 import 'package:hh_express/settings/globals.dart';
 
@@ -26,12 +26,9 @@ class MyNavBar extends StatelessWidget {
                   onTap: () => bodyIndex.value = 3,
                 )
               : GestureDetector(
-                  onTap: () {
-                    bodyIndex.value = index;
-                    locale.value = 'ru';
-                  },
+                  onTap: () => bodyIndex.value = index,
                   child: Container(
-                    // gyralaryna basanda basylanok without color
+                    // gyralaryna basanda basylanok, without color
                     color: AppColors.transparent,
                     height: 72.h,
                     width: 72.w,
