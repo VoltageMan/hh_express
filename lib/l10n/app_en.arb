@@ -16,5 +16,7 @@
   "code": "Code",
   "phoneNumber": "Phone number",
   "name": "Name",
-  "resterTitle": "Enter your phone number to continue to the hh platform"
+  "resterTitle": "Enter your phone number to continue to the hh platform",
+  "news": "New",
+  "mostSold": "Most sold"
 }

@@ -38,6 +38,9 @@ class AppSpacing {
   static SizedBox vertical_24 = SizedBox(
     height: 24.h,
   );
+  static SizedBox vertical_30 = SizedBox(
+    height: 30.h,
+  );
   static SizedBox vertical_60 = SizedBox(
     height: 60.h,
   );
@@ -53,7 +56,8 @@ class AppSpacing {
   );
   static SizedBox vertical_14 = SizedBox(
     height: 14.h,
-  ); static SizedBox vertical_15 = SizedBox(
+  );
+  static SizedBox vertical_15 = SizedBox(
     height: 15.h,
   );
   static SizedBox horizontal_14 = SizedBox(

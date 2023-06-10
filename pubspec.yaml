@@ -52,6 +52,7 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/navBarIcons/
+    - assets/icons/profileIcons/
     - assets/icons/
 
   # example:

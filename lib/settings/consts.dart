@@ -29,7 +29,6 @@ class AppPaddings {
   static EdgeInsets bottom_16 = EdgeInsets.only(bottom: 16.w);
   static EdgeInsets bottom_24 = EdgeInsets.only(bottom: 24.w);
   static EdgeInsets bottom_28 = EdgeInsets.only(bottom: 28.w);
-  static EdgeInsets bottom_6 = EdgeInsets.only(bottom: 6.w);
 
   static EdgeInsets all_12 = EdgeInsets.all(12.sp);
   static EdgeInsets all_16 = EdgeInsets.all(16.sp);
@@ -39,10 +38,13 @@ class AppPaddings {
   static EdgeInsets all_6 = EdgeInsets.all(6.sp);
 
   static EdgeInsets horiz_12 = EdgeInsets.symmetric(horizontal: 12.w);
+  static EdgeInsets horiz_10half = EdgeInsets.symmetric(horizontal: 10.5.w);
   static EdgeInsets horiz_16 = EdgeInsets.symmetric(horizontal: 16.w);
   static EdgeInsets horiz_24 = EdgeInsets.symmetric(horizontal: 24.w);
   static EdgeInsets horiz_28 = EdgeInsets.symmetric(horizontal: 28.h);
+  static EdgeInsets horiz_8 = EdgeInsets.symmetric(horizontal: 8.w);
   static EdgeInsets horiz_6 = EdgeInsets.symmetric(horizontal: 6.w);
+  static EdgeInsets horiz_4 = EdgeInsets.symmetric(horizontal: 4.w);
 
   static final vertic_10 = EdgeInsets.symmetric(vertical: 10.h);
   static EdgeInsets vertic_12 = EdgeInsets.symmetric(vertical: 12.h);
@@ -50,6 +52,7 @@ class AppPaddings {
   static EdgeInsets vertic_24 = EdgeInsets.symmetric(vertical: 24.h);
   static EdgeInsets vertic_28 = EdgeInsets.symmetric(vertical: 28.h);
   static EdgeInsets vertic_6 = EdgeInsets.symmetric(vertical: 6.h);
+  static EdgeInsets vertic_4 = EdgeInsets.symmetric(vertical: 4.h);
 
   //!speciffics
   static final horiz16_vertic12 = horiz_16.copyWith(bottom: 12.h, top: 12.h);
@@ -59,6 +62,7 @@ class AppPaddings {
       EdgeInsets.symmetric(horizontal: 56.w, vertical: 70.h);
   static final horiz12_vertic17 =
       EdgeInsets.symmetric(horizontal: 12.w, vertical: 17.h);
+  static final top16_bottom24 = vertic_16.copyWith(bottom: 24.h);
 }
 
 class AppBorderRadiuses {
@@ -68,6 +72,8 @@ class AppBorderRadiuses {
   static final border_8 = BorderRadius.circular(8.r);
   static final border_10 = BorderRadius.circular(10.r);
   static final border_12 = BorderRadius.circular(12.r);
+
+  static final top_6 = BorderRadius.vertical(top: Radius.circular(6.r));
 }
 
 class AppColors {
@@ -127,6 +133,14 @@ class AssetsPath {
     'assets/icons/navBarIcons/cart.svg',
     'assets/icons/navBarIcons/profile.svg',
   ];
+  static const langIcon = 'assets/icons/profileIcons/lang.svg';
+  static const favorIcon = 'assets/icons/profileIcons/favor.svg';
+  static const locationIcon = 'assets/icons/profileIcons/location.svg';
+  static const profileIcon = 'assets/icons/profileIcons/profile.svg';
+  static const phoneIcon = 'assets/icons/profileIcons/phone.svg';
+  static const ordersIcon = 'assets/icons/profileIcons/orders.svg';
+  static const forvardIcon = 'assets/icons/forvard.svg';
+  //!
 }
 
 class AppTitles {
@@ -151,6 +165,8 @@ class AppTitles {
     name = l10n.name;
     phoneNum = l10n.phoneNumber;
     registerTitle = l10n.resterTitle;
+    news = l10n.news;
+    mostSold = l10n.mostSold;
   }
 
   static List<String>? navBarTitles;
@@ -166,4 +182,6 @@ class AppTitles {
   static String? name;
   static String? phoneNum;
   static String? registerTitle;
+  static String? news;
+  static String? mostSold;
 }

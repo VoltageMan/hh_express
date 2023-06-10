@@ -71,7 +71,9 @@ class _FilterSheetBodyState extends State<FilterSheetBody> {
                     FilterTitle(
                       title: AppTitles.navBarTitles![2],
                     ),
-                    const FilterSwithListTile(),
+                    FilterSwithListTile(
+                      title: AppTitles.news!,
+                    ),
                   ],
                 ),
               ),

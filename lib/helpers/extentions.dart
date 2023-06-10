@@ -33,8 +33,13 @@ extension FromStringtoInt on String {
 }
 
 extension MaterialResolve on Color {
-  MaterialStateColor get colorSolve => MaterialStateColor.resolveWith((states) => this);
+  MaterialStateColor get colorSolve =>
+      MaterialStateColor.resolveWith((states) => this);
 }
 // extension FromMaterialStateProperty on MaterialStateProperty{
 //   dynamic get resolve => this.resolve);
 // }
+
+extension ToSliverBox on Widget {
+  SliverToBoxAdapter get toSliverBox => SliverToBoxAdapter(child: this);
+}

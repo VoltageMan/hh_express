@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hh_express/app/app.dart';
-import 'package:hh_express/features/home/view/home_screen.dart';
+import 'package:hh_express/features/categories/view/body.dart';
+import 'package:hh_express/features/home/view/body.dart';
 import 'package:hh_express/features/mainScreen/view/components/main_app_bar.dart';
 import 'package:hh_express/features/mainScreen/view/components/navBar/nav_bar.dart';
+import 'package:hh_express/features/profile/view/profile_body.dart';
 import 'package:hh_express/helpers/confirm_exit.dart';
 import 'package:hh_express/helpers/modal_sheets.dart';
 import 'dart:developer';
@@ -20,9 +22,9 @@ class MainScreen extends StatefulWidget {
   static const bodies = [
     HomeScreen(),
     Center(child: Text('NothingYet')),
+    CategoryBody(),
     Center(child: Text('NothingYet')),
-    Center(child: Text('NothingYet')),
-    Center(child: Text('NothingYet')),
+    ProfileBody(),
   ];
   static final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -33,14 +35,11 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
-    bodyIndex.addListener(
-      () {
-        final index = bodyIndex.value;
-        context.go(AppRoutes.navBar[index],
-            extra: AppTitles.navBarTitles![index]);
-      },
-    );
-
+    bodyIndex.addListener(() {
+      final index = bodyIndex.value;
+      context.go(AppRoutes.navBar[index],
+          extra: AppTitles.navBarTitles![index]);
+    });
     super.initState();
   }
 

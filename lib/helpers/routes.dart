@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hh_express/features/filter/details/view/filter_details.dart';
-import 'package:hh_express/features/home/view/some_screen.dart';
 import 'package:hh_express/features/mainScreen/view/main_screen.dart';
 import 'package:hh_express/settings/consts.dart';
 
@@ -17,9 +16,6 @@ class AppRoutes {
   ];
   static const filterDetails = '/filterDetails';
 }
-
-
-
 
 final appRouter = GoRouter(
   initialLocation: AppRoutes.navBar.first,
@@ -46,9 +42,7 @@ final appRouter = GoRouter(
             path: path,
             pageBuilder: (context, state) {
               return CustomTransitionPage(
-                child: index == 0
-                    ? MainScreen.bodies[index]
-                    : SomeScreen(title: AppTitles.navBarTitles![index]),
+                child: MainScreen.bodies[index],
                 transitionsBuilder:
                     (context, animation, secondaryAnimation, child) {
                   return child;

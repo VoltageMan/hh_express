@@ -15,6 +15,8 @@ class MyButtonStyle extends ButtonStyle {
 
 class AppTheme {
   static final mainTheme = ThemeData();
+  static TextStyle titleLarge12(BuildContext context) =>
+      Theme.of(context).textTheme.titleLarge!.copyWith(fontSize: 12.sp);
 
   static TextStyle lineThroughTitleSmall(BuildContext context) =>
       Theme.of(context).textTheme.titleSmall!.copyWith(
@@ -31,6 +33,17 @@ class AppTheme {
       Theme.of(context).textTheme.displayMedium!.copyWith(fontSize: 12.sp);
   static TextStyle titleMedium12(BuildContext context) =>
       Theme.of(context).textTheme.titleMedium!.copyWith(
+            fontSize: 12.sp,
+            fontWeight: FontWeight.w400,
+          );
+
+  static TextStyle bodyMedium10(BuildContext context) =>
+      Theme.of(context).textTheme.bodyMedium!.copyWith(
+            fontSize: 10.sp,
+            fontWeight: FontWeight.w400,
+          );
+  static TextStyle bodyMedium12(BuildContext context) =>
+      Theme.of(context).textTheme.bodyMedium!.copyWith(
             fontSize: 12.sp,
             fontWeight: FontWeight.w400,
           );
@@ -122,9 +135,7 @@ class AppTheme {
     ),
     switchTheme: SwitchThemeData(
       thumbColor: AppColors.darkGrey.colorSolve,
-      
     ),
-    
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       backgroundColor: AppColors.white,
       selectedItemColor: AppColors.mainOrange,
