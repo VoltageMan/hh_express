@@ -2,19 +2,27 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hh_express/features/filter/details/view/filter_details.dart';
+import 'package:hh_express/features/auth/view/auth_screen.dart';
+import 'package:hh_express/features/categories/view/details/category_details.dart';
 import 'package:hh_express/features/mainScreen/view/main_screen.dart';
-import 'package:hh_express/settings/consts.dart';
+import 'package:hh_express/features/notifications/view/notification_screen.dart';
+import 'package:hh_express/features/orders/view/details/orders_screen.dart';
+
+enum EnumNavRoutes { home, video, category, cart, profile }
 
 class AppRoutes {
-  static const List navBar = [
-    '/home',
-    '/video',
-    '/category',
-    '/cart',
-    '/profile',
+  static List navBar = [
+    '/${EnumNavRoutes.home.name}',
+    '/${EnumNavRoutes.video.name}',
+    '/${EnumNavRoutes.category.name}',
+    '/${EnumNavRoutes.cart.name}',
+    '/${EnumNavRoutes.profile.name}',
   ];
   static const filterDetails = '/filterDetails';
+  static const auth = '/auth';
+  static const orderDetails = '/orderDetails';
+  static const categoryDetails = '/categoryDetails';
+  static const notifications = '/notifications';
 }
 
 final appRouter = GoRouter(
@@ -25,9 +33,9 @@ final appRouter = GoRouter(
         return CustomTransitionPage(
           child: const SizedBox(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            final title = mainState.extra as String?;
+            final index = mainState.extra as int?;
             return MainScreen(
-              title: title,
+              index: index,
               body: mainChild,
             );
           },
@@ -54,11 +62,35 @@ final appRouter = GoRouter(
       ),
     ),
     GoRoute(
-      path: AppRoutes.filterDetails,
-      name: AppRoutes.filterDetails.replaceAll('/', ''),
+      path: AppRoutes.auth,
       builder: (context, state) {
-        return const FilterDetailsScreen();
+        return const AuthScreen();
       },
-    )
+    ),
+    GoRoute(
+      path: AppRoutes.orderDetails,
+      builder: (context, state) {
+        return const OrderDetailsScreen();
+      },
+    ),
+    GoRoute(
+      path: AppRoutes.categoryDetails,
+      builder: (context, state) {
+        return const CategoryDetails();
+      },
+    ),
+    GoRoute(
+      path: AppRoutes.notifications,
+      builder: (context, state) {
+        return const NotificationScreen();
+      },
+    ),
+    // GoRoute(
+    //   path: AppRoutes.filterDetails,
+    //   name: AppRoutes.filterDetails.replaceAll('/', ''),
+    //   builder: (context, state) {
+    //     return const FilterDetailsScreen();
+    //   },
+    // )
   ],
 );

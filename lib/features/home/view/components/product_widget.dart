@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/features/components/widgets/place_holder.dart';
-import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/settings/consts.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:hh_express/settings/theme.dart';
@@ -40,8 +39,8 @@ class HomeProdWidget extends StatelessWidget {
                     borderRadius: AppBorderRadiuses.border_4,
                     child: CachedNetworkImage(
                       imageUrl: index % 2 == 0
-                          ? 'https://cdn.pixabay.com/photo/2020/05/25/17/21/link-5219567_1280.jpg'
-                          : 'https://cdn.pixabay.com/photo/2020/05/31/16/53/bookmarks-5243253_640.jpg',
+                          ? AssetsPath.exampleImage1
+                          : AssetsPath.exampleImage2,
                       placeholder: (context, url) {
                         return const MyShimerPlaceHolder();
                       },
@@ -93,7 +92,7 @@ class HomeProdWidget extends StatelessWidget {
                       FittedBox(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          '509 Tmt',
+                          '509 TMT',
                           style: Theme.of(context).textTheme.titleLarge,
                           textAlign: TextAlign.start,
                         ),

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
-import 'package:hh_express/app/app.dart';
+import 'package:hh_express/features/cart/view/cart_body.dart';
 import 'package:hh_express/features/categories/view/body.dart';
 import 'package:hh_express/features/home/view/body.dart';
 import 'package:hh_express/features/mainScreen/view/components/main_app_bar.dart';
@@ -11,19 +9,16 @@ import 'package:hh_express/helpers/confirm_exit.dart';
 import 'package:hh_express/helpers/modal_sheets.dart';
 import 'dart:developer';
 
-import 'package:hh_express/helpers/routes.dart';
-import 'package:hh_express/settings/consts.dart';
-
 class MainScreen extends StatefulWidget {
-  const MainScreen({super.key, required this.body, required this.title});
+  const MainScreen({super.key, required this.body, required this.index});
   final Widget body;
-  final String? title;
+  final int? index;
 
   static const bodies = [
     HomeScreen(),
     Center(child: Text('NothingYet')),
     CategoryBody(),
-    Center(child: Text('NothingYet')),
+    CartScreen(),
     ProfileBody(),
   ];
   static final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -35,16 +30,10 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
-    bodyIndex.addListener(() {
-      final index = bodyIndex.value;
-      context.go(AppRoutes.navBar[index],
-          extra: AppTitles.navBarTitles![index]);
-    });
     super.initState();
   }
 
   bool _dialogShown = false;
-
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -54,7 +43,10 @@ class _MainScreenState extends State<MainScreen> {
           return false;
         }
 
-        if (_dialogShown) return true;
+        if (_dialogShown) {
+          Navigator.pop(Confirm.currentContext!);
+          return false;
+        }
         log('pop Scoup');
         _dialogShown = true;
         final exit = await Confirm.confirmExit(context);
@@ -66,7 +58,7 @@ class _MainScreenState extends State<MainScreen> {
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.white,
         appBar: MainAppBar(
-          title: widget.title,
+          index: widget.index,
         ),
         body: widget.body,
         bottomNavigationBar: const MyNavBar(),

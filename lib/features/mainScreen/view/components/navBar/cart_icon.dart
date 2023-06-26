@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hh_express/features/mainScreen/view/components/navBar/nav_bar.dart';
 import 'package:hh_express/features/components/widgets/svg_icons.dart';
+import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/settings/consts.dart';
 
 class CartIcon extends StatelessWidget {
-  const CartIcon({super.key, required  this.onTap,});
+  const CartIcon({
+    super.key,
+    required this.onTap,
+  });
   static const isCartEmpty = false;
   final VoidCallback onTap;
 
@@ -42,7 +45,7 @@ class CartIcon extends StatelessWidget {
                       width: double.infinity,
                     ),
                     Text(
-                      AppTitles.navBarTitles![3],
+                      context.l10n.cart,
                       style: isSelected
                           ? theme.selectedLabelStyle
                           : theme.unselectedLabelStyle,

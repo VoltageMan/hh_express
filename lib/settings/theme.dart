@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -17,6 +16,8 @@ class AppTheme {
   static final mainTheme = ThemeData();
   static TextStyle titleLarge12(BuildContext context) =>
       Theme.of(context).textTheme.titleLarge!.copyWith(fontSize: 12.sp);
+  static TextStyle titleLarge18(BuildContext context) =>
+      Theme.of(context).textTheme.titleLarge!.copyWith(fontSize: 18.sp);
 
   static TextStyle lineThroughTitleSmall(BuildContext context) =>
       Theme.of(context).textTheme.titleSmall!.copyWith(
@@ -36,16 +37,22 @@ class AppTheme {
             fontSize: 12.sp,
             fontWeight: FontWeight.w400,
           );
+  static TextStyle titleMedium14(BuildContext context) =>
+      Theme.of(context).textTheme.titleMedium!.copyWith(
+            fontSize: 12.sp,
+          );
 
   static TextStyle bodyMedium10(BuildContext context) =>
-      Theme.of(context).textTheme.bodyMedium!.copyWith(
-            fontSize: 10.sp,
-            fontWeight: FontWeight.w400,
-          );
+      Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 10.sp);
   static TextStyle bodyMedium12(BuildContext context) =>
+      Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 12.sp);
+  static TextStyle bodyMedium14(BuildContext context) =>
       Theme.of(context).textTheme.bodyMedium!.copyWith(
-            fontSize: 12.sp,
-            fontWeight: FontWeight.w400,
+            fontSize: 14.sp,
+          );
+  static TextStyle bodyLargeW500(BuildContext context) =>
+      Theme.of(context).textTheme.bodyLarge!.copyWith(
+            fontWeight: FontWeight.w500,
           );
   static final lightTheme = ThemeData(
     primaryColor: AppColors.mainOrange,
@@ -162,6 +169,11 @@ class AppTheme {
         fontSize: 20.sp,
         color: AppColors.white,
       ),
+      labelSmall: TextStyle(
+        color: AppColors.white,
+        fontSize: 12.sp,
+        fontWeight: FontWeight.w500,
+      ),
       titleMedium: TextStyle(
         fontWeight: FontWeight.w600,
         fontSize: 18.sp,
@@ -181,6 +193,22 @@ class AppTheme {
         fontSize: 16.sp,
         fontWeight: FontWeight.w400,
         color: AppColors.darkBlue,
+      ),
+      displaySmall: TextStyle(
+        color: AppColors.darkGrey,
+        fontSize: 14.sp,
+        fontWeight: FontWeight.w400,
+      ),
+      bodyLarge: TextStyle(
+        color: AppColors.mainOrange,
+        fontSize: 14.sp,
+        fontWeight: FontWeight.w700,
+      ),
+      bodySmall: TextStyle(
+        color: AppColors.mainOrange,
+        fontSize: 12.sp,
+        fontWeight: FontWeight.w400,
+        decoration: TextDecoration.underline,
       ),
     ),
   );

@@ -37,6 +37,7 @@ dependencies:
     sdk: flutter
   http: ^0.13.6
   another_flushbar: ^1.12.30
+  flutter_keyboard_size: ^1.0.1
 
 dev_dependencies:
   flutter_test:

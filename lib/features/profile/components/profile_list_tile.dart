@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/features/components/widgets/svg_icons.dart';
-import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/spacers.dart';
 import 'package:hh_express/settings/consts.dart';
 import 'package:hh_express/settings/theme.dart';
@@ -27,12 +26,9 @@ class ProfileListTile extends StatelessWidget {
         child: Material(
           color: AppColors.lightGrey,
           child: InkWell(
-            onTap: () {
-              onTap;
-            },
+            onTap: onTap,
             child: Container(
               padding: AppPaddings.all_12,
-              height: 48.h,
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [

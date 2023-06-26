@@ -1,27 +1,39 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/features/categories/view/mainCategories/main_category_widget.dart';
+import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/settings/consts.dart';
 
 class MainCategoriesBuilder extends StatelessWidget {
-  const MainCategoriesBuilder({super.key});
-
+  const MainCategoriesBuilder({super.key, required this.controller});
+  final ScrollController controller;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: AppPaddings.top16_bottom24,
-      height: 90.h,
-      child: ListView.builder(
-        physics: BouncingScrollPhysics(),
+    final List<String> list = [
+      'iPhone ',
+      'Lorem ',
+      'Pizde Prod',
+      'Xiomilar',
+      'Yene bir zat',
+      'Lorem  ',
+      'Lorem   Some SOme SOme',
+    ];
+
+    return ScrollConfiguration(
+      behavior: MyBehavior(),
+      child: SingleChildScrollView(
+        controller: controller,
+        padding: AppPaddings.top_16.add(AppPaddings.left_16),
         scrollDirection: Axis.horizontal,
-        itemCount: 5,
-        itemBuilder: (context, index) {
-          return MainCategoriesWidget(
-            isSelected: index == 2,
-            isFirst: index == 0,
-            isLast: index == 4,
-          );
-        },
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: List.generate(
+            list.length,
+            (index) => MainCategoriesWidget(
+              subTitle: list[index],
+            )..log(),
+          ),
+        ),
       ),
     );
   }

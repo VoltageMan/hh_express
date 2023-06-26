@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hh_express/helpers/extentions.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AppPaddings {
   static EdgeInsets left_12 = EdgeInsets.only(left: 12.w);
   static EdgeInsets left_16 = EdgeInsets.only(left: 16.w);
+  static EdgeInsets left_18 = EdgeInsets.only(left: 18.w);
   static EdgeInsets left_24 = EdgeInsets.only(left: 24.w);
   static EdgeInsets left_28 = EdgeInsets.only(left: 28.w);
 
@@ -16,17 +15,20 @@ class AppPaddings {
   static EdgeInsets right_16 = EdgeInsets.only(right: 16.w);
   static EdgeInsets right_24 = EdgeInsets.only(right: 24.w);
   static EdgeInsets right_28 = EdgeInsets.only(right: 28.w);
+  static EdgeInsets right_7 = EdgeInsets.only(right: 7.w);
   static EdgeInsets right_6 = EdgeInsets.only(right: 6.w);
 
   static EdgeInsets top_12 = EdgeInsets.only(top: 12.w);
   static EdgeInsets top_16 = EdgeInsets.only(top: 16.w);
   static EdgeInsets top_24 = EdgeInsets.only(top: 24.w);
   static EdgeInsets top_28 = EdgeInsets.only(top: 28.w);
+  static EdgeInsets top_2 = EdgeInsets.only(top: 2.w);
   static EdgeInsets top_6 = EdgeInsets.only(top: 6.w);
 
   static EdgeInsets bottom_12 = EdgeInsets.only(bottom: 12.w);
   static EdgeInsets bottom_10 = EdgeInsets.only(bottom: 10.w);
   static EdgeInsets bottom_16 = EdgeInsets.only(bottom: 16.w);
+  static EdgeInsets bottom_15 = EdgeInsets.only(bottom: 15.w);
   static EdgeInsets bottom_24 = EdgeInsets.only(bottom: 24.w);
   static EdgeInsets bottom_28 = EdgeInsets.only(bottom: 28.w);
 
@@ -35,6 +37,8 @@ class AppPaddings {
   static EdgeInsets all_24 = EdgeInsets.all(24.sp);
   static EdgeInsets all_28 = EdgeInsets.all(28.sp);
   static final all_2 = EdgeInsets.all(2.sp);
+  static final all_4 = EdgeInsets.all(4.sp);
+  static final all_5 = EdgeInsets.all(5.sp);
   static EdgeInsets all_6 = EdgeInsets.all(6.sp);
 
   static EdgeInsets horiz_12 = EdgeInsets.symmetric(horizontal: 12.w);
@@ -44,18 +48,25 @@ class AppPaddings {
   static EdgeInsets horiz_28 = EdgeInsets.symmetric(horizontal: 28.h);
   static EdgeInsets horiz_8 = EdgeInsets.symmetric(horizontal: 8.w);
   static EdgeInsets horiz_6 = EdgeInsets.symmetric(horizontal: 6.w);
+  static EdgeInsets horiz_2 = EdgeInsets.symmetric(horizontal: 2.w);
+  static EdgeInsets horiz_3 = EdgeInsets.symmetric(horizontal: 3.w);
   static EdgeInsets horiz_4 = EdgeInsets.symmetric(horizontal: 4.w);
 
   static final vertic_10 = EdgeInsets.symmetric(vertical: 10.h);
   static EdgeInsets vertic_12 = EdgeInsets.symmetric(vertical: 12.h);
   static EdgeInsets vertic_16 = EdgeInsets.symmetric(vertical: 16.h);
+  static EdgeInsets vertic_15 = EdgeInsets.symmetric(vertical: 15.h);
   static EdgeInsets vertic_24 = EdgeInsets.symmetric(vertical: 24.h);
   static EdgeInsets vertic_28 = EdgeInsets.symmetric(vertical: 28.h);
+  static EdgeInsets vertic_8 = EdgeInsets.symmetric(vertical: 8.h);
   static EdgeInsets vertic_6 = EdgeInsets.symmetric(vertical: 6.h);
   static EdgeInsets vertic_4 = EdgeInsets.symmetric(vertical: 4.h);
 
-  //!speciffics
+  //! speciffics
   static final horiz16_vertic12 = horiz_16.copyWith(bottom: 12.h, top: 12.h);
+  static final horiz16_vertic18 = horiz_16.copyWith(bottom: 18.h, top: 18.h);
+  static final horiz16_vertic24 = horiz_16.copyWith(bottom: 24.h, top: 24.h);
+  static final horiz16_botto10 = horiz_16.copyWith(bottom: 10.h);
   static final horiz10_vertic5 =
       EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h);
   static final horiz56_vertic70 =
@@ -63,6 +74,9 @@ class AppPaddings {
   static final horiz12_vertic17 =
       EdgeInsets.symmetric(horizontal: 12.w, vertical: 17.h);
   static final top16_bottom24 = vertic_16.copyWith(bottom: 24.h);
+  static EdgeInsets top15_bottom19 = EdgeInsets.only(top: 15.h, bottom: 19.h);
+  static final bottom24_top16 = EdgeInsets.only(bottom: 24.h, top: 16.h);
+  static final left20_right12 = EdgeInsets.only(left: 20.h, right: 12.h);
 }
 
 class AppBorderRadiuses {
@@ -74,6 +88,10 @@ class AppBorderRadiuses {
   static final border_12 = BorderRadius.circular(12.r);
 
   static final top_6 = BorderRadius.vertical(top: Radius.circular(6.r));
+  static final defBorder =
+      Border.all(width: 1.5.sp, color: AppColors.lightGrey);
+  static final defBorderDark =
+      Border.all(width: 1.5.sp, color: AppColors.darkGrey);
 }
 
 class AppColors {
@@ -114,14 +132,23 @@ class AppColors {
 
 class AppDurations {
   static Duration duration_250ms = const Duration(milliseconds: 250);
+  static Duration duration_150ms = const Duration(milliseconds: 150);
   static Duration duration_500ms = const Duration(milliseconds: 500);
   static Duration duration_1500ms = const Duration(milliseconds: 1500);
 }
 
 class AssetsPath {
+  static const macBook =
+      'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1026&q=80';
+  static const exampleImage1 =
+      'https://cdn.pixabay.com/photo/2020/05/25/17/21/link-5219567_1280.jpg';
+  static const exampleImage2 =
+      'https://cdn.pixabay.com/photo/2020/05/31/16/53/bookmarks-5243253_640.jpg';
+
   static const splashBackground = 'assets/images/splash.svg';
   //! icons
   static const searchIcon = 'assets/icons/search.svg';
+  static const deleteIcon = 'assets/icons/delete.svg';
   static const filterIcon = 'assets/icons/filter.svg';
   static const bellIcon = 'assets/icons/bell.svg';
   static const crossIcon = 'assets/icons/cross.svg';
@@ -141,47 +168,4 @@ class AssetsPath {
   static const ordersIcon = 'assets/icons/profileIcons/orders.svg';
   static const forvardIcon = 'assets/icons/forvard.svg';
   //!
-}
-
-class AppTitles {
-  static void init(BuildContext context) {
-    final l10n = context.l10n;
-    navBarTitles = [
-      l10n.home,
-      l10n.video,
-      l10n.category,
-      l10n.cart,
-      l10n.profile,
-    ];
-    exit = l10n.exit;
-    cancle = l10n.cancle;
-    confirmExit = l10n.exitConfirm;
-    searchHint = l10n.searchHint;
-    filter = l10n.filter;
-    removeAll = l10n.removeAll;
-    all = l10n.all;
-    register = l10n.registration;
-    code = l10n.code;
-    name = l10n.name;
-    phoneNum = l10n.phoneNumber;
-    registerTitle = l10n.resterTitle;
-    news = l10n.news;
-    mostSold = l10n.mostSold;
-  }
-
-  static List<String>? navBarTitles;
-  static String? exit;
-  static String? cancle;
-  static String? confirmExit;
-  static String? searchHint;
-  static String? filter;
-  static String? removeAll;
-  static String? all;
-  static String? register;
-  static String? code;
-  static String? name;
-  static String? phoneNum;
-  static String? registerTitle;
-  static String? news;
-  static String? mostSold;
 }

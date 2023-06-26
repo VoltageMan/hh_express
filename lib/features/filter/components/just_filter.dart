@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hh_express/features/filter/components/filter_color.dart';
 import 'package:hh_express/features/filter/selecteds/view/components/remove_selected.dart';
+import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/spacers.dart';
 import 'package:hh_express/settings/consts.dart';
 import 'package:hh_express/settings/theme.dart';
@@ -17,7 +18,7 @@ class JustFilterWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isSelected = this.isSelected ?? false;
-    final forAll = title == AppTitles.removeAll;
+    final forAll = title == context.l10n.removeAll;
     final isLight = !isSelected || forAll;
     final textTheme = !isSelected
         ? AppTheme.titleMedium12(context)

@@ -1,23 +1,34 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hh_express/features/auth/view/auth_screen.dart';
 import 'package:hh_express/features/home/bloc/home_bloc.dart';
+import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/routes.dart';
-import 'package:hh_express/settings/consts.dart';
+import 'package:hh_express/helpers/splash_screen.dart';
 import 'package:hh_express/settings/globals.dart';
 import 'package:hh_express/settings/theme.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-// валю листенбл временно поставил ибо не знал как менять язык и для теста пару вещей
-
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
   @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  bool waited = false;
+  Future<int> waiting() async {
+    if (waited) return 0;
+    await Future.delayed(const Duration(seconds: 0));
+    waited = true;
+    locale.value = 'tr';
+    return 666;
+  }
+
+  @override
   Widget build(BuildContext context) {
+    waiting();
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => HomeBloc()),
@@ -28,7 +39,7 @@ class MyApp extends StatelessWidget {
           return ValueListenableBuilder(
             valueListenable: locale,
             builder: (context, locale, child) {
-              log(locale);
+              locale.log();
               return MaterialApp.router(
                 supportedLocales: AppLocalizations.supportedLocales,
                 routerConfig: appRouter,
@@ -37,14 +48,15 @@ class MyApp extends StatelessWidget {
                 debugShowCheckedModeBanner: false,
                 localizationsDelegates: AppLocalizations.localizationsDelegates,
                 builder: (context, child) {
-                  AppTitles.init(context);
-                  return Navigator(
-                    onGenerateRoute: (settings) => MaterialPageRoute(
-                      builder: (context) {
-                        return child!;
-                      },
-                    ),
-                  );
+                  return waited
+                      ? Navigator(
+                          onGenerateRoute: (settings) => MaterialPageRoute(
+                            builder: (context) {
+                              return child!;
+                            },
+                          ),
+                        )
+                      : const SplashScreen();
                 },
               );
             },
@@ -54,3 +66,5 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+

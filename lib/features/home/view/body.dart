@@ -21,7 +21,11 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
-        return const HomeProdBuilder();
+        return const CustomScrollView(
+          slivers: [
+            HomeProdBuilder(),
+          ],
+        );
       },
     );
   }

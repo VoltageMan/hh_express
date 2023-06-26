@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hh_express/features/auth/components/auth_field.dart';
 import 'package:hh_express/features/auth/components/confirm_terms%20_of_use.dart';
 import 'package:hh_express/features/components/confirm_some.dart';
+import 'package:hh_express/helpers/extentions.dart';
+import 'package:hh_express/helpers/routes.dart';
 import 'package:hh_express/settings/consts.dart';
 import 'package:hh_express/settings/theme.dart';
 import 'package:another_flushbar/flushbar.dart';
@@ -37,17 +40,17 @@ class _AuthScreenState extends State<AuthScreen>
   }
 
   void myShowSnack(BuildContext context) async {
-    Flushbar(
-      animationDuration: const Duration(milliseconds: 400),
-      isDismissible: false,
-      forwardAnimationCurve: Curves.easeIn,
-      reverseAnimationCurve: Curves.easeOut,
-      duration: const Duration(milliseconds: 3000),
-      flushbarPosition: FlushbarPosition.BOTTOM,
-      flushbarStyle: FlushbarStyle.FLOATING,
-      message: "I am Bottom Snackbar",
-      margin: const EdgeInsets.symmetric(vertical: 20),
-    ).show(context);
+    // Flushbar(
+    //   animationDuration: const Duration(milliseconds: 400),
+    //   isDismissible: false,
+    //   forwardAnimationCurve: Curves.easeIn,
+    //   reverseAnimationCurve: Curves.easeOut,
+    //   duration: const Duration(milliseconds: 3000),
+    //   flushbarPosition: FlushbarPosition.BOTTOM,
+    //   flushbarStyle: FlushbarStyle.FLOATING,
+    //   message: "I am Bottom Snackbar",
+    //   margin: const EdgeInsets.symmetric(vertical: 20),
+    // ).show(context);
   }
 
   @override
@@ -63,11 +66,13 @@ class _AuthScreenState extends State<AuthScreen>
             color: theme.iconTheme.color,
             size: 23.sp,
           ),
-          onPressed: () {},
+          onPressed: () {
+            context.go(AppRoutes.navBar.lastOrNull, extra: 4);
+          },
         ),
         centerTitle: true,
         title: Text(
-          AppTitles.register!,
+          context.l10n.registration,
           style: theme.appBarTheme.titleTextStyle,
         ),
       ),
@@ -76,7 +81,7 @@ class _AuthScreenState extends State<AuthScreen>
           Padding(
             padding: AppPaddings.horiz56_vertic70,
             child: Text(
-              AppTitles.registerTitle!,
+              context.l10n.resterTitle,
               style: AppTheme.titleMedium16(context, weightless: true),
               textAlign: TextAlign.center,
             ),
@@ -89,9 +94,10 @@ class _AuthScreenState extends State<AuthScreen>
                 Column(
                   children: [
                     AuthField(
-                        label: AppTitles.name!, controller: nameController),
+                        label: context.l10n.name, controller: nameController),
                     AuthField(
-                        label: AppTitles.phoneNum!, controller: numController),
+                        label: context.l10n.phoneNumber,
+                        controller: numController),
                     const Expanded(
                       child: SizedBox(),
                     ),
@@ -101,7 +107,7 @@ class _AuthScreenState extends State<AuthScreen>
                 Column(
                   children: [
                     AuthField(
-                      label: AppTitles.code!,
+                      label: context.l10n.code,
                       controller: codeController,
                     )
                   ],
@@ -121,6 +127,6 @@ class _AuthScreenState extends State<AuthScreen>
           )
         ],
       ),
-    );
+    ).toWillGoProfile(4);
   }
 }

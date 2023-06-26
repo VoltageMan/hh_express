@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/helpers/extentions.dart';
+import 'package:hh_express/helpers/spacers.dart';
 import 'package:hh_express/settings/consts.dart';
 
 class TermsOfUseWidget extends StatefulWidget {
@@ -19,9 +20,10 @@ class _TermsOfUseWidgetState extends State<TermsOfUseWidget> {
     final theme = Theme.of(context);
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Transform.scale(
-          scale: 1.3.sp,
+          scale: 1.3,
           child: Checkbox(
             value: boxVal,
             onChanged: (value) {
@@ -31,6 +33,7 @@ class _TermsOfUseWidgetState extends State<TermsOfUseWidget> {
             },
           ),
         ),
+        AppSpacing.horizontal_12,
         Text.rich(
           TextSpan(
             style: theme.textTheme.bodyMedium,

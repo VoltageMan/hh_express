@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/settings/consts.dart';
 import 'package:hh_express/settings/theme.dart';
 
@@ -20,7 +21,7 @@ class FilterTitle extends StatelessWidget {
           onPressed: () {},
           style: buttonTheme,
           child: Text(
-            AppTitles.all!,
+            context.l10n.all,
             style: buttonTheme.myTextStyle,
           ),
         )
