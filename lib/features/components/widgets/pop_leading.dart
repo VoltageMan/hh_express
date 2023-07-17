@@ -5,15 +5,13 @@ import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/routes.dart';
 
 class PopLeadingIconButton extends StatelessWidget {
-  const PopLeadingIconButton({super.key, required this.index});
-  final int index;
+  const PopLeadingIconButton({super.key});
   @override
   Widget build(BuildContext context) {
     final theme = context.theme;
     return GestureDetector(
       onTap: () {
-        appRouter.currentContext
-            .go(AppRoutes.navBar[index], extra: index == 0 ? null : index);
+        appRouter.currentContext.pop();
       },
       child: Container(
         height: double.infinity,

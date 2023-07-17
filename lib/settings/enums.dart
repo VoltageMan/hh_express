@@ -4,3 +4,9 @@ enum APiState {
   error,
   succses,
 }
+
+
+enum LocalDataKeys{
+  me,
+  lang,
+}

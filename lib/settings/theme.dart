@@ -38,9 +38,7 @@ class AppTheme {
             fontWeight: FontWeight.w400,
           );
   static TextStyle titleMedium14(BuildContext context) =>
-      Theme.of(context).textTheme.titleMedium!.copyWith(
-            fontSize: 12.sp,
-          );
+      Theme.of(context).textTheme.titleMedium!.copyWith(fontSize: 14.sp);
 
   static TextStyle bodyMedium10(BuildContext context) =>
       Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 10.sp);
@@ -54,6 +52,7 @@ class AppTheme {
       Theme.of(context).textTheme.bodyLarge!.copyWith(
             fontWeight: FontWeight.w500,
           );
+
   static final lightTheme = ThemeData(
     primaryColor: AppColors.mainOrange,
     colorScheme: ColorScheme.fromSwatch(
@@ -169,10 +168,20 @@ class AppTheme {
         fontSize: 20.sp,
         color: AppColors.white,
       ),
+      displaySmall: TextStyle(
+        color: AppColors.darkGrey,
+        fontSize: 14.sp,
+        fontWeight: FontWeight.w400,
+      ),
       labelSmall: TextStyle(
         color: AppColors.white,
         fontSize: 12.sp,
         fontWeight: FontWeight.w500,
+      ),
+      labelLarge: TextStyle(
+        color: AppColors.white,
+        fontSize: 13.sp,
+        fontWeight: FontWeight.w400,
       ),
       titleMedium: TextStyle(
         fontWeight: FontWeight.w600,
@@ -194,11 +203,6 @@ class AppTheme {
         fontWeight: FontWeight.w400,
         color: AppColors.darkBlue,
       ),
-      displaySmall: TextStyle(
-        color: AppColors.darkGrey,
-        fontSize: 14.sp,
-        fontWeight: FontWeight.w400,
-      ),
       bodyLarge: TextStyle(
         color: AppColors.mainOrange,
         fontSize: 14.sp,
@@ -209,6 +213,11 @@ class AppTheme {
         fontSize: 12.sp,
         fontWeight: FontWeight.w400,
         decoration: TextDecoration.underline,
+      ),
+      labelMedium: GoogleFonts.poppins(
+        fontSize: 14.sp,
+        color: AppColors.white,
+        fontWeight: FontWeight.w600,
       ),
     ),
   );

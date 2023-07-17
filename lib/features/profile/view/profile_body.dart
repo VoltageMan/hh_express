@@ -50,7 +50,7 @@ class _ProfileBodyState extends State<ProfileBody> {
             iconPath: icons[index],
             onTap: () {
               if (index == 1) {
-                GoRouter.of(context).go(AppRoutes.auth);
+                GoRouter.of(context).push(AppRoutes.auth);
                 return;
               }
               ModelBottomSheetHelper.showProfileSheets(index);

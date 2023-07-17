@@ -3,12 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hh_express/features/auth/components/auth_field.dart';
 import 'package:hh_express/features/auth/components/confirm_terms%20_of_use.dart';
+import 'package:hh_express/features/auth/view/auth_app_bar.dart';
 import 'package:hh_express/features/components/confirm_some.dart';
 import 'package:hh_express/helpers/extentions.dart';
-import 'package:hh_express/helpers/routes.dart';
 import 'package:hh_express/settings/consts.dart';
 import 'package:hh_express/settings/theme.dart';
-import 'package:another_flushbar/flushbar.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
@@ -58,24 +57,7 @@ class _AuthScreenState extends State<AuthScreen>
     final theme = Theme.of(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        toolbarHeight: 52.h,
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back_outlined,
-            color: theme.iconTheme.color,
-            size: 23.sp,
-          ),
-          onPressed: () {
-            context.go(AppRoutes.navBar.lastOrNull, extra: 4);
-          },
-        ),
-        centerTitle: true,
-        title: Text(
-          context.l10n.registration,
-          style: theme.appBarTheme.titleTextStyle,
-        ),
-      ),
+      appBar: AuthAppBar(),
       body: Column(
         children: [
           Padding(
@@ -127,6 +109,6 @@ class _AuthScreenState extends State<AuthScreen>
           )
         ],
       ),
-    ).toWillGoProfile(4);
+    );
   }
 }

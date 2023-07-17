@@ -1,22 +1,29 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:hh_express/data/remote/dio_client.dart';
 import 'package:hh_express/features/cart/view/cart_body.dart';
 import 'package:hh_express/features/categories/view/body.dart';
 import 'package:hh_express/features/home/view/body.dart';
 import 'package:hh_express/features/mainScreen/view/components/main_app_bar.dart';
 import 'package:hh_express/features/mainScreen/view/components/navBar/nav_bar.dart';
 import 'package:hh_express/features/profile/view/profile_body.dart';
+import 'package:hh_express/features/video/view/home_video.dart';
 import 'package:hh_express/helpers/confirm_exit.dart';
+import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/modal_sheets.dart';
+import 'package:hh_express/helpers/spacers.dart';
 import 'dart:developer';
+
+import 'package:hh_express/settings/consts.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key, required this.body, required this.index});
   final Widget body;
   final int? index;
 
-  static const bodies = [
+  static const List<Widget> bodies = [
     HomeScreen(),
-    Center(child: Text('NothingYet')),
+    HomeVideos(),
     CategoryBody(),
     CartScreen(),
     ProfileBody(),

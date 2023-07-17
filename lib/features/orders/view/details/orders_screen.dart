@@ -64,6 +64,6 @@ class OrderDetailsScreen extends StatelessWidget {
           ],
         ),
       ),
-    ).toWillGoProfile(4);
+    );
   }
 }

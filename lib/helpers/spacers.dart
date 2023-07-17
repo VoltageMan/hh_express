@@ -81,6 +81,14 @@ class AppSpacing {
   static SizedBox horizontal_14 = SizedBox(
     width: 14.w,
   );
-  int a = 0;
-  void newSomeThing() {}
+
+  static double topPad = 0;
+
+  static setTopPad(BuildContext context) {
+    if (topPad != 0) {
+      return;
+    }
+    final padding = MediaQuery.paddingOf(context).top;
+    topPad = padding;
+  }
 }

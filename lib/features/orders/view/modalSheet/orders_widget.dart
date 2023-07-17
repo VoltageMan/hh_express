@@ -21,7 +21,7 @@ class OrdersWidget extends StatelessWidget {
       onTap: () {
         Navigator.pop(context);
         appRouter.routerDelegate.navigatorKey.currentContext!
-            .go(AppRoutes.orderDetails);
+            .push(AppRoutes.orderDetails);
       },
       child: Container(
         margin: AppPaddings.horiz_16.copyWith(bottom: 16.h),

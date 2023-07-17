@@ -9,12 +9,12 @@ class NotificationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const NotificationsAppBar(),
+      appBar: NotificationsAppBar(),
       body: ListView.builder(
         itemBuilder: (context, index) {
           return const NotificationWidget();
         },
       ),
-    ).toWillGoProfile(0);
+    );
   }
 }

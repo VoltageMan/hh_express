@@ -11,12 +11,11 @@ class OrderDetailsAppBar extends StatelessWidget
   const OrderDetailsAppBar({super.key});
   @override
   Size get preferredSize => Size.fromHeight(52.h);
+
   @override
   Widget build(BuildContext context) {
-    final topPad = MediaQuery.paddingOf(context).top;
     final theme = Theme.of(context);
     return Container(
-      margin: EdgeInsets.only(top: topPad),
       height: 52.h,
       padding: AppPaddings.horiz_16,
       alignment: Alignment.centerLeft,
@@ -30,8 +29,7 @@ class OrderDetailsAppBar extends StatelessWidget
         children: [
           GestureDetector(
             onTap: () {
-              appRouter.currentContext
-                  .go(AppRoutes.navBar.lastOrNull, extra: 4);
+              appRouter.currentContext.pop();
             },
             child: Container(
               height: double.infinity,

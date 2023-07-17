@@ -2,12 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppPaddings {
+  static const secondSplashAlign = Alignment(0.35, -0.12);
+//! Aligns
+
+  static EdgeInsets? homeProdPadding(int index) {
+    if (index < 0) return null;
+    return EdgeInsets.only(
+      top: 12.h,
+      left: index % 2 == 0 ? 16.w : 4.w,
+      right: index % 2 == 1 ? 16.w : 4.w,
+    );
+  }
+
+  static EdgeInsets? homeProdmargin(int index) {
+    if (index > 0) return null;
+    return EdgeInsets.only(
+      left: index == -1 ? 16.w : 4.w,
+      right: 4.w,
+    );
+  }
+
   static EdgeInsets left_12 = EdgeInsets.only(left: 12.w);
   static EdgeInsets left_16 = EdgeInsets.only(left: 16.w);
   static EdgeInsets left_18 = EdgeInsets.only(left: 18.w);
   static EdgeInsets left_24 = EdgeInsets.only(left: 24.w);
   static EdgeInsets left_28 = EdgeInsets.only(left: 28.w);
-
   static EdgeInsets left_6 = EdgeInsets.only(left: 6.w);
 
   static EdgeInsets right_12 = EdgeInsets.only(right: 12.w);
@@ -17,20 +36,22 @@ class AppPaddings {
   static EdgeInsets right_28 = EdgeInsets.only(right: 28.w);
   static EdgeInsets right_7 = EdgeInsets.only(right: 7.w);
   static EdgeInsets right_6 = EdgeInsets.only(right: 6.w);
+  static EdgeInsets right_14 = EdgeInsets.only(right: 14.w);
 
-  static EdgeInsets top_12 = EdgeInsets.only(top: 12.w);
-  static EdgeInsets top_16 = EdgeInsets.only(top: 16.w);
-  static EdgeInsets top_24 = EdgeInsets.only(top: 24.w);
-  static EdgeInsets top_28 = EdgeInsets.only(top: 28.w);
-  static EdgeInsets top_2 = EdgeInsets.only(top: 2.w);
-  static EdgeInsets top_6 = EdgeInsets.only(top: 6.w);
+  static EdgeInsets top_12 = EdgeInsets.only(top: 12.h);
+  static EdgeInsets top_16 = EdgeInsets.only(top: 16.h);
+  static EdgeInsets top_24 = EdgeInsets.only(top: 24.h);
+  static EdgeInsets top_20 = EdgeInsets.only(top: 20.h);
+  static EdgeInsets top_28 = EdgeInsets.only(top: 28.h);
+  static EdgeInsets top_2 = EdgeInsets.only(top: 2.h);
+  static EdgeInsets top_6 = EdgeInsets.only(top: 6.h);
 
-  static EdgeInsets bottom_12 = EdgeInsets.only(bottom: 12.w);
-  static EdgeInsets bottom_10 = EdgeInsets.only(bottom: 10.w);
-  static EdgeInsets bottom_16 = EdgeInsets.only(bottom: 16.w);
-  static EdgeInsets bottom_15 = EdgeInsets.only(bottom: 15.w);
-  static EdgeInsets bottom_24 = EdgeInsets.only(bottom: 24.w);
-  static EdgeInsets bottom_28 = EdgeInsets.only(bottom: 28.w);
+  static EdgeInsets bottom_24 = EdgeInsets.only(bottom: 24.h);
+  static EdgeInsets bottom_28 = EdgeInsets.only(bottom: 28.h);
+  static EdgeInsets bottom_15 = EdgeInsets.only(bottom: 15.h);
+  static EdgeInsets bottom_16 = EdgeInsets.only(bottom: 16.h);
+  static EdgeInsets bottom_12 = EdgeInsets.only(bottom: 12.h);
+  static EdgeInsets bottom_10 = EdgeInsets.only(bottom: 10.h);
 
   static EdgeInsets all_12 = EdgeInsets.all(12.sp);
   static EdgeInsets all_16 = EdgeInsets.all(16.sp);
@@ -45,6 +66,7 @@ class AppPaddings {
   static EdgeInsets horiz_10half = EdgeInsets.symmetric(horizontal: 10.5.w);
   static EdgeInsets horiz_16 = EdgeInsets.symmetric(horizontal: 16.w);
   static EdgeInsets horiz_24 = EdgeInsets.symmetric(horizontal: 24.w);
+  static EdgeInsets horiz_21 = EdgeInsets.symmetric(horizontal: 21.w);
   static EdgeInsets horiz_28 = EdgeInsets.symmetric(horizontal: 28.h);
   static EdgeInsets horiz_8 = EdgeInsets.symmetric(horizontal: 8.w);
   static EdgeInsets horiz_6 = EdgeInsets.symmetric(horizontal: 6.w);
@@ -76,7 +98,10 @@ class AppPaddings {
   static final top16_bottom24 = vertic_16.copyWith(bottom: 24.h);
   static EdgeInsets top15_bottom19 = EdgeInsets.only(top: 15.h, bottom: 19.h);
   static final bottom24_top16 = EdgeInsets.only(bottom: 24.h, top: 16.h);
-  static final left20_right12 = EdgeInsets.only(left: 20.h, right: 12.h);
+  static final left20_right12 = EdgeInsets.only(left: 20.w, right: 12.w);
+  static final bottom12_top20 = EdgeInsets.only(top: 20.h, bottom: 12.h);
+  static final horiz6_vertic3 =
+      EdgeInsets.symmetric(horizontal: 6.w, vertical: 3.h);
 }
 
 class AppBorderRadiuses {
@@ -85,6 +110,7 @@ class AppBorderRadiuses {
   static final border_6 = BorderRadius.circular(6.r);
   static final border_8 = BorderRadius.circular(8.r);
   static final border_10 = BorderRadius.circular(10.r);
+  static final border_50 = BorderRadius.circular(50.r);
   static final border_12 = BorderRadius.circular(12.r);
 
   static final top_6 = BorderRadius.vertical(top: Radius.circular(6.r));
@@ -92,6 +118,8 @@ class AppBorderRadiuses {
       Border.all(width: 1.5.sp, color: AppColors.lightGrey);
   static final defBorderDark =
       Border.all(width: 1.5.sp, color: AppColors.darkGrey);
+  static final transparentBorder =
+      Border.all(width: 1.5.sp, color: Colors.transparent);
 }
 
 class AppColors {
@@ -133,6 +161,7 @@ class AppColors {
 class AppDurations {
   static Duration duration_250ms = const Duration(milliseconds: 250);
   static Duration duration_150ms = const Duration(milliseconds: 150);
+  static Duration duration_50ms = const Duration(milliseconds: 50);
   static Duration duration_500ms = const Duration(milliseconds: 500);
   static Duration duration_1500ms = const Duration(milliseconds: 1500);
 }
@@ -168,4 +197,12 @@ class AssetsPath {
   static const ordersIcon = 'assets/icons/profileIcons/orders.svg';
   static const forvardIcon = 'assets/icons/forvard.svg';
   //!
+}
+
+class EndPoints {
+  static const baseUrl = 'http://216.250.9.74/';
+  static const logIn = '/api/v1/auth/login';
+  static const register = '/api/v1/auth/register';
+  static const authMe = '/api/v1/auth/me';
+  static const logOut = '/api/v1/auth/logout';
 }

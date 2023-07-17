@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/features/components/widgets/place_holder.dart';
+import 'package:hh_express/helpers/spacers.dart';
 import 'package:hh_express/settings/consts.dart';
 import 'package:hh_express/settings/theme.dart';
 
@@ -36,21 +37,29 @@ class OrderInfoListTile extends StatelessWidget {
                 )
               : Text(
                   title!,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.start,
                   style: titleBold ?? false
                       ? theme.titleLarge
                       : theme.displaySmall,
                 ),
+          AppSpacing.horizontal_8,
           isLoading
               ? MyShimerPlaceHolder(
                   width: 70.w,
                   height: 18.h,
                   radius: AppBorderRadiuses.border_4,
                 )
-              : Text(
-                  content!,
-                  style: contentBold ?? false
-                      ? theme.bodyLarge
-                      : AppTheme.bodyMedium14(context),
+              : Expanded(
+                  child: Text(
+                    content!,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.end,
+                    style: contentBold ?? false
+                        ? theme.bodyLarge
+                        : AppTheme.bodyMedium14(context),
+                  ),
                 ),
         ],
       ),

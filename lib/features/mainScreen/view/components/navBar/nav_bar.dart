@@ -12,8 +12,22 @@ final bodyIndex = ValueNotifier<int>(0);
 class MyNavBar extends StatelessWidget {
   const MyNavBar({super.key});
 
+  bool inHome() {
+    final location = appRouter.location;
+    for (var i in AppRoutes.navBar) {
+      if (i == location) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   @override
   Widget build(BuildContext context) {
+    
+    if (!inHome()) {
+      return SizedBox();
+    }
     final theme = Theme.of(context).bottomNavigationBarTheme;
     final l10n = context.l10n;
     final navBarTitles = [

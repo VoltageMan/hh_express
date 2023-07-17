@@ -41,11 +41,17 @@
   "perKilogram": "Per kilogram",
   "number": "Number",
   "delivery": "delivery",
-  "totalPrice": "totalPrice",
+  "totalPrice": "Total price",
   "comeTime": "Time to come",
   "waitng": "Waing",
   "accepted": "Accepted",
   "preparing": "Preparing",
   "onTheWay": "On the way",
-  "came": "Came"
+  "came": "Came",
+  "buy": "Buy",
+  "addToCart": "Add to cart",
+  "aboutProd": "About product",
+  "prodName": "Product Name",
+  "color": "Color",
+  "size": "Size"
 }

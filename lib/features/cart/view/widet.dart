@@ -8,13 +8,21 @@ import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/settings/consts.dart';
 import 'package:hh_express/settings/theme.dart';
 
-class CartWidget extends StatelessWidget {
+class CartWidget extends StatefulWidget {
   const CartWidget({super.key});
-  
+
+  @override
+  State<CartWidget> createState() => _CartWidgetState();
+}
+
+class _CartWidgetState extends State<CartWidget> {
+  double? height;
   @override
   Widget build(BuildContext context) {
-    const isLoading = 1 == 1;
+    final mqWidth = MediaQuery.sizeOf(context).width;
+    '$mqWidth ww'.log();
     return Container(
+      alignment: Alignment.center,
       margin: AppPaddings.left20_right12.add(AppPaddings.top_16),
       decoration: BoxDecoration(
         borderRadius: AppBorderRadiuses.border_6,
@@ -23,7 +31,7 @@ class CartWidget extends StatelessWidget {
       child: Row(
         children: [
           Container(
-            height: 110.h,
+            height: height ?? 105.h,
             width: 95.w,
             decoration: BoxDecoration(
               border: Border(
@@ -34,20 +42,27 @@ class CartWidget extends StatelessWidget {
               ),
             ),
             child: ClipRRect(
-              borderRadius: BorderRadius.horizontal(
-                left: Radius.circular(5.r),
+              borderRadius: BorderRadius.horizontal(left: Radius.circular(5.r)),
+              child: CachedNetworkImage(
+                imageUrl: AssetsPath.macBook,
+                fit: BoxFit.cover,
+                placeholder: (context, url) => MyShimerPlaceHolder(
+                  radius: BorderRadius.horizontal(
+                    left: Radius.circular(5.r),
+                  ),
+                ),
               ),
-              child: isLoading
-                  ? const MyShimerPlaceHolder()
-                  : CachedNetworkImage(
-                      imageUrl: AssetsPath.macBook,
-                      fit: BoxFit.cover,
-                      placeholder: (context, url) =>
-                          const MyShimerPlaceHolder(),
-                    ),
             ),
           ),
-          Expanded(
+          MeasureSize(
+            onChange: (size) {
+              if (height != null) {
+                return;
+              }
+              setState(() {
+                height = size.height..log();
+              });
+            },
             child: Padding(
               padding: AppPaddings.vertic_12.add(AppPaddings.horiz_12),
               child: Column(
@@ -57,18 +72,11 @@ class CartWidget extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Expanded(
-                        child: isLoading
-                            ? MyShimerPlaceHolder(
-                                height: 21.h,
-                                radius: AppBorderRadiuses.border_4,
-                              )
-                            : Text(
-                                'MacBook  2023',
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: AppTheme.titleMedium16(context),
-                              ),
+                      Text(
+                        'MacBook  2023',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: AppTheme.titleMedium16(context),
                       ),
                       MyImageIcon(
                         path: AssetsPath.deleteIcon,
@@ -80,35 +88,23 @@ class CartWidget extends StatelessWidget {
                   ),
                   Padding(
                     padding: AppPaddings.vertic_6,
-                    child: isLoading
-                        ? MyShimerPlaceHolder(
-                            height: 21.h,
-                            radius: AppBorderRadiuses.border_4,
-                          )
-                        : Text(
-                            '700.12 TMT',
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: AppTheme.titleMedium14(context),
-                          ),
+                    child: Text(
+                      '700.12 TMT',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: AppTheme.titleMedium14(context),
+                    ),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Expanded(
-                        child: isLoading
-                            ? MyShimerPlaceHolder(
-                                height: 21.h,
-                                radius: AppBorderRadiuses.border_4,
-                              )
-                            : Text(
-                                'Halanlaryma gos',
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: context.theme.textTheme.bodySmall,
-                              ),
+                      Text(
+                        'Halanlaryma gos',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: context.theme.textTheme.bodySmall,
                       ),
-                      isLoading ? SizedBox() : CartCountButton(),
+                      CartCountButton(),
                     ],
                   ),
                 ],

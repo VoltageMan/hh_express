@@ -7,11 +7,12 @@ import 'package:hh_express/features/categories/view/details/category_details.dar
 import 'package:hh_express/features/mainScreen/view/main_screen.dart';
 import 'package:hh_express/features/notifications/view/notification_screen.dart';
 import 'package:hh_express/features/orders/view/details/orders_screen.dart';
+import 'package:hh_express/features/productDetails/view/screen.dart';
 
 enum EnumNavRoutes { home, video, category, cart, profile }
 
 class AppRoutes {
-  static List navBar = [
+  static List<String> navBar = [
     '/${EnumNavRoutes.home.name}',
     '/${EnumNavRoutes.video.name}',
     '/${EnumNavRoutes.category.name}',
@@ -23,6 +24,7 @@ class AppRoutes {
   static const orderDetails = '/orderDetails';
   static const categoryDetails = '/categoryDetails';
   static const notifications = '/notifications';
+  static const prodDetails = '/prodDetails';
 }
 
 final appRouter = GoRouter(
@@ -83,6 +85,12 @@ final appRouter = GoRouter(
       path: AppRoutes.notifications,
       builder: (context, state) {
         return const NotificationScreen();
+      },
+    ),
+    GoRoute(
+      path: AppRoutes.prodDetails,
+      builder: (context, state) {
+        return const ProductDetails();
       },
     ),
     // GoRoute(

@@ -17,7 +17,7 @@ class SimpleCategoryWidget extends StatelessWidget {
     final padSide = index % 4;
     return GestureDetector(
       onTap: () {
-        appRouter.currentContext.go(AppRoutes.categoryDetails);
+        appRouter.currentContext.push(AppRoutes.categoryDetails);
       },
       child: Container(
         margin: AppPaddings.horiz_4,
