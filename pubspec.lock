@@ -25,14 +25,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.13.0"
-  another_flushbar:
-    dependency: "direct main"
-    description:
-      name: another_flushbar
-      sha256: "19bf9520230ec40b300aaf9dd2a8fefcb277b25ecd1c4838f530566965befc2a"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.12.30"
   archive:
     dependency: transitive
     description:
@@ -589,6 +581,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.17"
+  injectable:
+    dependency: "direct main"
+    description:
+      name: injectable
+      sha256: fbe4b673f8c344e03eb4ab50fa853405872f401bbf6a7ba84b2b7447ac81ed1b
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.2"
+  injectable_generator:
+    dependency: "direct dev"
+    description:
+      name: injectable_generator
+      sha256: "4fe3db041b680098ce3af40b680734906e955a0ce89170d3993626d48d27b2f3"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.6"
   intl:
     dependency: "direct main"
     description:
@@ -845,6 +853,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.3"
+  recase:
+    dependency: transitive
+    description:
+      name: recase
+      sha256: e4eb4ec2dcdee52dcf99cb4ceabaffc631d7424ee55e56f280bc039737f89213
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.1.0"
   rxdart:
     dependency: transitive
     description:
@@ -986,6 +1002,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.1"
+  top_snackbar_flutter:
+    dependency: "direct main"
+    description:
+      name: top_snackbar_flutter
+      sha256: "22d14664a13db6ac714934c3382bd8d4daa57fb888a672f922df71981c5a5cb2"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.1.0"
   typed_data:
     dependency: transitive
     description:

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:hh_express/data/remote/interceptors/log_interceptor.dart';
 import 'package:hh_express/helpers/extentions.dart';
@@ -41,7 +43,7 @@ class DioClient {
 
   late final Dio _dio;
 
-  Future<ApiResponse?> post({
+  Future<ApiResponse> post({
     required String endPoint,
     dynamic data,
     Map<String, dynamic>? queryParameters,
@@ -55,12 +57,13 @@ class DioClient {
       );
       return ApiResponse.fromJson(res.data as Map<String, dynamic>);
     } catch (e, s) {
-      'ERROR POST'.log();
-      
+      'zero Step'.log();
+
+      return _handleException(e, s);
     }
   }
 
-  Future<ApiResponse?> get({
+  Future<ApiResponse> get({
     required String endPoint,
     Map<String, dynamic>? data,
     Map<String, dynamic>? queryParameters,
@@ -76,7 +79,7 @@ class DioClient {
       return ApiResponse.fromJson(res.data as Map<String, dynamic>);
     } catch (e, s) {
       'ERROR GET'.log();
-      return null;
+      return _handleException(e, s);
     }
   }
 
@@ -90,8 +93,32 @@ class DioClient {
       final response = await _dio.delete(endPoint,
           data: data, options: options, queryParameters: queryParameters);
     } catch (e, s) {
+      _handleException(e, s);
       'ERROR GET'.log();
-      
     }
   }
+}
+
+ApiResponse _handleException(Object e, StackTrace? stack) {
+  final error = e as DioException;
+
+  if (e.error is SocketException) {
+    'MY log Soceet Exeptionnn'.log();
+    return ApiResponse(
+      data: {},
+      error: 'SocketExeption',
+      message: 'Socket Exeption Show Some TellSomeThing',
+      success: false,
+    );
+  }
+  if (e.response != null && e.response!.data != null) {
+    '${e.requestOptions.data} MyDioExeption'.log();
+    return ApiResponse.fromJson(e.response!.data);
+  }
+  return ApiResponse(
+    data: {},
+    error: 'MyUnknown Error',
+    message: 'MyUnknown Error',
+    success: false,
+  );
 }

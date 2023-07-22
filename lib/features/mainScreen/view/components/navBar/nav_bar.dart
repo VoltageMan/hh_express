@@ -12,22 +12,8 @@ final bodyIndex = ValueNotifier<int>(0);
 class MyNavBar extends StatelessWidget {
   const MyNavBar({super.key});
 
-  bool inHome() {
-    final location = appRouter.location;
-    for (var i in AppRoutes.navBar) {
-      if (i == location) {
-        return true;
-      }
-    }
-    return false;
-  }
-
   @override
   Widget build(BuildContext context) {
-    
-    if (!inHome()) {
-      return SizedBox();
-    }
     final theme = Theme.of(context).bottomNavigationBarTheme;
     final l10n = context.l10n;
     final navBarTitles = [
@@ -49,13 +35,11 @@ class MyNavBar extends StatelessWidget {
               ? CartIcon(
                   onTap: () {
                     bodyIndex.value = index;
-                    context.go(AppRoutes.navBar[index], extra: index);
                   },
                 )
               : GestureDetector(
                   onTap: () {
                     bodyIndex.value = index;
-                    context.go(AppRoutes.navBar[index], extra: index);
                   },
                   child: Container(
                     // gyralaryna basanda basylanok, without color

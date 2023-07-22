@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hh_express/features/components/widgets/svg_icons.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/routes.dart';
+import 'package:hh_express/helpers/spacers.dart';
 import 'package:hh_express/settings/consts.dart';
 
 class ProdDetailsAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -15,6 +16,7 @@ class ProdDetailsAppBar extends StatelessWidget implements PreferredSizeWidget {
     final theme = Theme.of(context);
 
     return Container(
+      margin: EdgeInsets.only(top: AppSpacing.topPad),
       height: 52.h,
       padding: AppPaddings.horiz_16,
       alignment: Alignment.centerLeft,

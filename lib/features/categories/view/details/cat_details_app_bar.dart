@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/features/components/widgets/pop_leading.dart';
 import 'package:hh_express/features/components/widgets/svg_icons.dart';
 import 'package:hh_express/helpers/modal_sheets.dart';
+import 'package:hh_express/helpers/spacers.dart';
 import 'package:hh_express/settings/consts.dart';
 
 class CatDetailsAppbar extends StatelessWidget implements PreferredSizeWidget {
@@ -14,6 +15,7 @@ class CatDetailsAppbar extends StatelessWidget implements PreferredSizeWidget {
     final theme = Theme.of(context);
     return Container(
       height: 52.h,
+      margin: EdgeInsets.only(top: AppSpacing.topPad),
       padding: AppPaddings.horiz_16,
       alignment: Alignment.centerLeft,
       decoration: BoxDecoration(

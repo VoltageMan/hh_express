@@ -16,7 +16,7 @@
     "code": "Kod",
     "phoneNumber": "Telefon Belgiňiz",
     "name": "Ady",
-    "resisterTitle": "hh platformasyna dowam etmek üçin telafon belgiňizi giriziň",
+    "registerTitle": "hh platformasyna dowam etmek üçin telafon belgiňizi giriziň",
     "news": "Täze",
     "mostSold": "Köp satylanlar",
     "userName": "Ulanyjynyň ady",
@@ -53,5 +53,8 @@
     "aboutProd": "Haryt barada",
     "prodName": "Harydyn ady",
     "color": "Reňki",
-    "size": "Ölçegi"
+    "size": "Ölçegi",
+    "password": "Açar sözi",
+    "singIn": "Girmek",
+    "next": "Dowam et"
 }

@@ -17,6 +17,7 @@ class NotificationsAppBar extends StatelessWidget
     final theme = context.theme;
     return Container(
       height: 52.h..log(),
+      margin: EdgeInsets.only(top: AppSpacing.topPad),
       padding: AppPaddings.horiz_16,
       decoration: BoxDecoration(
         color: theme.appBarTheme.backgroundColor,

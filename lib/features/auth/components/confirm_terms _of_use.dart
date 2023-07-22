@@ -13,7 +13,7 @@ class TermsOfUseWidget extends StatefulWidget {
 }
 
 class _TermsOfUseWidgetState extends State<TermsOfUseWidget> {
-  bool boxVal = true;
+  bool boxVal = false;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +44,21 @@ class _TermsOfUseWidgetState extends State<TermsOfUseWidget> {
               TextSpan(
                 text: 'ylalasyan',
                 recognizer: TapGestureRecognizer()
-                  ..onTap = () {
+                  ..onTap = () async {
+                    await showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        actions: [
+                          TextButton(
+                            child: Text(
+                              'Bolya agam',
+                            ),
+                            onPressed: () => Navigator.pop(context),
+                          )
+                        ],
+                        content: Text('Draw me terms of usage page or dialog'),
+                      ),
+                    );
                     'go to terms of useage page or dialog (there is no desinge)'
                         .log();
                   },

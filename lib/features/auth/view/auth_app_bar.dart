@@ -6,7 +6,8 @@ import 'package:hh_express/helpers/spacers.dart';
 import 'package:hh_express/settings/consts.dart';
 
 class AuthAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const AuthAppBar({super.key});
+  const AuthAppBar({super.key, required this.title});
+  final String title;
 
   @override
   Size get preferredSize => Size.fromHeight(52.h);
@@ -14,8 +15,10 @@ class AuthAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     final theme = context.theme;
+
     return Container(
       height: 52.h,
+      margin: EdgeInsets.only(top: AppSpacing.topPad),
       decoration: BoxDecoration(
         color: theme.appBarTheme.backgroundColor,
         boxShadow: AppColors.appBarShadow,
@@ -34,7 +37,7 @@ class AuthAppBar extends StatelessWidget implements PreferredSizeWidget {
             },
           ),
           Text(
-            context.l10n.registration,
+            title,
             style: theme.appBarTheme.titleTextStyle,
           ),
           SizedBox.square(

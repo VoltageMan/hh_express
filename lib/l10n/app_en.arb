@@ -16,7 +16,7 @@
   "code": "Code",
   "phoneNumber": "Phone number",
   "name": "Name",
-  "resterTitle": "Enter your phone number to continue to the hh platform",
+  "registerTitle": "Enter your phone number to continue to the hh platform",
   "news": "New",
   "mostSold": "Most sold",
   "userName": "User name",
@@ -53,5 +53,8 @@
   "aboutProd": "About product",
   "prodName": "Product Name",
   "color": "Color",
-  "size": "Size"
+  "size": "Size",
+  "password": "Password",
+  "singIn": "Sing in",
+  "next": "Continue"
 }

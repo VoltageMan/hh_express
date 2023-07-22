@@ -9,8 +9,10 @@ class LoggerInterceptor extends Interceptor {
         '${options.baseUrl}${options.path} \n data:${options.data}';
     '!!! ${options.method} request => $requestPath'.log();
     '!!! Error: ${err.error}, Message: ${err.message}'.log(); // Error log
-    '!!! Error RESPONSE MESSAGE: ${err.response!.statusMessage}, Message: ${err.response!.data}, Error Message: ${err.message}'
-        .log(); // Error log
+    if (err.response != null) {
+      '!!! Error RESPONSE MESSAGE: ${err.response!.statusMessage}, Message: ${err.response!.data}, Error Message: ${err.message}'
+          .log();
+    }
     return super.onError(err, handler);
   }
 

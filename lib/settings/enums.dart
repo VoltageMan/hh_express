@@ -5,8 +5,7 @@ enum APiState {
   succses,
 }
 
-
-enum LocalDataKeys{
+enum LocalDataKeys {
   me,
   lang,
 }

@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 import 'package:hh_express/features/components/widgets/place_holder.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/routes.dart';
-import 'package:hh_express/models/profile/user/user_model.dart';
 import 'package:hh_express/settings/consts.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:hh_express/settings/theme.dart';
@@ -19,8 +18,6 @@ class HomeProdWidget extends StatelessWidget {
     final isLoading = prod != null;
     return GestureDetector(
       onTap: () {
-        appRouter.location.log();
-        AppRoutes.navBar.first.log();
         // final user = UserModel(
         //   entity: '99361616161',
         //   id: 2,
@@ -28,6 +25,7 @@ class HomeProdWidget extends StatelessWidget {
         //   password: 'ArcalykWoda',
         // );
         // 'sssososo'.log();
+
         appRouter.currentContext.push(AppRoutes.prodDetails);
       },
       child: Container(

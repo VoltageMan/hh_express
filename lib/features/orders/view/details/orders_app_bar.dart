@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hh_express/features/components/widgets/svg_icons.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/routes.dart';
+import 'package:hh_express/helpers/spacers.dart';
 import 'package:hh_express/settings/consts.dart';
 
 class OrderDetailsAppBar extends StatelessWidget
@@ -17,6 +18,7 @@ class OrderDetailsAppBar extends StatelessWidget
     final theme = Theme.of(context);
     return Container(
       height: 52.h,
+      margin: EdgeInsets.only(top: AppSpacing.topPad),
       padding: AppPaddings.horiz_16,
       alignment: Alignment.centerLeft,
       decoration: BoxDecoration(

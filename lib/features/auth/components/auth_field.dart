@@ -4,41 +4,63 @@ import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/settings/consts.dart';
 import 'package:hh_express/settings/theme.dart';
 
-class AuthField extends StatelessWidget {
+class AuthField extends StatefulWidget {
   const AuthField({super.key, required this.label, required this.controller});
   final String label;
   final TextEditingController controller;
 
   @override
+  State<AuthField> createState() => _AuthFieldState();
+}
+
+class _AuthFieldState extends State<AuthField> {
+  final border = OutlineInputBorder(
+      borderRadius: AppBorderRadiuses.border_6, borderSide: BorderSide.none);
+
+  bool? passWordShown;
+  @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final border = OutlineInputBorder(
-        borderRadius: AppBorderRadiuses.border_6, borderSide: BorderSide.none);
-    final hasPrefix = label == context.l10n.phoneNumber;
-    final forName = label == context.l10n.name;
+    final l10n = context.l10n;
+    final hasPrefix = widget.label == l10n.phoneNumber;
+    final forName = widget.label == l10n.userName;
+    final forPassWord = widget.label == l10n.password;
+    if (passWordShown == null) {
+      passWordShown = forPassWord;
+    }
 
     return Container(
       height: 48.h,
       alignment: Alignment.center,
       margin: AppPaddings.horiz_16.copyWith(bottom: 30.h),
       child: TextField(
+        controller: widget.controller,
         autocorrect: false,
         buildCounter: (context,
             {currentLength = 0, isFocused = false, maxLength = 5}) {
           return null;
         },
         style: AppTheme.titleMedium12(context),
-        keyboardType: forName ? null : TextInputType.number,
-        maxLength: hasPrefix
-            ? 8
-            : forName
-                ? 10
-                : 5,
+        keyboardType: forName || forPassWord ? null : TextInputType.phone,
+        maxLength: hasPrefix ? 8 : null,
+        obscureText: passWordShown!,
         decoration: InputDecoration(
           prefixText: hasPrefix ? '+993 ' : null,
+          suffix: forPassWord
+              ? GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      passWordShown = !passWordShown!;
+                    });
+                  },
+                  child: Icon(passWordShown!
+                      ? Icons.visibility_off_outlined
+                      : Icons.visibility_outlined),
+                )
+              : null,
           // contentPadding: AppPaddings.horiz12_vertic17.copyWith(bottom: 30.h),
           filled: true,
-          labelText: label,
+          labelText: widget.label,
           fillColor: theme.inputDecorationTheme.fillColor,
           focusColor: theme.inputDecorationTheme.fillColor,
           border: border,
@@ -56,6 +78,6 @@ void some() {
   const akge = 'Akga';
   const input = 'input';
   final map = {roswen: 'musurDal', akge: 'musur'};
-  
+
   print(map[input]);
 }

@@ -1,8 +1,12 @@
+import 'dart:io';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/data/local/secured_storage.dart';
-import 'package:hh_express/features/cart/view/widet.dart';
+import 'package:hh_express/features/auth/bloc/auth_bloc.dart';
+import 'package:hh_express/features/components/confirm_some.dart';
 import 'package:hh_express/features/home/bloc/home_bloc.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/routes.dart';
@@ -34,9 +38,8 @@ class _MyAppState extends State<MyApp> {
     waiting();
     return MultiBlocProvider(
       providers: [
-        BlocProvider(
-          create: (context) => HomeBloc(),
-        ),
+        BlocProvider(create: (context) => HomeBloc()),
+        BlocProvider(create: (context) => AuthBloc())
       ],
       child: ScreenUtilInit(
         designSize: const Size(360, 800),
@@ -84,15 +87,22 @@ class _TestScreenState extends State<TestScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView.custom(
-        childrenDelegate: SliverChildListDelegate(
-          [
-            for (int i = 0; i < 99; i++) const CartWidget(),
-          ],
+      body: Center(
+        child: ConfirmSomeTh(
+          title: 'ShowSnack',
+          width: 200.w,
+          onTap: () async {
+            try {
+              'Start'.log();
+              final data = await Dio().get('https://huysuhdu');
+              'End'.log();
+            } catch (e, stack) {
+              final error = e as DioException;
+              'the error/n ${error.error is SocketException}'.log();
+            }
+          },
         ),
       ),
     );
   }
 }
-
-void some() {}

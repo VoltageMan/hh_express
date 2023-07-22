@@ -1,6 +1,4 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:hh_express/data/remote/dio_client.dart';
 import 'package:hh_express/features/cart/view/cart_body.dart';
 import 'package:hh_express/features/categories/view/body.dart';
 import 'package:hh_express/features/home/view/body.dart';
@@ -9,25 +7,14 @@ import 'package:hh_express/features/mainScreen/view/components/navBar/nav_bar.da
 import 'package:hh_express/features/profile/view/profile_body.dart';
 import 'package:hh_express/features/video/view/home_video.dart';
 import 'package:hh_express/helpers/confirm_exit.dart';
-import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/modal_sheets.dart';
-import 'package:hh_express/helpers/spacers.dart';
 import 'dart:developer';
 
-import 'package:hh_express/settings/consts.dart';
-
 class MainScreen extends StatefulWidget {
-  const MainScreen({super.key, required this.body, required this.index});
-  final Widget body;
-  final int? index;
+  const MainScreen({
+    super.key,
+  });
 
-  static const List<Widget> bodies = [
-    HomeScreen(),
-    HomeVideos(),
-    CategoryBody(),
-    CartScreen(),
-    ProfileBody(),
-  ];
   static final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -40,6 +27,20 @@ class _MainScreenState extends State<MainScreen> {
     super.initState();
   }
 
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    bodies = null;
+  }
+
+  List<Widget>? bodies = [
+    HomeScreen(),
+    HomeVideos(),
+    CategoryBody(),
+    CartScreen(),
+    ProfileBody(),
+  ];
   bool _dialogShown = false;
   @override
   Widget build(BuildContext context) {
@@ -64,10 +65,13 @@ class _MainScreenState extends State<MainScreen> {
         key: MainScreen.scaffoldKey,
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.white,
-        appBar: MainAppBar(
-          index: widget.index,
+        appBar: MainAppBar(),
+        body: ValueListenableBuilder(
+          valueListenable: bodyIndex,
+          builder: (contetx, val, child) {
+            return bodies![val];
+          },
         ),
-        body: widget.body,
         bottomNavigationBar: const MyNavBar(),
       ),
     );

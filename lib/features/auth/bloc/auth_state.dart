@@ -1,17 +1,13 @@
 part of 'auth_bloc.dart';
 
 class AuthState {
-  const AuthState({
-    required this.termsConfirmed,
-    this.state = APiState.init,
-  });
-  final bool termsConfirmed;
-  final APiState state;
+  const AuthState({required this.aPiState, this.message});
+  final APiState aPiState;
+  final String? message;
 
   AuthState update(AuthState state) {
     return AuthState(
-      termsConfirmed: state.termsConfirmed,
-      state: state.state,
+      aPiState: state.aPiState,
     );
   }
 }
