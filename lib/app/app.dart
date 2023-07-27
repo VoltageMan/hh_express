@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hh_express/app/test_screen.dart';
 import 'package:hh_express/data/local/secured_storage.dart';
 import 'package:hh_express/features/auth/bloc/auth_bloc.dart';
 import 'package:hh_express/features/components/confirm_some.dart';
@@ -56,6 +57,7 @@ class _MyAppState extends State<MyApp> {
                 debugShowCheckedModeBanner: false,
                 localizationsDelegates: AppLocalizations.localizationsDelegates,
                 builder: (context, child) {
+                  return TestScreen();
                   AppSpacing.setTopPad(context);
                   return waited
                       ? Navigator(
@@ -71,37 +73,6 @@ class _MyAppState extends State<MyApp> {
             },
           );
         },
-      ),
-    );
-  }
-}
-
-class TestScreen extends StatefulWidget {
-  const TestScreen({super.key});
-
-  @override
-  State<TestScreen> createState() => _TestScreenState();
-}
-
-class _TestScreenState extends State<TestScreen> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: ConfirmSomeTh(
-          title: 'ShowSnack',
-          width: 200.w,
-          onTap: () async {
-            try {
-              'Start'.log();
-              final data = await Dio().get('https://huysuhdu');
-              'End'.log();
-            } catch (e, stack) {
-              final error = e as DioException;
-              'the error/n ${error.error is SocketException}'.log();
-            }
-          },
-        ),
       ),
     );
   }

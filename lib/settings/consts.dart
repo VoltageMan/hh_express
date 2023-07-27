@@ -201,8 +201,8 @@ class AssetsPath {
 
 class EndPoints {
   static const baseUrl = 'http://216.250.9.74/';
-  static const logIn = '/api/v1/auth/login';
-  static const register = '/api/v1/auth/register';
-  static const authMe = '/api/v1/auth/me';
-  static const logOut = '/api/v1/auth/logout';
+  static const logIn = 'api/v1/auth/login';
+  static const register = 'api/v1/auth/register';
+  static const authMe = 'api/v1/auth/me';
+  static const logOut = 'api/v1/auth/logout';
 }

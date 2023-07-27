@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:hh_express/data/local/secured_storage.dart';
 import 'package:hh_express/data/remote/dio_client.dart';
 import 'package:hh_express/models/api/response_model.dart';
 import 'package:hh_express/models/auth/auth_model.dart';
@@ -20,7 +21,7 @@ class AuthRepoImpl extends AuthRepo with DioClientMixin {
   }
 
   @override
-  Future<ApiResponse?> register(AuthModel model) async {
+  Future<ApiResponse> register(AuthModel model) async {
     final response = await dio.post(
       endPoint: EndPoints.register,
       data: model.toJson(),
@@ -29,29 +30,29 @@ class AuthRepoImpl extends AuthRepo with DioClientMixin {
   }
 
   @override
-  Future<ApiResponse?> logOut(UserModel model) async {
+  Future<ApiResponse> logOut(String token) async {
+    final headers = {
+      'Authorization': 'Bearer $token',
+    };
     final response = await dio.delete(
-        endPoint: EndPoints.logOut,
-        data: model.toJson(),
-        queryParameters: {
-          'id': model.id,
-        });
+      endPoint: EndPoints.logOut,
+      options: Options(
+        headers: headers,
+      ),
+    );
     return response;
   }
 
   @override
-  Future<ApiResponse> authMe() async {
-    final tokenStr = '36|WBGgx7PoLcOB85g3chnvPNqPiDQQ5Kiz3NpXa214';
-    final data = {
-      'authentication': 'Bearer$tokenStr',
+  Future<ApiResponse> authMe(String token) async {
+    final headers = {
+      'Authorization': 'Authorization: Bearer $token',
     };
     final response = await dio.get(
       endPoint: EndPoints.authMe,
       options: Options(
-        headers: data,
-        extra: data,
+        headers: headers,
       ),
-      queryParameters: data,
     );
     return response;
   }

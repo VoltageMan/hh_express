@@ -9,30 +9,24 @@ import 'package:hh_express/settings/globals.dart';
 
 class LocalStorage {
   static final _storage = new FlutterSecureStorage();
-  static UserModel? me;
 
   static Future<void> init() async {
     await _setMyLang();
-    await _getMe();
     _langSaver();
   }
 
-  static Future<void> _getMe() async {
-    final data = await _storage.read(key: LocalDataKeys.me.name);
-    if (data != null) {
-      me = UserModel.fromJson(jsonDecode(data));
-    }
+  static Future<void> saveToken(String token) async {
+    final newData =
+        await _storage.write(key: LocalDataKeys.token.name, value: token);
   }
 
-  static Future<void> saveMe(UserModel user) async {
-    final newData = await _storage.write(
-        key: LocalDataKeys.me.name, value: jsonEncode(user.toJson()));
-    me = user;
+  static Future<String?> getToken() async {
+    final token = await _storage.read(key: LocalDataKeys.token.name);
+    return token;
   }
 
-  static Future<void> unSaveMe() async {
-    me = null;
-    await _storage.delete(key: LocalDataKeys.me.name);
+  static Future<void> deleteToken() async {
+    await _storage.delete(key: LocalDataKeys.token.name);
   }
 
   static Future<void> _setMyLang() async {

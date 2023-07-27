@@ -40,10 +40,10 @@ final appRouter = GoRouter(
     GoRoute(
       path: AppRoutes.auth,
       pageBuilder: (context, state) {
-        final extra = state.extra as bool;
+        final extra = state.extra as bool?;
         return CustomTransitionPage(
           child: AuthScreen(
-            forSingUp: extra,
+            forSingUp: extra ?? true,
           ),
           transitionsBuilder: (context, animation, secondaryAnimation, child) =>
               CupertinoPageTransition(

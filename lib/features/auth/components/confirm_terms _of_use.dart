@@ -6,8 +6,8 @@ import 'package:hh_express/helpers/spacers.dart';
 import 'package:hh_express/settings/consts.dart';
 
 class TermsOfUseWidget extends StatefulWidget {
-  const TermsOfUseWidget({super.key});
-
+  const TermsOfUseWidget({super.key, required this.onChanged});
+  final void Function(bool some) onChanged;
   @override
   State<TermsOfUseWidget> createState() => _TermsOfUseWidgetState();
 }
@@ -27,9 +27,9 @@ class _TermsOfUseWidgetState extends State<TermsOfUseWidget> {
           child: Checkbox(
             value: boxVal,
             onChanged: (value) {
-              setState(() {
-                boxVal = !boxVal;
-              });
+              boxVal = !boxVal;
+              widget.onChanged(boxVal);
+              setState(() {});
             },
           ),
         ),

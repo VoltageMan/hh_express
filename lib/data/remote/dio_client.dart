@@ -83,7 +83,7 @@ class DioClient {
     }
   }
 
-  Future<ApiResponse?> delete({
+  Future<ApiResponse> delete({
     required String endPoint,
     Map<String, dynamic>? data,
     Map<String, dynamic>? queryParameters,
@@ -92,9 +92,9 @@ class DioClient {
     try {
       final response = await _dio.delete(endPoint,
           data: data, options: options, queryParameters: queryParameters);
+      return ApiResponse.fromJson(response.data);
     } catch (e, s) {
-      _handleException(e, s);
-      'ERROR GET'.log();
+      return _handleException(e, s);
     }
   }
 }

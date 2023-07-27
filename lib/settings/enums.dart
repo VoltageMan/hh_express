@@ -1,4 +1,4 @@
-enum APiState {
+enum APIState {
   init,
   loading,
   error,
@@ -6,6 +6,6 @@ enum APiState {
 }
 
 enum LocalDataKeys {
-  me,
+  token,
   lang,
 }

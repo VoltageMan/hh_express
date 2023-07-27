@@ -5,7 +5,7 @@ import 'package:hh_express/models/profile/user/user_model.dart';
 
 abstract class AuthRepo {
   Future<ApiResponse> logIn(AuthModel loginReqModel);
-  Future<ApiResponse?> register(AuthModel loginReqModel);
-  Future<ApiResponse?> logOut(UserModel loginReqModel);
-  Future<ApiResponse> authMe();
+  Future<ApiResponse> register(AuthModel loginReqModel);
+  Future<ApiResponse> logOut(String token);
+  Future<ApiResponse> authMe(String token);
 }

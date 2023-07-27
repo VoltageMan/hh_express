@@ -46,21 +46,22 @@ class _AuthBodyState extends State<AuthBody>
     super.dispose();
   }
 
-  void myShowSnack(String message, APiState state) {
-    if (state == APiState.error) {
+  void myShowSnack(String message, APIState state) {
+    if (state == APIState.error) {
       showTopSnackBar(
         Overlay.of(context),
         CustomSnackBar.error(message: message),
       );
       return;
     }
-    if (state == APiState.succses) {
+    if (state == APIState.succses) {
       showTopSnackBar(
           Overlay.of(context), CustomSnackBar.success(message: message));
     }
   }
 
   bool _loading = false;
+  bool _termsConfirmed = false;
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +70,7 @@ class _AuthBodyState extends State<AuthBody>
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
         'AuthListener'.log();
-        myShowSnack(state.message ?? ' NOMessage', state.aPiState);
+        myShowSnack(state.message ?? ' NOMessage', state.apiState);
       },
       child: Column(
         children: [
@@ -103,13 +104,19 @@ class _AuthBodyState extends State<AuthBody>
                     const Expanded(
                       child: SizedBox(),
                     ),
-                    widget.forSingUp ? const TermsOfUseWidget() : SizedBox(),
+                    widget.forSingUp
+                        ? TermsOfUseWidget(
+                            onChanged: (val) {
+                              _termsConfirmed = val;
+                            },
+                          )
+                        : SizedBox(),
                   ],
                 ),
                 Column(
                   children: [
                     AuthField(
-                      label: context.l10n.code,
+                      label: context.l10n.password,
                       controller: codeController,
                     )
                   ],
@@ -122,20 +129,50 @@ class _AuthBodyState extends State<AuthBody>
             child: BlocBuilder<AuthBloc, AuthState>(
               builder: (context, state) {
                 return ConfirmSomeTh(
-                  disabled: state.aPiState == APiState.loading,
+                  disabled: state.apiState == APIState.loading,
                   title: l10n.next,
                   onTap: () async {
                     'some'.log();
-                    final number = numController.text;
+                    final number = '993${numController.text}';
                     final password = codeController.text;
-                    if (widget.forSingUp) {
-                      // register func
+                    final name = nameController.text == '' && !forSingUp
+                        ? null
+                        : nameController.text;
+                    final model = AuthModel(
+                        entity: number, password: password, name: name);
+
+                    final bloc = context.read<AuthBloc>();
+                    if (!bloc.checkName(name) || !bloc.checkNum(number)) {
                       return;
                     }
-                    final model =
-                        AuthModel(entity: '993$number', password: password);
-                    '${model.entity} TheNum'.log();
-                    context.read<AuthBloc>().logIn(model);
+                    if (widget.forSingUp) {
+                      if (!_termsConfirmed) {
+                        myShowSnack('Confirm Terms of usage', APIState.error);
+                        return;
+                      }
+                      if (tabContrller.index == 0) {
+                        tabContrller.animateTo(1);
+                        return;
+                      }
+                      if (!bloc.checkPass(password)) {
+                        return;
+                      }
+                      bloc.singUp(model).then((value) {
+                        if (value) {
+                          context.pop();
+                          return;
+                        }
+                        tabContrller.animateTo(0);
+                      });
+                      return;
+                    }
+                    bloc.logIn(model).then((value) {
+                      if (value) {
+                        context.pop();
+                        return;
+                      }
+                    });
+                    return;
                   },
                 );
               },
