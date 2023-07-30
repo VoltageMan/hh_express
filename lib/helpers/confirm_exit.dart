@@ -1,15 +1,19 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:hh_express/helpers/extentions.dart';
-import 'package:hh_express/settings/consts.dart';
+import 'package:hh_express/settings/theme.dart';
 
 class Confirm {
   static bool exit = false;
+  static BuildContext? currentContext;
   static Future<bool> confirmExit(BuildContext context) async {
     exit = false;
     await showDialog(
       context: context,
-      builder: (context) => const ConfirmExitDialog(),
+      builder: (context) {
+        currentContext = context;
+        return const ConfirmExitDialog();
+      },
     );
     log('$exit after tap');
     return exit;
@@ -21,28 +25,29 @@ class ConfirmExitDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context).textButtonTheme;
-    log(theme.toString());
+    final theme = Theme.of(context).textButtonTheme.style as MyButtonStyle;
     return AlertDialog(
       content: Text(
-        AppTitles.confirmExit!,
+        context.l10n.exitConfirm,
       ),
       actions: [
         TextButton(
+          style: theme,
           onPressed: () => Navigator.pop(context),
-          style: theme.style, 
           child: Text(
-            AppTitles.cancle!,
-          )..log(),
+            context.l10n.cancle,
+            style: theme.myTextStyle,
+          ),
         ),
         TextButton(
           onPressed: () {
             Confirm.exit = true;
             Navigator.pop(context);
           },
-          style: theme.style,
+          style: theme,
           child: Text(
-            AppTitles.exit!,
+            context.l10n.exit,
+            style: theme.myTextStyle,
           ),
         ),
       ],

@@ -5,8 +5,20 @@ class AppSpacing {
   static SizedBox vertical_4 = SizedBox(
     height: 4.h,
   );
+  static SizedBox horizontal_5_5 = SizedBox(
+    width: 5.5.w,
+  );
+  static SizedBox vertical_7 = SizedBox(
+    height: 7.h,
+  );
   static SizedBox horizontal_4 = SizedBox(
     width: 4.w,
+  );
+  static SizedBox horizontal_5 = SizedBox(
+    width: 5.w,
+  );
+  static SizedBox vertical_10 = SizedBox(
+    height: 10.h,
   );
   static SizedBox vertical_12 = SizedBox(
     height: 12.h,
@@ -35,6 +47,18 @@ class AppSpacing {
   static SizedBox vertical_24 = SizedBox(
     height: 24.h,
   );
+  static SizedBox vertical_25 = SizedBox(
+    height: 25.h,
+  );
+  static SizedBox vertical_26 = SizedBox(
+    height: 26.h,
+  );
+  static SizedBox vertical_30 = SizedBox(
+    height: 30.h,
+  );
+  static SizedBox vertical_40 = SizedBox(
+    height: 40.h,
+  );
   static SizedBox vertical_60 = SizedBox(
     height: 60.h,
   );
@@ -51,11 +75,20 @@ class AppSpacing {
   static SizedBox vertical_14 = SizedBox(
     height: 14.h,
   );
+  static SizedBox vertical_15 = SizedBox(
+    height: 15.h,
+  );
   static SizedBox horizontal_14 = SizedBox(
     width: 14.w,
   );
-  int a = 0;
-  void newSomeThing() {
-    
+
+  static double topPad = 0;
+
+  static setTopPad(BuildContext context) {
+    if (topPad != 0) {
+      return;
+    }
+    final padding = MediaQuery.paddingOf(context).top;
+    topPad = padding;
   }
 }

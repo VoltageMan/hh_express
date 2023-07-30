@@ -61,6 +61,14 @@ android {
             signingConfig signingConfigs.debug
         }
     }
+//      splits {
+//     abi {
+//       enable true
+//       reset()
+//       include "armeabi-v7a"
+//       universalApk false
+//     }
+//   }
 }
 
 flutter {

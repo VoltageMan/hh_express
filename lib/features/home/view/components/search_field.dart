@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_svg_provider/flutter_svg_provider.dart' as svgProv;
-import 'package:hh_express/features/widgets/svg_icons.dart';
+import 'package:hh_express/features/components/widgets/svg_icons.dart';
+import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/settings/consts.dart';
 
 class HomeSearchField extends StatefulWidget {
-  HomeSearchField({super.key});
-
+  const HomeSearchField({super.key});
+//  final TextEditingController controller;
   @override
   State<HomeSearchField> createState() => _HoemSearchFieldState();
 }
@@ -19,12 +18,11 @@ class _HoemSearchFieldState extends State<HomeSearchField> {
     final theme = Theme.of(context).inputDecorationTheme;
     return Container(
       alignment: Alignment.centerLeft,
-      padding: AppPaddings.right_6,
-      height: 40.h,
-      width: 246.w,
+      padding: AppPaddings.all_2,
+      margin: AppPaddings.vertic_6,
       decoration: BoxDecoration(
         color: theme.fillColor,
-        borderRadius: AppBorderRadiuses.borderRadius_6circular,
+        borderRadius: AppBorderRadiuses.border_6,
       ),
       child: TextField(
         maxLines: 1,
@@ -32,8 +30,9 @@ class _HoemSearchFieldState extends State<HomeSearchField> {
         // scrollPadding: EdgeInsets.zero,
         textInputAction: TextInputAction.search,
         focusNode: focus,
+        style: Theme.of(context).textTheme.bodyMedium,
         decoration: InputDecoration(
-          hintText: AppTitles.searchHint,
+          hintText: context.l10n.searchHint,
           prefixIcon: Padding(
             padding: EdgeInsets.symmetric(
               vertical: 7.h,
@@ -43,7 +42,6 @@ class _HoemSearchFieldState extends State<HomeSearchField> {
               iconSize: 20.8.h,
             ),
           ),
-          contentPadding: EdgeInsets.symmetric(vertical: 7.h),
           border: InputBorder.none,
           errorBorder: InputBorder.none,
           disabledBorder: InputBorder.none,
