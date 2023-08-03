@@ -1,9 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:hh_express/data/local/secured_storage.dart';
 import 'package:hh_express/data/remote/dio_client.dart';
 import 'package:hh_express/models/api/response_model.dart';
 import 'package:hh_express/models/auth/auth_model.dart';
-import 'package:hh_express/models/profile/user/user_model.dart';
 import 'package:hh_express/repositories/auth/auth_repositori.dart';
 import 'package:hh_express/settings/consts.dart';
 import 'package:injectable/injectable.dart';

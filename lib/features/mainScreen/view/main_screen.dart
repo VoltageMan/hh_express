@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:hh_express/features/cart/view/cart_body.dart';
 import 'package:hh_express/features/categories/view/body.dart';
 import 'package:hh_express/features/home/view/body.dart';
@@ -11,7 +10,6 @@ import 'package:hh_express/helpers/confirm_exit.dart';
 import 'package:hh_express/helpers/modal_sheets.dart';
 import 'dart:developer';
 
-import 'package:hh_express/settings/consts.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({

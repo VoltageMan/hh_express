@@ -5,8 +5,6 @@ import 'package:hh_express/data/local/secured_storage.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/routes.dart';
 import 'package:hh_express/models/auth/auth_model.dart';
-import 'package:hh_express/models/profile/profile.dart';
-import 'package:hh_express/models/profile/user/user_model.dart';
 import 'package:hh_express/repositories/auth/auth_repositori.dart';
 import 'package:hh_express/settings/enums.dart';
 
@@ -29,7 +27,7 @@ class AuthBloc extends Cubit<AuthState> {
       emit(AuthState(apiState: APIState.init));
       return null;
     }
-    final response = await _repo.authMe(token!);
+    final response = await _repo.authMe(token);
     if (response.success) {
       emit(AuthState(apiState: APIState.succses, message: response.message));
       return response.data;

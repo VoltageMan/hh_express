@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/features/components/confirm_some.dart';
 import 'package:hh_express/features/components/widgets/nav_bar_body.dart';
 import 'package:hh_express/features/productDetails/components/counter_button.dart';

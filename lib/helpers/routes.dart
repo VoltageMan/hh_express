@@ -1,6 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hh_express/features/auth/view/auth_screen.dart';
 import 'package:hh_express/features/categories/view/details/category_details.dart';

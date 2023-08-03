@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hh_express/features/mainScreen/view/components/navBar/cart_icon.dart';
 import 'package:hh_express/features/components/widgets/svg_icons.dart';
 import 'package:hh_express/helpers/extentions.dart';
-import 'package:hh_express/helpers/routes.dart';
 import 'package:hh_express/settings/consts.dart';
 
 final bodyIndex = ValueNotifier<int>(0);

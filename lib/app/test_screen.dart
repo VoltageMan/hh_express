@@ -1,11 +1,8 @@
-import 'dart:io';
 
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/app/setup.dart';
 import 'package:hh_express/features/components/confirm_some.dart';
-import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/models/auth/auth_model.dart';
 import 'package:hh_express/repositories/auth/auth_repositori.dart';
 
@@ -35,7 +32,7 @@ class _TestScreenState extends State<TestScreen> {
             onTap: () async {
               try {
                 // final response = await repo.authMe();
-              } catch (e, stack) {}
+              } catch (e) {}
             },
           ),
           SizedBox(

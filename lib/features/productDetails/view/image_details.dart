@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/features/components/widgets/place_holder.dart';
 import 'package:hh_express/features/productDetails/components/image_indicator.dart';
 import 'package:hh_express/helpers/extentions.dart';
-import 'package:hh_express/helpers/spacers.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:hh_express/settings/consts.dart';
 

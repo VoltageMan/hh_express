@@ -45,7 +45,7 @@ class _FilterSheetBodyState extends State<FilterSheetBody> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     BottomSheetTitle(
-                      title: context.l10n.filter!,
+                      title: context.l10n.filter,
                     ),
                     AppSpacing.vertical_15,
                     ExtendedWrap(

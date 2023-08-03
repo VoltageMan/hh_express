@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/settings/consts.dart';
 
 class ImageIndicator extends StatefulWidget {
