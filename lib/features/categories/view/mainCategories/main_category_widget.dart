@@ -16,7 +16,7 @@ class MainCategoriesWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const isLoading = 1 == 2;
+    const isLoading = false;
     return Container(
       width: 76.w,
       padding: AppPaddings.horiz_10half,

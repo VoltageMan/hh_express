@@ -10,7 +10,7 @@ class OrderStateWDate extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
-    final isLoading = date != null;
+    final isLoading = false;
     return SizedBox(
       height: 40.h,
       child: Column(

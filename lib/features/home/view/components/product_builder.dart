@@ -11,7 +11,7 @@ class HomeProdBuilder extends StatelessWidget {
     return SliverDynamicHeightGridView(
       crossAxisCount: 2,
       mainAxisSpacing: 10.h,
-      itemCount: 99999,
+      itemCount: 100,
       builder: (context, index) {
         return HomeProdWidget(
           index: index,

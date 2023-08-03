@@ -15,7 +15,7 @@ class FavorsWidget extends StatelessWidget {
   final dynamic prod;
   @override
   Widget build(BuildContext context) {
-    final isLoading = prod == null;
+    final isLoading = false;
     return GestureDetector(
       onTap: () {
         'hello'.log();

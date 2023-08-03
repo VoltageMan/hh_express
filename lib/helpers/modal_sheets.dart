@@ -20,7 +20,8 @@ class ModelBottomSheetHelper {
       useRootNavigator: true,
       isScrollControlled: true,
       shape: RoundedRectangleBorder(
-        borderRadius: AppBorderRadiuses.border_10,
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(10), topRight: Radius.circular(10)),
       ),
       builder: (context) {
         currentContext = context;
@@ -37,7 +38,8 @@ class ModelBottomSheetHelper {
       useRootNavigator: true,
       isScrollControlled: true,
       shape: RoundedRectangleBorder(
-        borderRadius: AppBorderRadiuses.border_10,
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(10), topRight: Radius.circular(10)),
       ),
       builder: (context) {
         currentContext = context;
@@ -55,7 +57,8 @@ class ModelBottomSheetHelper {
       useRootNavigator: true,
       isScrollControlled: true,
       shape: RoundedRectangleBorder(
-        borderRadius: AppBorderRadiuses.border_10,
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(10), topRight: Radius.circular(10)),
       ),
       builder: (context) {
         currentContext = context;
@@ -83,7 +86,8 @@ class ModelBottomSheetHelper {
       useRootNavigator: true,
       isScrollControlled: true,
       shape: RoundedRectangleBorder(
-        borderRadius: AppBorderRadiuses.border_10,
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(10), topRight: Radius.circular(10)),
       ),
       builder: (context) {
         currentContext = context;

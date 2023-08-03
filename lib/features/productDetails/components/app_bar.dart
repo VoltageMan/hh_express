@@ -28,25 +28,30 @@ class ProdDetailsAppBar extends StatelessWidget implements PreferredSizeWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          GestureDetector(
-            onTap: () {
-              appRouter.currentContext.pop();
-            },
-            child: Container(
-              height: double.infinity,
-              width: 24.sp,
-              alignment: Alignment.center,
-              child: FittedBox(
-                child: Icon(
-                  Icons.arrow_back_rounded,
-                  color: theme.iconTheme.color,
+          Row(
+            children: [
+              GestureDetector(
+                onTap: () {
+                  appRouter.currentContext.pop();
+                },
+                child: Container(
+                  height: double.infinity,
+                  width: 24.sp,
+                  alignment: Alignment.center,
+                  child: FittedBox(
+                    child: Icon(
+                      Icons.arrow_back_rounded,
+                      color: theme.iconTheme.color,
+                    ),
+                  ),
                 ),
               ),
-            ),
-          ),
-          Text(
-            context.l10n.aboutProd,
-            style: theme.textTheme.titleMedium,
+              AppSpacing.horizontal_12,
+              Text(
+                context.l10n.aboutProd,
+                style: theme.textTheme.titleMedium,
+              ),
+            ],
           ),
           MyImageIcon(
             path: AssetsPath.favorIcon,

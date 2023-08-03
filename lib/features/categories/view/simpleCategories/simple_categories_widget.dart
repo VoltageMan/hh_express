@@ -13,7 +13,7 @@ class SimpleCategoryWidget extends StatelessWidget {
   final int index;
   @override
   Widget build(BuildContext context) {
-    const isLoading = 1 == 2;
+    const isLoading = false;
     final padSide = index % 4;
     return GestureDetector(
       onTap: () {
@@ -32,7 +32,7 @@ class SimpleCategoryWidget extends StatelessWidget {
               borderRadius: AppBorderRadiuses.top_6,
               child: SizedBox(
                 width: double.infinity,
-                height: 60.h,
+                height: 80.h,
                 child: CachedNetworkImage(
                     fit: BoxFit.cover,
                     imageUrl:

@@ -12,7 +12,7 @@ class OrderInfoWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    final isLoading = prod == null;
+    final isLoading = false;
     final forCart = prod is String;
     return Container(
       margin: AppPaddings.all_16,

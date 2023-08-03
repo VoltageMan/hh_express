@@ -26,10 +26,15 @@ class CatDetailsAppbar extends StatelessWidget implements PreferredSizeWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const PopLeadingIconButton(),
-          Text(
-            'Kategoriya',
-            style: theme.textTheme.titleMedium,
+          Row(
+            children: [
+              const PopLeadingIconButton(),
+              AppSpacing.horizontal_12,
+              Text(
+                'Kategoriya',
+                style: theme.textTheme.titleMedium,
+              ),
+            ],
           ),
           MyImageIcon(
             path: AssetsPath.filterIcon,

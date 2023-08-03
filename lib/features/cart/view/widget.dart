@@ -69,22 +69,25 @@ class _CartWidgetState extends State<CartWidget> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'MacBook  2023',
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: AppTheme.titleMedium16(context),
-                      ),
-                      MyImageIcon(
-                        path: AssetsPath.deleteIcon,
-                        color: AppColors.darkGrey,
-                        contSize: 24.sp,
-                        iconSize: 19.sp,
-                      ),
-                    ],
+                  SizedBox(
+                    width: 200.w,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'MacBook  2023',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: AppTheme.titleMedium16(context),
+                        ),
+                        MyImageIcon(
+                          path: AssetsPath.deleteIcon,
+                          color: AppColors.darkGrey,
+                          contSize: 24.sp,
+                          iconSize: 19.sp,
+                        ),
+                      ],
+                    ),
                   ),
                   Padding(
                     padding: AppPaddings.vertic_6,
@@ -95,17 +98,20 @@ class _CartWidgetState extends State<CartWidget> {
                       style: AppTheme.titleMedium14(context),
                     ),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Halanlaryma gos',
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: context.theme.textTheme.bodySmall,
-                      ),
-                      CartCountButton(),
-                    ],
+                  SizedBox(
+                    width: 200.w,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Halanlaryma gos',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: context.theme.textTheme.bodySmall,
+                        ),
+                        CartCountButton(),
+                      ],
+                    ),
                   ),
                 ],
               ),

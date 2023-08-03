@@ -105,9 +105,9 @@ class AppPaddings {
 }
 
 class AppBorderRadiuses {
-  static final border_2 = BorderRadius.circular(2.r);
-  static final border_4 = BorderRadius.circular(4.r);
-  static final border_6 = BorderRadius.circular(6.r);
+  static final border_2 = BorderRadius.circular(2);
+  static final border_4 = BorderRadius.circular(4);
+  static final border_6 = BorderRadius.circular(6);
   static final border_8 = BorderRadius.circular(8.r);
   static final border_10 = BorderRadius.circular(10.r);
   static final border_50 = BorderRadius.circular(50.r);
@@ -142,6 +142,7 @@ class AppColors {
   static Color shimmerHighlightColor = const Color(0xFF9B9B9B).withOpacity(.2);
   static Color shimmerBodyColor = const Color.fromRGBO(0, 0, 0, 0.3);
   //!
+  static const appOrange = Color(0xFFFF6600);
   static const mainOrange = Color.fromRGBO(255, 102, 0, 1);
   static const darkBlue = Color.fromRGBO(11, 21, 39, 1);
   static const shadowColor = Color.fromRGBO(0, 01, 0, 0.15);
@@ -175,7 +176,9 @@ class AssetsPath {
       'https://cdn.pixabay.com/photo/2020/05/31/16/53/bookmarks-5243253_640.jpg';
 
   static const splashBackground = 'assets/images/splash.svg';
+  static const splashBack = 'assets/images/splash_back.png';
   //! icons
+  static const logoIcon = 'assets/icons/logo.svg';
   static const searchIcon = 'assets/icons/search.svg';
   static const deleteIcon = 'assets/icons/delete.svg';
   static const filterIcon = 'assets/icons/filter.svg';

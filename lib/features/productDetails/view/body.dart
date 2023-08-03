@@ -42,38 +42,45 @@ class _ProdDetailsBodyState extends State<ProdDetailsBody>
         [
           SizedBox(
             height: 260.h,
-            child: TabBarView(
-              controller: tabController,
-              children: List.generate(
-                11,
-                (index) => GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ImageDetails(
-                          controller: tabController!,
-                        ),
+            child: Stack(
+              children: [
+                TabBarView(
+                  controller: tabController,
+                  children: List.generate(
+                    11,
+                    (index) => GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ImageDetails(
+                              controller: tabController!,
+                            ),
+                          ),
+                        );
+                      },
+                      child: CachedNetworkImage(
+                        placeholder: (context, url) => MyShimerPlaceHolder(),
+                        height: 260.h,
+                        fit: BoxFit.cover,
+                        imageUrl: index % 2 == 0
+                            ? AssetsPath.exampleImage1
+                            : AssetsPath.exampleImage2,
                       ),
-                    );
-                  },
-                  child: CachedNetworkImage(
-                    placeholder: (context, url) => MyShimerPlaceHolder(),
-                    height: 260.h,
-                    fit: BoxFit.cover,
-                    imageUrl: index % 2 == 0
-                        ? AssetsPath.exampleImage1
-                        : AssetsPath.exampleImage2,
+                    ),
                   ),
                 ),
-              ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: ImageIndicator(controller: tabController!),
+                )
+              ],
             ),
           ),
-          ImageIndicator(controller: tabController!),
           Padding(
-            padding: AppPaddings.horiz_16,
+            padding: AppPaddings.horiz16_vertic12,
             child: Text(
-              'Air Max 90-EZ Gara',
+              'Oglanlar üçin uzyn ýaşyl köýnek',
               style: textTheme.titleMedium,
             ),
           ),
@@ -122,7 +129,7 @@ class _ProdDetailsBodyState extends State<ProdDetailsBody>
           Padding(
             padding: AppPaddings.horiz_16,
             child: Text(
-              'Lorem ipsum is a pseudo-Latin text used in web design, typography, layout, and printing in place of English to emphasise design elements over content. It` also called placeholder (or filler) text ',
+              'Bu gaty gowy köýnek, marka öz harytlaryna garantiýa berýär we bu köýnegiň reňki ýaşyl',
               style: textTheme.titleSmall,
             ),
           ),

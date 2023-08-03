@@ -24,6 +24,8 @@ class MyNavBar extends StatelessWidget {
       l10n.profile,
     ];
     return Container(
+      width: double.maxFinite,
+      height: 55.h,
       decoration: BoxDecoration(
         color: theme.backgroundColor,
         boxShadow: AppColors.navBarShaow,
@@ -60,10 +62,7 @@ class MyNavBar extends StatelessWidget {
                               color: isSelected
                                   ? theme.selectedItemColor
                                   : theme.unselectedItemColor,
-                              iconSize: 20.8.w,
-                            ),
-                            SizedBox(
-                              height: 2.h,
+                              iconSize: 18.w,
                             ),
                             Text(
                               navBarTitles[index],

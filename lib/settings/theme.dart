@@ -82,7 +82,7 @@ class AppTheme {
       padding: EdgeInsets.all(3.sp),
       textStyle: TextStyle(
         fontWeight: FontWeight.w700,
-        fontSize: 10.sp,
+        fontSize: 8.sp,
         color: AppColors.white,
       ),
     ),
@@ -146,12 +146,12 @@ class AppTheme {
       backgroundColor: AppColors.white,
       selectedItemColor: AppColors.mainOrange,
       selectedLabelStyle: TextStyle(
-        fontWeight: FontWeight.w700,
+        fontWeight: FontWeight.w400,
         fontSize: 10.sp,
         color: AppColors.mainOrange,
       ),
       unselectedLabelStyle: TextStyle(
-        fontWeight: FontWeight.w700,
+        fontWeight: FontWeight.w400,
         fontSize: 10.sp,
         color: AppColors.darkGrey,
       ),
@@ -184,7 +184,7 @@ class AppTheme {
         fontWeight: FontWeight.w400,
       ),
       titleMedium: TextStyle(
-        fontWeight: FontWeight.w600,
+        fontWeight: FontWeight.w400,
         fontSize: 18.sp,
         color: AppColors.darkBlue,
       ),

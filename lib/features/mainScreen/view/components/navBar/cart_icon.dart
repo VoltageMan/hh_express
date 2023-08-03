@@ -38,10 +38,9 @@ class CartIcon extends StatelessWidget {
                       color: isSelected
                           ? theme.selectedItemColor
                           : theme.unselectedItemColor,
-                      iconSize: 20.8.w,
+                      iconSize: 18.w,
                     ),
                     SizedBox(
-                      height: 2.h,
                       width: double.infinity,
                     ),
                     Text(
@@ -70,15 +69,15 @@ class CartBadge extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Container(
-      margin: EdgeInsets.only(top: 4.h, right: 13.w),
+      margin: EdgeInsets.only(right: 13.w),
       padding: EdgeInsets.all(2.5.sp),
       decoration: BoxDecoration(
         color: theme.bottomNavigationBarTheme.backgroundColor,
         shape: BoxShape.circle,
       ),
       child: Container(
-        height: 20.sp,
-        width: 20.sp,
+        height: 18.sp,
+        width: 18.sp,
         padding: theme.badgeTheme.padding,
         decoration: BoxDecoration(
           color: theme.badgeTheme.backgroundColor,

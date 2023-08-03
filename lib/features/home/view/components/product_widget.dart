@@ -17,7 +17,7 @@ class HomeProdWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final hasDiscount = index % 2 == 1;
-    final isLoading = prod != null;
+    final isLoading = false;
     return GestureDetector(
       onTap: () {
         // final user = UserModel(
@@ -28,7 +28,7 @@ class HomeProdWidget extends StatelessWidget {
         // );
         // 'sssososo'.log();
         final repo = getIt<AuthRepo>();
-        // appRouter.currentContext.push(AppRoutes.prodDetails);
+        appRouter.currentContext.push(AppRoutes.prodDetails);
       },
       child: Container(
         width: 160.w,
@@ -71,7 +71,7 @@ class HomeProdWidget extends StatelessWidget {
                     height: 15.h,
                   )
                 : Text(
-                    'Луис вуитон коллобарация с гуччи пздц вешь',
+                    'Oglanlar üçin uzyn ýaşyl köýnek',
                     style: Theme.of(context)
                         .textTheme
                         .titleMedium!
@@ -90,7 +90,7 @@ class HomeProdWidget extends StatelessWidget {
                     child: Text(
                       index % 2 == 0
                           ? 'hii'
-                          : 'Lorem Ipsum Dolar sit amet dalse huy znaet, i tak dlya testa some text here is its is',
+                          : 'Bu gaty gowy köýnek, marka öz harytlaryna garantiýa berýär we bu köýnegiň reňki ýaşyl',
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.titleSmall,

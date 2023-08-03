@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/app/test_screen.dart';
@@ -13,6 +14,7 @@ import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/routes.dart';
 import 'package:hh_express/helpers/spacers.dart';
 import 'package:hh_express/helpers/splash_screen.dart';
+import 'package:hh_express/settings/consts.dart';
 import 'package:hh_express/settings/globals.dart';
 import 'package:hh_express/settings/theme.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -36,7 +38,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    waiting();
+    // waiting();
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => HomeBloc()),
@@ -50,6 +52,7 @@ class _MyAppState extends State<MyApp> {
             builder: (context, locale, child) {
               locale.log();
               return MaterialApp.router(
+                title: 'Yuan Shop',
                 supportedLocales: AppLocalizations.supportedLocales,
                 routerConfig: appRouter,
                 locale: Locale(locale),
@@ -57,7 +60,6 @@ class _MyAppState extends State<MyApp> {
                 debugShowCheckedModeBanner: false,
                 localizationsDelegates: AppLocalizations.localizationsDelegates,
                 builder: (context, child) {
-                  return TestScreen();
                   AppSpacing.setTopPad(context);
                   return waited
                       ? Navigator(
@@ -67,7 +69,13 @@ class _MyAppState extends State<MyApp> {
                             },
                           ),
                         )
-                      : const SplashScreen();
+                      : GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              waited = true;
+                            });
+                          },
+                          child: const SplashScreen());
                 },
               );
             },

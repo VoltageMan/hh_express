@@ -13,7 +13,7 @@ class VideoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isLoading = videoModel == null;
+    final isLoading = false;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

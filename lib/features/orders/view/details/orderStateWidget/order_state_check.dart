@@ -10,7 +10,7 @@ class OrderStateCheck extends StatelessWidget {
   final int? tickedsCount;
   @override
   Widget build(BuildContext context) {
-    final isLoading = tickedsCount == null;
+    final isLoading = false;
     return Padding(
       padding: AppPaddings.vertic_8,
       child: Stack(
