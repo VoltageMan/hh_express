@@ -69,6 +69,7 @@ class _CartWidgetState extends State<CartWidget> {
             child: Padding(
               padding: AppPaddings.vertic_12.add(AppPaddings.horiz_12),
               child: Column(
+                mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -77,11 +78,13 @@ class _CartWidgetState extends State<CartWidget> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          'MacBook  2023',
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: AppTheme.titleMedium16(context),
+                        Expanded(
+                          child: Text(
+                            'MacBook  2023 hgu jgvgvbjh jhgjg',
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: AppTheme.titleMedium16(context),
+                          ),
                         ),
                         MyImageIcon(
                           path: AssetsPath.deleteIcon,
@@ -106,11 +109,13 @@ class _CartWidgetState extends State<CartWidget> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          'Halanlaryma gos',
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: context.theme.textTheme.bodySmall,
+                        Expanded(
+                          child: Text(
+                            'Halanlaryma gos',
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: context.theme.textTheme.bodySmall,
+                          ),
                         ),
                         CartCountButton(),
                       ],
