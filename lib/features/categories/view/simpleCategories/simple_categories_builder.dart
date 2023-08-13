@@ -20,7 +20,7 @@ class SimpleCategoriesBuilder extends StatelessWidget {
           itemBuilder: (context, index) => GridView.builder(
             shrinkWrap: true,
             itemCount: 20,
-            padding: AppPaddings.horiz_12.add(AppPaddings.top_6),
+            padding: AppPaddings.horiz12_vertic17.add(AppPaddings.top_6),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
               childAspectRatio: 1 / 0.74,

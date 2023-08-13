@@ -32,7 +32,7 @@ class SimpleCategoryWidget extends StatelessWidget {
               borderRadius: AppBorderRadiuses.top_6,
               child: SizedBox(
                 width: double.infinity,
-                height: 80.h,
+                height: 65.h,
                 child: CachedNetworkImage(
                     fit: BoxFit.cover,
                     imageUrl:
