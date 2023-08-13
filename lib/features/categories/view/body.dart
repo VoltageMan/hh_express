@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/features/categories/view/mainCategories/main_category_builder.dart';
 import 'package:hh_express/features/categories/view/simpleCategories/simple_categories_builder.dart';
 import 'package:hh_express/helpers/spacers.dart';
-import 'package:hh_express/settings/consts.dart';
 
 class CategoryBody extends StatefulWidget {
   const CategoryBody({super.key});

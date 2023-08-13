@@ -19,12 +19,14 @@ class SplashScreen extends StatelessWidget {
         body: Container(
           width: double.infinity,
           decoration: BoxDecoration(
-              color: AppColors.appOrange,
-              image: DecorationImage(
-                  image: AssetImage(
-                    AssetsPath.splashBack,
-                  ),
-                  fit: BoxFit.cover)),
+            color: AppColors.appOrange,
+            image: DecorationImage(
+              image: AssetImage(
+                AssetsPath.splashBack,
+              ),
+              fit: BoxFit.cover,
+            ),
+          ),
           padding: AppPaddings.vertic_28,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,

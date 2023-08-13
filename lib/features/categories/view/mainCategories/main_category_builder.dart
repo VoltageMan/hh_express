@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hh_express/features/categories/view/mainCategories/main_category_widget.dart';
 import 'package:hh_express/helpers/extentions.dart';
-import 'package:hh_express/settings/consts.dart';
 
 class MainCategoriesBuilder extends StatefulWidget {
   const MainCategoriesBuilder({super.key, required this.controller});
@@ -21,8 +20,9 @@ class _MainCategoriesBuilderState extends State<MainCategoriesBuilder> {
     'Lorem  ',
     'Lorem   Some SOme SOme',
   ];
-  int selectedIndex = 0;
 
+  int selectedIndex = 0;
+  
   @override
   Widget build(BuildContext context) {
     return ScrollConfiguration(

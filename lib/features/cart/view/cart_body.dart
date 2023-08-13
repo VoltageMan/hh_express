@@ -9,7 +9,11 @@ class CartScreen extends StatelessWidget {
     return ListView.custom(
       childrenDelegate: SliverChildListDelegate(
         [
-          for (int i = 0; i < 6; i++) const CartWidget(),
+          for (int i = 0; i < 6; i++)
+            CartWidget(
+              i,
+              onChange: (p0) {},
+            ),
           const OrderInfoWidget(
             prod: 'Some',
           ),

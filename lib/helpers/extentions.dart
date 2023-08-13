@@ -19,18 +19,11 @@ extension SliverExtentions on Widget {
   }
 }
 
-extension WillScope on Scaffold {
-  
-}
 
 extension L10n on BuildContext {
   AppLocalizations get l10n => AppLocalizations.of(this)!;
   ThemeData get theme => Theme.of(this);
-  Size getSize() {
-    final widget = findRenderObject() as RenderBox;
-
-    return widget.size..log();
-  }
+ 
 }
 
 extension FromStringtoInt on String {

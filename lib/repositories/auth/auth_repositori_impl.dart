@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:hh_express/data/local/secured_storage.dart';
 import 'package:hh_express/data/remote/dio_client.dart';
 import 'package:hh_express/models/api/response_model.dart';
 import 'package:hh_express/models/auth/auth_model.dart';
@@ -34,10 +35,11 @@ class AuthRepoImpl extends AuthRepo with DioClientMixin {
     };
     final response = await dio.delete(
       endPoint: EndPoints.logOut,
-      options: Options(
-        headers: headers,
-      ),
+      options: Options(headers: headers),
     );
+    if (response.success) {
+      await LocalStorage.deleteToken();
+    }
     return response;
   }
 

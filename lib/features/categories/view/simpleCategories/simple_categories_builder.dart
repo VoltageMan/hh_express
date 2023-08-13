@@ -1,7 +1,9 @@
+import 'package:dynamic_height_grid_view/dynamic_height_grid_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/features/categories/view/simpleCategories/simple_categories_widget.dart';
 import 'package:hh_express/helpers/extentions.dart';
+import 'package:hh_express/helpers/spacers.dart';
 import 'package:hh_express/settings/consts.dart';
 
 class SimpleCategoriesBuilder extends StatelessWidget {
@@ -20,10 +22,10 @@ class SimpleCategoriesBuilder extends StatelessWidget {
           itemBuilder: (context, index) => GridView.builder(
             shrinkWrap: true,
             itemCount: 20,
-            padding: AppPaddings.horiz_12.add(AppPaddings.top_6),
+            padding: AppPaddings.horiz12_vertic17.add(AppPaddings.top_6),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
-              childAspectRatio: 1 / 0.74,
+              childAspectRatio: 1 / 0.8,
               mainAxisSpacing: 10.h,
             ),
             itemBuilder: (context, index) {
@@ -37,3 +39,23 @@ class SimpleCategoriesBuilder extends StatelessWidget {
     );
   }
 }
+
+
+ 
+
+//  CustomScrollView(
+//             slivers: [
+//               SliverPadding(
+//                 padding: AppPaddings.horiz12_vertic17.add(AppPaddings.top_6),
+//                 sliver: SliverDynamicHeightGridView(
+//                   crossAxisCount: 3,
+//                   itemCount: 20,
+//                   builder: (context, index) {
+//                     return SimpleCategoryWidget(
+//                       index: index - 1,
+//                     );
+//                   },
+//                 ),
+//               ),
+//             ],
+//           ),

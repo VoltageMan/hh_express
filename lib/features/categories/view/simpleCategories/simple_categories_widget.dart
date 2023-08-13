@@ -32,7 +32,7 @@ class SimpleCategoryWidget extends StatelessWidget {
               borderRadius: AppBorderRadiuses.top_6,
               child: SizedBox(
                 width: double.infinity,
-                height: 80.h,
+                height: 65.h,
                 child: CachedNetworkImage(
                     fit: BoxFit.cover,
                     imageUrl:
@@ -46,21 +46,19 @@ class SimpleCategoryWidget extends StatelessWidget {
                         : null),
               ),
             ),
-            Expanded(
-              child: Container(
-                padding: isLoading ? AppPaddings.all_6 : AppPaddings.all_2,
-                alignment: Alignment.center,
-                child: isLoading
-                    ? MyShimerPlaceHolder(
-                        radius: AppBorderRadiuses.border_2,
-                      )
-                    : Text(
-                        'Gyshky eşik',
-                        style: AppTheme.bodyMedium10(context),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-              ),
+            Container(
+              padding: isLoading ? AppPaddings.all_6 : AppPaddings.all_4,
+              alignment: Alignment.center,
+              child: isLoading
+                  ? MyShimerPlaceHolder(
+                      radius: AppBorderRadiuses.border_2,
+                    )
+                  : Text(
+                      'Gyshky eşik',
+                      style: AppTheme.bodyMedium10(context),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
             ),
           ],
         ),

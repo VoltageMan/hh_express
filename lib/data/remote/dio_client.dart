@@ -111,14 +111,14 @@ ApiResponse _handleException(Object e, StackTrace? stack) {
       success: false,
     );
   }
-  if (e.response != null && e.response!.data != null) {
+  if (e.response != null && e.response!.data is Map) {
     '${e.requestOptions.data} MyDioExeption'.log();
     return ApiResponse.fromJson(e.response!.data);
   }
   return ApiResponse(
     data: {},
-    error: 'MyUnknown Error',
-    message: 'MyUnknown Error',
+    error: 'Unknown Error',
+    message: 'Unknown Error',
     success: false,
   );
 }

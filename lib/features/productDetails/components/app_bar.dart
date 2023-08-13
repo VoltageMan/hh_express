@@ -14,7 +14,6 @@ class ProdDetailsAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-
     return Container(
       margin: EdgeInsets.only(top: AppSpacing.topPad),
       height: 52.h,
@@ -28,30 +27,25 @@ class ProdDetailsAppBar extends StatelessWidget implements PreferredSizeWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Row(
-            children: [
-              GestureDetector(
-                onTap: () {
-                  appRouter.currentContext.pop();
-                },
-                child: Container(
-                  height: double.infinity,
-                  width: 24.sp,
-                  alignment: Alignment.center,
-                  child: FittedBox(
-                    child: Icon(
-                      Icons.arrow_back_rounded,
-                      color: theme.iconTheme.color,
-                    ),
-                  ),
+          GestureDetector(
+            onTap: () {
+              appRouter.currentContext.pop();
+            },
+            child: Container(
+              height: double.infinity,
+              width: 24.sp,
+              alignment: Alignment.center,
+              child: FittedBox(
+                child: Icon(
+                  Icons.arrow_back_rounded,
+                  color: theme.iconTheme.color,
                 ),
               ),
-              AppSpacing.horizontal_12,
-              Text(
-                context.l10n.aboutProd,
-                style: theme.textTheme.titleMedium,
-              ),
-            ],
+            ),
+          ),
+          Text(
+            context.l10n.aboutProd,
+            style: theme.textTheme.titleMedium,
           ),
           MyImageIcon(
             path: AssetsPath.favorIcon,

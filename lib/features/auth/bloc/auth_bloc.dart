@@ -11,28 +11,43 @@ import 'package:hh_express/settings/enums.dart';
 part 'auth_state.dart';
 
 class AuthBloc extends Cubit<AuthState> {
-  AuthBloc() : super(AuthState(apiState: APIState.init));
+  AuthBloc() : super(AuthState(apiState: APIState.init, termsConfirmed: false));
   final _repo = getIt<AuthRepo>();
+  void confirmTerms(bool val) {
+    emit(AuthState(
+      apiState: APIState.init,
+      termsConfirmed: val,
+    ));
+  }
 
   void init() {
-    emit(AuthState(apiState: APIState.init));
+    emit(AuthState(
+        apiState: APIState.init, termsConfirmed: state.termsConfirmed));
   }
 
   Future<Map<String, dynamic>?> authMe() async {
-    emit(AuthState(apiState: APIState.loading));
+    emit(AuthState(
+        apiState: APIState.loading, termsConfirmed: state.termsConfirmed));
     final token = await LocalStorage.getToken();
     if (token == null) {
       // do log in
       appRouter.currentContext.push(AppRoutes.auth, extra: true);
-      emit(AuthState(apiState: APIState.init));
+      emit(AuthState(
+          apiState: APIState.init, termsConfirmed: state.termsConfirmed));
       return null;
     }
     final response = await _repo.authMe(token);
     if (response.success) {
-      emit(AuthState(apiState: APIState.succses, message: response.message));
+      emit(AuthState(
+          apiState: APIState.succses,
+          message: response.message,
+          termsConfirmed: state.termsConfirmed));
       return response.data;
     }
-    emit(AuthState(apiState: APIState.error, message: response.message));
+    emit(AuthState(
+        apiState: APIState.error,
+        message: response.message,
+        termsConfirmed: state.termsConfirmed));
     return null;
   }
 
@@ -43,10 +58,14 @@ class AuthBloc extends Cubit<AuthState> {
     }
     if (name.contains(' ')) {
       emit(AuthState(
-          apiState: APIState.error, message: 'length of UserName less than 5'));
+          apiState: APIState.error,
+          message: 'length of UserName less than 5',
+          termsConfirmed: state.termsConfirmed));
     }
     emit(AuthState(
-        apiState: APIState.error, message: 'length of UserName less than 5'));
+        apiState: APIState.error,
+        message: 'length of UserName less than 5',
+        termsConfirmed: state.termsConfirmed));
     'Number is incorrect'.log();
     return false;
   }
@@ -55,7 +74,9 @@ class AuthBloc extends Cubit<AuthState> {
     num.log();
     if (num.length != 11) {
       emit(AuthState(
-          apiState: APIState.error, message: 'length of Number less than 8'));
+          apiState: APIState.error,
+          message: 'length of Number less than 8',
+          termsConfirmed: state.termsConfirmed));
       'Number is incorrect'.log();
       return false;
     }
@@ -65,7 +86,9 @@ class AuthBloc extends Cubit<AuthState> {
   bool checkPass(String model) {
     if (model.length < 5) {
       emit(AuthState(
-          apiState: APIState.error, message: 'Length of password less than 5'));
+          apiState: APIState.error,
+          message: 'Length of password less than 5',
+          termsConfirmed: state.termsConfirmed));
       'password Length must be more than 8'.log();
       return false;
     }
@@ -73,17 +96,24 @@ class AuthBloc extends Cubit<AuthState> {
   }
 
   Future<bool> logIn(AuthModel data) async {
-    emit(AuthState(apiState: APIState.loading));
+    emit(AuthState(
+        apiState: APIState.loading, termsConfirmed: state.termsConfirmed));
     final response = await _repo.logIn(data);
     if (!response.success) {
-      emit(AuthState(apiState: APIState.error, message: response.message));
+      emit(AuthState(
+          apiState: APIState.error,
+          message: response.message,
+          termsConfirmed: state.termsConfirmed));
       return false;
     }
     if (response.success) {
       final responseData = response.data;
 
 //Save Token
-      emit(AuthState(apiState: APIState.succses, message: response.message));
+      emit(AuthState(
+          apiState: APIState.succses,
+          message: response.message,
+          termsConfirmed: state.termsConfirmed));
       return true;
     }
     wrongState(response.message);
@@ -91,30 +121,47 @@ class AuthBloc extends Cubit<AuthState> {
   }
 
   Future<bool> logOut() async {
-    emit(AuthState(apiState: APIState.loading));
+    emit(AuthState(
+        apiState: APIState.loading, termsConfirmed: state.termsConfirmed));
     final token = await LocalStorage.getToken();
     final response = await _repo.logOut(token!);
     if (response.success) {
-      emit(AuthState(apiState: APIState.succses, message: response.message));
+      emit(AuthState(
+          apiState: APIState.succses,
+          message: response.message,
+          termsConfirmed: state.termsConfirmed));
       return true;
     }
-    emit(AuthState(apiState: APIState.error, message: response.message));
+    emit(
+      AuthState(
+        apiState: APIState.error,
+        message: response.message,
+        termsConfirmed: state.termsConfirmed,
+      ),
+    );
     return false;
   }
 
   Future<bool> singUp(AuthModel model) async {
-    emit(AuthState(apiState: APIState.loading));
+    emit(AuthState(
+        apiState: APIState.loading, termsConfirmed: state.termsConfirmed));
     final response = await _repo.register(model);
     if (!response.success) {
-      emit(AuthState(apiState: APIState.error, message: response.message));
+      emit(AuthState(
+          apiState: APIState.error,
+          termsConfirmed: state.termsConfirmed,
+          message: response.message));
       return false;
     }
     if (response.success) {
       await LocalStorage.saveToken(response.data['accec_token']);
-      emit(AuthState(
-        apiState: APIState.succses,
-        message: response.message,
-      ));
+      emit(
+        AuthState(
+          apiState: APIState.succses,
+          message: response.message,
+          termsConfirmed: state.termsConfirmed,
+        ),
+      );
       return true;
     }
     wrongState(response.message);
@@ -124,9 +171,9 @@ class AuthBloc extends Cubit<AuthState> {
   void wrongState(String message) {
     emit(
       AuthState(
-        apiState: APIState.error,
-        message: message,
-      ),
+          apiState: APIState.error,
+          message: message,
+          termsConfirmed: state.termsConfirmed),
     );
   }
 }

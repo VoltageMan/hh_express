@@ -9,7 +9,9 @@ import 'package:hh_express/settings/consts.dart';
 import 'package:hh_express/settings/theme.dart';
 
 class CartWidget extends StatefulWidget {
-  const CartWidget({super.key});
+  const CartWidget(this.index, {super.key, required this.onChange});
+  final int index;
+  final void Function(double) onChange;
 
   @override
   State<CartWidget> createState() => _CartWidgetState();
@@ -31,7 +33,7 @@ class _CartWidgetState extends State<CartWidget> {
       child: Row(
         children: [
           Container(
-            height: height ?? 105.h,
+            height: 100.h,
             width: 95.w,
             decoration: BoxDecoration(
               border: Border(
@@ -56,6 +58,7 @@ class _CartWidgetState extends State<CartWidget> {
           ),
           MeasureSize(
             onChange: (size) {
+              widget.onChange!(size.height);
               if (height != null) {
                 return;
               }

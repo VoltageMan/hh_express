@@ -61,7 +61,6 @@ class _AuthBodyState extends State<AuthBody>
   }
 
   bool _loading = false;
-  bool _termsConfirmed = false;
 
   @override
   Widget build(BuildContext context) {
@@ -104,13 +103,7 @@ class _AuthBodyState extends State<AuthBody>
                     const Expanded(
                       child: SizedBox(),
                     ),
-                    widget.forSingUp
-                        ? TermsOfUseWidget(
-                            onChanged: (val) {
-                              _termsConfirmed = val;
-                            },
-                          )
-                        : SizedBox(),
+                    widget.forSingUp ? TermsOfUseWidget() : SizedBox(),
                   ],
                 ),
                 Column(
@@ -146,7 +139,7 @@ class _AuthBodyState extends State<AuthBody>
                       return;
                     }
                     if (widget.forSingUp) {
-                      if (!_termsConfirmed) {
+                      if (!state.termsConfirmed) {
                         myShowSnack('Confirm Terms of usage', APIState.error);
                         return;
                       }

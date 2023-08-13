@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/features/components/widgets/place_holder.dart';
@@ -42,7 +43,8 @@ class MainCategoriesWidget extends StatelessWidget {
                 backgroundColor: AppColors.transparent,
                 foregroundColor: AppColors.transparent,
                 onForegroundImageError: (exception, stackTrace) {},
-                foregroundImage: const AssetImage(AssetsPath.macBook
+                foregroundImage: const CachedNetworkImageProvider(
+                    AssetsPath.macBook
                     // 'https://docs.flutter.dev/assets/images/dash/dash-fainting.gif',
                     ),
                 child: MyShimerPlaceHolder(

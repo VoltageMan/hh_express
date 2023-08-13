@@ -1,7 +1,7 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hh_express/app/test_screen.dart';
 import 'package:hh_express/data/local/secured_storage.dart';
 import 'package:hh_express/features/auth/bloc/auth_bloc.dart';
 import 'package:hh_express/features/home/bloc/home_bloc.dart';
@@ -55,6 +55,7 @@ class _MyAppState extends State<MyApp> {
                 localizationsDelegates: AppLocalizations.localizationsDelegates,
                 builder: (context, child) {
                   AppSpacing.setTopPad(context);
+                  // return TestScreen();
                   return waited
                       ? Navigator(
                           onGenerateRoute: (settings) => MaterialPageRoute(
@@ -69,7 +70,8 @@ class _MyAppState extends State<MyApp> {
                               waited = true;
                             });
                           },
-                          child: const SplashScreen());
+                          child: const SplashScreen(),
+                        );
                 },
               );
             },

@@ -56,5 +56,6 @@
   "size": "Size",
   "password": "Password",
   "singIn": "Sing in",
-  "next": "Continue"
+  "next": "Continue",
+  "similarProducts": "Similar products"
 }

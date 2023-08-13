@@ -36,6 +36,7 @@ class AppPaddings {
   static EdgeInsets right_28 = EdgeInsets.only(right: 28.w);
   static EdgeInsets right_7 = EdgeInsets.only(right: 7.w);
   static EdgeInsets right_6 = EdgeInsets.only(right: 6.w);
+  static EdgeInsets right_5 = EdgeInsets.only(right: 5.w);
   static EdgeInsets right_14 = EdgeInsets.only(right: 14.w);
 
   static EdgeInsets top_12 = EdgeInsets.only(top: 12.h);
@@ -75,6 +76,7 @@ class AppPaddings {
   static EdgeInsets horiz_4 = EdgeInsets.symmetric(horizontal: 4.w);
 
   static final vertic_10 = EdgeInsets.symmetric(vertical: 10.h);
+  static final vertic_20 = EdgeInsets.symmetric(vertical: 20.h);
   static EdgeInsets vertic_12 = EdgeInsets.symmetric(vertical: 12.h);
   static EdgeInsets vertic_16 = EdgeInsets.symmetric(vertical: 16.h);
   static EdgeInsets vertic_15 = EdgeInsets.symmetric(vertical: 15.h);
@@ -89,6 +91,7 @@ class AppPaddings {
   static final horiz16_vertic18 = horiz_16.copyWith(bottom: 18.h, top: 18.h);
   static final horiz16_vertic24 = horiz_16.copyWith(bottom: 24.h, top: 24.h);
   static final horiz16_botto10 = horiz_16.copyWith(bottom: 10.h);
+  static final horiz16_botto20 = horiz_16.copyWith(bottom: 20.h);
   static final horiz10_vertic5 =
       EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h);
   static final horiz56_vertic70 =
@@ -102,6 +105,8 @@ class AppPaddings {
   static final bottom12_top20 = EdgeInsets.only(top: 20.h, bottom: 12.h);
   static final horiz6_vertic3 =
       EdgeInsets.symmetric(horizontal: 6.w, vertical: 3.h);
+  static final horiz_12_vertic17 =
+      EdgeInsets.symmetric(horizontal: 12.w, vertical: 17.h);
 }
 
 class AppBorderRadiuses {
@@ -112,6 +117,7 @@ class AppBorderRadiuses {
   static final border_10 = BorderRadius.circular(10.r);
   static final border_50 = BorderRadius.circular(50.r);
   static final border_12 = BorderRadius.circular(12.r);
+  static final border_20 = BorderRadius.circular(20.r);
 
   static final top_6 = BorderRadius.vertical(top: Radius.circular(6.r));
   static final defBorder =

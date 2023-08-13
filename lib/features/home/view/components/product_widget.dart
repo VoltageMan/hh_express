@@ -39,6 +39,7 @@ class HomeProdWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
+              width: double.infinity,
               height: 150.h,
               decoration: BoxDecoration(
                 color: AppColors.lightGrey,

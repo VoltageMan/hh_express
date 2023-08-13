@@ -32,11 +32,12 @@ class AppTheme {
       Theme.of(context).textTheme.titleSmall!.copyWith(fontSize: 12.sp);
   static TextStyle displayMedium12(BuildContext context) =>
       Theme.of(context).textTheme.displayMedium!.copyWith(fontSize: 12.sp);
-  static TextStyle titleMedium12(BuildContext context) =>
-      Theme.of(context).textTheme.titleMedium!.copyWith(
-            fontSize: 12.sp,
-            fontWeight: FontWeight.w400,
-          );
+  static TextStyle displayMedium14(BuildContext context) =>
+      Theme.of(context).textTheme.displayMedium!.copyWith(fontSize: 14.sp);
+  static TextStyle titleMedium12(BuildContext context) => Theme.of(context)
+      .textTheme
+      .titleMedium!
+      .copyWith(fontSize: 12.sp, fontWeight: FontWeight.w400);
   static TextStyle titleMedium14(BuildContext context) =>
       Theme.of(context).textTheme.titleMedium!.copyWith(fontSize: 14.sp);
 
@@ -184,7 +185,7 @@ class AppTheme {
         fontWeight: FontWeight.w400,
       ),
       titleMedium: TextStyle(
-        fontWeight: FontWeight.w500,
+        fontWeight: FontWeight.w400,
         fontSize: 18.sp,
         color: AppColors.darkBlue,
       ),
