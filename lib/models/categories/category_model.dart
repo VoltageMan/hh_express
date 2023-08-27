@@ -11,6 +11,7 @@ class CategoryModel {
     required this.id,
   });
   final String name;
+  @JsonKey(name: 'media')
   final String image;
   final int id;
   final String slug;

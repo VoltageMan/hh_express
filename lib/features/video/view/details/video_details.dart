@@ -25,12 +25,7 @@ class _VideoDetailsState extends State<VideoDetails> {
     final displayMedium14 = AppTheme.displayMedium14(context);
     return WillPopScope(
       onWillPop: () async {
-        if (ModelBottomSheetHelper.sheetShown) {
-          Navigator.pop(ModelBottomSheetHelper.currentContext!);
-          return false;
-        }
-
-        return true;
+        return ModelBottomSheetHelper.doPop();
       },
       child: Scaffold(
         body: Container(

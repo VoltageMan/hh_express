@@ -5,16 +5,19 @@ import 'package:go_router/go_router.dart';
 import 'package:hh_express/features/components/widgets/place_holder.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/routes.dart';
+import 'package:hh_express/models/categories/category_model.dart';
 import 'package:hh_express/settings/consts.dart';
 import 'package:hh_express/settings/theme.dart';
 
 class SimpleCategoryWidget extends StatelessWidget {
-  const SimpleCategoryWidget({super.key, required this.index});
-  final int index;
+  const SimpleCategoryWidget({
+    super.key,
+    this.model,
+  });
+  final CategoryModel? model;
   @override
   Widget build(BuildContext context) {
-    const isLoading = false;
-    final padSide = index % 4;
+    final isLoading = model == null;
     return GestureDetector(
       onTap: () {
         appRouter.currentContext.push(AppRoutes.categoryDetails);
@@ -33,17 +36,16 @@ class SimpleCategoryWidget extends StatelessWidget {
               child: SizedBox(
                 width: double.infinity,
                 height: 65.h,
-                child: CachedNetworkImage(
-                    fit: BoxFit.cover,
-                    imageUrl:
-                        'https://cdn.pixabay.com/photo/2020/05/31/16/53/bookmarks-5243253_640.jpg',
-                    placeholder: (context, url) => const MyShimerPlaceHolder(),
-                    errorWidget: (context, url, error) =>
-                        const MyShimerPlaceHolder(),
-                    imageBuilder: isLoading
-                        ? (context, imageProvider) =>
-                            const MyShimerPlaceHolder()
-                        : null),
+                child: isLoading
+                    ? const MyShimerPlaceHolder()
+                    : CachedNetworkImage(
+                        fit: BoxFit.cover,
+                        imageUrl: model!.image,
+                        placeholder: (context, url) =>
+                            const MyShimerPlaceHolder(),
+                        errorWidget: (context, url, error) =>
+                            const MyShimerPlaceHolder(),
+                      ),
               ),
             ),
             Container(
@@ -54,7 +56,7 @@ class SimpleCategoryWidget extends StatelessWidget {
                       radius: AppBorderRadiuses.border_2,
                     )
                   : Text(
-                      'Gyshky eşik',
+                      model!.name,
                       style: AppTheme.bodyMedium10(context),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,

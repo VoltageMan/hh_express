@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hh_express/features/components/confirm_some.dart';
+import 'package:hh_express/features/components/my_text_button.dart';
 import 'package:hh_express/features/components/widgets/nav_bar_body.dart';
 import 'package:hh_express/features/components/widgets/sheet_titles.dart';
 import 'package:hh_express/features/favors/components/favors_builder.dart';
@@ -20,7 +20,7 @@ class FavorsBody extends StatelessWidget {
         AppSpacing.vertical_10,
         const FavrosBuilder(),
         NavBarBody(
-          child: ConfirmSomeTh(
+          child: MyDarkTextButton(
             title: context.l10n.clear,
             onTap: () {
               Navigator.pop(context);

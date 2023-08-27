@@ -1,28 +1,55 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hh_express/features/categories/bloc/category_bloc.dart';
 import 'package:hh_express/features/components/widgets/place_holder.dart';
+import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/spacers.dart';
+import 'package:hh_express/models/categories/category_model.dart';
 import 'package:hh_express/settings/consts.dart';
 import 'package:hh_express/settings/theme.dart';
 
-class MainCategoriesWidget extends StatelessWidget {
+class MainCategoriesWidget extends StatefulWidget {
   const MainCategoriesWidget({
     super.key,
-    required this.subTitle,
     required this.isSelected,
-    required this.onTap,
+    required this.model,
   });
 
-  final String subTitle;
+  final CategoryModel? model;
   final bool isSelected;
-  final VoidCallback onTap;
 
   @override
+  State<MainCategoriesWidget> createState() => _MainCategoriesWidgetState();
+}
+
+class _MainCategoriesWidgetState extends State<MainCategoriesWidget> {
+  @override
+  void initState() {
+    bloc = context.read<CategoryBloc>();
+
+    super.initState();
+  }
+
+  late CategoryBloc bloc;
+  bool hasError = false;
+  @override
   Widget build(BuildContext context) {
-    const isLoading = false;
+    final model = widget.model;
+    final isLoading = model == null;
     return GestureDetector(
-      onTap: onTap,
+      onTap: () {
+        if (isLoading) {
+          return;
+        }
+        final state = bloc.state;
+        final itSelf = state.mains![state.activIndex!].slug == model.slug;
+        if (itSelf) {
+          return;
+        }
+        bloc.add(ChangeCategory(slug: model.slug));
+      },
       child: Container(
         width: 76.w,
         padding: AppPaddings.horiz_10half,
@@ -42,11 +69,19 @@ class MainCategoriesWidget extends StatelessWidget {
               child: CircleAvatar(
                 backgroundColor: AppColors.transparent,
                 foregroundColor: AppColors.transparent,
-                onForegroundImageError: (exception, stackTrace) {},
-                foregroundImage: const CachedNetworkImageProvider(
-                    AssetsPath.macBook
-                    // 'https://docs.flutter.dev/assets/images/dash/dash-fainting.gif',
-                    ),
+                foregroundImage: isLoading
+                    ? null
+                    : hasError
+                        ? AssetImage('assets/images/app_icon.png')
+                        : CachedNetworkImageProvider(
+                            model!.image,
+                            errorListener: () {
+                              // set error image
+                              'Imageerror'.log();
+                              hasError = true;
+                              setState(() {});
+                            },
+                          ) as ImageProvider,
                 child: MyShimerPlaceHolder(
                   child: Container(
                     decoration: BoxDecoration(
@@ -67,14 +102,14 @@ class MainCategoriesWidget extends StatelessWidget {
                       ),
                     )
                   : Text(
-                      subTitle,
+                      model!.name,
                       style: AppTheme.bodyMedium10(context),
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.center,
                     ),
             ),
             AppSpacing.vertical_4,
-            if (isSelected)
+            if (!isLoading && widget.isSelected)
               Container(
                 height: 3.h,
                 width: 68.w,

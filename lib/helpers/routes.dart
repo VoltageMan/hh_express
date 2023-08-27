@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hh_express/features/auth/view/auth_screen.dart';
+import 'package:hh_express/features/auth/view/auth_screen.dart' as auth;
 import 'package:hh_express/features/categories/view/details/category_details.dart';
 import 'package:hh_express/features/mainScreen/view/main_screen.dart';
 import 'package:hh_express/features/notifications/view/notification_screen.dart';
@@ -42,7 +42,7 @@ final appRouter = GoRouter(
       pageBuilder: (context, state) {
         final extra = state.extra as bool?;
         return CustomTransitionPage(
-          child: AuthScreen(
+          child: auth.AuthScreen(
             forSingUp: extra ?? true,
           ),
           transitionsBuilder: (context, animation, secondaryAnimation, child) =>

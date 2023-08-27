@@ -11,11 +11,7 @@ class CategoryDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        if (ModelBottomSheetHelper.sheetShown) {
-          Navigator.pop(ModelBottomSheetHelper.currentContext!);
-          return false;
-        }
-        return true;
+        return ModelBottomSheetHelper.doPop();
       },
       child: const Scaffold(
         appBar: CatDetailsAppbar(),

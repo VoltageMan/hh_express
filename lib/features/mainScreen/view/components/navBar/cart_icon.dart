@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hh_express/app/test_screen.dart';
 import 'package:hh_express/features/mainScreen/view/components/navBar/nav_bar.dart';
 import 'package:hh_express/features/components/widgets/svg_icons.dart';
 import 'package:hh_express/helpers/extentions.dart';
+import 'package:hh_express/helpers/overlay_helper.dart';
+import 'package:hh_express/helpers/routes.dart';
 import 'package:hh_express/settings/consts.dart';
 
 class CartIcon extends StatelessWidget {
@@ -17,7 +20,7 @@ class CartIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context).bottomNavigationBarTheme;
     return GestureDetector(
-      onTap: onTap,
+      onTap: () {},
       child: Container(
         color: AppColors.transparent,
         height: 72.h,

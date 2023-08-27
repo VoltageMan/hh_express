@@ -10,7 +10,6 @@ import 'package:hh_express/helpers/confirm_exit.dart';
 import 'package:hh_express/helpers/modal_sheets.dart';
 import 'dart:developer';
 
-
 class MainScreen extends StatefulWidget {
   const MainScreen({
     super.key,
@@ -47,8 +46,8 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        if (ModelBottomSheetHelper.sheetShown) {
-          Navigator.pop(ModelBottomSheetHelper.currentContext!);
+        final val = ModelBottomSheetHelper.doPop();
+        if (!val) {
           return false;
         }
 

@@ -16,6 +16,9 @@ class AuthRepoImpl extends AuthRepo with DioClientMixin {
       data: model.toJson(),
       options: Options(),
     );
+    if (response.success) {
+      await LocalStorage.saveToken(response.data['accec_token']);
+    }
     return response;
   }
 
@@ -25,6 +28,10 @@ class AuthRepoImpl extends AuthRepo with DioClientMixin {
       endPoint: EndPoints.register,
       data: model.toJson(),
     );
+    if (response.success) {
+      await LocalStorage.saveToken(response.data['accec_token']);
+    }
+
     return response;
   }
 

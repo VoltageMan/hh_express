@@ -28,7 +28,7 @@ class DioClient {
               LoggerInterceptor(),
               InterceptorsWrapper(
                 onResponse: (res, handler) {
-                  'REE'.log();
+                  'end response'.log();
                   handler.next(res);
                 },
                 onRequest: (options, handler) async {
@@ -68,6 +68,7 @@ class DioClient {
     Map<String, dynamic>? data,
     Map<String, dynamic>? queryParameters,
     Options? options,
+    CancelToken? cancelToken,
   }) async {
     try {
       final res = await _dio.get<dynamic>(
@@ -75,6 +76,7 @@ class DioClient {
         data: data,
         options: options,
         queryParameters: queryParameters,
+        cancelToken: cancelToken,
       );
       return ApiResponse.fromJson(res.data as Map<String, dynamic>);
     } catch (e, s) {

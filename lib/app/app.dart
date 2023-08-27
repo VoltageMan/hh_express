@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/app/test_screen.dart';
 import 'package:hh_express/data/local/secured_storage.dart';
 import 'package:hh_express/features/auth/bloc/auth_bloc.dart';
+import 'package:hh_express/features/categories/bloc/category_bloc.dart';
 import 'package:hh_express/features/home/bloc/home_bloc.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/routes.dart';
@@ -30,13 +31,17 @@ class _MyAppState extends State<MyApp> {
     return 666;
   }
 
+  final myStream = strr();
+
+
   @override
   Widget build(BuildContext context) {
     // waiting();
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => HomeBloc()),
-        BlocProvider(create: (context) => AuthBloc())
+        BlocProvider(create: (context) => AuthBloc()),
+        BlocProvider(create: (context) => CategoryBloc()),
       ],
       child: ScreenUtilInit(
         designSize: const Size(360, 800),
@@ -55,23 +60,24 @@ class _MyAppState extends State<MyApp> {
                 localizationsDelegates: AppLocalizations.localizationsDelegates,
                 builder: (context, child) {
                   AppSpacing.setTopPad(context);
+                  // return waited
                   // return TestScreen();
-                  return waited
-                      ? Navigator(
-                          onGenerateRoute: (settings) => MaterialPageRoute(
-                            builder: (context) {
-                              return child!;
-                            },
-                          ),
-                        )
-                      : GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              waited = true;
-                            });
-                          },
-                          child: const SplashScreen(),
-                        );
+                  return Navigator(
+                    onGenerateRoute: (settings) => MaterialPageRoute(
+                      builder: (context) {
+                        return child!;
+                      },
+                    ),
+                  );
+
+                  // : GestureDetector(
+                  //     onTap: () {
+                  //       setState(() {
+                  //         waited = true;
+                  //       });
+                  //     },
+                  //     child: const SplashScreen(),
+                  //   );
                 },
               );
             },
@@ -80,4 +86,14 @@ class _MyAppState extends State<MyApp> {
       ),
     );
   }
+}
+
+Stream<String> strr() {
+  final stream = Stream.periodic(
+    Duration(seconds: 3),
+    (period) {
+      return '';
+    },
+  );
+  return stream;
 }

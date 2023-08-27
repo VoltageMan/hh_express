@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hh_express/features/auth/view/auth_screen.dart';
 
 class TestScreen extends StatefulWidget {
   const TestScreen({super.key});
@@ -10,6 +11,27 @@ class TestScreen extends StatefulWidget {
 class _TestScreenState extends State<TestScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return Navigator(
+      onGenerateRoute: (settings) => MaterialPageRoute(
+        builder: (context) => AuthScreen(
+          forSingUp: false,
+        ),
+      ),
+    );
   }
 }
+
+// Future<void> overlayTest() async {
+//   'kuukuk'.log();
+//   final overlay = OverlayEntry(
+//     builder: (context) {
+//       return Container(
+//         decoration: BoxDecoration(
+//           color: AppColors.appOrange,
+//           borderRadius: AppBorderRadiuses.border_6,
+//         ),
+//       );
+//     },
+//   );
+//   Overlay.of(appRouter.currentContext).insert(overlay);
+// }

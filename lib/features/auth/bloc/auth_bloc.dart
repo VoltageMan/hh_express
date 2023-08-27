@@ -1,8 +1,11 @@
+import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart' show Cubit;
 import 'package:go_router/go_router.dart';
 import 'package:hh_express/app/setup.dart';
 import 'package:hh_express/data/local/secured_storage.dart';
 import 'package:hh_express/helpers/extentions.dart';
+import 'package:hh_express/helpers/overlay_helper.dart';
 import 'package:hh_express/helpers/routes.dart';
 import 'package:hh_express/models/auth/auth_model.dart';
 import 'package:hh_express/repositories/auth/auth_repositori.dart';
@@ -95,34 +98,38 @@ class AuthBloc extends Cubit<AuthState> {
     return true;
   }
 
+
   Future<bool> logIn(AuthModel data) async {
     emit(AuthState(
         apiState: APIState.loading, termsConfirmed: state.termsConfirmed));
+    OverlayHelper.showLoading();
     final response = await _repo.logIn(data);
     if (!response.success) {
       emit(AuthState(
           apiState: APIState.error,
           message: response.message,
           termsConfirmed: state.termsConfirmed));
+      OverlayHelper.remove();
       return false;
     }
     if (response.success) {
       final responseData = response.data;
-
-//Save Token
       emit(AuthState(
           apiState: APIState.succses,
           message: response.message,
           termsConfirmed: state.termsConfirmed));
+      OverlayHelper.remove();
       return true;
     }
     wrongState(response.message);
+    OverlayHelper.remove();
     return false;
   }
 
   Future<bool> logOut() async {
     emit(AuthState(
         apiState: APIState.loading, termsConfirmed: state.termsConfirmed));
+    OverlayHelper.showLoading();
     final token = await LocalStorage.getToken();
     final response = await _repo.logOut(token!);
     if (response.success) {
@@ -130,6 +137,7 @@ class AuthBloc extends Cubit<AuthState> {
           apiState: APIState.succses,
           message: response.message,
           termsConfirmed: state.termsConfirmed));
+      OverlayHelper.remove();
       return true;
     }
     emit(
@@ -139,22 +147,24 @@ class AuthBloc extends Cubit<AuthState> {
         termsConfirmed: state.termsConfirmed,
       ),
     );
+    OverlayHelper.remove();
     return false;
   }
 
   Future<bool> singUp(AuthModel model) async {
     emit(AuthState(
         apiState: APIState.loading, termsConfirmed: state.termsConfirmed));
+    OverlayHelper.showLoading();
     final response = await _repo.register(model);
     if (!response.success) {
       emit(AuthState(
           apiState: APIState.error,
           termsConfirmed: state.termsConfirmed,
           message: response.message));
+      OverlayHelper.remove();
       return false;
     }
     if (response.success) {
-      await LocalStorage.saveToken(response.data['accec_token']);
       emit(
         AuthState(
           apiState: APIState.succses,
@@ -162,8 +172,10 @@ class AuthBloc extends Cubit<AuthState> {
           termsConfirmed: state.termsConfirmed,
         ),
       );
+      OverlayHelper.remove();
       return true;
     }
+    OverlayHelper.remove();
     wrongState(response.message);
     return false;
   }

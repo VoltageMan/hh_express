@@ -179,7 +179,7 @@ class AssetsPath {
   static const exampleImage1 =
       'https://cdn.pixabay.com/photo/2020/05/25/17/21/link-5219567_1280.jpg';
   static const exampleImage2 =
-      'https://cdn.pixabay.com/photo/2020/05/31/16/53/bookmarks-5243253_640.jpg';
+      'http://216.250.9.74/storage/21/conversions/men-thumb.webp';
 
   static const splashBackground = 'assets/images/splash.svg';
   static const splashBack = 'assets/images/splash_back.png';
@@ -214,4 +214,17 @@ class EndPoints {
   static const register = 'api/v1/auth/register';
   static const authMe = 'api/v1/auth/me';
   static const logOut = 'api/v1/auth/logout';
+  static const category = 'api/v1/category/list';
+}
+
+class APIKeys {
+  static const mainCategories = 'main_categories';
+  static const subCategories = 'sub_categories';
+  static const activCategory = 'active_category';
+  static const accsesToken = 'api/v1/category/list';
+  static const user = 'api/v1/category/list';
+  static const succses = 'succsess';
+  static const message = 'message';
+  static const error = 'error';
+  static const data = 'data';
 }
