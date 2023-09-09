@@ -40,30 +40,44 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
             boxShadow: AppColors.appBarShadow,
             color: AppColors.white,
           ),
-          child: index != 0 && index != null
-              ? Text(titles[index!], style: textTheme.titleMedium)
-              : Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+          child: index == 3
+              ? Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Expanded(child: HomeSearchField()),
-                    Padding(
-                      padding: AppPaddings.horiz_16,
-                      child: MyImageIcon(
-                        path: AssetsPath.filterIcon,
-                        iconSize: 20.8.w,
-                        onTap: () => ModelBottomSheetHelper.showFilterSheet(),
-                      ),
-                    ),
-                    MyImageIcon(
-                      path: AssetsPath.bellIcon,
-                      contSize: 24.sp,
-                      iconSize: 19.2.h,
-                      onTap: () {
-                        appRouter.currentContext.push(AppRoutes.notifications);
-                      },
-                    ),
+                    Text(titles[index], style: textTheme.titleMedium),
+                    IconButton(
+                        splashRadius: 1,
+                        splashColor: Colors.transparent,
+                        onPressed: () {},
+                        icon: Icon(Icons.chat))
                   ],
-                ),
+                )
+              : index != 0
+                  ? Text(titles[index], style: textTheme.titleMedium)
+                  : Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        const Expanded(child: HomeSearchField()),
+                        Padding(
+                          padding: AppPaddings.horiz_16,
+                          child: MyImageIcon(
+                            path: AssetsPath.filterIcon,
+                            iconSize: 20.8.w,
+                            onTap: () =>
+                                ModelBottomSheetHelper.showFilterSheet(),
+                          ),
+                        ),
+                        MyImageIcon(
+                          path: AssetsPath.bellIcon,
+                          contSize: 24.sp,
+                          iconSize: 19.2.h,
+                          onTap: () {
+                            appRouter.currentContext
+                                .push(AppRoutes.notifications);
+                          },
+                        ),
+                      ],
+                    ),
         );
       },
     );

@@ -8,88 +8,103 @@ import 'package:hh_express/features/profile/view/sheets/change_user_name.dart';
 import 'package:hh_express/features/profile/view/sheets/choose_welayat_sheet.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/routes.dart';
-import 'package:hh_express/settings/consts.dart';
 
 class ModelBottomSheetHelper {
-  static bool sheetShown = false;
-  static BuildContext? currentContext;
+  static bool _sheetShown = false;
+  static BuildContext? _currentContext;
+
+  /// this fuck pops ModalSheet if its shown and return value for WillPopScoup Widget
+  static bool doPop() {
+    if (_sheetShown) {
+      Navigator.pop(_currentContext!);
+      return false;
+    }
+    return true;
+  }
+
   static Future<void> showFilterSheet() async {
-    sheetShown = true;
+    _sheetShown = true;
     await showModalBottomSheet(
       context: appRouter.currentContext,
       useRootNavigator: true,
       isScrollControlled: true,
       shape: RoundedRectangleBorder(
-        borderRadius: AppBorderRadiuses.border_10,
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(10), topRight: Radius.circular(10)),
       ),
       builder: (context) {
-        currentContext = context;
+        _currentContext = context;
         return const FilterSheetBody();
       },
     );
-    sheetShown = false;
+    _sheetShown = false;
   }
 
   static Future<void> showLangSheet() async {
-    sheetShown = true;
+    _sheetShown = true;
     await showModalBottomSheet(
       context: appRouter.currentContext,
       useRootNavigator: true,
       isScrollControlled: true,
       shape: RoundedRectangleBorder(
-        borderRadius: AppBorderRadiuses.border_10,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(10),
+          topRight: Radius.circular(10),
+        ),
       ),
       builder: (context) {
-        currentContext = context;
+        _currentContext = context;
         return const ChangeLangSheet();
       },
     );
 
-    sheetShown = false;
+    _sheetShown = false;
   }
 
   static Future<void> showBuyProd() async {
-    sheetShown = true;
+    _sheetShown = true;
     await showModalBottomSheet(
       context: appRouter.currentContext,
       useRootNavigator: true,
       isScrollControlled: true,
       shape: RoundedRectangleBorder(
-        borderRadius: AppBorderRadiuses.border_10,
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(10), topRight: Radius.circular(10)),
       ),
       builder: (context) {
-        currentContext = context;
+        _currentContext = context;
         return const BuyProdSheetBody();
       },
     );
 
-    sheetShown = false;
+    _sheetShown = false;
   }
 
   static Future<void> showProfileSheets(int index) async {
     if (index == 1) return;
 
-    sheetShown = true;
+    _sheetShown = true;
     const List<Widget> _profileSheets = [
       ChangeUserNameSheet(),
       SizedBox(),
       OrdersSheetBody(),
       FavorsBody(),
-      ChooseWelayatSheet(),
+      ChooseWelayatSheet( ),
       ChangeLangSheet(),
     ];
     await showModalBottomSheet(
-      context: appRouter.routerDelegate.navigatorKey.currentContext!,
+      context: appRouter.currentContext,
       useRootNavigator: true,
       isScrollControlled: true,
       shape: RoundedRectangleBorder(
-        borderRadius: AppBorderRadiuses.border_10,
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(10), topRight: Radius.circular(10)),
       ),
       builder: (context) {
-        currentContext = context;
+        _currentContext = context;
         return _profileSheets[index];
       },
     );
-    sheetShown = false;
+    _sheetShown = false;
   }
 }

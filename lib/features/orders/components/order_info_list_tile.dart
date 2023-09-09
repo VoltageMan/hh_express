@@ -20,7 +20,7 @@ class OrderInfoListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
-    final isLoading = content == null;
+    final isLoading = false;
     return Padding(
       padding: titleBold != null || contentBold != null
           ? EdgeInsets.zero

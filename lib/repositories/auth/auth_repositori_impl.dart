@@ -3,7 +3,6 @@ import 'package:hh_express/data/local/secured_storage.dart';
 import 'package:hh_express/data/remote/dio_client.dart';
 import 'package:hh_express/models/api/response_model.dart';
 import 'package:hh_express/models/auth/auth_model.dart';
-import 'package:hh_express/models/profile/user/user_model.dart';
 import 'package:hh_express/repositories/auth/auth_repositori.dart';
 import 'package:hh_express/settings/consts.dart';
 import 'package:injectable/injectable.dart';
@@ -17,6 +16,9 @@ class AuthRepoImpl extends AuthRepo with DioClientMixin {
       data: model.toJson(),
       options: Options(),
     );
+    if (response.success) {
+      await LocalStorage.saveToken(response.data['accec_token']);
+    }
     return response;
   }
 
@@ -26,6 +28,10 @@ class AuthRepoImpl extends AuthRepo with DioClientMixin {
       endPoint: EndPoints.register,
       data: model.toJson(),
     );
+    if (response.success) {
+      await LocalStorage.saveToken(response.data['accec_token']);
+    }
+
     return response;
   }
 
@@ -36,10 +42,11 @@ class AuthRepoImpl extends AuthRepo with DioClientMixin {
     };
     final response = await dio.delete(
       endPoint: EndPoints.logOut,
-      options: Options(
-        headers: headers,
-      ),
+      options: Options(headers: headers),
     );
+    if (response.success) {
+      await LocalStorage.deleteToken();
+    }
     return response;
   }
 

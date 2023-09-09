@@ -36,6 +36,7 @@ class ProfileListTile extends StatelessWidget {
                     path: iconPath,
                     contSize: 24.sp,
                   ),
+                  AppSpacing.horizontal_4,
                   Expanded(
                     flex: 4,
                     child: Text(

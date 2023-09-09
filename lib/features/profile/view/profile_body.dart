@@ -18,7 +18,7 @@ class ProfileBody extends StatefulWidget {
 
 class _ProfileBodyState extends State<ProfileBody> {
   final List<String> icons = [
-    AssetsPath.profileIcon,
+    AssetsPath.navBarIcons[4],
     AssetsPath.phoneIcon,
     AssetsPath.ordersIcon,
     AssetsPath.favorIcon,

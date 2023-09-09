@@ -13,7 +13,7 @@ class OrdersWidget extends StatelessWidget {
   final dynamic order;
   @override
   Widget build(BuildContext context) {
-    final isLoading = order == null;
+    final isLoading = false;
     final theme = Theme.of(context);
 
     final l10n = context.l10n;

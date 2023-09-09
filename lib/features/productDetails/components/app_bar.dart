@@ -14,7 +14,6 @@ class ProdDetailsAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-
     return Container(
       margin: EdgeInsets.only(top: AppSpacing.topPad),
       height: 52.h,

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hh_express/features/notifications/view/notifications_app_bar.dart';
 import 'package:hh_express/features/notifications/view/widget.dart';
-import 'package:hh_express/helpers/extentions.dart';
 
 class NotificationScreen extends StatelessWidget {
   const NotificationScreen({super.key});

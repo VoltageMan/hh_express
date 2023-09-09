@@ -10,7 +10,7 @@ class LoggerInterceptor extends Interceptor {
     '!!! ${options.method} request => $requestPath'.log();
     '!!! Error: ${err.error}, Message: ${err.message}'.log(); // Error log
     if (err.response != null) {
-      '!!! Error RESPONSE MESSAGE: ${err.response!.statusMessage}, Message: ${err.response!.data}, Error Message: ${err.message}'
+      '!!! Error RESPONSE MESSAGE: ${err.response?.statusMessage}, Message: ${err.response?.data}, Error Message: ${err.message}'
           .log();
     }
     return super.onError(err, handler);
@@ -19,7 +19,7 @@ class LoggerInterceptor extends Interceptor {
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     final requestPath = '${options.baseUrl}${options.path}';
-    '-> -> -> ${options.method} request => $requestPath \ndata:${options.data} \nqueryParams: ${options.queryParameters}'
+    '-> -> -> ${options.method} request => $requestPath \ndata:${options.data} \nqueryParams: ${options.queryParameters} \n headers: ${options.headers}'
         .log(); // Info log
     return super.onRequest(options, handler);
   }

@@ -1,7 +1,7 @@
 import 'package:extended_wrap/extended_wrap.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hh_express/features/components/confirm_some.dart';
+import 'package:hh_express/features/components/my_text_button.dart';
 import 'package:hh_express/features/components/widgets/nav_bar_body.dart';
 import 'package:hh_express/features/components/widgets/sheet_titles.dart';
 import 'package:hh_express/features/filter/components/filter_title.dart';
@@ -45,7 +45,7 @@ class _FilterSheetBodyState extends State<FilterSheetBody> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     BottomSheetTitle(
-                      title: context.l10n.filter!,
+                      title: context.l10n.filter,
                     ),
                     AppSpacing.vertical_15,
                     ExtendedWrap(
@@ -81,7 +81,7 @@ class _FilterSheetBodyState extends State<FilterSheetBody> {
             ),
           ),
           NavBarBody(
-            child: ConfirmSomeTh(
+            child: MyDarkTextButton(
               title: 'Harytlar (500)',
               onTap: () {
                 Navigator.pop(context);

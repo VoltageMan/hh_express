@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hh_express/app/setup.dart';
 import 'package:hh_express/features/components/widgets/place_holder.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/routes.dart';
-import 'package:hh_express/repositories/auth/auth_repositori.dart';
+import 'package:hh_express/models/products/product_model.dart';
 import 'package:hh_express/settings/consts.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:hh_express/settings/theme.dart';
@@ -13,22 +12,15 @@ import 'package:hh_express/settings/theme.dart';
 class HomeProdWidget extends StatelessWidget {
   const HomeProdWidget({super.key, required this.index, this.prod});
   final int index;
-  final dynamic prod;
+  final ProductModel? prod;
   @override
   Widget build(BuildContext context) {
-    final hasDiscount = index % 2 == 1;
-    final isLoading = prod != null;
+    final isLoading = prod == null;
+    final hasDiscount = prod?.discount == null;
     return GestureDetector(
       onTap: () {
-        // final user = UserModel(
-        //   entity: '99361616161',
-        //   id: 2,
-        //   name: 'IronMan',
-        //   password: 'ArcalykWoda',
-        // );
-        // 'sssososo'.log();
-        final repo = getIt<AuthRepo>();
-        // appRouter.currentContext.push(AppRoutes.prodDetails);
+        if (isLoading) return;
+        appRouter.currentContext.push(AppRoutes.prodDetails);
       },
       child: Container(
         width: 160.w,
@@ -39,6 +31,7 @@ class HomeProdWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
+              width: double.infinity,
               height: 150.h,
               decoration: BoxDecoration(
                 color: AppColors.lightGrey,
@@ -53,9 +46,7 @@ class HomeProdWidget extends StatelessWidget {
                   : ClipRRect(
                       borderRadius: AppBorderRadiuses.border_4,
                       child: CachedNetworkImage(
-                        imageUrl: index % 2 == 0
-                            ? AssetsPath.exampleImage1
-                            : AssetsPath.exampleImage2,
+                        imageUrl: prod!.image,
                         placeholder: (context, url) {
                           return const MyShimerPlaceHolder();
                         },
@@ -71,7 +62,7 @@ class HomeProdWidget extends StatelessWidget {
                     height: 15.h,
                   )
                 : Text(
-                    'Луис вуитон коллобарация с гуччи пздц вешь',
+                    '${prod?.name}',
                     style: Theme.of(context)
                         .textTheme
                         .titleMedium!
@@ -88,9 +79,7 @@ class HomeProdWidget extends StatelessWidget {
                 : Container(
                     margin: AppPaddings.vertic_10,
                     child: Text(
-                      index % 2 == 0
-                          ? 'hii'
-                          : 'Lorem Ipsum Dolar sit amet dalse huy znaet, i tak dlya testa some text here is its is',
+                      '${prod?.description}',
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.titleSmall,
@@ -109,7 +98,7 @@ class HomeProdWidget extends StatelessWidget {
                         FittedBox(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            '509 TMT',
+                            '${prod?.salePrice} TMT',
                             style: Theme.of(context).textTheme.titleLarge,
                             textAlign: TextAlign.start,
                           ),
@@ -121,7 +110,7 @@ class HomeProdWidget extends StatelessWidget {
                             ? FittedBox(
                                 alignment: Alignment.centerLeft,
                                 child: Text(
-                                  '700Tmt',
+                                  '${prod!.price} Tmt',
                                   style:
                                       AppTheme.lineThroughTitleSmall(context),
                                   textAlign: TextAlign.start,

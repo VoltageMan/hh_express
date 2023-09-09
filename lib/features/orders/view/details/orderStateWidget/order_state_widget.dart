@@ -10,7 +10,7 @@ class OrderStateWidget extends StatelessWidget {
   final dynamic prod;
   @override
   Widget build(BuildContext context) {
-    final isLoading = prod == null;
+    final isLoading = false;
     return Container(
       height: 200.h,
       margin: AppPaddings.all_16,

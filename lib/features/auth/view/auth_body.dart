@@ -6,7 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hh_express/features/auth/bloc/auth_bloc.dart';
 import 'package:hh_express/features/auth/components/auth_field.dart';
 import 'package:hh_express/features/auth/components/confirm_terms%20_of_use.dart';
-import 'package:hh_express/features/components/confirm_some.dart';
+import 'package:hh_express/features/components/my_text_button.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/routes.dart';
 import 'package:hh_express/models/auth/auth_model.dart';
@@ -28,15 +28,15 @@ class _AuthBodyState extends State<AuthBody>
     with SingleTickerProviderStateMixin {
   @override
   void initState() {
-    context.read<AuthBloc>().init();
-    tabContrller = TabController(length: 2, vsync: this);
+    bloc = context.read<AuthBloc>()..init();
+    tabController = TabController(length: 2, vsync: this);
     super.initState();
   }
 
   final numController = TextEditingController();
   final codeController = TextEditingController();
   final nameController = TextEditingController();
-  late TabController tabContrller;
+  late TabController tabController;
 
   @override
   void dispose() {
@@ -61,7 +61,7 @@ class _AuthBodyState extends State<AuthBody>
   }
 
   bool _loading = false;
-  bool _termsConfirmed = false;
+  late AuthBloc bloc;
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +85,7 @@ class _AuthBodyState extends State<AuthBody>
           Expanded(
             child: TabBarView(
               physics: const NeverScrollableScrollPhysics(),
-              controller: tabContrller,
+              controller: tabController,
               children: [
                 Column(
                   children: [
@@ -104,13 +104,7 @@ class _AuthBodyState extends State<AuthBody>
                     const Expanded(
                       child: SizedBox(),
                     ),
-                    widget.forSingUp
-                        ? TermsOfUseWidget(
-                            onChanged: (val) {
-                              _termsConfirmed = val;
-                            },
-                          )
-                        : SizedBox(),
+                    widget.forSingUp ? TermsOfUseWidget() : SizedBox(),
                   ],
                 ),
                 Column(
@@ -126,55 +120,50 @@ class _AuthBodyState extends State<AuthBody>
           ),
           Padding(
             padding: AppPaddings.horiz_16.copyWith(top: 31.h),
-            child: BlocBuilder<AuthBloc, AuthState>(
-              builder: (context, state) {
-                return ConfirmSomeTh(
-                  disabled: state.apiState == APIState.loading,
-                  title: l10n.next,
-                  onTap: () async {
-                    'some'.log();
-                    final number = '993${numController.text}';
-                    final password = codeController.text;
-                    final name = nameController.text == '' && !forSingUp
-                        ? null
-                        : nameController.text;
-                    final model = AuthModel(
-                        entity: number, password: password, name: name);
+            child: MyDarkTextButton(
+              title: l10n.next,
+              onTap: () async {
+                'some'.log();
+                final number = '993${numController.text}';
+                final password = codeController.text;
+                final name = nameController.text == '' && !forSingUp
+                    ? null
+                    : nameController.text;
 
-                    final bloc = context.read<AuthBloc>();
-                    if (!bloc.checkName(name) || !bloc.checkNum(number)) {
-                      return;
-                    }
-                    if (widget.forSingUp) {
-                      if (!_termsConfirmed) {
-                        myShowSnack('Confirm Terms of usage', APIState.error);
-                        return;
-                      }
-                      if (tabContrller.index == 0) {
-                        tabContrller.animateTo(1);
-                        return;
-                      }
-                      if (!bloc.checkPass(password)) {
-                        return;
-                      }
-                      bloc.singUp(model).then((value) {
-                        if (value) {
-                          context.pop();
-                          return;
-                        }
-                        tabContrller.animateTo(0);
-                      });
-                      return;
-                    }
-                    bloc.logIn(model).then((value) {
-                      if (value) {
-                        context.pop();
-                        return;
-                      }
-                    });
+                final model =
+                    AuthModel(entity: number, password: password, name: name);
+
+                if (!bloc.checkName(name) || !bloc.checkNum(number)) {
+                  return;
+                }
+                if (widget.forSingUp) {
+                  if (!bloc.state.termsConfirmed) {
+                    myShowSnack('Confirm Terms of usage', APIState.error);
                     return;
-                  },
-                );
+                  }
+                  if (tabController.index == 0) {
+                    tabController.animateTo(1);
+                    return;
+                  }
+                  if (!bloc.checkPass(password)) {
+                    return;
+                  }
+                  bloc.singUp(model).then((value) {
+                    if (value) {
+                      context.pop();
+                      return;
+                    }
+                    tabController.animateTo(0);
+                  });
+                  return;
+                }
+                bloc.logIn(model).then((value) {
+                  if (value) {
+                    context.pop();
+                    return;
+                  }
+                });
+                return;
               },
             ),
           ),
@@ -208,5 +197,32 @@ class _AuthBodyState extends State<AuthBody>
         ],
       ),
     );
+  }
+}
+
+class StLess extends StatelessWidget {
+  const StLess({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
+  }
+}
+
+class StFull extends StatefulWidget {
+  const StFull({super.key});
+
+  @override
+  State<StFull> createState() => _StFullState();
+}
+
+class _StFullState extends State<StFull> {
+  void onTap() {
+    setState(() {});
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
   }
 }

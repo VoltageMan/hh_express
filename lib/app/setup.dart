@@ -8,4 +8,4 @@ final getIt = GetIt.instance;
 // GetIt configureDependencies(GetIt getIt) => $initGetIt(getIt);
 
 @InjectableInit()
-GetIt configureDependencies(GetIt getIt) => getIt.init( );
+GetIt configureDependencies(GetIt getIt) => getIt.init();

@@ -1,37 +1,69 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hh_express/features/categories/bloc/category_bloc.dart';
 import 'package:hh_express/features/categories/view/mainCategories/main_category_widget.dart';
 import 'package:hh_express/helpers/extentions.dart';
-import 'package:hh_express/settings/consts.dart';
+import 'package:hh_express/models/categories/category_model.dart';
+import 'package:hh_express/settings/enums.dart';
 
-class MainCategoriesBuilder extends StatelessWidget {
-  const MainCategoriesBuilder({super.key, required this.controller});
-  final ScrollController controller;
+class MainCategoriesBuilder extends StatefulWidget {
+  const MainCategoriesBuilder({
+    super.key,
+  });
+
+  @override
+  State<MainCategoriesBuilder> createState() => _MainCategoriesBuilderState();
+}
+
+class _MainCategoriesBuilderState extends State<MainCategoriesBuilder> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final List<String> list = [
-      'iPhone ',
-      'Lorem ',
-      'Pizde Prod',
-      'Xiomilar',
-      'Yene bir zat',
-      'Lorem  ',
-      'Lorem   Some SOme SOme',
-    ];
+    return BlocBuilder<CategoryBloc, CategoryState>(
+      builder: (context, state) {
+        'REbuilding ${state.state.name}'.log();
+        final apiState = state.state;
+        if (apiState == CategoryAPIState.succses ||
+            apiState == CategoryAPIState.loadingSubs ||
+            apiState == CategoryAPIState.errorSubs) {
+          return _UiBuilder(
+            selectedIndex: state.activIndex,
+            list: state.mains,
+          );
+        }
+        return _UiBuilder();
+      },
+    );
+  }
+}
 
+class _UiBuilder extends StatelessWidget {
+  const _UiBuilder({
+    this.list,
+    this.selectedIndex,
+  });
+  final List<CategoryModel>? list;
+  final int? selectedIndex;
+  @override
+  Widget build(BuildContext context) {
+    final isLoading = list == null;
     return ScrollConfiguration(
       behavior: MyBehavior(),
       child: SingleChildScrollView(
-        controller: controller,
-        padding: AppPaddings.top_16.add(AppPaddings.left_16),
         scrollDirection: Axis.horizontal,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: List.generate(
-            list.length,
+            isLoading ? 15 : list!.length,
             (index) => MainCategoriesWidget(
-              subTitle: list[index],
-            )..log(),
+              isSelected: isLoading ? false : selectedIndex == index,
+              model: isLoading ? null : list![index],
+            ),
           ),
         ),
       ),

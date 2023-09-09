@@ -36,6 +36,7 @@ class AppPaddings {
   static EdgeInsets right_28 = EdgeInsets.only(right: 28.w);
   static EdgeInsets right_7 = EdgeInsets.only(right: 7.w);
   static EdgeInsets right_6 = EdgeInsets.only(right: 6.w);
+  static EdgeInsets right_5 = EdgeInsets.only(right: 5.w);
   static EdgeInsets right_14 = EdgeInsets.only(right: 14.w);
 
   static EdgeInsets top_12 = EdgeInsets.only(top: 12.h);
@@ -75,6 +76,7 @@ class AppPaddings {
   static EdgeInsets horiz_4 = EdgeInsets.symmetric(horizontal: 4.w);
 
   static final vertic_10 = EdgeInsets.symmetric(vertical: 10.h);
+  static final vertic_20 = EdgeInsets.symmetric(vertical: 20.h);
   static EdgeInsets vertic_12 = EdgeInsets.symmetric(vertical: 12.h);
   static EdgeInsets vertic_16 = EdgeInsets.symmetric(vertical: 16.h);
   static EdgeInsets vertic_15 = EdgeInsets.symmetric(vertical: 15.h);
@@ -89,6 +91,7 @@ class AppPaddings {
   static final horiz16_vertic18 = horiz_16.copyWith(bottom: 18.h, top: 18.h);
   static final horiz16_vertic24 = horiz_16.copyWith(bottom: 24.h, top: 24.h);
   static final horiz16_botto10 = horiz_16.copyWith(bottom: 10.h);
+  static final horiz16_botto20 = horiz_16.copyWith(bottom: 20.h);
   static final horiz10_vertic5 =
       EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h);
   static final horiz56_vertic70 =
@@ -102,16 +105,19 @@ class AppPaddings {
   static final bottom12_top20 = EdgeInsets.only(top: 20.h, bottom: 12.h);
   static final horiz6_vertic3 =
       EdgeInsets.symmetric(horizontal: 6.w, vertical: 3.h);
+  static final horiz_12_vertic17 =
+      EdgeInsets.symmetric(horizontal: 12.w, vertical: 17.h);
 }
 
 class AppBorderRadiuses {
-  static final border_2 = BorderRadius.circular(2.r);
-  static final border_4 = BorderRadius.circular(4.r);
-  static final border_6 = BorderRadius.circular(6.r);
+  static final border_2 = BorderRadius.circular(2);
+  static final border_4 = BorderRadius.circular(4);
+  static final border_6 = BorderRadius.circular(6);
   static final border_8 = BorderRadius.circular(8.r);
   static final border_10 = BorderRadius.circular(10.r);
   static final border_50 = BorderRadius.circular(50.r);
   static final border_12 = BorderRadius.circular(12.r);
+  static final border_20 = BorderRadius.circular(20.r);
 
   static final top_6 = BorderRadius.vertical(top: Radius.circular(6.r));
   static final defBorder =
@@ -142,6 +148,7 @@ class AppColors {
   static Color shimmerHighlightColor = const Color(0xFF9B9B9B).withOpacity(.2);
   static Color shimmerBodyColor = const Color.fromRGBO(0, 0, 0, 0.3);
   //!
+  static const appOrange = Color(0xFFFF6600);
   static const mainOrange = Color.fromRGBO(255, 102, 0, 1);
   static const darkBlue = Color.fromRGBO(11, 21, 39, 1);
   static const shadowColor = Color.fromRGBO(0, 01, 0, 0.15);
@@ -172,10 +179,12 @@ class AssetsPath {
   static const exampleImage1 =
       'https://cdn.pixabay.com/photo/2020/05/25/17/21/link-5219567_1280.jpg';
   static const exampleImage2 =
-      'https://cdn.pixabay.com/photo/2020/05/31/16/53/bookmarks-5243253_640.jpg';
+      'http://216.250.9.74/storage/21/conversions/men-thumb.webp';
 
   static const splashBackground = 'assets/images/splash.svg';
+  static const splashBack = 'assets/images/splash_back.png';
   //! icons
+  static const logoIcon = 'assets/icons/logo.svg';
   static const searchIcon = 'assets/icons/search.svg';
   static const deleteIcon = 'assets/icons/delete.svg';
   static const filterIcon = 'assets/icons/filter.svg';
@@ -205,4 +214,25 @@ class EndPoints {
   static const register = 'api/v1/auth/register';
   static const authMe = 'api/v1/auth/me';
   static const logOut = 'api/v1/auth/logout';
+  static const category = 'api/v1/category/list';
+  static const products = 'api/v1/product/list';
+  static const properties = 'api/v1/property/list';
+}
+
+class APIKeys {
+  static const mainCategories = 'main_categories';
+  static const subCategories = 'sub_categories';
+  static const activCategory = 'active_category';
+  static const accsesToken = 'accses_token';
+  static const user = 'user';
+  static const succses = 'succsess';
+  static const message = 'message';
+  static const error = 'error';
+  static const data = 'data';
+  static const categories = 'categories';
+  static const properties = 'properties';
+  static const pagination = 'pagination';
+  static const page = 'page';
+  static const products = 'products';
+  static const urlDecoder = '%5B%5D';
 }

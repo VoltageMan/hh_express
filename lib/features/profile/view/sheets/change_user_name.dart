@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_keyboard_size/flutter_keyboard_size.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/features/auth/components/auth_field.dart';
-import 'package:hh_express/features/components/confirm_some.dart';
+import 'package:hh_express/features/components/my_text_button.dart';
 import 'package:hh_express/features/components/widgets/sheet_titles.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/spacers.dart';
@@ -42,7 +42,7 @@ class _ChangeUserNameSheetState extends State<ChangeUserNameSheet> {
           ),
           Padding(
             padding: AppPaddings.horiz_16.copyWith(bottom: 16.h, top: 10.h),
-            child: ConfirmSomeTh(
+            child: MyDarkTextButton(
               title: context.l10n.save,
               onTap: () {
                 Navigator.pop(context);

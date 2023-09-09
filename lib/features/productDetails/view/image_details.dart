@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/features/components/widgets/place_holder.dart';
 import 'package:hh_express/features/productDetails/components/image_indicator.dart';
 import 'package:hh_express/helpers/extentions.dart';
@@ -23,7 +24,7 @@ class _ImageDetailsState extends State<ImageDetails>
       vsync: this,
       initialIndex: widget.controller.index,
     );
-       super.initState();
+    super.initState();
   }
 
   late final TabController controller;
@@ -64,6 +65,9 @@ class _ImageDetailsState extends State<ImageDetails>
                 },
               ),
             ),
+          ),
+          SizedBox(
+            height: 70.h,
           ),
           ImageIndicator(controller: controller)
         ],

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hh_express/features/cart/view/widet.dart';
+import 'package:hh_express/features/cart/view/widget.dart';
 import 'package:hh_express/features/orders/view/details/orderInfo/order_info_widget.dart';
 
 class CartScreen extends StatelessWidget {
@@ -9,7 +9,11 @@ class CartScreen extends StatelessWidget {
     return ListView.custom(
       childrenDelegate: SliverChildListDelegate(
         [
-          for (int i = 0; i < 6; i++) const CartWidget(),
+          for (int i = 0; i < 6; i++)
+            CartWidget(
+              i,
+              onChange: (p0) {},
+            ),
           const OrderInfoWidget(
             prod: 'Some',
           ),

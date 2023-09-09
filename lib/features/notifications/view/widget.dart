@@ -14,7 +14,7 @@ class NotificationWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = context.theme.textTheme;
-    final isLoading = notifi == null;
+    final isLoading = false;
     return Padding(
       padding: AppPaddings.horiz16_vertic18,
       child: Row(

@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/features/components/widgets/favors_image.dart';
@@ -15,7 +14,7 @@ class FavorsWidget extends StatelessWidget {
   final dynamic prod;
   @override
   Widget build(BuildContext context) {
-    final isLoading = prod == null;
+    final isLoading = false;
     return GestureDetector(
       onTap: () {
         'hello'.log();

@@ -5,14 +5,15 @@ import 'package:hh_express/data/remote/interceptors/log_interceptor.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/models/api/response_model.dart';
 import 'package:hh_express/settings/consts.dart';
+import 'package:hh_express/settings/globals.dart';
 
 mixin DioClientMixin {
-  final DioClient _dio = DioClient();
-  DioClient get dio => _dio;
+  final _DioClient _dio = _DioClient();
+  _DioClient get dio => _dio;
 }
 
-class DioClient {
-  DioClient({
+class _DioClient {
+  _DioClient({
     String? baseUrl,
     ResponseType? type,
   }) : _dio = Dio(
@@ -28,7 +29,7 @@ class DioClient {
               LoggerInterceptor(),
               InterceptorsWrapper(
                 onResponse: (res, handler) {
-                  'REE'.log();
+                  'end response'.log();
                   handler.next(res);
                 },
                 onRequest: (options, handler) async {
@@ -42,6 +43,15 @@ class DioClient {
           );
 
   late final Dio _dio;
+  Options setLanguage(Options? options) {
+    final langHead = {
+      'accept-language': locale.value,
+    };
+    if (options == null) return Options(headers: langHead);
+    return options.copyWith(
+      headers: options.headers!..addAll(langHead),
+    );
+  }
 
   Future<ApiResponse> post({
     required String endPoint,
@@ -53,7 +63,7 @@ class DioClient {
       final res = await _dio.post<dynamic>(
         endPoint,
         data: data,
-        options: options,
+        options: setLanguage(options),
       );
       return ApiResponse.fromJson(res.data as Map<String, dynamic>);
     } catch (e, s) {
@@ -68,13 +78,15 @@ class DioClient {
     Map<String, dynamic>? data,
     Map<String, dynamic>? queryParameters,
     Options? options,
+    CancelToken? cancelToken,
   }) async {
     try {
       final res = await _dio.get<dynamic>(
         endPoint,
         data: data,
-        options: options,
+        options: setLanguage(options),
         queryParameters: queryParameters,
+        cancelToken: cancelToken,
       );
       return ApiResponse.fromJson(res.data as Map<String, dynamic>);
     } catch (e, s) {
@@ -90,8 +102,12 @@ class DioClient {
     Options? options,
   }) async {
     try {
-      final response = await _dio.delete(endPoint,
-          data: data, options: options, queryParameters: queryParameters);
+      final response = await _dio.delete(
+        endPoint,
+        data: data,
+        options: setLanguage(options),
+        queryParameters: queryParameters,
+      );
       return ApiResponse.fromJson(response.data);
     } catch (e, s) {
       return _handleException(e, s);
@@ -100,8 +116,10 @@ class DioClient {
 }
 
 ApiResponse _handleException(Object e, StackTrace? stack) {
-  final error = e as DioException;
-
+  final isDioExeption = e is DioException;
+  if (!isDioExeption) {
+    return ApiResponse.unknownError;
+  }
   if (e.error is SocketException) {
     'MY log Soceet Exeptionnn'.log();
     return ApiResponse(
@@ -111,14 +129,9 @@ ApiResponse _handleException(Object e, StackTrace? stack) {
       success: false,
     );
   }
-  if (e.response != null && e.response!.data != null) {
+  if (e.response != null && e.response!.data is Map) {
     '${e.requestOptions.data} MyDioExeption'.log();
     return ApiResponse.fromJson(e.response!.data);
   }
-  return ApiResponse(
-    data: {},
-    error: 'MyUnknown Error',
-    message: 'MyUnknown Error',
-    success: false,
-  );
+  return ApiResponse.unknownError;
 }

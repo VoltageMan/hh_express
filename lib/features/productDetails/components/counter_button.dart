@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hh_express/features/components/confirm_some.dart';
+import 'package:hh_express/features/components/my_text_button.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/settings/consts.dart';
 
@@ -31,7 +31,7 @@ class _CounterButtonState extends State<CounterButton> {
   @override
   Widget build(BuildContext context) {
     return count == 0
-        ? ConfirmSomeTh(
+        ? MyDarkTextButton(
             title: widget.title,
             onTap: () {
               count++;

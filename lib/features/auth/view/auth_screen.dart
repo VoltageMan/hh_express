@@ -11,7 +11,6 @@ class AuthScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       appBar: AuthAppBar(
         title: forSingUp ? l10n.registration : l10n.singIn,
       ),

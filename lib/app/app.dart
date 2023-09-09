@@ -1,18 +1,17 @@
-import 'dart:io';
-
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hh_express/app/setup.dart';
 import 'package:hh_express/app/test_screen.dart';
 import 'package:hh_express/data/local/secured_storage.dart';
 import 'package:hh_express/features/auth/bloc/auth_bloc.dart';
-import 'package:hh_express/features/components/confirm_some.dart';
+import 'package:hh_express/features/categories/bloc/category_bloc.dart';
+import 'package:hh_express/features/category_details/bloc/products_by_category_bloc.dart';
 import 'package:hh_express/features/home/bloc/home_bloc.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/routes.dart';
 import 'package:hh_express/helpers/spacers.dart';
-import 'package:hh_express/helpers/splash_screen.dart';
+import 'package:hh_express/repositories/products/product_repo.dart';
 import 'package:hh_express/settings/globals.dart';
 import 'package:hh_express/settings/theme.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -25,22 +24,21 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  bool waited = false;
-  Future<int> waiting() async {
-    if (waited) return 0;
-    await LocalStorage.init();
-    waited = true;
-    setState(() {});
-    return 666;
+  @override
+  void initState() {
+    LocalStorage.init();
+    super.initState();
   }
 
+  final repo = getIt<ProductRepo>();
   @override
   Widget build(BuildContext context) {
-    waiting();
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => HomeBloc()),
-        BlocProvider(create: (context) => AuthBloc())
+        BlocProvider(create: (context) => AuthBloc()),
+        BlocProvider(create: (context) => CategoryBloc()),
+        BlocProvider(create: (context) => ProductsByCategoryBloc()),
       ],
       child: ScreenUtilInit(
         designSize: const Size(360, 800),
@@ -50,6 +48,7 @@ class _MyAppState extends State<MyApp> {
             builder: (context, locale, child) {
               locale.log();
               return MaterialApp.router(
+                title: 'Yuan Shop',
                 supportedLocales: AppLocalizations.supportedLocales,
                 routerConfig: appRouter,
                 locale: Locale(locale),
@@ -57,17 +56,24 @@ class _MyAppState extends State<MyApp> {
                 debugShowCheckedModeBanner: false,
                 localizationsDelegates: AppLocalizations.localizationsDelegates,
                 builder: (context, child) {
-                  return TestScreen();
                   AppSpacing.setTopPad(context);
-                  return waited
-                      ? Navigator(
-                          onGenerateRoute: (settings) => MaterialPageRoute(
-                            builder: (context) {
-                              return child!;
-                            },
-                          ),
-                        )
-                      : const SplashScreen();
+                  // return waited
+                  // return TestScreen();
+                  return Navigator(
+                    onGenerateRoute: (settings) => MaterialPageRoute(
+                      builder: (context) {
+                        return child!;
+                      },
+                    ),
+                  );
+                  // : GestureDetector(
+                  //     onTap: () {
+                  //       setState(() {
+                  //         waited = true;
+                  //       });
+                  //     },
+                  //     child: const SplashScreen(),
+                  //   );
                 },
               );
             },

@@ -46,8 +46,8 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        if (ModelBottomSheetHelper.sheetShown) {
-          Navigator.pop(ModelBottomSheetHelper.currentContext!);
+        final val = ModelBottomSheetHelper.doPop();
+        if (!val) {
           return false;
         }
 
@@ -66,13 +66,20 @@ class _MainScreenState extends State<MainScreen> {
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.white,
         appBar: MainAppBar(),
-        body: ValueListenableBuilder(
-          valueListenable: bodyIndex,
-          builder: (contetx, val, child) {
-            return bodies![val];
-          },
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(
+              child: ValueListenableBuilder(
+                valueListenable: bodyIndex,
+                builder: (contetx, val, child) {
+                  return bodies![val];
+                },
+              ),
+            ),
+            const MyNavBar()
+          ],
         ),
-        bottomNavigationBar: const MyNavBar(),
       ),
     );
   }

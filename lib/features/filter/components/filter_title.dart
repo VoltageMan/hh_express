@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hh_express/helpers/extentions.dart';
-import 'package:hh_express/settings/consts.dart';
 import 'package:hh_express/settings/theme.dart';
 
 class FilterTitle extends StatelessWidget {

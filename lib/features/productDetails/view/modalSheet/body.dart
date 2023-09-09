@@ -1,12 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hh_express/features/components/widgets/nav_bar_body.dart';
 import 'package:hh_express/features/components/widgets/place_holder.dart';
 import 'package:hh_express/features/components/widgets/sheet_titles.dart';
 import 'package:hh_express/features/orders/components/dashed_line.dart';
 import 'package:hh_express/features/orders/components/order_info_list_tile.dart';
-import 'package:hh_express/features/orders/view/details/orderInfo/order_info_widget.dart';
 import 'package:hh_express/features/productDetails/components/image_indicator.dart';
 import 'package:hh_express/features/productDetails/view/modalSheet/bottom_bar.dart';
 import 'package:hh_express/helpers/extentions.dart';
@@ -83,7 +81,7 @@ class _BuyProdSheetBodyState extends State<BuyProdSheetBody>
 }
 
 class _ProdBuyInfo extends StatelessWidget {
-  const _ProdBuyInfo({super.key});
+  const _ProdBuyInfo();
 
   @override
   Widget build(BuildContext context) {

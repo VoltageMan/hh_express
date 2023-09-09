@@ -14,7 +14,7 @@ class OrderDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final titlesTheme = AppTheme.titleMedium16(context);
-    const isLoading = 1 == 2;
+    const isLoading = false;
     return Scaffold(
       appBar: const OrderDetailsAppBar(),
       body: ListView.custom(
