@@ -24,4 +24,11 @@ class ApiResponse<T> {
     // ignore: lines_longer_than_80_chars
     return 'ApiResponse(success: $success, data: $data, error: $error, messages: $message)';
   }
+
+  static final unknownError = ApiResponse(
+    data: {},
+    error: 'Unknown Error',
+    message: 'Unknown Error',
+    success: false,
+  );
 }

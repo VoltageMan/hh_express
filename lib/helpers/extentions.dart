@@ -4,12 +4,16 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'dart:developer' as devtools show log;
 
-
 extension Log on Object? {
-  void log({StackTrace? stackTrace}) => devtools.log(
-        toString(),
-        stackTrace: stackTrace,
-      );
+  void log({StackTrace? stackTrace, String? message}) {
+    devtools.log(
+      toString(),
+      stackTrace: stackTrace,
+    );
+    if (message == 'Throww') {
+      throw Error.safeToString('Load More With NUll Prods Error');
+    }
+  }
 }
 
 extension SliverExtentions on Widget {
@@ -19,11 +23,9 @@ extension SliverExtentions on Widget {
   }
 }
 
-
 extension L10n on BuildContext {
   AppLocalizations get l10n => AppLocalizations.of(this)!;
   ThemeData get theme => Theme.of(this);
- 
 }
 
 extension FromStringtoInt on String {

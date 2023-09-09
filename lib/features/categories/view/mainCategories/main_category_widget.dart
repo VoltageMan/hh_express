@@ -114,7 +114,7 @@ class _MainCategoriesWidgetState extends State<MainCategoriesWidget> {
                 height: 3.h,
                 width: 68.w,
                 margin: AppPaddings.horiz_4,
-                color: AppColors.mainOrange,
+                color: AppColors.black,
               )
           ],
         ),

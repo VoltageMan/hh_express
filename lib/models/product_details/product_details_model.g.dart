@@ -16,11 +16,8 @@ ProductDetailsModel _$ProductDetailsModelFromJson(Map<String, dynamic> json) =>
       discount: json['discount'] as String?,
       name: json['name'] as String,
       price: json['price'] as String,
-      colors: (json['colors'] as List<dynamic>)
-          .map((e) => ColorModel.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      sizes: (json['sizes'] as List<dynamic>)
-          .map((e) => SizeModel.fromJson(e as Map<String, dynamic>))
+      properties: (json['properties'] as List<dynamic>)
+          .map((e) => PropertyModel.fromJson(e as Map<String, dynamic>))
           .toList(),
       recomends: (json['recomends'] as List<dynamic>)
           .map((e) => ProductModel.fromJson(e as Map<String, dynamic>))
@@ -37,7 +34,6 @@ Map<String, dynamic> _$ProductDetailsModelToJson(
       'name': instance.name,
       'price': instance.price,
       'description': instance.description,
-      'sizes': instance.sizes,
-      'colors': instance.colors,
+      'properties': instance.properties,
       'recomends': instance.recomends,
     };

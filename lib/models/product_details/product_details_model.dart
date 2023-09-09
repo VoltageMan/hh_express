@@ -1,6 +1,5 @@
-import 'package:hh_express/models/color_model/color_model.dart';
 import 'package:hh_express/models/products/product_model.dart';
-import 'package:hh_express/models/size/size_model.dart';
+import 'package:hh_express/models/property/property_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'product_details_model.g.dart';
 
@@ -13,8 +12,7 @@ class ProductDetailsModel {
   final String name;
   final String price;
   final String description;
-  final List<SizeModel> sizes;
-  final List<ColorModel> colors;
+  final List<PropertyModel> properties;
   final List<ProductModel> recomends;
 
   const ProductDetailsModel({
@@ -25,8 +23,7 @@ class ProductDetailsModel {
     this.discount,
     required this.name,
     required this.price,
-    required this.colors,
-    required this.sizes,
+    required this.properties,
     required this.recomends,
   });
 

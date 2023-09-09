@@ -17,7 +17,6 @@ class _CategoryBodyState extends State<CategoryBody> {
   @override
   void initState() {
     bloc = context.read<CategoryBloc>()..add(InitCategories());
-    // TODO: implement initState
     super.initState();
   }
 

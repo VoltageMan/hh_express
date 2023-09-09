@@ -215,16 +215,24 @@ class EndPoints {
   static const authMe = 'api/v1/auth/me';
   static const logOut = 'api/v1/auth/logout';
   static const category = 'api/v1/category/list';
+  static const products = 'api/v1/product/list';
+  static const properties = 'api/v1/property/list';
 }
 
 class APIKeys {
   static const mainCategories = 'main_categories';
   static const subCategories = 'sub_categories';
   static const activCategory = 'active_category';
-  static const accsesToken = 'api/v1/category/list';
-  static const user = 'api/v1/category/list';
+  static const accsesToken = 'accses_token';
+  static const user = 'user';
   static const succses = 'succsess';
   static const message = 'message';
   static const error = 'error';
   static const data = 'data';
+  static const categories = 'categories';
+  static const properties = 'properties';
+  static const pagination = 'pagination';
+  static const page = 'page';
+  static const products = 'products';
+  static const urlDecoder = '%5B%5D';
 }

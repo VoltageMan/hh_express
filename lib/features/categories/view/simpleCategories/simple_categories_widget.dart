@@ -20,7 +20,9 @@ class SimpleCategoryWidget extends StatelessWidget {
     final isLoading = model == null;
     return GestureDetector(
       onTap: () {
-        appRouter.currentContext.push(AppRoutes.categoryDetails);
+        if (isLoading || appRouter.location == AppRoutes.productByCategory)
+          return;
+        appRouter.currentContext.push(AppRoutes.productByCategory, extra: model!);
       },
       child: Container(
         margin: AppPaddings.horiz_4,

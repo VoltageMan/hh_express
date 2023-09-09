@@ -1,12 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hh_express/features/auth/view/auth_screen.dart' as auth;
-import 'package:hh_express/features/categories/view/details/category_details.dart';
+import 'package:hh_express/features/category_details/view/products_by_category.dart';
 import 'package:hh_express/features/mainScreen/view/main_screen.dart';
 import 'package:hh_express/features/notifications/view/notification_screen.dart';
 import 'package:hh_express/features/orders/view/details/orders_screen.dart';
 import 'package:hh_express/features/productDetails/view/screen.dart';
 import 'package:hh_express/features/video/view/details/video_details.dart';
+import 'package:hh_express/models/categories/category_model.dart';
 
 enum EnumNavRoutes { home, video, category, cart, profile }
 
@@ -22,7 +23,7 @@ class AppRoutes {
   static const filterDetails = '/filterDetails';
   static const auth = '/auth';
   static const orderDetails = '/orderDetails';
-  static const categoryDetails = '/categoryDetails';
+  static const productByCategory = '/productByCategory';
   static const notifications = '/notifications';
   static const prodDetails = '/prodDetails';
   static const videoDetails = '/videoDetails';
@@ -62,9 +63,11 @@ final appRouter = GoRouter(
       },
     ),
     GoRoute(
-      path: AppRoutes.categoryDetails,
+      path: AppRoutes.productByCategory,
       builder: (context, state) {
-        return const CategoryDetails();
+        return ProductsByCategory(
+          category: state.extra as CategoryModel,
+        );
       },
     ),
     GoRoute(

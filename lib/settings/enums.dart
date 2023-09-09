@@ -18,3 +18,12 @@ enum LocalDataKeys {
   token,
   lang,
 }
+
+enum ProductAPIState {
+  init,
+  loading,
+  loadingMore,
+  loadingMoreError,
+  error,
+  succses,
+}

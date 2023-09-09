@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hh_express/features/auth/view/auth_screen.dart';
 
 class TestScreen extends StatefulWidget {
   const TestScreen({super.key});
@@ -11,10 +10,22 @@ class TestScreen extends StatefulWidget {
 class _TestScreenState extends State<TestScreen> {
   @override
   Widget build(BuildContext context) {
+    final isSelected = 1 == 2;
+    final secondConditions = 1 == 2;
+
     return Navigator(
       onGenerateRoute: (settings) => MaterialPageRoute(
-        builder: (context) => AuthScreen(
-          forSingUp: false,
+        builder: (context) => Scaffold(
+          body: Text(
+            '${isSelected ? 'this text selected' : 'this text not selected'}',
+            style: TextStyle(
+              color: isSelected
+                  ? Colors.green
+                  : secondConditions
+                      ? Colors.red
+                      : Colors.grey,
+            ),
+          ),
         ),
       ),
     );
@@ -35,3 +46,4 @@ class _TestScreenState extends State<TestScreen> {
 //   );
 //   Overlay.of(appRouter.currentContext).insert(overlay);
 // }
+

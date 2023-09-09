@@ -1,4 +1,3 @@
-import 'dart:math';
 
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
@@ -15,6 +14,7 @@ part 'category_state.dart';
 
 class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
   final repo = getIt<CategoryRepo>();
+  
   CategoryBloc() : super(CategoryState(state: CategoryAPIState.init)) {
     on<InitCategories>((event, emit) async {
       if (state.state == CategoryAPIState.init ||
@@ -74,6 +74,7 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
   //     cancelToken,
   //   );
   // }
+  
   Future<void> checkSubExisting(
       String slug, Emitter<CategoryState> emit, int index) async {
     final theSubs = state.subs![slug];
