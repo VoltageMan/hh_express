@@ -7,7 +7,8 @@ import 'package:hh_express/helpers/modal_sheets.dart';
 import 'package:hh_express/helpers/spacers.dart';
 import 'package:hh_express/settings/consts.dart';
 
-class ProductsByCategoryAppBar extends StatelessWidget implements PreferredSizeWidget {
+class ProductsByCategoryAppBar extends StatelessWidget
+    implements PreferredSizeWidget {
   const ProductsByCategoryAppBar({super.key});
   @override
   Size get preferredSize => Size.fromHeight(52.h);

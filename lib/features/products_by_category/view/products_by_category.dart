@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/features/categories/view/body.dart';
-import 'package:hh_express/features/category_details/bloc/products_by_category_bloc.dart';
-import 'package:hh_express/features/category_details/view/app_bar_prods_by_cat.dart';
-import 'package:hh_express/features/category_details/view/products_by_category_info.dart';
 import 'package:hh_express/features/home/view/components/product_builder.dart';
+import 'package:hh_express/features/products_by_category/bloc/products_by_category_bloc.dart';
+import 'package:hh_express/features/products_by_category/view/app_bar_prods_by_cat.dart';
+import 'package:hh_express/features/products_by_category/view/products_by_category_info.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/modal_sheets.dart';
 import 'package:hh_express/models/categories/category_model.dart';
@@ -28,8 +28,8 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
               (scrollController.position.maxScrollExtent - 15.h) &&
           scrollController.position.isScrollingNotifier.value) {
         final state = bloc.state;
-        if (state.pagination!.currentPage == state.pagination!.lastPage ||
-            state.state != ProductAPIState.succses) {
+        if (state.state != ProductAPIState.succses ||
+            state.pagination!.currentPage == state.pagination!.lastPage) {
           return;
         }
         bloc.loadMore();

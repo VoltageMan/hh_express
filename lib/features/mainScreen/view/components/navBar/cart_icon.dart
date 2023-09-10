@@ -20,7 +20,7 @@ class CartIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context).bottomNavigationBarTheme;
     return GestureDetector(
-      onTap: () {},
+      onTap: () => onTap(),
       child: Container(
         color: AppColors.transparent,
         height: 72.h,

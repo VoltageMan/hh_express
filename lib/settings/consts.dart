@@ -176,8 +176,6 @@ class AppDurations {
 class AssetsPath {
   static const macBook =
       'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1026&q=80';
-  static const exampleImage1 =
-      'https://cdn.pixabay.com/photo/2020/05/25/17/21/link-5219567_1280.jpg';
   static const exampleImage2 =
       'http://216.250.9.74/storage/21/conversions/men-thumb.webp';
 

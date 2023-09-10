@@ -14,7 +14,7 @@ class CategoryState extends Equatable {
 
   /// saving subs by parent slug
   final Map<String, List<CategoryModel>>? subs;
-  CancelToken? cancelToken;
+ final CancelToken? cancelToken;
 
   @override
   List<Object?> get props => [mains, state, activIndex, subs, cancelToken];

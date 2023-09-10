@@ -2,7 +2,7 @@
 // import 'package:flutter/material.dart';
 // import 'package:flutter_bloc/flutter_bloc.dart';
 // import 'package:flutter_screenutil/flutter_screenutil.dart';
-// import 'package:hh_express/features/category_details/bloc/category_details_bloc.dart';
+// import 'package:hh_express/features/ products_by_category/bloc/ products_by_category_bloc.dart';
 // import 'package:hh_express/features/home/view/components/product_widget.dart';
 // import 'package:hh_express/settings/enums.dart';
 

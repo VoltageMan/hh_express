@@ -56,9 +56,7 @@ class _BuyProdSheetBodyState extends State<BuyProdSheetBody>
                                   const MyShimerPlaceHolder(),
                               height: 260.h,
                               fit: BoxFit.cover,
-                              imageUrl: index % 2 == 0
-                                  ? AssetsPath.exampleImage1
-                                  : AssetsPath.exampleImage2,
+                              imageUrl: AssetsPath.exampleImage2,
                             );
                           },
                         ),
