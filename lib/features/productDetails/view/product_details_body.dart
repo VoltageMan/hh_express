@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/features/components/widgets/place_holder.dart';
 import 'package:hh_express/features/home/view/components/product_widget.dart';
+import 'package:hh_express/features/productDetails/components/color_builder.dart';
 import 'package:hh_express/features/productDetails/components/image_indicator.dart';
 import 'package:hh_express/features/productDetails/components/sizes_builder.dart';
 import 'package:hh_express/features/productDetails/view/image_details.dart';
@@ -41,7 +42,7 @@ class _ProdDetailsBodyState extends State<ProdDetailsBody>
       childrenDelegate: SliverChildListDelegate(
         [
           SizedBox(
-            height: 260.h,
+            height: 300.h,
             child: Stack(
               children: [
                 TabBarView(
@@ -61,9 +62,9 @@ class _ProdDetailsBodyState extends State<ProdDetailsBody>
                       },
                       child: CachedNetworkImage(
                         placeholder: (context, url) => MyShimerPlaceHolder(),
-                        height: 260.h,
+                        height: 300.h,
                         fit: BoxFit.cover,
-                        imageUrl: AssetsPath.exampleImage2,
+                        imageUrl: AssetsPath.macBook,
                       ),
                     ),
                   ),
@@ -108,6 +109,7 @@ class _ProdDetailsBodyState extends State<ProdDetailsBody>
             ),
           ),
           const ProdSizesBuilder(),
+          AppSpacing.vertical_10,
           Padding(
             padding: AppPaddings.bottom12_top20.add(AppPaddings.horiz_16),
             child: Text(
@@ -115,7 +117,7 @@ class _ProdDetailsBodyState extends State<ProdDetailsBody>
               style: AppTheme.titleMedium14(context),
             ),
           ),
-          AppSpacing.vertical_30,
+          const ProdColorBuilder(),
           // add Color Builder
           Padding(
             padding: AppPaddings.bottom12_top20.add(AppPaddings.horiz_16),

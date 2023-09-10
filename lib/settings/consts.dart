@@ -9,8 +9,8 @@ class AppPaddings {
     if (index < 0) return null;
     return EdgeInsets.only(
       top: 12.h,
-      left: index % 2 == 0 ? 16.w : 4.w,
-      right: index % 2 == 1 ? 16.w : 4.w,
+      left: 4.w,
+      right: 4.w,
     );
   }
 

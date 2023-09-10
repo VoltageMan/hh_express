@@ -185,7 +185,7 @@ class AppTheme {
         fontWeight: FontWeight.w400,
       ),
       titleMedium: TextStyle(
-        fontWeight: FontWeight.w400,
+        fontWeight: FontWeight.w600,
         fontSize: 18.sp,
         color: AppColors.darkBlue,
       ),

@@ -32,12 +32,12 @@ class HomeProdWidget extends StatelessWidget {
           children: [
             Container(
               width: double.infinity,
-              height: 150.h,
+              height: 200.h,
               decoration: BoxDecoration(
                 color: AppColors.lightGrey,
                 borderRadius: AppBorderRadiuses.border_6,
               ),
-              padding: EdgeInsets.symmetric(vertical: 1.5.h, horizontal: 1.w),
+              padding: EdgeInsets.symmetric(vertical: 1.5.h, horizontal: 0.w),
               margin: EdgeInsets.only(bottom: 10.h),
               child: isLoading
                   ? MyShimerPlaceHolder(
@@ -72,12 +72,12 @@ class HomeProdWidget extends StatelessWidget {
                   ),
             isLoading
                 ? MyShimerPlaceHolder(
-                    margin: AppPaddings.vertic_10,
+                    margin: AppPaddings.vertic_6,
                     radius: AppBorderRadiuses.border_2,
                     height: 28.h,
                   )
                 : Container(
-                    margin: AppPaddings.vertic_10,
+                    margin: AppPaddings.vertic_6,
                     child: Text(
                       '${prod?.description}',
                       maxLines: 2,

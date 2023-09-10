@@ -1,14 +1,31 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hh_express/helpers/extentions.dart';
+import 'package:hh_express/helpers/routes.dart';
 import 'package:hh_express/helpers/spacers.dart';
 import 'package:hh_express/settings/consts.dart';
 
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
+
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(systemNavigationBarColor: AppColors.appOrange));
+    Future.delayed(const Duration(seconds: 1))
+        .then((value) => appRouter.go(AppRoutes.mainScreen));
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +64,7 @@ class SplashScreen extends StatelessWidget {
                   Text(
                     'Yuan',
                     style: theme.displayLarge!
-                        .copyWith(fontSize: 28.sp, fontWeight: FontWeight.bold),
+                        .copyWith(fontSize: 26.sp, fontWeight: FontWeight.bold),
                   ),
                   AppSpacing.horizontal_12,
                   Container(
@@ -60,22 +77,28 @@ class SplashScreen extends StatelessWidget {
                       'shop',
                       style: theme.displayLarge!.copyWith(
                           color: AppColors.appOrange,
-                          fontSize: 28.sp,
+                          fontSize: 26.sp,
                           fontWeight: FontWeight.bold),
                     ),
                   )
                 ],
               ),
               Spacer(),
-              AnimatedTextKit(
-                totalRepeatCount: 10,
-                animatedTexts: [
-                  FadeAnimatedText(
-                    'express',
-                    textStyle: theme.displayMedium,
-                  ),
-                ],
-              )
+              Text(
+                'express delivery',
+                style: theme.displayMedium!.copyWith(
+                  fontSize: 16.sp,
+                ),
+              ),
+              // AnimatedTextKit(
+              //   totalRepeatCount: 10,
+              //   animatedTexts: [
+              //     FadeAnimatedText(
+              //       'express delivery',
+              //       textStyle: theme.displayMedium,
+              //     ),
+              //   ],
+              // )
             ],
           ),
         ),

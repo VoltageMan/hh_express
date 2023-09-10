@@ -5,8 +5,9 @@ import 'package:hh_express/features/products_by_category/view/products_by_catego
 import 'package:hh_express/features/mainScreen/view/main_screen.dart';
 import 'package:hh_express/features/notifications/view/notification_screen.dart';
 import 'package:hh_express/features/orders/view/details/orders_screen.dart';
-import 'package:hh_express/features/productDetails/view/screen.dart';
+import 'package:hh_express/features/productDetails/view/product_details.dart';
 import 'package:hh_express/features/video/view/details/video_details.dart';
+import 'package:hh_express/helpers/splash_screen.dart';
 import 'package:hh_express/models/categories/category_model.dart';
 
 enum EnumNavRoutes { home, video, category, cart, profile }
@@ -20,6 +21,7 @@ class AppRoutes {
   //   '/${EnumNavRoutes.profile.name}',
   // ];
   static const mainScreen = '/mainScreen';
+  static const splashScreen = '/splashScreen';
   static const filterDetails = '/filterDetails';
   static const auth = '/auth';
   static const orderDetails = '/orderDetails';
@@ -30,12 +32,18 @@ class AppRoutes {
 }
 
 final appRouter = GoRouter(
-  initialLocation: AppRoutes.mainScreen,
+  initialLocation: AppRoutes.splashScreen,
   routes: [
     GoRoute(
       path: AppRoutes.mainScreen,
       builder: (context, state) {
         return MainScreen();
+      },
+    ),
+    GoRoute(
+      path: AppRoutes.splashScreen,
+      builder: (context, state) {
+        return SplashScreen();
       },
     ),
     GoRoute(

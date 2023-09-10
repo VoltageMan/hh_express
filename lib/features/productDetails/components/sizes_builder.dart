@@ -59,17 +59,17 @@ class ProdSizeWidget extends StatelessWidget {
             .add(isFirst ? AppPaddings.left_16 : EdgeInsets.zero),
         decoration: BoxDecoration(
           border: isSelected
-              ? AppBorderRadiuses.transparentBorder
-              : AppBorderRadiuses.defBorder,
+              ? Border.all(color: AppColors.mainOrange)
+              : Border.all(color: AppColors.darkGray),
           borderRadius: AppBorderRadiuses.border_6,
-          color: isSelected ? AppColors.mainOrange : null,
+          color: isSelected ? AppColors.mainOrange.withOpacity(0.2) : null,
         ),
         alignment: Alignment.center,
         padding: AppPaddings.horiz_21.add(AppPaddings.vertic_8),
         child: Text(
           size,
-          style: context.theme.textTheme.displaySmall!
-              .copyWith(color: isSelected ? AppColors.white : null),
+          style: context.theme.textTheme.displaySmall!.copyWith(
+              color: isSelected ? AppColors.appOrange : AppColors.darkGray),
         ),
       ),
     );

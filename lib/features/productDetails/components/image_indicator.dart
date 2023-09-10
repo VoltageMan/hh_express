@@ -31,7 +31,7 @@ class _ImageIndicatorState extends State<ImageIndicator> {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 120.w, vertical: 5.h),
       decoration: BoxDecoration(
-          color: Colors.black54, borderRadius: BorderRadius.circular(8)),
+          color: Colors.black26, borderRadius: BorderRadius.circular(8)),
       padding: AppPaddings.all_2,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -49,7 +49,7 @@ class _ImageIndicatorState extends State<ImageIndicator> {
                   width: 5.sp,
                   decoration: BoxDecoration(
                     borderRadius: AppBorderRadiuses.border_50,
-                    color: isSelected ? AppColors.darkBlue : AppColors.darkGrey,
+                    color: isSelected ? AppColors.white : AppColors.darkGrey,
                   ),
                 );
               },
