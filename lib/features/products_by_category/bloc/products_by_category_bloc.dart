@@ -15,7 +15,6 @@ class ProductsByCategoryBloc extends Cubit<ProductsByCategoryState> {
       : super(ProductsByCategoryState(state: ProductAPIState.init));
   final _repo = getIt<ProductRepo>();
   Future<void> init(CategoryModel category) async {
-    
     emit(
       ProductsByCategoryState(
         state: ProductAPIState.loading,

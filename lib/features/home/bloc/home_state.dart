@@ -1,10 +1,16 @@
 part of 'home_bloc.dart';
 
-abstract class HomeState extends Equatable {
-  const HomeState();
-  
-  @override
-  List<Object> get props => [];
-}
+final class HomeState extends Equatable {
+  const HomeState({
+    required this.state,
+    this.pagination,
+    this.prods,
+  });
 
-class HomeInitial extends HomeState {}
+  final ProductAPIState state;
+  final List<ProductModel>? prods;
+  final PaginationModel? pagination;
+
+  @override
+  List<Object?> get props => [state, prods, pagination];
+}

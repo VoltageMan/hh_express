@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hh_express/features/auth/view/auth_screen.dart' as auth;
-import 'package:hh_express/features/category_details/view/products_by_category.dart';
+import 'package:hh_express/features/products_by_category/view/products_by_category.dart';
 import 'package:hh_express/features/mainScreen/view/main_screen.dart';
 import 'package:hh_express/features/notifications/view/notification_screen.dart';
 import 'package:hh_express/features/orders/view/details/orders_screen.dart';

@@ -32,11 +32,8 @@ class VideoWidget extends StatelessWidget {
                   borderRadius: AppBorderRadiuses.border_6,
                   child: CachedNetworkImage(
                     height: index % 2 == 0 ? 205.h : 107.h,
-                    imageUrl: index % 2 == 0
-                        ? AssetsPath.exampleImage2
-                        : AssetsPath.exampleImage1,
-                    imageBuilder: (context, imageProvider) =>
-                        const MyShimerPlaceHolder(),
+                    imageUrl: AssetsPath.exampleImage2,
+
                     errorWidget: (context, url, error) =>
                         const MyShimerPlaceHolder(),
                     placeholder: (context, url) => const MyShimerPlaceHolder(),

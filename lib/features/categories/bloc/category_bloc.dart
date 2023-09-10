@@ -1,4 +1,3 @@
-
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
@@ -14,7 +13,7 @@ part 'category_state.dart';
 
 class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
   final repo = getIt<CategoryRepo>();
-  
+
   CategoryBloc() : super(CategoryState(state: CategoryAPIState.init)) {
     on<InitCategories>((event, emit) async {
       if (state.state == CategoryAPIState.init ||
@@ -50,31 +49,12 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
           state.mains!.map((e) => e.slug).toList().indexOf(event.slug);
       if (state.state == CategoryAPIState.loadingSubs) {
         state.cancelToken?.cancel();
-        await checkSubExisting(event.slug, emit, index);
       }
 
       await checkSubExisting(event.slug, emit, index);
     });
-
-    //
   }
 
-  // Future<void> _getSubs(String slug) async {
-  //   final cancelToken = CancelToken();
-  //   emit(
-  //     CategoryState(
-  //       state: CategoryAPIState.loadingSubs,
-  //       activIndex: state.activIndex,
-  //       cancelToken: cancelToken,
-  //       mains: state.mains,
-  //     ),
-  //   );
-  //   await repo.getSubsBySlug(
-  //     slug,
-  //     cancelToken,
-  //   );
-  // }
-  
   Future<void> checkSubExisting(
       String slug, Emitter<CategoryState> emit, int index) async {
     final theSubs = state.subs![slug];

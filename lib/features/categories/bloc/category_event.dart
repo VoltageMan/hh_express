@@ -12,6 +12,9 @@ class ChangeCategory extends CategoryEvent {
     required this.slug,
   });
   final String slug;
+
+  @override
+  List<Object> get props => [slug];
 }
 
 class InitCategories extends CategoryEvent {}
