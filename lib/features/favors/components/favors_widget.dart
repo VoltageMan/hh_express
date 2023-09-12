@@ -14,7 +14,7 @@ class FavorsWidget extends StatelessWidget {
   final dynamic prod;
   @override
   Widget build(BuildContext context) {
-    final isLoading = false;
+    final isLoading = prod == null;
     if (isLoading) return _LoadingWidget();
     return GestureDetector(
       onTap: () {
@@ -33,7 +33,9 @@ class FavorsWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const FavorsImage(),
+            const FavorsImage(
+              imgPath: 'Put Here Image Path',
+            ),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

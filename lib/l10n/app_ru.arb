@@ -57,5 +57,6 @@
     "password": "Пароль",
     "singIn": "Войти",
     "next": "Продолжить",
-    "similarProducts": "Похожие товары"
+    "similarProducts": "Похожие товары",
+    "orderInfo": "Сведения заказа"
 }

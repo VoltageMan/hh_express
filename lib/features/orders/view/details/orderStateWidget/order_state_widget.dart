@@ -10,7 +10,8 @@ class OrderStateWidget extends StatelessWidget {
   final dynamic prod;
   @override
   Widget build(BuildContext context) {
-    final isLoading = false;
+    final isLoading = prod == null;
+    if (isLoading) return _LoadingWidget();
     return Container(
       height: 200.h,
       margin: AppPaddings.all_16,
@@ -29,7 +30,7 @@ class OrderStateWidget extends StatelessWidget {
         children: [
           OrderStateCheck(
             checkCount: 3,
-            tickedsCount: isLoading ? null : 3,
+            tickedsCount: 3,
           ),
           AppSpacing.horizontal_5_5,
           Column(
@@ -37,14 +38,14 @@ class OrderStateWidget extends StatelessWidget {
             children: List.generate(
               3,
               (index) => OrderStateWDate(
-                date: !isLoading ? null : 'some',
+                date: 'some',
               ),
             ),
           ),
           const Expanded(child: SizedBox()),
           OrderStateCheck(
             checkCount: 2,
-            tickedsCount: isLoading ? null : 2,
+            tickedsCount: 2,
           ),
           AppSpacing.horizontal_5_5,
           Column(
@@ -53,9 +54,64 @@ class OrderStateWidget extends StatelessWidget {
               3,
               (index) {
                 return index != 2
-                    ? OrderStateWDate(
-                        date: !isLoading ? null : 'some',
-                      )
+                    ? OrderStateWDate(date: '2134')
+                    : SizedBox(
+                        height: 40.h,
+                      );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _LoadingWidget extends StatelessWidget {
+  const _LoadingWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 200.h,
+      margin: AppPaddings.all_16,
+      padding: AppPaddings.horiz16_vertic12,
+      decoration: BoxDecoration(
+        borderRadius: AppBorderRadiuses.border_6,
+        border: Border.all(
+          color: AppColors.lightGrey,
+          width: 1.5.sp,
+        ),
+      ),
+      alignment: Alignment.topRight,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          OrderStateCheck(checkCount: 3, tickedsCount: null),
+          AppSpacing.horizontal_5_5,
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: List.generate(
+              3,
+              (index) => OrderStateWDate(),
+            ),
+          ),
+          const Expanded(
+            child: SizedBox(),
+          ),
+          OrderStateCheck(
+            checkCount: 2,
+            tickedsCount: null,
+          ),
+          AppSpacing.horizontal_5_5,
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: List.generate(
+              3,
+              (index) {
+                return index != 2
+                    ? OrderStateWDate()
                     : SizedBox(
                         height: 40.h,
                       );

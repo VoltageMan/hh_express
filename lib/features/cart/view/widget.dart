@@ -58,12 +58,12 @@ class _CartWidgetState extends State<CartWidget> {
           ),
           MeasureSize(
             onChange: (size) {
-              widget.onChange!(size.height);
+              widget.onChange(size.height);
               if (height != null) {
                 return;
               }
               setState(() {
-                height = size.height..log();
+                // height = size.height..log();
               });
             },
             child: Padding(

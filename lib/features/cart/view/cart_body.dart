@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hh_express/features/cart/view/cart_info_widget.dart';
 import 'package:hh_express/features/cart/view/widget.dart';
-import 'package:hh_express/features/orders/view/details/orderInfo/order_info_widget.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
@@ -14,9 +14,9 @@ class CartScreen extends StatelessWidget {
               i,
               onChange: (p0) {},
             ),
-          const OrderInfoWidget(
-            prod: 'Some',
-          ),
+          const CartInfoWidget(
+              // prod: 'Some',
+              ),
         ],
       ),
     );

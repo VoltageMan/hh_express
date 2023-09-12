@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hh_express/features/categories/view/mainCategories/main_category_builder.dart';
 import 'package:hh_express/features/categories/view/simpleCategories/simple_categories_builder.dart';
 
 class TestScreen extends StatefulWidget {
@@ -12,9 +11,6 @@ class TestScreen extends StatefulWidget {
 class _TestScreenState extends State<TestScreen> {
   @override
   Widget build(BuildContext context) {
-    final isSelected = 1 == 2;
-    final secondConditions = 1 == 2;
-
     return Navigator(
       onGenerateRoute: (settings) => MaterialPageRoute(
         builder: (context) => SafeArea(

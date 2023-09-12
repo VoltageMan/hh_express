@@ -17,52 +17,83 @@ class OrderDetailsScreen extends StatelessWidget {
     const isLoading = false;
     return Scaffold(
       appBar: const OrderDetailsAppBar(),
-      body: ListView.custom(
-        childrenDelegate: SliverChildListDelegate(
-          [
-            const OrderStateWidget(
-              prod: isLoading ? null : 2,
-            ),
-            Padding(
-              padding: AppPaddings.left_18.copyWith(bottom: 12.h),
-              child: isLoading
-                  ? MyShimerPlaceHolder(
-                      height: 23.h,
-                      margin: EdgeInsets.only(right: 260.w),
-                      width: 25.w,
-                      radius: AppBorderRadiuses.border_4,
-                    )
-                  : Text(
+      body: isLoading
+          ? _LoadingBody()
+          : ListView.custom(
+              childrenDelegate: SliverChildListDelegate(
+                [
+                  const OrderStateWidget(
+                    prod: 2,
+                  ),
+                  Padding(
+                    padding: AppPaddings.left_18.copyWith(bottom: 12.h),
+                    child: Text(
                       context.l10n.products,
                       style: titlesTheme,
                     ),
-            ),
-            ...List.generate(
-              2,
-              (index) => FavorsWidget(
-                prod: isLoading ? null : 2,
-                isFavor: index != 0,
-              ),
-            ),
-            Padding(
-              padding: AppPaddings.left_18,
-              child: isLoading
-                  ? MyShimerPlaceHolder(
-                      height: 23.h,
-                      margin: EdgeInsets.only(right: 260.w),
-                      width: 25.w,
-                      radius: AppBorderRadiuses.border_4,
-                    )
-                  : Text(
+                  ),
+                  ...List.generate(
+                    2,
+                    (index) => FavorsWidget(
+                      prod: 2,
+                      isFavor: index != 0,
+                    ),
+                  ),
+                  Padding(
+                    padding: AppPaddings.left_18,
+                    child: Text(
                       'Gelmeli wagty',
                       style: titlesTheme,
                     ),
+                  ),
+                  const OrderInfoWidget(prod: 2)
+                ],
+              ),
             ),
-            const OrderInfoWidget(
-              prod: isLoading ? null : 2,
-            )
-          ],
-        ),
+    );
+  }
+}
+
+class _LoadingBody extends StatelessWidget {
+  const _LoadingBody({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.custom(
+      childrenDelegate: SliverChildListDelegate(
+        [
+          const OrderStateWidget(
+              // prod: 123,
+              ),
+          Padding(
+            padding: AppPaddings.left_18.copyWith(bottom: 12.h),
+            child: MyShimerPlaceHolder(
+              height: 23.h,
+              margin: EdgeInsets.only(right: 260.w),
+              width: 25.w,
+              radius: AppBorderRadiuses.border_4,
+            ),
+          ),
+          ...List.generate(
+            2,
+            (index) => FavorsWidget(
+              prod: null,
+              isFavor: index != 0,
+            ),
+          ),
+          Padding(
+            padding: AppPaddings.left_18,
+            child: MyShimerPlaceHolder(
+              height: 23.h,
+              margin: EdgeInsets.only(right: 260.w),
+              width: 25.w,
+              radius: AppBorderRadiuses.border_4,
+            ),
+          ),
+          const OrderInfoWidget(
+              // prod: 1,
+              )
+        ],
       ),
     );
   }

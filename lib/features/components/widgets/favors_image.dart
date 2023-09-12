@@ -9,7 +9,7 @@ class FavorsImage extends StatelessWidget {
   final String? imgPath;
   @override
   Widget build(BuildContext context) {
-    final isLoading = false;
+    final isLoading = imgPath == null;
     return Container(
       height: double.infinity,
       width: 95.w,

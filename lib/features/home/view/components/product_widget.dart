@@ -17,7 +17,7 @@ class HomeProdWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final isLoading = prod == null;
     if (isLoading) {
-    return _LoadingWidget(index: index);
+      return _LoadingWidget(index: index);
     }
     final hasDiscount = prod?.discount == null;
     return GestureDetector(
@@ -54,7 +54,6 @@ class HomeProdWidget extends StatelessWidget {
                 ),
               ),
             ),
-            
             Text(
               '${prod?.name}',
               style: Theme.of(context)
