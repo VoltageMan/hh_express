@@ -21,7 +21,6 @@ class _HomeScreenState extends State<HomeScreen> {
     bloc = context.read<HomeBloc>()..init();
     scrollController = ScrollController(
       initialScrollOffset: bloc.lastPosition,
-      
     );
     scrollController.addListener(() {
       bloc.lastPosition = scrollController.position.pixels;
@@ -47,6 +46,13 @@ class _HomeScreenState extends State<HomeScreen> {
     return BlocBuilder<HomeBloc, HomeState>(
       bloc: bloc,
       builder: (context, state) {
+        if (state.state == ProductAPIState.error) {
+          return CategoryErrorBody(
+            onTap: () {
+              bloc.init();
+            },
+          );
+        }
         return CustomScrollView(
           controller: scrollController,
           slivers: [

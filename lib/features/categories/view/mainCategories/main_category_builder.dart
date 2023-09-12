@@ -59,7 +59,7 @@ class _UiBuilder extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: List.generate(
-            isLoading ? 15 : list!.length,
+            list?.length ?? 15,
             (index) => MainCategoriesWidget(
               isSelected: isLoading ? false : selectedIndex == index,
               model: isLoading ? null : list![index],

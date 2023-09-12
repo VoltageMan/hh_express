@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hh_express/features/categories/view/mainCategories/main_category_builder.dart';
+import 'package:hh_express/features/categories/view/simpleCategories/simple_categories_builder.dart';
 
 class TestScreen extends StatefulWidget {
   const TestScreen({super.key});
@@ -15,15 +17,12 @@ class _TestScreenState extends State<TestScreen> {
 
     return Navigator(
       onGenerateRoute: (settings) => MaterialPageRoute(
-        builder: (context) => Scaffold(
-          body: Text(
-            '${isSelected ? 'this text selected' : 'this text not selected'}',
-            style: TextStyle(
-              color: isSelected
-                  ? Colors.green
-                  : secondConditions
-                      ? Colors.red
-                      : Colors.grey,
+        builder: (context) => SafeArea(
+          child: Scaffold(
+            body: Column(
+              children: [
+                SimpleCategoriesBuilder(),
+              ],
             ),
           ),
         ),

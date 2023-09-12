@@ -6,6 +6,7 @@ import 'package:hh_express/features/components/widgets/place_holder.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/routes.dart';
 import 'package:hh_express/settings/consts.dart';
+import 'dart:math' as random show Random;
 
 class VideoWidget extends StatelessWidget {
   const VideoWidget({super.key, required this.index, this.videoModel});
@@ -14,7 +15,10 @@ class VideoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isLoading = false;
+    final isLoading = true;
+    if (isLoading) {
+      return _WidgetsPlaceHolder(index: index);
+    }
     return GestureDetector(
       onTap: () {
         appRouter.currentContext.push(AppRoutes.videoDetails);
@@ -33,7 +37,6 @@ class VideoWidget extends StatelessWidget {
                   child: CachedNetworkImage(
                     height: index % 2 == 0 ? 205.h : 107.h,
                     imageUrl: AssetsPath.exampleImage2,
-
                     errorWidget: (context, url, error) =>
                         const MyShimerPlaceHolder(),
                     placeholder: (context, url) => const MyShimerPlaceHolder(),
@@ -42,41 +45,71 @@ class VideoWidget extends StatelessWidget {
                 ),
                 Container(
                   margin: AppPaddings.all_6,
-                  padding: isLoading ? null : AppPaddings.horiz6_vertic3,
+                  padding: AppPaddings.horiz6_vertic3,
                   decoration: BoxDecoration(
                       color: AppColors.darkBlue.withOpacity(.6),
                       borderRadius: AppBorderRadiuses.border_4),
-                  child: isLoading
-                      ? MyShimerPlaceHolder(
-                          radius: AppBorderRadiuses.border_4,
-                          height: 28.h,
-                          width: 55.w,
-                        )
-                      : Text(
-                          '00:$index',
-                          style: context.theme.textTheme.labelLarge,
-                        ),
+                  child: Text(
+                    '00:$index',
+                    style: context.theme.textTheme.labelLarge,
+                  ),
                 )
               ],
             ),
           ),
-          isLoading
-              ? MyShimerPlaceHolder(
-                  radius: AppBorderRadiuses.border_4,
-                  height: 28.h,
-                )
-              : Text(
-                  index % 2 == 0
-                      ? 'hii'
-                      : 'Lorem Ipsum Dolar sit amet dalse huy znaet, i tak dlya testa some text here is its is',
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context).textTheme.titleSmall,
-                ),
+          Text(
+            random.Random().nextBool()
+                ? 'hii'
+                : 'Lorem Ipsum Dolar sit amet dalse huy znaet, i tak dlya testa some text here is its is',
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            style: Theme.of(context).textTheme.titleSmall,
+          ),
         ],
       ),
     );
   }
 }
 
-const myLovetoLeyli = true;
+class _WidgetsPlaceHolder extends StatelessWidget {
+  const _WidgetsPlaceHolder({
+    super.key,
+    required this.index,
+  });
+  final int index;
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          margin: AppPaddings.bottom_10,
+          height: index % 2 == 0 ? 205.h : 107.h,
+          child: Stack(
+            alignment: Alignment.topLeft,
+            children: [
+              ClipRRect(
+                borderRadius: AppBorderRadiuses.border_6,
+                child: MyShimerPlaceHolder(),
+              ),
+              Container(
+                  margin: AppPaddings.all_6,
+                  decoration: BoxDecoration(
+                      color: AppColors.darkBlue.withOpacity(.6),
+                      borderRadius: AppBorderRadiuses.border_4),
+                  child: MyShimerPlaceHolder(
+                    radius: AppBorderRadiuses.border_4,
+                    height: 28.h,
+                    width: 55.w,
+                  ))
+            ],
+          ),
+        ),
+        MyShimerPlaceHolder(
+          radius: AppBorderRadiuses.border_4,
+          height: 28.h,
+        )
+      ],
+    );
+  }
+}

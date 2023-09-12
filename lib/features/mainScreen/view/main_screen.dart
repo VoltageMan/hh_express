@@ -55,7 +55,6 @@ class _MainScreenState extends State<MainScreen> {
         if (!val) {
           return false;
         }
-
         if (_dialogShown) {
           Navigator.pop(Confirm.currentContext!);
           return false;
