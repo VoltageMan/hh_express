@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/features/categories/view/body.dart';
+import 'package:hh_express/features/components/widgets/product_pagination_bottom.dart';
 import 'package:hh_express/features/home/bloc/home_bloc.dart';
 import 'package:hh_express/features/home/view/components/product_builder.dart';
-import 'package:hh_express/helpers/extentions.dart';
-import 'package:hh_express/settings/consts.dart';
 import 'package:hh_express/settings/enums.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -46,6 +44,9 @@ class _HomeScreenState extends State<HomeScreen> {
     return BlocBuilder<HomeBloc, HomeState>(
       bloc: bloc,
       builder: (context, state) {
+        if (state.state == ProductAPIState.init) {
+          return SizedBox();
+        }
         if (state.state == ProductAPIState.error) {
           return CategoryErrorBody(
             onTap: () {
@@ -59,23 +60,12 @@ class _HomeScreenState extends State<HomeScreen> {
             HomeProdBuilder(
               prods: state.prods,
             ),
-            (state.state == ProductAPIState.loadingMoreError
-                    ? CategoryErrorBody(
-                        onTap: () {
-                          bloc.loadMore();
-                        },
-                      )
-                    : state.pagination?.currentPage !=
-                            state.pagination?.lastPage
-                        ? Container(
-                            padding: AppPaddings.vertic_12,
-                            alignment: Alignment.center,
-                            child: CircularProgressIndicator(
-                              color: AppColors.appOrange,
-                            ),
-                          )
-                        : SizedBox())
-                .toSliverBox
+            ProductPaginationBottom(
+              isLastPage:
+                  state.pagination?.currentPage == state.pagination?.lastPage,
+              state: state.state,
+              onErrorTap: () => bloc.loadMore(),
+            )
           ],
         );
       },

@@ -25,13 +25,14 @@ class _HoemSearchFieldState extends State<HomeSearchField> {
         borderRadius: AppBorderRadiuses.border_6,
       ),
       child: TextField(
-        maxLines: 1,
+        maxLines: 1, 
         scribbleEnabled: false,
-        // scrollPadding: EdgeInsets.zero,
+        scrollPadding: EdgeInsets.zero,
         textInputAction: TextInputAction.search,
         focusNode: focus,
         style: Theme.of(context).textTheme.bodyMedium,
         decoration: InputDecoration(
+          contentPadding: AppPaddings.top_6,
           hintText: context.l10n.searchHint,
           prefixIcon: Padding(
             padding: EdgeInsets.symmetric(

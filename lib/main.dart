@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hh_express/app/app.dart';
 import 'package:hh_express/app/setup.dart';
+import 'package:hh_express/data/remote/dio_client.dart';
 import 'package:hh_express/settings/consts.dart';
 
 void main() async {

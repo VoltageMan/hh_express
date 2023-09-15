@@ -8,14 +8,14 @@ part of 'property_model.dart';
 
 PropertyModel _$PropertyModelFromJson(Map<String, dynamic> json) =>
     PropertyModel(
-      id: json['id'] as int,
       values: (json['values'] as List<dynamic>)
           .map((e) => PropertyValue.fromJson(e as Map<String, dynamic>))
           .toList(),
+      name: json['name'] as String,
     );
 
 Map<String, dynamic> _$PropertyModelToJson(PropertyModel instance) =>
     <String, dynamic>{
-      'id': instance.id,
+      'name': instance.name,
       'values': instance.values,
     };

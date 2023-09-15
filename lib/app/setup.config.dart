@@ -16,10 +16,13 @@ import 'package:hh_express/repositories/categories/categories_repository.dart'
     as _i5;
 import 'package:hh_express/repositories/categories/categories_repository_impl.dart'
     as _i6;
-import 'package:hh_express/repositories/products/product_repo.dart'
+import 'package:hh_express/repositories/product_details/product_details_repository.dart'
     as _i7;
-import 'package:hh_express/repositories/products/product_repo_impl.dart'
+import 'package:hh_express/repositories/product_details/product_details_repository_impl.dart'
     as _i8;
+import 'package:hh_express/repositories/products/product_repo.dart' as _i9;
+import 'package:hh_express/repositories/products/product_repo_impl.dart'
+    as _i10;
 import 'package:injectable/injectable.dart' as _i2;
 
 extension GetItInjectableX on _i1.GetIt {
@@ -35,7 +38,8 @@ extension GetItInjectableX on _i1.GetIt {
     );
     gh.factory<_i3.AuthRepo>(() => _i4.AuthRepoImpl());
     gh.factory<_i5.CategoryRepo>(() => _i6.CategoryRepoIMpl());
-    gh.factory<_i7.ProductRepo>(() => _i8.ProductRepoImpl());
+    gh.factory<_i7.ProductDetailsRepo>(() => _i8.ProductDetailsRepoImpl());
+    gh.factory<_i9.ProductRepo>(() => _i10.ProductRepoImpl());
     return this;
   }
 }

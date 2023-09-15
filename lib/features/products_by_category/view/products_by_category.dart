@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/features/categories/view/body.dart';
+import 'package:hh_express/features/components/widgets/product_pagination_bottom.dart';
 import 'package:hh_express/features/home/view/components/product_builder.dart';
 import 'package:hh_express/features/products_by_category/bloc/products_by_category_bloc.dart';
 import 'package:hh_express/features/products_by_category/view/app_bar_prods_by_cat.dart';
@@ -78,22 +79,12 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                 HomeProdBuilder(
                   prods: state.products,
                 ),
-                (state.state == ProductAPIState.loadingMoreError
-                        ? CategoryErrorBody(
-                            onTap: () {
-                              bloc.loadMore();
-                            },
-                          )
-                        : state.pagination?.currentPage !=
-                                state.pagination?.lastPage
-                            ? Container(
-                                padding: AppPaddings.vertic_12,
-                                alignment: Alignment.center,
-                                child: CircularProgressIndicator(
-                                  color: AppColors.appOrange,
-                                ))
-                            : SizedBox())
-                    .toSliverBox
+                ProductPaginationBottom(
+                  isLastPage: state.pagination?.currentPage !=
+                      state.pagination?.lastPage,
+                  state: state.state,
+                  onErrorTap: () => bloc.loadMore(),
+                )
               ],
             );
           },

@@ -6,6 +6,7 @@ import 'package:hh_express/data/local/secured_storage.dart';
 import 'package:hh_express/features/auth/bloc/auth_bloc.dart';
 import 'package:hh_express/features/categories/bloc/category_bloc.dart';
 import 'package:hh_express/features/home/bloc/home_bloc.dart';
+import 'package:hh_express/features/productDetails/bloc/product_details_bloc.dart';
 import 'package:hh_express/features/products_by_category/bloc/products_by_category_bloc.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/routes.dart';
@@ -38,6 +39,7 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(create: (context) => AuthBloc()),
         BlocProvider(create: (context) => CategoryBloc()),
         BlocProvider(create: (context) => ProductsByCategoryBloc()),
+        BlocProvider(create: (context) => ProductDetailsBloc()),
       ],
       child: ScreenUtilInit(
         designSize: const Size(360, 800),
@@ -80,6 +82,5 @@ class _MyAppState extends State<MyApp> {
         },
       ),
     );
-  
   }
 }

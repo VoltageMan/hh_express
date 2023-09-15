@@ -215,6 +215,7 @@ class EndPoints {
   static const category = 'api/v1/category/list';
   static const products = 'api/v1/product/list';
   static const properties = 'api/v1/property/list';
+  static String prodDetails(int id) => 'api/v1/product/$id';
 }
 
 class APIKeys {
@@ -232,5 +233,8 @@ class APIKeys {
   static const pagination = 'pagination';
   static const page = 'page';
   static const products = 'products';
+  static const product = 'product';
   static const urlDecoder = '%5B%5D';
 }
+
+

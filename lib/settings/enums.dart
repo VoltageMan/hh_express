@@ -27,3 +27,10 @@ enum ProductAPIState {
   error,
   succses,
 }
+
+enum ProdDetailsAPIState {
+  init,
+  loading,
+  error,
+  succses,
+}

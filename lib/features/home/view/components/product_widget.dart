@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hh_express/features/components/widgets/place_holder.dart';
+import 'package:hh_express/features/productDetails/bloc/product_details_bloc.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/routes.dart';
 import 'package:hh_express/models/products/product_model.dart';
@@ -23,6 +25,7 @@ class HomeProdWidget extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         appRouter.currentContext.push(AppRoutes.prodDetails);
+        context.read<ProductDetailsBloc>().init(prod!.id);
       },
       child: Container(
         width: 160.w,
