@@ -74,6 +74,7 @@ class AppPaddings {
   static EdgeInsets horiz_2 = EdgeInsets.symmetric(horizontal: 2.w);
   static EdgeInsets horiz_3 = EdgeInsets.symmetric(horizontal: 3.w);
   static EdgeInsets horiz_4 = EdgeInsets.symmetric(horizontal: 4.w);
+  static EdgeInsets horiz_5 = EdgeInsets.symmetric(horizontal: 5.w);
 
   static final vertic_10 = EdgeInsets.symmetric(vertical: 10.h);
   static final vertic_20 = EdgeInsets.symmetric(vertical: 20.h);
@@ -174,6 +175,7 @@ class AppDurations {
 }
 
 class AssetsPath {
+  static const mainCats = 'assets/data/main_cats.json';
   static const macBook =
       'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1026&q=80';
   static const exampleImage2 =
@@ -236,5 +238,3 @@ class APIKeys {
   static const product = 'product';
   static const urlDecoder = '%5B%5D';
 }
-
-

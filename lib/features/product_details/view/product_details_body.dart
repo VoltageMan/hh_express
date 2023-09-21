@@ -4,12 +4,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/features/categories/view/body.dart';
 import 'package:hh_express/features/components/widgets/place_holder.dart';
+import 'package:hh_express/features/home/bloc/home_bloc.dart';
 import 'package:hh_express/features/home/view/components/product_widget.dart';
-import 'package:hh_express/features/productDetails/bloc/product_details_bloc.dart';
-import 'package:hh_express/features/productDetails/components/color_builder.dart';
-import 'package:hh_express/features/productDetails/components/image_indicator.dart';
-import 'package:hh_express/features/productDetails/components/sizes_builder.dart';
-import 'package:hh_express/features/productDetails/view/image_details.dart';
+import 'package:hh_express/features/product_details/bloc/product_details_bloc.dart';
+import 'package:hh_express/features/product_details/components/color_builder.dart';
+import 'package:hh_express/features/product_details/components/image_indicator.dart';
+import 'package:hh_express/features/product_details/components/property_builder.dart';
+import 'package:hh_express/features/product_details/view/image_details.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/spacers.dart';
 import 'package:hh_express/settings/consts.dart';
@@ -17,9 +18,8 @@ import 'package:hh_express/settings/enums.dart';
 import 'package:hh_express/settings/theme.dart';
 
 class ProdDetailsBody extends StatefulWidget {
-  const ProdDetailsBody({
-    super.key,
-  });
+  const ProdDetailsBody({super.key, required this.id});
+  final int id;
   @override
   State<ProdDetailsBody> createState() => _ProdDetailsBodyState();
 }
@@ -29,35 +29,64 @@ class _ProdDetailsBodyState extends State<ProdDetailsBody>
   TabController? tabController;
   @override
   void initState() {
-    bloc = context.read<ProductDetailsBloc>();
+    bloc = context.read<ProductDetailsBloc>()..init(widget.id);
     super.initState();
   }
 
   @override
   void dispose() {
-    tabController!.dispose();
+    tabController?.dispose();
+    bloc.screenDispose();
     super.dispose();
   }
 
   late final ProductDetailsBloc bloc;
+  void setTabController(int length) {
+    if (tabController != null) return;
+    tabController = TabController(
+      length: length,
+      vsync: this,
+      animationDuration: AppDurations.duration_500ms,
+    );
+  }
 
+  bool rebuilded = false;
   @override
   Widget build(BuildContext context) {
     final textTheme = context.theme.textTheme;
+    final id = widget.id;
     return BlocBuilder<ProductDetailsBloc, ProductDetailsState>(
-      builder: (context, state) {
+      bloc: bloc,
+      buildWhen: (previous, current) {
+        final curId = bloc.currentProdId;
+        return curId == id;
+      },
+      builder: (context, ss) {
+        final state = bloc.state;
         if (state.state == ProdDetailsAPIState.init) return SizedBox();
-        if (state.state == ProdDetailsAPIState.loading) return CenterLoading();
-        if (state == ProdDetailsAPIState.error)
-          return CategoryErrorBody(
+        if (state.state == ProdDetailsAPIState.loading)
+          return CenterLoading(
             onTap: () {
-              // blo
+              state.log();
+              bloc.state.log();
+
+              bloc.currentProdId.log();
+              id.log();
             },
           );
-        final product = state.product;
-        final hasDiscount = product!.discount != null;
-        tabController =
-            TabController(length: product.images.length, vsync: this);
+        final prodIndex = bloc.fingProdIndex(id);
+
+        if (state.state == ProdDetailsAPIState.error || prodIndex == -1)
+          return CategoryErrorBody(
+            onTap: () {
+              bloc.init(id);
+            },
+          );
+
+        final product = state.products[prodIndex];
+        final hasDiscount = product.discount != null;
+        final l10n = context.l10n;
+        setTabController(product.images.length);
         return ListView.custom(
           shrinkWrap: true,
           childrenDelegate: SliverChildListDelegate(
@@ -76,7 +105,11 @@ class _ProdDetailsBodyState extends State<ProdDetailsBody>
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => ImageDetails(
-                                      controller: tabController!,
+                                      images: product.images,
+                                      initialIndex: tabController!.index,
+                                      onChange: (val) {
+                                        tabController?.animateTo(val);
+                                      },
                                     ),
                                   ),
                                 );
@@ -110,6 +143,7 @@ class _ProdDetailsBodyState extends State<ProdDetailsBody>
               Padding(
                 padding: AppPaddings.horiz_16,
                 child: Wrap(
+                  crossAxisAlignment: WrapCrossAlignment.center,
                   children: [
                     Text(
                       '${product.salePrice} TMT',
@@ -126,28 +160,23 @@ class _ProdDetailsBodyState extends State<ProdDetailsBody>
                   ],
                 ),
               ),
-              PropertyBuilder(model: product.properties.first),
-              AppSpacing.vertical_10,
+              ...product.properties.map(
+                (e) {
+                  if (e.name == 'colors') return const ProdColorBuilder();
+                  return PropertyBuilder(model: e, id: id);
+                },
+              ).toList(),
               Padding(
                 padding: AppPaddings.bottom12_top20.add(AppPaddings.horiz_16),
                 child: Text(
-                  'Reňk saýlaň',
-                  style: AppTheme.titleMedium14(context),
-                ),
-              ),
-              const ProdColorBuilder(),
-              // add Color Builder
-              Padding(
-                padding: AppPaddings.bottom12_top20.add(AppPaddings.horiz_16),
-                child: Text(
-                  'Mazmuny',
+                  l10n.description,
                   style: AppTheme.titleMedium14(context),
                 ),
               ),
               Padding(
                 padding: AppPaddings.horiz_16,
                 child: Text(
-                  'Bu gaty gowy köýnek, marka öz harytlaryna garantiýa berýär we bu köýnegiň reňki ýaşyl',
+                  '${product.description}',
                   style: textTheme.titleSmall,
                 ),
               ),
@@ -158,13 +187,13 @@ class _ProdDetailsBodyState extends State<ProdDetailsBody>
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      'Menzeyanler',
+                      l10n.similarProducts,
                       style: AppTheme.titleMedium14(context),
                     ),
                     TextButton(
                       onPressed: () {},
                       child: Text(
-                        'Ginisleyin',
+                        l10n.more,
                         style: textTheme.bodyLarge,
                       ),
                     ),
@@ -172,15 +201,16 @@ class _ProdDetailsBodyState extends State<ProdDetailsBody>
                 ),
               ),
               SizedBox(
-                height: 300.h,
+                height: 320.h,
                 child: ScrollConfiguration(
                   behavior: MyBehavior(),
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
-                    itemCount: 10,
+                    itemCount: context.read<HomeBloc>().state.prods!.length,
                     itemBuilder: (context, index) {
                       return HomeProdWidget(
                         index: index == 0 ? -1 : -2,
+                        prod: context.read<HomeBloc>().state.prods![index],
                       );
                     },
                   ),
@@ -194,15 +224,27 @@ class _ProdDetailsBodyState extends State<ProdDetailsBody>
   }
 }
 
-class CenterLoading extends StatelessWidget {
-  const CenterLoading({super.key});
-
+final class CenterLoading extends StatelessWidget {
+  const CenterLoading({super.key, this.onTap});
+  final VoidCallback? onTap;
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: CircularProgressIndicator(
-        color: AppColors.appOrange,
-      ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        SizedBox(
+          width: double.infinity,
+        ),
+        GestureDetector(
+          onTap: () {
+            if (onTap != null) return onTap!();
+          },
+          child: CircularProgressIndicator(
+            color: AppColors.appOrange,
+          ),
+        ),
+      ],
     );
   }
 }

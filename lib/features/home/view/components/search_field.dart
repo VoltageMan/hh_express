@@ -11,6 +11,7 @@ class HomeSearchField extends StatefulWidget {
   State<HomeSearchField> createState() => _HoemSearchFieldState();
 }
 
+
 class _HoemSearchFieldState extends State<HomeSearchField> {
   final focus = FocusNode();
   @override
@@ -25,7 +26,7 @@ class _HoemSearchFieldState extends State<HomeSearchField> {
         borderRadius: AppBorderRadiuses.border_6,
       ),
       child: TextField(
-        maxLines: 1, 
+        maxLines: 1,
         scribbleEnabled: false,
         scrollPadding: EdgeInsets.zero,
         textInputAction: TextInputAction.search,

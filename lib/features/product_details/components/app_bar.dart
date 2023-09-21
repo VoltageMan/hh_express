@@ -1,16 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hh_express/features/components/widgets/svg_icons.dart';
+import 'package:hh_express/features/product_details/bloc/product_details_bloc.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/routes.dart';
 import 'package:hh_express/helpers/spacers.dart';
 import 'package:hh_express/settings/consts.dart';
 
-class ProdDetailsAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const ProdDetailsAppBar({super.key});
-  @override
+class ProdDetailsAppBar extends StatefulWidget implements PreferredSizeWidget {
+  const ProdDetailsAppBar({
+    super.key,
+  });
   Size get preferredSize => Size.fromHeight(52.h);
+
+  @override
+  State<ProdDetailsAppBar> createState() => _ProdDetailsAppBarState();
+}
+
+class _ProdDetailsAppBarState extends State<ProdDetailsAppBar> {
+  bool isFavor = false;
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -51,7 +61,17 @@ class ProdDetailsAppBar extends StatelessWidget implements PreferredSizeWidget {
             path: AssetsPath.favorIcon,
             contSize: 24.sp,
             iconSize: 19.sp,
-            onTap: () {},
+            color: isFavor ? AppColors.appOrange : null,
+            onTap: () {
+              isFavor = !isFavor;
+              setState(() {});
+              final state = context.read<ProductDetailsBloc>().state;
+              state.state.log();
+              state.products
+                  .map((e) => 'id:${e.id} name:${e.name}\n')
+                  .toList()
+                  .log();
+            },
           ),
         ],
       ),

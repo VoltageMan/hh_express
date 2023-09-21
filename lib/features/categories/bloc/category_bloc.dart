@@ -16,34 +16,21 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
 
   CategoryBloc() : super(CategoryState(state: CategoryAPIState.init)) {
     on<InitCategories>((event, emit) async {
-      if (state.state == CategoryAPIState.init ||
-          state.state == CategoryAPIState.error) {
-        //
-        emit(CategoryState(state: CategoryAPIState.loading));
-        final data = await repo.getAll();
-        //
-        if (data == null) {
-          'nullData'.log();
-          emit(CategoryState(state: CategoryAPIState.error));
-          return;
-        }
-        //
-        final mains = data[APIKeys.mainCategories];
-        emit(
-          CategoryState(
-            state: CategoryAPIState.succses,
-            activIndex: 0,
-            mains: List<CategoryModel>.from(mains!),
-            subs: Map<String, List<CategoryModel>>.from({
-              mains.first.slug:
-                  List<CategoryModel>.from(data[APIKeys.subCategories]!),
-            }),
-          ),
-        );
-        'Succses emit'.log();
-      }
+      //
+      final data = await repo.getAssetMains();
+      emit(
+        CategoryState(
+          state: CategoryAPIState.errorSubs,
+          activIndex: 0,
+          mains: List<CategoryModel>.from(data),
+          subs: {},
+        ),
+      );
+      'Succses emit'.log();
+
       return;
     });
+    //
     on<ChangeCategory>((event, emit) async {
       final index =
           state.mains!.map((e) => e.slug).toList().indexOf(event.slug);
@@ -51,18 +38,18 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
         state.cancelToken?.cancel();
       }
 
-      await checkSubExisting(event.slug, emit, index);
+      await _checkSubExisting(event.slug, emit, index);
     });
   }
 
-  Future<void> checkSubExisting(
+  Future<void> _checkSubExisting(
       String slug, Emitter<CategoryState> emit, int index) async {
     final theSubs = state.subs![slug];
     if (theSubs == null) {
-      await getAddSubs(slug, emit, index);
+      await _getAddSubs(slug, emit, index);
       return;
     }
-    emit(
+    return emit(
       CategoryState(
         state: CategoryAPIState.succses,
         activIndex: index,
@@ -70,10 +57,9 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
         subs: Map<String, List<CategoryModel>>.from(state.subs!),
       ),
     );
-    return;
   }
 
-  Future<void> getAddSubs(
+  Future<void> _getAddSubs(
       String slug, Emitter<CategoryState> emit, int index) async {
     final newCancelToken = CancelToken();
     emit(
@@ -88,6 +74,7 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
 
     final data = await repo.getSubsBySlug(slug, newCancelToken);
     if (data == null) {
+      if (newCancelToken.isCancelled) return;
       emit(
         CategoryState(
           state: CategoryAPIState.errorSubs,

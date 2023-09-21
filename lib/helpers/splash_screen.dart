@@ -1,14 +1,17 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hh_express/features/categories/bloc/category_bloc.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/routes.dart';
 import 'package:hh_express/helpers/spacers.dart';
 import 'package:hh_express/settings/consts.dart';
+import 'package:hh_express/settings/theme.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -22,6 +25,8 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle(systemNavigationBarColor: AppColors.appOrange));
+    context.read<CategoryBloc>()..add(InitCategories());
+
     Future.delayed(const Duration(seconds: 1))
         .then((value) => appRouter.go(AppRoutes.mainScreen));
     super.initState();
@@ -30,6 +35,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = context.theme.textTheme;
+
     return SafeArea(
       top: false,
       child: Scaffold(

@@ -5,6 +5,7 @@ import 'package:hh_express/features/cart/view/cart_count.dart';
 import 'package:hh_express/features/components/widgets/place_holder.dart';
 import 'package:hh_express/features/components/widgets/svg_icons.dart';
 import 'package:hh_express/helpers/extentions.dart';
+import 'package:hh_express/helpers/spacers.dart';
 import 'package:hh_express/settings/consts.dart';
 import 'package:hh_express/settings/theme.dart';
 
@@ -18,12 +19,20 @@ class CartWidget extends StatefulWidget {
 }
 
 class _CartWidgetState extends State<CartWidget> {
-  double? height;
+  double getSize() {
+    final paddings = 50.h;
+    final textSizes = AppSpacing.getTextHeight(42);
+    final height = paddings + AppSpacing.textHeight;
+    return height..log();
+  }
+
   @override
   Widget build(BuildContext context) {
     final mqWidth = MediaQuery.sizeOf(context).width;
     '$mqWidth ww'.log();
     return Container(
+      width: 360.w,
+      height: getSize(),
       alignment: Alignment.center,
       margin: AppPaddings.left20_right12.add(AppPaddings.top_16),
       decoration: BoxDecoration(
@@ -33,7 +42,7 @@ class _CartWidgetState extends State<CartWidget> {
       child: Row(
         children: [
           Container(
-            height: 100.h,
+            height: double.infinity,
             width: 95.w,
             decoration: BoxDecoration(
               border: Border(
@@ -56,68 +65,65 @@ class _CartWidgetState extends State<CartWidget> {
               ),
             ),
           ),
-          MeasureSize(
-            onChange: (size) {
-              widget.onChange(size.height);
-              if (height != null) {
-                return;
-              }
-              setState(() {
-                // height = size.height..log();
-              });
-            },
+          Expanded(
             child: Padding(
               padding: AppPaddings.vertic_12.add(AppPaddings.horiz_12),
               child: Column(
-                mainAxisSize: MainAxisSize.min,
+                mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  SizedBox(
-                    width: 200.w,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: Text(
-                            'MacBook  2023 hgu jgvgvbjh jhgjg',
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: AppTheme.titleMedium16(context),
-                          ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Expanded(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              'MacBook  2023',
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: AppTheme.titleMedium16(context),
+                            ),
+                            Padding(
+                              padding: AppPaddings.vertic_6,
+                              child: Text(
+                                '700.12 TMT',
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: AppTheme.titleMedium14(context),
+                              ),
+                            ),
+                          ],
                         ),
-                        MyImageIcon(
-                          path: AssetsPath.deleteIcon,
-                          color: AppColors.darkGrey,
-                          contSize: 24.sp,
-                          iconSize: 19.sp,
-                        ),
-                      ],
-                    ),
+                      ),
+                      MyImageIcon(
+                        path: AssetsPath.deleteIcon,
+                        color: AppColors.darkGrey,
+                        contSize: 24.sp,
+                        iconSize: 19.sp,
+                        onTap: () {
+                          print('hii');
+                        },
+                      ),
+                    ],
                   ),
-                  Padding(
-                    padding: AppPaddings.vertic_6,
-                    child: Text(
-                      '700.12 TMT',
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: AppTheme.titleMedium14(context),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 200.w,
+                  Expanded(
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisSize: MainAxisSize.max,
                       children: [
-                        Expanded(
-                          child: Text(
-                            'Halanlaryma gos',
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: context.theme.textTheme.bodySmall,
-                          ),
+                        Text(
+                          'Halanlaryma goş',
+                          style: context.theme.textTheme.bodySmall,
                         ),
-                        CartCountButton(),
+                        SizedBox(
+                          width: 23.w,
+                        ),
+                        CartCount()
                       ],
                     ),
                   ),
@@ -125,6 +131,66 @@ class _CartWidgetState extends State<CartWidget> {
               ),
             ),
           )
+        ],
+      ),
+    );
+  }
+}
+
+class CartCount extends StatefulWidget {
+  const CartCount({super.key});
+
+  @override
+  State<CartCount> createState() => _CartCountState();
+}
+
+class _CartCountState extends State<CartCount> {
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              border: AppBorderRadiuses.defBorderDark,
+              borderRadius: AppBorderRadiuses.border_4,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: FittedBox(
+                    child: Icon(
+                      Icons.remove_outlined,
+                      color: AppColors.darkGrey,
+                    ),
+                  ),
+                ),
+                SizedBox(width: 32.w),
+                Expanded(
+                  child: FittedBox(
+                    child: Icon(
+                      Icons.add_outlined,
+                      color: AppColors.darkGrey,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            width: 32.w,
+            padding: AppPaddings.horiz_6,
+            alignment: Alignment.center,
+            color: AppColors.darkGrey,
+            child: FittedBox(
+              child: Text(
+                '99',
+                style: context.theme.textTheme.labelSmall,
+              ),
+            ),
+          ),
         ],
       ),
     );

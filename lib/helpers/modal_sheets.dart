@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hh_express/features/favors/view/favors_body.dart';
 import 'package:hh_express/features/filter/components/sheet_body.dart';
 import 'package:hh_express/features/orders/view/modalSheet/orders_sheet_body.dart';
-import 'package:hh_express/features/productDetails/view/modalSheet/product_modal_body.dart';
+import 'package:hh_express/features/product_details/view/modalSheet/product_modal_body.dart';
 import 'package:hh_express/features/profile/view/sheets/change_lang_sheet.dart';
 import 'package:hh_express/features/profile/view/sheets/change_user_name.dart';
 import 'package:hh_express/features/profile/view/sheets/choose_welayat_sheet.dart';

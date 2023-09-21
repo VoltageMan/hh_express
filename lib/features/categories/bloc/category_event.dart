@@ -18,3 +18,4 @@ class ChangeCategory extends CategoryEvent {
 }
 
 class InitCategories extends CategoryEvent {}
+

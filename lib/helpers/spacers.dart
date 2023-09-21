@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppSpacing {
@@ -83,12 +84,29 @@ class AppSpacing {
   );
 
   static double topPad = 0;
+  static double textHeight = 0;
 
-  static setTopPad(BuildContext context) {
+  static init(BuildContext context) {
     if (topPad != 0) {
       return;
     }
     final padding = MediaQuery.paddingOf(context).top;
     topPad = padding;
+  }
+
+  static double getTextHeight(int size) {
+    RenderParagraph renderParagraph = RenderParagraph(
+      TextSpan(
+        text: 'dsf',
+        style: TextStyle(
+          fontSize: size.sp,
+        ),
+      ),
+      textDirection: TextDirection.ltr,
+      maxLines: 1,
+    );
+    renderParagraph.layout(BoxConstraints());
+    textHeight = renderParagraph.size.height;
+    return textHeight;
   }
 }

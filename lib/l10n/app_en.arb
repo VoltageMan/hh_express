@@ -58,5 +58,7 @@
   "singIn": "Sing in",
   "next": "Continue",
   "similarProducts": "Similar products",
-  "orderInfo": "Order information"
+  "orderInfo": "Order information",
+  "description": "Description",
+  "more": "More"
 }

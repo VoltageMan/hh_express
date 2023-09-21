@@ -58,5 +58,7 @@
     "singIn": "Войти",
     "next": "Продолжить",
     "similarProducts": "Похожие товары",
-    "orderInfo": "Сведения заказа"
+    "orderInfo": "Сведения заказа", 
+    "description": "Описание",
+    "more": "Больше"
 }

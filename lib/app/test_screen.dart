@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:hh_express/features/categories/view/simpleCategories/simple_categories_builder.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hh_express/settings/theme.dart';
+import 'package:hh_express/features/cart/view/widget.dart';
+import 'package:hh_express/helpers/extentions.dart';
+import 'package:hh_express/settings/consts.dart';
 
 class TestScreen extends StatefulWidget {
   const TestScreen({super.key});
@@ -13,11 +19,45 @@ class _TestScreenState extends State<TestScreen> {
   Widget build(BuildContext context) {
     return Navigator(
       onGenerateRoute: (settings) => MaterialPageRoute(
-        builder: (context) => SafeArea(
-          child: Scaffold(
-            body: Column(
-              children: [
-                SimpleCategoriesBuilder(),
+        builder: (context) => Scaffold(
+          appBar: AppBar(
+            actions: [
+              IconButton(
+                onPressed: () {},
+                icon: Icon(Icons.add),
+              ),
+              IconButton(
+                icon: Icon(
+                  Icons.remove,
+                  color: Colors.black,
+                ),
+                color: Colors.red,
+                onPressed: () async {
+                  final mains = await PlatformAssetBundle()
+                      .loadString(AssetsPath.mainCats);
+
+                  mains.log();
+                },
+              ),
+            ],
+          ),
+          body: ListView.custom(
+            childrenDelegate: SliverChildListDelegate(
+              [
+                SizedBox(
+                  height: 20,
+                ),
+                //
+                Container(
+                  color: Colors.amber,
+                  height: 93.6,
+                  width: double.infinity,
+                ),
+                // CartHeight(),
+                CartWidget(
+                  0,
+                  onChange: (p0) {},
+                ),
               ],
             ),
           ),
@@ -26,19 +66,3 @@ class _TestScreenState extends State<TestScreen> {
     );
   }
 }
-
-// Future<void> overlayTest() async {
-//   'kuukuk'.log();
-//   final overlay = OverlayEntry(
-//     builder: (context) {
-//       return Container(
-//         decoration: BoxDecoration(
-//           color: AppColors.appOrange,
-//           borderRadius: AppBorderRadiuses.border_6,
-//         ),
-//       );
-//     },
-//   );
-//   Overlay.of(appRouter.currentContext).insert(overlay);
-// }
-

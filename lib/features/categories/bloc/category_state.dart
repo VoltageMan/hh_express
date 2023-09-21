@@ -1,7 +1,7 @@
 part of 'category_bloc.dart';
 
 class CategoryState extends Equatable {
-  CategoryState({
+  const CategoryState({
     this.activIndex,
     this.mains,
     required this.state,
@@ -14,7 +14,7 @@ class CategoryState extends Equatable {
 
   /// saving subs by parent slug
   final Map<String, List<CategoryModel>>? subs;
- final CancelToken? cancelToken;
+  final CancelToken? cancelToken;
 
   @override
   List<Object?> get props => [mains, state, activIndex, subs, cancelToken];

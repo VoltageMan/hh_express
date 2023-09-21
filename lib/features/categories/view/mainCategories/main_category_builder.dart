@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hh_express/features/categories/bloc/category_bloc.dart';
@@ -6,36 +7,19 @@ import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/models/categories/category_model.dart';
 import 'package:hh_express/settings/enums.dart';
 
-class MainCategoriesBuilder extends StatefulWidget {
+class MainCategoriesBuilder extends StatelessWidget {
   const MainCategoriesBuilder({
     super.key,
   });
 
   @override
-  State<MainCategoriesBuilder> createState() => _MainCategoriesBuilderState();
-}
-
-class _MainCategoriesBuilderState extends State<MainCategoriesBuilder> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return BlocBuilder<CategoryBloc, CategoryState>(
       builder: (context, state) {
-        'REbuilding ${state.state.name}'.log();
-        final apiState = state.state;
-        if (apiState == CategoryAPIState.succses ||
-            apiState == CategoryAPIState.loadingSubs ||
-            apiState == CategoryAPIState.errorSubs) {
-          return _UiBuilder(
-            selectedIndex: state.activIndex,
-            list: state.mains,
-          );
-        }
-        return _UiBuilder();
+        return _UiBuilder(
+          list: state.mains,
+          selectedIndex: state.activIndex,
+        );
       },
     );
   }
@@ -70,3 +54,4 @@ class _UiBuilder extends StatelessWidget {
     );
   }
 }
+

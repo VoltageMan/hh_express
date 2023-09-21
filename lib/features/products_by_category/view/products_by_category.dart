@@ -80,7 +80,7 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                   prods: state.products,
                 ),
                 ProductPaginationBottom(
-                  isLastPage: state.pagination?.currentPage !=
+                  isLastPage: state.pagination?.currentPage ==
                       state.pagination?.lastPage,
                   state: state.state,
                   onErrorTap: () => bloc.loadMore(),

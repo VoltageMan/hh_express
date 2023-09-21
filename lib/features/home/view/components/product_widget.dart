@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hh_express/features/components/widgets/place_holder.dart';
-import 'package:hh_express/features/productDetails/bloc/product_details_bloc.dart';
+import 'package:hh_express/features/product_details/bloc/product_details_bloc.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/routes.dart';
 import 'package:hh_express/models/products/product_model.dart';
@@ -21,11 +21,10 @@ class HomeProdWidget extends StatelessWidget {
     if (isLoading) {
       return _LoadingWidget(index: index);
     }
-    final hasDiscount = prod?.discount == null;
+    final hasDiscount = prod?.discount != null;
     return GestureDetector(
       onTap: () {
-        appRouter.currentContext.push(AppRoutes.prodDetails);
-        context.read<ProductDetailsBloc>().init(prod!.id);
+        context.push(AppRoutes.prodDetails, extra: prod!.id);
       },
       child: Container(
         width: 160.w,
@@ -129,7 +128,7 @@ class _LoadingWidget extends StatelessWidget {
         children: [
           Container(
             width: double.infinity,
-            height: 150.h,
+            height: 200.h,
             decoration: BoxDecoration(
               color: AppColors.lightGrey,
               borderRadius: AppBorderRadiuses.border_6,

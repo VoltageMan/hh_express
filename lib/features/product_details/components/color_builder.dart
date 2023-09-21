@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/spacers.dart';
 import 'package:hh_express/settings/consts.dart';
+import 'package:hh_express/settings/theme.dart';
 
 class ProdColorBuilder extends StatefulWidget {
   const ProdColorBuilder({super.key});
@@ -30,30 +30,43 @@ class _ProdColorBuilderState extends State<ProdColorBuilder> {
   ];
   @override
   Widget build(BuildContext context) {
-    return ScrollConfiguration(
-      behavior: MyBehavior(),
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Row(
-          children: colors.map((item) {
-            return Column(
-              children: [
-                ProdColorWidget(
-                  isFirst: item == Colors.purple,
-                  onTap: () {
-                    setState(() {
-                      selected = item;
-                    });
-                  },
-                  color: item,
-                  isSelected: item == selected,
-                ),
-                if (item == selected) AppSpacing.vertical_8
-              ],
-            );
-          }).toList(),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: AppPaddings.bottom12_top20.add(AppPaddings.horiz_16),
+          child: Text(
+            'Reňk saýlaň',
+            style: AppTheme.titleMedium14(context),
+          ),
         ),
-      ),
+        ScrollConfiguration(
+          behavior: MyBehavior(),
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: colors.map((item) {
+                return Column(
+                  children: [
+                    ProdColorWidget(
+                      isFirst: item == Colors.purple,
+                      onTap: () {
+                        setState(() {
+                          selected = item;
+                        });
+                      },
+                      color: item,
+                      isSelected: item == selected,
+                    ),
+                    if (item == selected) AppSpacing.vertical_8
+                  ],
+                );
+              }).toList(),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

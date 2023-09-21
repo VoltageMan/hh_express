@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hh_express/features/components/my_text_button.dart';
 import 'package:hh_express/features/components/widgets/nav_bar_body.dart';
-import 'package:hh_express/features/productDetails/components/counter_button.dart';
+import 'package:hh_express/features/product_details/components/counter_button.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/spacers.dart';
 
