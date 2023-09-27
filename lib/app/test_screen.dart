@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hh_express/settings/theme.dart';
-import 'package:hh_express/features/cart/view/widget.dart';
-import 'package:hh_express/helpers/extentions.dart';
-import 'package:hh_express/settings/consts.dart';
+import 'package:hh_express/app/setup.dart';
+import 'package:hh_express/repositories/filters/filters_repository.dart';
 
-class TestScreen extends StatefulWidget {
+final class TestScreen extends StatefulWidget {
   const TestScreen({super.key});
 
   @override
@@ -15,6 +10,9 @@ class TestScreen extends StatefulWidget {
 }
 
 class _TestScreenState extends State<TestScreen> {
+  int selectedIndex = 1;
+
+  final repo = getIt<FilterRepo>();
   @override
   Widget build(BuildContext context) {
     return Navigator(
@@ -32,34 +30,88 @@ class _TestScreenState extends State<TestScreen> {
                   color: Colors.black,
                 ),
                 color: Colors.red,
-                onPressed: () async {
-                  final mains = await PlatformAssetBundle()
-                      .loadString(AssetsPath.mainCats);
-
-                  mains.log();
-                },
+                onPressed: () async {},
               ),
             ],
           ),
-          body: ListView.custom(
-            childrenDelegate: SliverChildListDelegate(
-              [
-                SizedBox(
-                  height: 20,
+          body: FutureBuilder(
+            future: repo.getProps(),
+            builder: (context, snap) {
+              if (snap.connectionState != ConnectionState.done) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              final data = snap.data!;
+              return ListView.custom(
+                childrenDelegate: SliverChildListDelegate(
+                  [
+                    ...data
+                        .map(
+                          (e) => SizedBox(),
+                        )
+                        .toList()
+                    // SizedBox(height: 10.h),
+                    // SingleChildScrollView(
+                    //   child: Wrap(
+                    //     spacing: 10.w,
+                    //     children: [
+                    //       ...List.generate(
+                    //         3,
+                    //         (index) => SelectedFilterPropWidget(
+                    //           value: 'SomeThign',
+                    //         ),
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
+                    // SizedBox(height: 10.h),
+                    // SingleChildScrollView(
+                    //   child: Row(
+                    //     children: [
+                    //       ...List.generate(
+                    //         6,
+                    //         (index) => index % 2 == 0
+                    //             ? SizedBox(width: 5)
+                    //             : FilterColorWidget(
+                    //                 onTap: () {
+                    //                   selectedIndex = index;
+                    //                   setState(() {});
+                    //                 },
+                    //                 color: AssetsPath.exampleColor,
+                    //                 isSelected: selectedIndex == index,
+                    //               ),
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
+                    // SingleChildScrollView(
+                    //   child: Row(
+                    //     children: [
+                    //       ...List.generate(
+                    //         6,
+                    //         (index) => index % 2 == 0
+                    //             ? SizedBox(width: 5)
+                    //             : FilterPropWidget(
+                    //                 title: 'kuku ',
+                    //               ),
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
+                    // Padding(
+                    //   padding: AppPaddings.all_12,
+                    //   child: Column(
+                    //     crossAxisAlignment: CrossAxisAlignment.start,
+                    //     children: [
+                    //       RemoveAllSeleteds(),
+                    //     ],
+                    //   ),
+                    // )
+                  ],
                 ),
-                //
-                Container(
-                  color: Colors.amber,
-                  height: 93.6,
-                  width: double.infinity,
-                ),
-                // CartHeight(),
-                CartWidget(
-                  0,
-                  onChange: (p0) {},
-                ),
-              ],
-            ),
+              );
+            },
           ),
         ),
       ),

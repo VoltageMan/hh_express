@@ -1,7 +1,11 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hh_express/app/setup.dart';
+import 'package:hh_express/features/filter/bloc/filter_bloc.dart';
 import 'package:hh_express/helpers/extentions.dart';
+import 'package:hh_express/helpers/extentions.dart';
+import 'package:hh_express/helpers/routes.dart';
 import 'package:hh_express/models/pagination/pagination_model.dart';
 import 'package:hh_express/models/products/product_model.dart';
 import 'package:hh_express/repositories/products/product_repo.dart';
@@ -15,7 +19,6 @@ class HomeBloc extends Cubit<HomeState> {
 
   final _repo = getIt<ProductRepo>();
   double lastPosition = 0;
-
   Future<void> init() async {
     if (state.state != ProductAPIState.init &&
         state.state != ProductAPIState.error) {

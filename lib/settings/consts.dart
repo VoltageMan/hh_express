@@ -53,6 +53,7 @@ class AppPaddings {
   static EdgeInsets bottom_16 = EdgeInsets.only(bottom: 16.h);
   static EdgeInsets bottom_12 = EdgeInsets.only(bottom: 12.h);
   static EdgeInsets bottom_10 = EdgeInsets.only(bottom: 10.h);
+  static EdgeInsets bottom_5 = EdgeInsets.only(bottom: 5.h);
 
   static EdgeInsets all_12 = EdgeInsets.all(12.sp);
   static EdgeInsets all_16 = EdgeInsets.all(16.sp);
@@ -175,6 +176,8 @@ class AppDurations {
 }
 
 class AssetsPath {
+  static const exampleColor =
+      'https://images.freeimages.com/images/large-previews/8a8/yellow-galben-1518220.jpg';
   static const mainCats = 'assets/data/main_cats.json';
   static const macBook =
       'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1026&q=80';
@@ -182,7 +185,7 @@ class AssetsPath {
       'http://216.250.9.74/storage/21/conversions/men-thumb.webp';
 
   static const splashBackground = 'assets/images/splash.svg';
-  static const splashBack = 'assets/images/splash_back.png';
+  static const splashBackPng = 'assets/images/splash_back.png';
   //! icons
   static const logoIcon = 'assets/icons/logo.svg';
   static const searchIcon = 'assets/icons/search.svg';
@@ -237,4 +240,6 @@ class APIKeys {
   static const products = 'products';
   static const product = 'product';
   static const urlDecoder = '%5B%5D';
+
+  static const colors = ['colors', 'цвета', 'reňkler'];
 }

@@ -13,6 +13,7 @@ import 'package:hh_express/models/categories/category_model.dart';
 enum EnumNavRoutes { home, video, category, cart, profile }
 
 class AppRoutes {
+  
   // static List<String> navBar = [
   //   '/${EnumNavRoutes.home.name}',
   //   '/${EnumNavRoutes.video.name}',

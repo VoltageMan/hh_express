@@ -6,8 +6,8 @@ import 'package:hh_express/settings/consts.dart';
 import 'package:hh_express/settings/theme.dart';
 
 class ProdColorBuilder extends StatefulWidget {
-  const ProdColorBuilder({super.key});
-
+  const ProdColorBuilder({super.key, this.isNotPadded});
+  final bool? isNotPadded;
   @override
   State<ProdColorBuilder> createState() => _ProdColorBuilderState();
 }
@@ -35,7 +35,9 @@ class _ProdColorBuilderState extends State<ProdColorBuilder> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: AppPaddings.bottom12_top20.add(AppPaddings.horiz_16),
+          padding: widget.isNotPadded ?? false
+              ? EdgeInsets.zero
+              : AppPaddings.bottom12_top20.add(AppPaddings.horiz_16),
           child: Text(
             'Reňk saýlaň',
             style: AppTheme.titleMedium14(context),

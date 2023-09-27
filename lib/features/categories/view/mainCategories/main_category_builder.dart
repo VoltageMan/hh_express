@@ -54,4 +54,3 @@ class _UiBuilder extends StatelessWidget {
     );
   }
 }
-

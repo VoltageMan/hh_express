@@ -7,12 +7,16 @@ part 'property_model.g.dart';
 class PropertyModel {
   final String name;
   final List<PropertyValue> values;
+  @JsonKey(includeFromJson: false)
+  bool? isColor;
   PropertyModel({
     required this.values,
     required this.name,
+    this.isColor,
   });
 
   factory PropertyModel.fromJson(Map<String, dynamic> json) {
+    return _$PropertyModelFromJson(json);
     final valList = json.values.toList().first as List;
     final name = json.keys.toList().first;
     final values = valList.map((e) => PropertyValue.fromJson(e)).toList();
@@ -22,4 +26,9 @@ class PropertyModel {
     );
   }
   Map<String, dynamic> toJson() => _$PropertyModelToJson(this);
+
+  void paint() {
+    this.isColor = true;
+    return this.values.forEach((element) => element.isColor = true);
+  }
 }

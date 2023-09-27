@@ -62,7 +62,7 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
                           padding: AppPaddings.horiz_16,
                           child: MyImageIcon(
                             path: AssetsPath.filterIcon,
-                            iconSize: 20.8.w,
+                            iconSize: 20.8.sp,
                             onTap: () =>
                                 ModelBottomSheetHelper.showFilterSheet(),
                           ),
@@ -70,7 +70,7 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
                         MyImageIcon(
                           path: AssetsPath.bellIcon,
                           contSize: 24.sp,
-                          iconSize: 19.2.h,
+                          iconSize: 19.2.sp,
                           onTap: () {
                             appRouter.currentContext
                                 .push(AppRoutes.notifications);

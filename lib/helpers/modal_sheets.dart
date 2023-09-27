@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/features/favors/view/favors_body.dart';
 import 'package:hh_express/features/filter/components/sheet_body.dart';
 import 'package:hh_express/features/orders/view/modalSheet/orders_sheet_body.dart';
@@ -30,7 +31,9 @@ class ModelBottomSheetHelper {
       isScrollControlled: true,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+          topLeft: Radius.circular(10.r),
+          topRight: Radius.circular(10.r),
+        ),
       ),
       builder: (context) {
         _currentContext = context;

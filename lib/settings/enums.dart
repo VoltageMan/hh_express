@@ -34,3 +34,11 @@ enum ProdDetailsAPIState {
   error,
   succses,
 }
+
+
+enum FilterAPIState {
+  init,
+  loading,
+  error,
+  succses,
+}

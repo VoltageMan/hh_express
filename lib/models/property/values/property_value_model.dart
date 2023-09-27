@@ -9,13 +9,18 @@ class PropertyValue {
     required this.id,
     required this.value,
     this.isSelected = false,
+    this.isColor = false,
   });
   final int id;
   final String? icon;
   final String value;
+  @JsonKey(includeFromJson: false)
   bool isSelected;
+  @JsonKey(includeFromJson: false)
+  bool isColor;
 
-  factory PropertyValue.fromJson(Map<String, dynamic> json) =>
-      _$PropertyValueFromJson(json);
+  factory PropertyValue.fromJson(Map<String, dynamic> json) {
+    return _$PropertyValueFromJson(json);
+  }
   Map<String, dynamic> toJson() => _$PropertyValueToJson(this);
 }

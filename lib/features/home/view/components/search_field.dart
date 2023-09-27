@@ -11,7 +11,6 @@ class HomeSearchField extends StatefulWidget {
   State<HomeSearchField> createState() => _HoemSearchFieldState();
 }
 
-
 class _HoemSearchFieldState extends State<HomeSearchField> {
   final focus = FocusNode();
   @override

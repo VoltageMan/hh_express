@@ -10,9 +10,7 @@ import 'package:hh_express/settings/consts.dart';
 import 'package:hh_express/settings/theme.dart';
 
 class CartWidget extends StatefulWidget {
-  const CartWidget(this.index, {super.key, required this.onChange});
-  final int index;
-  final void Function(double) onChange;
+  const CartWidget();
 
   @override
   State<CartWidget> createState() => _CartWidgetState();
@@ -22,14 +20,12 @@ class _CartWidgetState extends State<CartWidget> {
   double getSize() {
     final paddings = 50.h;
     final textSizes = AppSpacing.getTextHeight(42);
-    final height = paddings + AppSpacing.textHeight;
+    final height = paddings + textSizes;
     return height..log();
   }
 
   @override
   Widget build(BuildContext context) {
-    final mqWidth = MediaQuery.sizeOf(context).width;
-    '$mqWidth ww'.log();
     return Container(
       width: 360.w,
       height: getSize(),
@@ -131,66 +127,6 @@ class _CartWidgetState extends State<CartWidget> {
               ),
             ),
           )
-        ],
-      ),
-    );
-  }
-}
-
-class CartCount extends StatefulWidget {
-  const CartCount({super.key});
-
-  @override
-  State<CartCount> createState() => _CartCountState();
-}
-
-class _CartCountState extends State<CartCount> {
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              border: AppBorderRadiuses.defBorderDark,
-              borderRadius: AppBorderRadiuses.border_4,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: FittedBox(
-                    child: Icon(
-                      Icons.remove_outlined,
-                      color: AppColors.darkGrey,
-                    ),
-                  ),
-                ),
-                SizedBox(width: 32.w),
-                Expanded(
-                  child: FittedBox(
-                    child: Icon(
-                      Icons.add_outlined,
-                      color: AppColors.darkGrey,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            width: 32.w,
-            padding: AppPaddings.horiz_6,
-            alignment: Alignment.center,
-            color: AppColors.darkGrey,
-            child: FittedBox(
-              child: Text(
-                '99',
-                style: context.theme.textTheme.labelSmall,
-              ),
-            ),
-          ),
         ],
       ),
     );

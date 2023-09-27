@@ -45,7 +45,7 @@ class _DioClient {
   late final Dio _dio;
   Options setLanguage(Options? options) {
     final langHead = {
-      'accept-language': locale.value,
+      'Accept-Language': locale.value,
     };
     if (options == null) return Options(headers: langHead);
     return options.copyWith(

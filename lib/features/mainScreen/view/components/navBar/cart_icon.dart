@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hh_express/app/test_screen.dart';
 import 'package:hh_express/features/mainScreen/view/components/navBar/nav_bar.dart';
 import 'package:hh_express/features/components/widgets/svg_icons.dart';
 import 'package:hh_express/helpers/extentions.dart';
-import 'package:hh_express/helpers/overlay_helper.dart';
-import 'package:hh_express/helpers/routes.dart';
 import 'package:hh_express/settings/consts.dart';
 
 class CartIcon extends StatelessWidget {
@@ -26,7 +23,7 @@ class CartIcon extends StatelessWidget {
         height: 72.h,
         width: 72.w,
         child: Stack(
-          alignment: Alignment.topRight,
+          alignment: Alignment.center,
           children: [
             ValueListenableBuilder(
               valueListenable: bodyIndex,
@@ -41,7 +38,8 @@ class CartIcon extends StatelessWidget {
                       color: isSelected
                           ? theme.selectedItemColor
                           : theme.unselectedItemColor,
-                      iconSize: 18.w,
+                      iconSize: 18.h,
+                      contSize: 18.h,
                     ),
                     SizedBox(
                       width: double.infinity,
@@ -72,15 +70,14 @@ class CartBadge extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Container(
-      margin: EdgeInsets.only(right: 13.w),
-      padding: EdgeInsets.all(2.5.sp),
+      margin: EdgeInsets.only(left: 25.h, bottom: 30.h),
+      padding: EdgeInsets.all(2.5.h),
       decoration: BoxDecoration(
         color: theme.bottomNavigationBarTheme.backgroundColor,
         shape: BoxShape.circle,
       ),
       child: Container(
-        height: 18.sp,
-        width: 18.sp,
+        height: 18.h,
         padding: theme.badgeTheme.padding,
         decoration: BoxDecoration(
           color: theme.badgeTheme.backgroundColor,

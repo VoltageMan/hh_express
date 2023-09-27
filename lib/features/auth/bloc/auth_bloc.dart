@@ -97,7 +97,6 @@ class AuthBloc extends Cubit<AuthState> {
     return true;
   }
 
-
   Future<bool> logIn(AuthModel data) async {
     emit(AuthState(
         apiState: APIState.loading, termsConfirmed: state.termsConfirmed));

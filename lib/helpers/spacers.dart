@@ -84,7 +84,6 @@ class AppSpacing {
   );
 
   static double topPad = 0;
-  static double textHeight = 0;
 
   static init(BuildContext context) {
     if (topPad != 0) {
@@ -97,7 +96,7 @@ class AppSpacing {
   static double getTextHeight(int size) {
     RenderParagraph renderParagraph = RenderParagraph(
       TextSpan(
-        text: 'dsf',
+        text: 'h',
         style: TextStyle(
           fontSize: size.sp,
         ),
@@ -106,7 +105,7 @@ class AppSpacing {
       maxLines: 1,
     );
     renderParagraph.layout(BoxConstraints());
-    textHeight = renderParagraph.size.height;
+    final textHeight = renderParagraph.size.height;
     return textHeight;
   }
 }

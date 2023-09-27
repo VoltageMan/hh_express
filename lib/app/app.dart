@@ -6,6 +6,7 @@ import 'package:hh_express/app/test_screen.dart';
 import 'package:hh_express/data/local/secured_storage.dart';
 import 'package:hh_express/features/auth/bloc/auth_bloc.dart';
 import 'package:hh_express/features/categories/bloc/category_bloc.dart';
+import 'package:hh_express/features/filter/bloc/filter_bloc.dart';
 import 'package:hh_express/features/home/bloc/home_bloc.dart';
 import 'package:hh_express/features/product_details/bloc/product_details_bloc.dart';
 import 'package:hh_express/features/products_by_category/bloc/products_by_category_bloc.dart';
@@ -41,6 +42,8 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(create: (context) => CategoryBloc()),
         BlocProvider(create: (context) => ProductsByCategoryBloc()),
         BlocProvider(create: (context) => ProductDetailsBloc()),
+        BlocProvider(create: (context) => FilterBloc()),
+
         // remove it before commits
         // BlocProvider(create: (context) => TestBloc()),
       ],
@@ -61,7 +64,6 @@ class _MyAppState extends State<MyApp> {
                 localizationsDelegates: AppLocalizations.localizationsDelegates,
                 builder: (context, child) {
                   AppSpacing.init(context);
-                  // return waited
                   // return TestScreen();
                   return Navigator(
                     onGenerateRoute: (settings) => MaterialPageRoute(
@@ -70,14 +72,6 @@ class _MyAppState extends State<MyApp> {
                       },
                     ),
                   );
-                  // : GestureDetector(
-                  //     onTap: () {
-                  //       setState(() {
-                  //         waited = true;
-                  //       });
-                  //     },
-                  //     child: const SplashScreen(),
-                  //   );
                 },
               );
             },
