@@ -17,13 +17,13 @@ class PropertyModel {
 
   factory PropertyModel.fromJson(Map<String, dynamic> json) {
     return _$PropertyModelFromJson(json);
-    final valList = json.values.toList().first as List;
-    final name = json.keys.toList().first;
-    final values = valList.map((e) => PropertyValue.fromJson(e)).toList();
-    return PropertyModel(
-      name: name,
-      values: values,
-    );
+    // final valList = json.values.toList().first as List;
+    // final name = json.keys.toList().first;
+    // final values = valList.map((e) => PropertyValue.fromJson(e)).toList();
+    // return PropertyModel(
+    //   name: name,
+    //   values: values,
+    // );
   }
   Map<String, dynamic> toJson() => _$PropertyModelToJson(this);
 

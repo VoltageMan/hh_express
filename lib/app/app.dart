@@ -43,9 +43,6 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(create: (context) => ProductsByCategoryBloc()),
         BlocProvider(create: (context) => ProductDetailsBloc()),
         BlocProvider(create: (context) => FilterBloc()),
-
-        // remove it before commits
-        // BlocProvider(create: (context) => TestBloc()),
       ],
       child: ScreenUtilInit(
         designSize: const Size(360, 800),
@@ -64,7 +61,6 @@ class _MyAppState extends State<MyApp> {
                 localizationsDelegates: AppLocalizations.localizationsDelegates,
                 builder: (context, child) {
                   AppSpacing.init(context);
-                  // return TestScreen();
                   return Navigator(
                     onGenerateRoute: (settings) => MaterialPageRoute(
                       builder: (context) {

@@ -43,6 +43,8 @@ dependencies:
   json_annotation: ^4.8.1
   video_player: ^2.7.0
   firebase_storage: ^11.2.6
+  path_provider: ^2.1.1
+  flutter_avif: ^1.4.0
 
 dev_dependencies:
   json_serializable: ^6.7.1

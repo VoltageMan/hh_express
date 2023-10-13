@@ -5,6 +5,7 @@ import 'package:hh_express/features/categories/view/body.dart';
 import 'package:hh_express/features/components/widgets/product_pagination_bottom.dart';
 import 'package:hh_express/features/home/bloc/home_bloc.dart';
 import 'package:hh_express/features/home/view/components/product_builder.dart';
+import 'package:hh_express/settings/consts.dart';
 import 'package:hh_express/settings/enums.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -54,19 +55,24 @@ class _HomeScreenState extends State<HomeScreen> {
             },
           );
         }
-        return CustomScrollView(
-          controller: scrollController,
-          slivers: [
-            HomeProdBuilder(
-              prods: state.prods,
-            ),
-            ProductPaginationBottom(
-              isLastPage:
-                  state.pagination?.currentPage == state.pagination?.lastPage,
-              state: state.state,
-              onErrorTap: () => bloc.loadMore(),
-            )
-          ],
+        return RefreshIndicator.adaptive(
+          onRefresh: () async {
+            await bloc.init(forUpdate: true);
+          },
+          child: CustomScrollView(
+            controller: scrollController,
+            slivers: [
+              HomeProdBuilder(
+                prods: state.prods,
+              ),
+              ProductPaginationBottom(
+                isLastPage:
+                    state.pagination?.currentPage == state.pagination?.lastPage,
+                state: state.state,
+                onErrorTap: () => bloc.loadMore(),
+              )
+            ],
+          ),
         );
       },
     );

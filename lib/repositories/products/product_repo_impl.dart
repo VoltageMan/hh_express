@@ -1,12 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/data/remote/dio_client.dart';
-import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/models/pagination/pagination_model.dart';
 import 'package:hh_express/models/products/product_model.dart';
 import 'package:hh_express/repositories/products/product_repo.dart';
 import 'package:hh_express/settings/consts.dart';
-import 'package:hh_express/settings/enums.dart';
 import 'package:injectable/injectable.dart';
 
 @Injectable(as: ProductRepo)
@@ -62,16 +58,5 @@ class ProductRepoImpl extends ProductRepo with DioClientMixin {
     final slugsUrl = slugList.join('&');
     final joiner = propertiesUrl.isNotEmpty && slugsUrl.isNotEmpty ? '&' : '';
     return '${EndPoints.products}?$propertiesUrl$joiner$slugsUrl&${APIKeys.page}=$page';
-  }
-
-  @override
-  bool doLoadMore(ScrollController con, ProductAPIState state) {
-    if (con.position.pixels >= (con.position.maxScrollExtent - 15.h) &&
-        con.position.isScrollingNotifier.value) {
-      if (state != ProductAPIState.succses) {
-        return false;
-      }
-    }
-    return true;
   }
 }

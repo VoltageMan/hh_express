@@ -11,9 +11,14 @@ part 'product_details_state.dart';
 
 class ProductDetailsBloc extends Cubit<ProductDetailsState> {
   ProductDetailsBloc()
-      : super(ProductDetailsState(
+      : super(
+          ProductDetailsState(
             state: ProdDetailsAPIState.init,
-            products: List.empty(growable: true)));
+            products: List.empty(
+              growable: true,
+            ),
+          ),
+        );
   int? currentProdId;
   List<int> sesectedProps = List.empty(growable: true);
   final repo = getIt<ProductDetailsRepo>();

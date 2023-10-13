@@ -9,8 +9,11 @@ import 'package:hh_express/features/filter/bloc/filter_bloc.dart';
 import 'package:hh_express/features/filter/components/builders/props_builder.dart';
 import 'package:hh_express/features/filter/components/builders/selected_props_builder.dart';
 import 'package:hh_express/features/filter/components/siwtch_listile.dart';
+import 'package:hh_express/features/home/bloc/home_bloc.dart';
 import 'package:hh_express/features/product_details/view/product_details_body.dart';
+import 'package:hh_express/features/products_by_category/bloc/products_by_category_bloc.dart';
 import 'package:hh_express/helpers/extentions.dart';
+import 'package:hh_express/helpers/routes.dart';
 import 'package:hh_express/helpers/spacers.dart';
 import 'package:hh_express/settings/consts.dart';
 import 'package:hh_express/settings/enums.dart';
@@ -23,16 +26,10 @@ class FilterSheetBody extends StatefulWidget {
 }
 
 class _FilterSheetBodyState extends State<FilterSheetBody> {
-  final List<String> selecteds = [
-    'Kategoriýa: Maýkalar',
-    'Ölçeg: 40',
-    'Brend: Adidas',
-    'Gucci',
-  ];
-
   @override
   void initState() {
     bloc = context.read<FilterBloc>()..add(FilterInit());
+    bloc.forHome = appRouter.location == AppRoutes.mainScreen;
     super.initState();
   }
 
@@ -85,6 +82,9 @@ class _FilterSheetBodyState extends State<FilterSheetBody> {
                         FilterSwithListTile(
                           title: context.l10n.news,
                         ),
+                        FilterSwithListTile(
+                          title: 'Köp Satylanlar',
+                        ),
                       ],
                     ),
                   ),
@@ -94,6 +94,13 @@ class _FilterSheetBodyState extends State<FilterSheetBody> {
                 child: MyDarkTextButton(
                   title: 'Harytlar (500)',
                   onTap: () {
+                    if (bloc.forHome) {
+                      context.read<HomeBloc>().filter(bloc.state.homeSelecteds);
+                    } else {
+                      context
+                          .read<ProductsByCategoryBloc>()
+                          .filter(bloc.state.prodByCatselecteds);
+                    }
                     Navigator.pop(context);
                   },
                 ),

@@ -27,10 +27,11 @@ class FilterPropWidget extends StatelessWidget {
         margin: AppPaddings.bottom_10,
         padding: AppPaddings.horiz10_vertic5,
         decoration: BoxDecoration(
-          borderRadius: AppBorderRadiuses.border_6,
+          borderRadius: AppBorderRadiuses.border_8,
           color: AppColors.lightGrey,
         ),
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(

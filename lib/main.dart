@@ -10,9 +10,11 @@ void main() async {
   final mySystemTheme = SystemUiOverlayStyle.dark.copyWith(
       systemNavigationBarColor: AppColors.white,
       systemNavigationBarIconBrightness: Brightness.dark);
+
   SystemChrome.setSystemUIOverlayStyle(mySystemTheme);
   await WidgetsFlutterBinding.ensureInitialized();
-  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
   runApp(const MyApp());
-  
 }

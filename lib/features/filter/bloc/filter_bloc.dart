@@ -1,7 +1,8 @@
+import 'dart:math';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hh_express/app/setup.dart';
-import 'package:hh_express/features/categories/bloc/category_bloc.dart';
 import 'package:hh_express/models/property/property_model.dart';
 import 'package:hh_express/models/property/values/property_value_model.dart';
 import 'package:hh_express/repositories/filters/filters_repository.dart';
@@ -19,40 +20,37 @@ final class FilterBloc extends Bloc<FilterEvent, FilterState> {
       (event, emit) {
         final theProp = event.model;
         if (isSelected(theProp.id)) return;
+        final newState = FilterState.update(state);
 
-        emit(
-          FilterState(
-            filterByNews: state.filterByNews,
-            properties: List.from(state.properties!),
-            selecteds: List.from(state.selecteds)..add(theProp),
-            state: FilterAPIState.succses,
-          ),
-        );
+        if (forHome) {
+          newState.homeSelecteds.add(theProp);
+        } else {
+          newState.prodByCatselecteds.add(theProp);
+        }
+        emit(newState);
       },
     );
     on<RemoveFilterProperty>(
       (event, Emitter emit) {
-        final newProp = event.model;
-        emit(
-          FilterState(
-            filterByNews: state.filterByNews,
-            properties: List.from(state.properties!),
-            selecteds: List.from(state.selecteds)..remove(newProp),
-            state: FilterAPIState.succses,
-          ),
-        );
+        final theProp = event.model;
+        final newState = FilterState.update(state);
+        if (forHome) {
+          newState.homeSelecteds.remove(theProp);
+        } else {
+          newState.prodByCatselecteds.remove(theProp);
+        }
+        emit(newState);
       },
     );
     on<ClearFilter>(
       (event, Emitter emit) {
-        emit(
-          FilterState(
-            filterByNews: state.filterByNews,
-            properties: List.from(state.properties!),
-            selecteds: List.empty(),
-            state: FilterAPIState.succses,
-          ),
-        );
+        final newState = FilterState.update(state);
+        if (forHome) {
+          newState.homeSelecteds.clear();
+        } else {
+          newState.prodByCatselecteds.clear();
+        }
+        emit(newState);
       },
     );
     on<FilterInit>((event, emit) async {
@@ -64,7 +62,8 @@ final class FilterBloc extends Bloc<FilterEvent, FilterState> {
           FilterState(
             filterByNews: false,
             properties: data,
-            selecteds: List.empty(),
+            prodByCatselecteds: List.empty(growable: true),
+            homeSelecteds: List.empty(growable: true),
             state: FilterAPIState.succses,
           ),
         );
@@ -72,9 +71,11 @@ final class FilterBloc extends Bloc<FilterEvent, FilterState> {
       return emit(FilterState.empty(FilterAPIState.error));
     });
   }
+  bool forHome = false;
 
   bool isSelected(int id) {
-    final num = state.selecteds.map((e) => e.id).toList().indexOf(id);
+    final selecteds = forHome ? state.homeSelecteds : state.prodByCatselecteds;
+    final num = selecteds.map((e) => e.id).toList().indexOf(id);
     return num != -1;
   }
 }

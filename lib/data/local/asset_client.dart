@@ -3,9 +3,9 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 
 mixin AssetClientMixin {
-  final client = _AssetClient();
+  final _client = _AssetClient();
 
-  _AssetClient get assetBundle => client;
+  _AssetClient get assetBundle => _client;
 }
 
 class _AssetClient {

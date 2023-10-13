@@ -6,6 +6,7 @@ import 'package:hh_express/features/filter/bloc/filter_bloc.dart';
 import 'package:hh_express/features/filter/components/line.dart';
 import 'package:hh_express/features/filter/components/prop_widegets/remove_all_selecteds.dart';
 import 'package:hh_express/features/filter/components/prop_widegets/selected_prop_widget.dart';
+import 'package:hh_express/helpers/routes.dart';
 import 'package:hh_express/settings/consts.dart';
 import 'package:hh_express/settings/theme.dart';
 
@@ -16,17 +17,22 @@ class SelectedPropsBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bloc = context.read<FilterBloc>();
     return BlocBuilder<FilterBloc, FilterState>(
+      bloc: bloc,
       builder: (context, state) {
+        final selecteds =
+            bloc.forHome ? state.homeSelecteds : state.prodByCatselecteds;
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            state.selecteds.isEmpty
+            selecteds.isEmpty
                 ? Padding(
                     padding: AppPaddings.vertic_10,
                     child: Center(
                       child: Text(
-                        'Select some Props 👌😶‍🌫️',
+                        'it woud be better \nif u drew me design for emty places',
+                        textAlign: TextAlign.center,
                         style: AppTheme.bodyMedium12(context),
                       ),
                     ),
@@ -35,7 +41,7 @@ class SelectedPropsBuilder extends StatelessWidget {
                     alignment: WrapAlignment.start,
                     spacing: 10.w,
                     maxLines: 2,
-                    children: state.selecteds
+                    children: selecteds
                         .map(
                           (e) => SelectedFilterPropWidget(
                             value: e,
@@ -43,7 +49,7 @@ class SelectedPropsBuilder extends StatelessWidget {
                         )
                         .toList(),
                   ),
-            if (state.selecteds.isNotEmpty) RemoveAllSeleteds(),
+            if (selecteds.isNotEmpty) RemoveAllSeleteds(),
             FilterLine()
           ],
         );

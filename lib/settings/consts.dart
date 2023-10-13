@@ -177,7 +177,7 @@ class AppDurations {
 
 class AssetsPath {
   static const exampleColor =
-      'https://images.freeimages.com/images/large-previews/8a8/yellow-galben-1518220.jpg';
+      'https://assets-global.website-files.com/6009ec8cda7f305645c9d91b/6151d0ed6cb8220c95cf72e6_Frame%204.jpg';
   static const mainCats = 'assets/data/main_cats.json';
   static const macBook =
       'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1026&q=80';

@@ -20,7 +20,11 @@ class ProductsByCategoryBloc extends Cubit<ProductsByCategoryState> {
       : super(ProductsByCategoryState(state: ProductAPIState.init));
   final _repo = getIt<ProductRepo>();
 
-  List<PropertyValue> _filters = List.empty();
+  List<PropertyValue> _filters = List.empty(growable: true);
+  void dispose() {
+    emit(ProductsByCategoryState(state: ProductAPIState.init));
+    _filters.clear();
+  }
 
   Future<void> init(CategoryModel category) async {
     emit(
@@ -92,10 +96,9 @@ class ProductsByCategoryBloc extends Cubit<ProductsByCategoryState> {
     );
   }
 
-  void filter() {
-    final filterBloc = appRouter.currentContext.read<FilterBloc>();
-    _filters = List.from(filterBloc.state.selecteds);
-    if (state.state != ProductAPIState.init) return;
+  void filter(List<PropertyValue> props) {
+    _filters = List.from(props);
+    if (state.state == ProductAPIState.init) return;
     init(state.category!);
   }
 }

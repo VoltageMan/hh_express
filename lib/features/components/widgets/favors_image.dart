@@ -30,6 +30,9 @@ class FavorsImage extends StatelessWidget {
               )
             : CachedNetworkImage(
                 imageUrl: AssetsPath.macBook,
+                imageBuilder: (context, imageProvider) {
+                  return Image(image: imageProvider);
+                },
                 fit: BoxFit.cover,
                 placeholder: (context, url) => const MyShimerPlaceHolder(),
               ),

@@ -27,12 +27,17 @@ class FilterPropertyBuilder extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Row(
+          mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              prop.name,
-              style: AppTheme.titleMedium16(context),
+            Expanded(
+              child: Text(
+                prop.name,
+                style: AppTheme.titleMedium16(context),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
             TextButton(
               onPressed: () {},
@@ -59,6 +64,7 @@ class FilterPropertyBuilder extends StatelessWidget {
                     (e) => prop.isColor ?? false
                         ? FilterColorWidget(
                             color: e,
+                            isSelected: bloc.isSelected(e.id),
                             onTap: () {
                               bloc.add(AddFilterProperty(model: e));
                             },
