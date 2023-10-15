@@ -9,6 +9,7 @@ import 'package:hh_express/features/home/view/components/product_widget.dart';
 import 'package:hh_express/features/product_details/bloc/product_details_bloc.dart';
 import 'package:hh_express/features/product_details/components/color_builder.dart';
 import 'package:hh_express/features/product_details/components/image_indicator.dart';
+import 'package:hh_express/features/product_details/components/image_place_holder.dart';
 import 'package:hh_express/features/product_details/components/property_builder.dart';
 import 'package:hh_express/features/product_details/view/image_details.dart';
 import 'package:hh_express/helpers/extentions.dart';
@@ -115,11 +116,13 @@ class _ProdDetailsBodyState extends State<ProdDetailsBody>
                                 );
                               },
                               child: CachedNetworkImage(
+                                imageUrl: image,
+                                //! errorWidget
+                                errorWidget: null,
                                 placeholder: (context, url) =>
-                                    MyShimerPlaceHolder(),
+                                    ProdDetailsImagePlaceHolder(),
                                 height: 300.h,
                                 fit: BoxFit.cover,
-                                imageUrl: image,
                               ),
                             ),
                           )

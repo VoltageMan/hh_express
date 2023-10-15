@@ -57,21 +57,17 @@ class _ProdDetailsAppBarState extends State<ProdDetailsAppBar> {
             context.l10n.aboutProd,
             style: theme.textTheme.titleMedium,
           ),
-          MyImageIcon(
-            path: AssetsPath.favorIcon,
-            contSize: 24.sp,
-            iconSize: 19.sp,
-            color: isFavor ? AppColors.appOrange : null,
-            onTap: () {
-              isFavor = !isFavor;
-              setState(() {});
-              final state = context.read<ProductDetailsBloc>().state;
-              state.state.log();
-              state.products
-                  .map((e) => 'id:${e.id} name:${e.name}\n')
-                  .toList()
-                  .log();
-            },
+          Container(
+            child: MyImageIcon(
+              path: isFavor ? AssetsPath.favorFilled : AssetsPath.favorIcon,
+              contSize: 24.sp,
+              iconSize: 19.sp,
+              color: isFavor ? AppColors.appOrange : null,
+              onTap: () {
+                isFavor = !isFavor;
+                setState(() {});
+              },
+            ),
           ),
         ],
       ),

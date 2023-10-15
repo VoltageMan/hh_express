@@ -1,2 +1,8 @@
-/// This is the Cart repo class which needs to fetch cart data
-abstract class CartRepository {}
+
+abstract class CartRepo {
+  Future getCartDetails(String id);
+  Future getCurrentCart();
+  Future updateCart();
+  Future getCartList();
+  Future completeCart();
+}

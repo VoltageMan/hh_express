@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/features/components/widgets/place_holder.dart';
 import 'package:hh_express/features/product_details/components/image_indicator.dart';
+import 'package:hh_express/features/product_details/components/image_place_holder.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:hh_express/settings/consts.dart';
@@ -62,7 +63,7 @@ class _ImageDetailsState extends State<ImageDetails>
                   return PhotoView(
                     minScale: 0.0,
                     loadingBuilder: (context, event) =>
-                        const MyShimerPlaceHolder(),
+                        ProdDetailsImagePlaceHolder(),
                     backgroundDecoration: BoxDecoration(
                       color: context.theme.scaffoldBackgroundColor,
                     ),

@@ -6,11 +6,14 @@ import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/models/api/response_model.dart';
 import 'package:hh_express/settings/consts.dart';
 import 'package:hh_express/settings/globals.dart';
+import 'package:injectable/injectable.dart';
 
 mixin DioClientMixin {
   final _DioClient _dio = _DioClient();
   _DioClient get dio => _dio;
 }
+
+
 
 class _DioClient {
   _DioClient({
@@ -130,6 +133,7 @@ ApiResponse _handleException(Object e, StackTrace? stack) {
     );
   }
   if (e.response != null && e.response!.data is Map) {
+  
     '${e.requestOptions.data} MyDioExeption'.log();
     return ApiResponse.fromJson(e.response!.data);
   }

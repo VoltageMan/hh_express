@@ -21,7 +21,7 @@ class _ProfileBodyState extends State<ProfileBody> {
     AssetsPath.navBarIcons[4],
     AssetsPath.phoneIcon,
     AssetsPath.ordersIcon,
-    AssetsPath.favorIcon,
+    AssetsPath.favorFilled,
     AssetsPath.locationIcon,
     AssetsPath.langIcon,
   ];

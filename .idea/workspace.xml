@@ -5,27 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3ba71cea-3496-49d7-a308-372685b0ae83" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/app/app.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/app.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/app/test_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/test_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/features/filter/bloc/filter_bloc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/filter/bloc/filter_bloc.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/features/filter/bloc/filter_state.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/filter/bloc/filter_state.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/features/filter/components/builders/props_builder.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/filter/components/builders/props_builder.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/features/filter/components/builders/selected_props_builder.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/filter/components/builders/selected_props_builder.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/features/filter/components/prop_widegets/filter_prop_widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/filter/components/prop_widegets/filter_prop_widget.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/features/filter/components/sheet_body.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/filter/components/sheet_body.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/features/home/bloc/home_bloc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/home/bloc/home_bloc.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/features/product_details/bloc/product_details_bloc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/product_details/bloc/product_details_bloc.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/features/products_by_category/bloc/products_by_category_bloc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/products_by_category/bloc/products_by_category_bloc.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/features/products_by_category/view/products_by_category.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/products_by_category/view/products_by_category.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/helpers/modal_sheets.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/helpers/modal_sheets.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/helpers/splash_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/helpers/splash_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/property/property_model.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/property/property_model.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/repositories/products/product_repo.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/repositories/products/product_repo.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/repositories/products/product_repo_impl.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/repositories/products/product_repo_impl.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/app/setup.config.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/setup.config.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/features/auth/bloc/auth_bloc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/auth/bloc/auth_bloc.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/features/auth/view/auth_body.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/auth/view/auth_body.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/features/auth/view/auth_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/features/auth/view/auth_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/cart/cart_model.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/cart/cart_model.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/property/values/property_value_model.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/property/values/property_value_model.g.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/repositories/cart/cart_repository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/repositories/cart/cart_repository.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/repositories/cart/cart_repository_impl.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/repositories/cart/cart_repository_impl.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/settings/consts.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/settings/consts.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/settings/theme.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/settings/theme.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

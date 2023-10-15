@@ -208,6 +208,8 @@ class AssetsPath {
   static const phoneIcon = 'assets/icons/profileIcons/phone.svg';
   static const ordersIcon = 'assets/icons/profileIcons/orders.svg';
   static const forvardIcon = 'assets/icons/forvard.svg';
+  static const favorFilled = 'assets/icons/favor_filled.svg';
+  static const appTitle = 'Yuanshop';
   //!
 }
 
@@ -220,6 +222,12 @@ class EndPoints {
   static const category = 'api/v1/category/list';
   static const products = 'api/v1/product/list';
   static const properties = 'api/v1/property/list';
+  static const cartComplete = 'api/v1/cart/complete';
+  static const currentCart = 'api/v1/cart/current';
+  static const cartUpdate = 'api/v1/cart/update';
+  static const clearCart = 'api/v1/cart/flush';
+  //?
+  static String cartFetch(String token) => 'api/v1/cart/$token/fetch';
   static String prodDetails(int id) => 'api/v1/product/$id';
 }
 

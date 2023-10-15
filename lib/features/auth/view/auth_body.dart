@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hh_express/data/local/secured_storage.dart';
 import 'package:hh_express/features/auth/bloc/auth_bloc.dart';
 import 'package:hh_express/features/auth/components/auth_field.dart';
 import 'package:hh_express/features/auth/components/confirm_terms%20_of_use.dart';
@@ -28,7 +29,7 @@ class _AuthBodyState extends State<AuthBody>
     with SingleTickerProviderStateMixin {
   @override
   void initState() {
-    bloc = context.read<AuthBloc>()..init();
+    bloc = context.read<AuthBloc>();
     tabController = TabController(length: 2, vsync: this);
     super.initState();
   }
@@ -70,7 +71,7 @@ class _AuthBodyState extends State<AuthBody>
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
         'AuthListener'.log();
-        myShowSnack(state.message ?? ' NOMessage', state.apiState);
+        myShowSnack(state.message ?? ' NoMessage', state.apiState);
       },
       child: Column(
         children: [
@@ -104,7 +105,7 @@ class _AuthBodyState extends State<AuthBody>
                     const Expanded(
                       child: SizedBox(),
                     ),
-                    widget.forSingUp ? TermsOfUseWidget() : SizedBox(),
+                    if (widget.forSingUp) TermsOfUseWidget(),
                   ],
                 ),
                 Column(
@@ -123,7 +124,6 @@ class _AuthBodyState extends State<AuthBody>
             child: MyDarkTextButton(
               title: l10n.next,
               onTap: () async {
-                'some'.log();
                 final number = '993${numController.text}';
                 final password = codeController.text;
                 final name = nameController.text == '' && !forSingUp
@@ -157,12 +157,11 @@ class _AuthBodyState extends State<AuthBody>
                   });
                   return;
                 }
-                bloc.logIn(model).then((value) {
-                  if (value) {
-                    context.pop();
-                    return;
-                  }
-                });
+                final response = await bloc.logIn(model);
+                if (response) {
+                  context.pop();
+                  return;
+                }
                 return;
               },
             ),
@@ -174,7 +173,7 @@ class _AuthBodyState extends State<AuthBody>
                 style: AppTheme.bodyMedium14(context),
                 children: [
                   TextSpan(
-                    text: 'Already have an account?  ',
+                    text: 'Already have an account?',
                   ),
                   TextSpan(
                     text: forSingUp ? l10n.singIn : l10n.registration,
@@ -197,32 +196,5 @@ class _AuthBodyState extends State<AuthBody>
         ],
       ),
     );
-  }
-}
-
-class StLess extends StatelessWidget {
-  const StLess({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
-  }
-}
-
-class StFull extends StatefulWidget {
-  const StFull({super.key});
-
-  @override
-  State<StFull> createState() => _StFullState();
-}
-
-class _StFullState extends State<StFull> {
-  void onTap() {
-    setState(() {});
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
   }
 }

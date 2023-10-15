@@ -5,12 +5,50 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/app/setup.dart';
+import 'package:hh_express/data/local/secured_storage.dart';
+import 'package:hh_express/features/components/my_text_button.dart';
 import 'package:hh_express/helpers/extentions.dart';
+import 'package:hh_express/models/cart/cart_model.dart';
+import 'package:hh_express/settings/consts.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter_avif/flutter_avif.dart';
 
-final avifImage =
-    'https://aomediacodec.github.io/av1-avif/testFiles/Link-U/hato.profile0.8bpc.yuv420.no-cdef.avif';
+// final avifImage =
+//     'https://aomediacodec.github.io/av1-avif/testFiles/Link-U/hato.profile0.8bpc.yuv420.no-cdef.avif';
+
+//   final dio = Dio();
+//   Future some() async {
+//     try {
+//       final tempDir = await getTemporaryDirectory().then((value) => value.path);
+//       // final fileName = await path.replaceFirst('https://', '' );
+
+//       final file = await File('$tempDir/theImage.avif').create();
+//       await file.exists()
+//         ..log();
+//       final response = await dio.download(
+//         avifImage,
+//         file.path,
+//         onReceiveProgress: (count, total) {
+//           if (total != -1) {
+//             ((count / total * 100).toStringAsFixed(0) + "%")
+//                 .log(message: 'ressives');
+//           }
+//         },
+//       );
+//     } catch (e, st) {
+//       e.log(message: 'downloadingError');
+//     }
+//   }
+
+//   Future<File> checkSize() async {
+//     final tempDir = await getTemporaryDirectory().then((value) => value.path);
+//     // final fileName = await path.replaceFirst('https://', '' );
+
+//     final file = await File('$tempDir/theImage.avif').create();
+//     await file.exists();
+//     file.stat().then((value) => value.size.log());
+//     return file;
+//   }
 
 class TestScreen extends StatefulWidget {
   const TestScreen({super.key});
@@ -20,196 +58,62 @@ class TestScreen extends StatefulWidget {
 }
 
 class _TestScreenState extends State<TestScreen> {
-  @override
-  void didUpdateWidget(covariant TestScreen oldWidget) {
-    // TODO: implement didUpdateWidget
-    super.didUpdateWidget(oldWidget);
-  }
-
-  final dio = Dio();
-  Future some() async {
-    try {
-      final tempDir = await getTemporaryDirectory().then((value) => value.path);
-      // final fileName = await path.replaceFirst('https://', '' );
-
-      final file = await File('$tempDir/theImage.avif').create();
-      await file.exists()
-        ..log();
-      final response = await dio.download(
-        avifImage,
-        file.path,
-        onReceiveProgress: (count, total) {
-          if (total != -1) {
-            ((count / total * 100).toStringAsFixed(0) + "%")
-                .log(message: 'ressives');
-          }
+  final dio = Dio()
+    ..interceptors.add(
+      InterceptorsWrapper(
+        onRequest: (options, handler) {
+          options.data.toString().log();
+          options.baseUrl.log();
+          // options.path.log();
+          options.headers.log();
+          handler.next(options);
         },
-      );
-    } catch (e, st) {
-      e.log(message: 'downloadingError');
-    }
-  }
-
-  Future<File> checkSize() async {
-    final tempDir = await getTemporaryDirectory().then((value) => value.path);
-    // final fileName = await path.replaceFirst('https://', '' );
-
-    final file = await File('$tempDir/theImage.avif').create();
-    await file.exists();
-    file.stat().then((value) => value.size.log());
-    return file;
-  }
+        onError: (e, handler) {
+          handler.next(e);
+        },
+        onResponse: (e, handler) {
+          handler.next(e);
+        },
+      ),
+    );
 
   @override
   Widget build(BuildContext context) {
-    // PlatformAssetBundle().l
-    // some();
-    // checkSize();
     return Scaffold(
       body: Center(
-        child: Container(
-          width: double.infinity,
-          height: 300.h,
-          child: CachedNetworkImage(
-            imageUrl: avifImage,
-            imageBuilder: (context, imageProvider) {
-              'imageee'.log();
-
-
-              return Image(
-                image: imageProvider,
-              );
-            },
-            placeholder: (context, url) {
-              return CircularProgressIndicator();
-            },
-            errorWidget: (context, url, error) {
-              return Text(
-                '$error',
-              );
-            },
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-///!!!!
-///!
-///!
-///!
-///!
-///!
-///!
-///!
-
-final imgUrl =
-    "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf";
-var dio = Dio();
-
-void main() => runApp(MyApp());
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({super.key, this.title});
-
-  final String? title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  Future download2(Dio dio, String url, String savePath) async {
-    try {
-      Response response = await dio.get(
-        url,
-        onReceiveProgress: showDownloadProgress,
-        //Received data with List<int>
-        options: Options(
-          responseType: ResponseType.bytes,
-          followRedirects: false,
-          validateStatus: (status) {
-            return (status ?? 500) < 500;
+        child: MyDarkTextButton(
+          title: 'Fetch Data',
+          width: 250.w,
+          onTap: () async {
+            final token = '1|DrHzJugoiAXT1zLovJVLfLgZ5xA8I6FxNQTN8St6ad95ad08';
+            final model = CartModel(
+              productId: 1,
+              properties: [
+                1,
+              ],
+            );
+            try {
+              final some = await dio
+                  .get(
+                      (EndPoints.baseUrl + EndPoints.currentCart)
+                        ..log(message: 'url'),
+                      options: Options(
+                        headers: {
+                          'Authorization': 'Bearer $token',
+                        },
+                      ),
+                      data: model.toJson()
+                        ..addAll({
+                          'quantity': 1,
+                        }))
+                  .then((value) {
+                value.log();
+              });
+            } catch (e) {
+              e.log();
+            }
           },
         ),
-      );
-      print(response.headers);
-      File file = File(savePath);
-      var raf = file.openSync(mode: FileMode.write);
-      // response.data is List<int> type
-      raf.writeFromSync(response.data);
-      await raf.close();
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  void showDownloadProgress(received, total) {
-    if (total != -1) {
-      print((received / total * 100).toStringAsFixed(0) + "%");
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title ?? 'NullTiitle'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            IconButton(
-              onPressed: () async {
-                var tempDir = await getTemporaryDirectory();
-                String fullPath = tempDir.path + "/boo2.pdf'";
-                print('full path ${fullPath}');
-
-                download2(dio, imgUrl, fullPath);
-              },
-              icon: Icon(
-                Icons.file_download,
-                color: Colors.white,
-              ),
-              color: Colors.green,
-            ),
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: TextStyle(),
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
       ),
     );
   }

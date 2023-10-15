@@ -24,6 +24,9 @@ class HomeProdWidget extends StatelessWidget {
     final hasDiscount = prod?.discount != null;
     return GestureDetector(
       onTap: () {
+        prod!.id.log();
+        prod!.image.log();
+        // return;
         context.push(AppRoutes.prodDetails, extra: prod!.id);
       },
       child: Container(

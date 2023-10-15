@@ -6,8 +6,13 @@ import 'package:hh_express/settings/globals.dart';
 
 class LocalStorage {
   static final _storage = new FlutterSecureStorage();
+  static String? get getToken => _token;
+
+  static String? _token;
 
   static Future<void> init() async {
+    final myToken = await _storage.read(key: LocalDataKeys.token.name);
+    _token = myToken;
     await _setMyLang();
     _langSaver();
   }
@@ -15,11 +20,7 @@ class LocalStorage {
   static Future<void> saveToken(String token) async {
     final newData =
         await _storage.write(key: LocalDataKeys.token.name, value: token);
-  }
-
-  static Future<String?> getToken() async {
-    final token = await _storage.read(key: LocalDataKeys.token.name);
-    return token;
+    _token = token;
   }
 
   static Future<void> deleteToken() async {

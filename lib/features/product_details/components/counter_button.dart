@@ -35,7 +35,10 @@ class _CounterButtonState extends State<CounterButton> {
             title: widget.title,
             onTap: () {
               count++;
-              widget.onAdd(count);
+              if (!widget.onAdd(count)) {
+                count--;
+                return;
+              }
               setState(() {});
             },
           )
@@ -45,7 +48,10 @@ class _CounterButtonState extends State<CounterButton> {
                 child: GestureDetector(
                   onTap: () {
                     count--;
-                    widget.onRemove(count);
+                    if (!widget.onRemove(count)) {
+                      count++;
+                      return;
+                    }
                     setState(() {});
                   },
                   child: Container(
@@ -83,8 +89,10 @@ class _CounterButtonState extends State<CounterButton> {
                 child: GestureDetector(
                   onTap: () async {
                     count++;
-
-                    widget.onAdd(count);
+                    if (!widget.onAdd(count)) {
+                      count--;
+                      return;
+                    }
                     setState(() {});
                   },
                   child: Container(
@@ -113,4 +121,4 @@ class _CounterButtonState extends State<CounterButton> {
   }
 }
 
-typedef _MyVoid = void Function(int count);
+typedef _MyVoid = bool Function(int count);

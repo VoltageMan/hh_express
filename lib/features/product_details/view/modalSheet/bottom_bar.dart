@@ -19,8 +19,11 @@ class BuyProdBottomBar extends StatelessWidget {
             child: CounterButton(
               initCount: 1,
               title: 'bohoheyt',
-              onAdd: (some) {},
+              onAdd: (some) {
+                return true;
+              },
               onRemove: (count) {
+                return true;
                 // if count == 0 pop
                 'kku'.log();
               },
