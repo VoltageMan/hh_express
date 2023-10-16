@@ -241,6 +241,7 @@ class EndPoints {
 
 class APIKeys {
   static const mainCategories = 'main_categories';
+  static const cart = 'cart';
   static const subCategories = 'sub_categories';
   static const activCategory = 'active_category';
   static const accsesToken = 'accses_token';

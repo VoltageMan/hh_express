@@ -93,8 +93,9 @@ class _TestScreenState extends State<TestScreen> {
 
             try {
               final some = await dio
-                  .delete(
-                (EndPoints.baseUrl + EndPoints.clearCart)..log(message: 'url'),
+                  .get(
+                (EndPoints.baseUrl + EndPoints.currentCart)
+                  ..log(message: 'url'),
                 options: Options(
                   headers: {
                     'Authorization': 'Bearer $token',

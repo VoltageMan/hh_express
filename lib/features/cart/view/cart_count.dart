@@ -4,8 +4,13 @@ import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/settings/consts.dart';
 
 class CartCount extends StatefulWidget {
-  const CartCount({super.key});
-
+  const CartCount({
+    super.key,
+    required this.onAdd,
+    required this.onRemove,
+  });
+  final VoidCallback onAdd;
+  final VoidCallback onRemove;
   @override
   State<CartCount> createState() => _CartCountState();
 }
@@ -29,9 +34,7 @@ class _CartCountState extends State<CartCount> {
                 Expanded(
                   child: GestureDetector(
                     onTap: () {
-                      if (count == 0) return;
-                      count--;
-                      setState(() {});
+                      widget.onRemove();
                     },
                     child: FittedBox(
                       child: Icon(
@@ -45,10 +48,7 @@ class _CartCountState extends State<CartCount> {
                 Expanded(
                     child: GestureDetector(
                   onTap: () {
-                    if (count == 99) return;
-
-                    count++;
-                    setState(() {});
+                    widget.onAdd();
                   },
                   child: FittedBox(
                     child: Icon(

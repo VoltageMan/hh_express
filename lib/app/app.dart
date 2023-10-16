@@ -5,6 +5,7 @@ import 'package:hh_express/app/setup.dart';
 import 'package:hh_express/app/test_screen.dart';
 import 'package:hh_express/data/local/secured_storage.dart';
 import 'package:hh_express/features/auth/bloc/auth_bloc.dart';
+import 'package:hh_express/features/cart/cubit/cart_cubit.dart';
 import 'package:hh_express/features/categories/bloc/category_bloc.dart';
 import 'package:hh_express/features/filter/bloc/filter_bloc.dart';
 import 'package:hh_express/features/home/bloc/home_bloc.dart';
@@ -28,7 +29,6 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   void initState() {
-    LocalStorage.init();
     super.initState();
   }
 
@@ -43,6 +43,7 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(create: (context) => ProductsByCategoryBloc()),
         BlocProvider(create: (context) => ProductDetailsBloc()),
         BlocProvider(create: (context) => FilterBloc()),
+        BlocProvider(create: (context) => CartCubit()),
       ],
       child: ScreenUtilInit(
         designSize: const Size(360, 800),

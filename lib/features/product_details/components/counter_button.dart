@@ -4,42 +4,26 @@ import 'package:hh_express/features/components/my_text_button.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/settings/consts.dart';
 
-class CounterButton extends StatefulWidget {
+class CounterButton extends StatelessWidget {
   const CounterButton({
     super.key,
     required this.title,
     required this.onAdd,
     required this.onRemove,
-    this.initCount = 0,
+    this.quantity = 0,
   });
-  final int? initCount;
+  final int quantity;
   final String title;
-  final _MyVoid onRemove;
-  final _MyVoid onAdd;
-  @override
-  State<CounterButton> createState() => _CounterButtonState();
-}
+  final VoidCallback onRemove;
+  final VoidCallback onAdd;
 
-class _CounterButtonState extends State<CounterButton> {
-  @override
-  void initState() {
-    count = widget.initCount!;
-    super.initState();
-  }
-
-  static int count = 0;
   @override
   Widget build(BuildContext context) {
-    return count == 0
+    return quantity == 0
         ? MyDarkTextButton(
-            title: widget.title,
+            title: title,
             onTap: () {
-              count++;
-              if (!widget.onAdd(count)) {
-                count--;
-                return;
-              }
-              setState(() {});
+              onAdd();
             },
           )
         : Row(
@@ -47,12 +31,7 @@ class _CounterButtonState extends State<CounterButton> {
               Expanded(
                 child: GestureDetector(
                   onTap: () {
-                    count--;
-                    if (!widget.onRemove(count)) {
-                      count++;
-                      return;
-                    }
-                    setState(() {});
+                    onRemove();
                   },
                   child: Container(
                     alignment: Alignment.center,
@@ -80,7 +59,7 @@ class _CounterButtonState extends State<CounterButton> {
                   color: AppColors.darkBlue,
                   alignment: Alignment.center,
                   child: Text(
-                    '$count',
+                    '$quantity',
                     style: context.theme.textTheme.labelMedium,
                   ),
                 ),
@@ -88,12 +67,7 @@ class _CounterButtonState extends State<CounterButton> {
               Expanded(
                 child: GestureDetector(
                   onTap: () async {
-                    count++;
-                    if (!widget.onAdd(count)) {
-                      count--;
-                      return;
-                    }
-                    setState(() {});
+                    onAdd();
                   },
                   child: Container(
                     alignment: Alignment.center,
@@ -120,5 +94,3 @@ class _CounterButtonState extends State<CounterButton> {
           );
   }
 }
-
-typedef _MyVoid = bool Function(int count);

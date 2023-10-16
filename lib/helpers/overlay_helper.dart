@@ -50,3 +50,14 @@ class OverlayHelper {
     ovv.insert(_entry!);
   }
 }
+
+class SnackBarHelper {
+  static SnackBar _snackBar(String message) {
+    return SnackBar(content: Text(message));
+  }
+
+  static void showMessageSnack(String message) {
+    ScaffoldMessenger.of(appRouter.currentContext)
+        .showSnackBar(_snackBar(message));
+  }
+}

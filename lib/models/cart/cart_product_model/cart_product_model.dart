@@ -11,16 +11,16 @@ class CartProductModel {
   @JsonKey(name: 'images')
   final String image;
   final String price;
-  final String sale_price;
-  final String? discount_price;
+  final String salePrice;
+  final String? discountPrice;
   const CartProductModel({
     required this.id,
     required this.image,
     required this.price,
     required this.description,
-    required this.discount_price,
+    required this.discountPrice,
     required this.name,
-    required this.sale_price,
+    required this.salePrice,
   });
 
   factory CartProductModel.fromJson(Map<String, dynamic> json) {

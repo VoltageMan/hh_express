@@ -11,7 +11,6 @@ class CartModel {
   final String subTotal;
   final String weightCost;
   final String deliveryCost;
-
   final List<CartOrderModel> orders;
   CartModel({
     required this.uuid,

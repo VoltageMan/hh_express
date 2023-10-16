@@ -1,21 +1,24 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hh_express/features/cart/cubit/cart_cubit.dart';
 import 'package:hh_express/features/cart/view/cart_count.dart';
 import 'package:hh_express/features/components/widgets/place_holder.dart';
 import 'package:hh_express/features/components/widgets/svg_icons.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/spacers.dart';
-import 'package:hh_express/models/products/product_model.dart';
+import 'package:hh_express/models/cart/cart_order_model/cart_order_model.dart';
+import 'package:hh_express/models/cart/cart_update/cart_update_model.dart';
 import 'package:hh_express/settings/consts.dart';
 import 'package:hh_express/settings/theme.dart';
+import 'package:injectable/injectable.dart';
 
 class CartWidget extends StatefulWidget {
   CartWidget({
-    this.model,
+    required this.model,
   });
-  ProductModel? model;
-  // final int count;
+  CartOrderModel model;
   @override
   State<CartWidget> createState() => _CartWidgetState();
 }
@@ -30,6 +33,9 @@ class _CartWidgetState extends State<CartWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final model = widget.model;
+    final product = model.product;
+    final cubit = context.read<CartCubit>();
     return Container(
       width: 360.w,
       height: getSize(),
@@ -55,7 +61,7 @@ class _CartWidgetState extends State<CartWidget> {
             child: ClipRRect(
               borderRadius: BorderRadius.horizontal(left: Radius.circular(5.r)),
               child: CachedNetworkImage(
-                imageUrl: AssetsPath.exampleColor,
+                imageUrl: product.image,
                 fit: BoxFit.cover,
                 placeholder: (context, url) => MyShimerPlaceHolder(
                   radius: BorderRadius.horizontal(
@@ -84,7 +90,7 @@ class _CartWidgetState extends State<CartWidget> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text(
-                              'MacBook  2023',
+                              product.name,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: AppTheme.titleMedium16(context),
@@ -92,7 +98,7 @@ class _CartWidgetState extends State<CartWidget> {
                             Padding(
                               padding: AppPaddings.vertic_6,
                               child: Text(
-                                '700.12 TMT',
+                                '${product.salePrice} TMT',
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: AppTheme.titleMedium14(context),
@@ -106,7 +112,15 @@ class _CartWidgetState extends State<CartWidget> {
                         color: AppColors.darkGrey,
                         contSize: 24.sp,
                         iconSize: 19.sp,
-                        onTap: () {
+                        onTap: () async {
+                          final cubit = context.read<CartCubit>();
+                          await cubit.cartUpdate(
+                            CartUpdateModel(
+                              productId: product.id,
+                              properties: List.empty(),
+                              quantity: 0,
+                            ),
+                          );
                           print('hii');
                         },
                       ),
@@ -123,7 +137,26 @@ class _CartWidgetState extends State<CartWidget> {
                         SizedBox(
                           width: 23.w,
                         ),
-                        CartCount()
+                        CartCount(
+                          onAdd: () {
+                            cubit.cartUpdate(
+                              CartUpdateModel(
+                                productId: product.id,
+                                properties: List.empty(),
+                                quantity: model.quantity + 1,
+                              ),
+                            );
+                          },
+                          onRemove: () {
+                            cubit.cartUpdate(
+                              CartUpdateModel(
+                                productId: product.id,
+                                properties: List.empty(),
+                                quantity: model.quantity + 1,
+                              ),
+                            );
+                          },
+                        )
                       ],
                     ),
                   ),

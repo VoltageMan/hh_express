@@ -17,16 +17,9 @@ class BuyProdBottomBar extends StatelessWidget {
         children: [
           Expanded(
             child: CounterButton(
-              initCount: 1,
               title: 'bohoheyt',
-              onAdd: (some) {
-                return true;
-              },
-              onRemove: (count) {
-                return true;
-                // if count == 0 pop
-                'kku'.log();
-              },
+              onAdd: () {},
+              onRemove: () {},
             ),
           ),
           AppSpacing.horizontal_16,

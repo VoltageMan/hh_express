@@ -12,9 +12,9 @@ CartProductModel _$CartProductModelFromJson(Map<String, dynamic> json) =>
       image: json['images'] as String,
       price: json['price'] as String,
       description: json['description'] as String,
-      discount_price: json['discount_price'] as String?,
+      discountPrice: json['discount_price'] as String?,
       name: json['name'] as String,
-      sale_price: json['sale_price'] as String,
+      salePrice: json['sale_price'] as String,
     );
 
 Map<String, dynamic> _$CartProductModelToJson(CartProductModel instance) =>
@@ -24,6 +24,6 @@ Map<String, dynamic> _$CartProductModelToJson(CartProductModel instance) =>
       'description': instance.description,
       'images': instance.image,
       'price': instance.price,
-      'sale_price': instance.sale_price,
-      'discount_price': instance.discount_price,
+      'sale_price': instance.salePrice,
+      'discount_price': instance.discountPrice,
     };

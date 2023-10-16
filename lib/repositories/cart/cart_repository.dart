@@ -5,6 +5,7 @@ abstract class CartRepo {
   // Future getCartDetails(String id);
   Future<CartModel?> getCurrentCart();
   Future<CartModel?> updateCart(CartUpdateModel model);
-  Future<dynamic> completeCart(String uuid);
+  Future<CartModel?> completeCart(String uuid);
+  Future<CartModel?> clearCart();
   // Future getCartList();
 }

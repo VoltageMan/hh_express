@@ -3,15 +3,27 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/features/orders/components/dashed_line.dart';
 import 'package:hh_express/features/orders/components/order_info_list_tile.dart';
 import 'package:hh_express/helpers/extentions.dart';
+import 'package:hh_express/models/cart/cart_model/cart_model.dart';
 import 'package:hh_express/settings/consts.dart';
 
 class CartInfoWidget extends StatelessWidget {
-  const CartInfoWidget({super.key, this.prod});
-  final dynamic prod;
+  const CartInfoWidget({super.key, this.model});
+  final CartModel? model;
   @override
   Widget build(BuildContext context) {
-    final isLoading = prod == null;
+    final isLoading = model == null;
     if (isLoading) return _LoadingWidget();
+    final l10n = context.l10n;
+    final titles = [
+      '${l10n.products} (${model!.orders.length})',
+      l10n.delivery,
+      l10n.perKilogram,
+    ];
+    final content = [
+      model!.total,
+      model!.deliveryCost,
+      model!.subTotal,
+    ];
     return Container(
       margin: AppPaddings.all_16,
       padding: AppPaddings.horiz16_vertic12,
@@ -27,12 +39,8 @@ class CartInfoWidget extends StatelessWidget {
         children: [
           for (int i = 0; i < 3; i++)
             OrderInfoListTile(
-              title: context.l10n.orderState,
-              content: isLoading
-                  ? null
-                  : i == 0
-                      ? 'geldi'
-                      : 'LQNSU346JK',
+              title: titles[i],
+              content: content[i],
             ),
           DashedLine(
             isLoading: false,

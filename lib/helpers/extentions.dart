@@ -9,9 +9,6 @@ extension Log on Object? {
       '${this.toString()} ${message ?? ''}',
       stackTrace: stackTrace,
     );
-    if (message == 'Throww') {
-      throw Error.safeToString('Load More With NUll Prods Error');
-    }
   }
 }
 
@@ -55,4 +52,5 @@ class MyBehavior extends ScrollBehavior {
     return child;
   }
 }
+
 typedef void OnWidgetSizeChange(Size size);

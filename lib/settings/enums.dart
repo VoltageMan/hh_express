@@ -14,6 +14,14 @@ enum CategoryAPIState {
   succses,
 }
 
+enum CartAPIState {
+  unAuthorized,
+  init,
+  loading,
+  error,
+  succses,
+}
+
 enum LocalDataKeys {
   token,
   lang,
@@ -34,7 +42,6 @@ enum ProdDetailsAPIState {
   error,
   succses,
 }
-
 
 enum FilterAPIState {
   init,
