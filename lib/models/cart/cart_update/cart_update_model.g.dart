@@ -1,18 +1,22 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'cart_model.dart';
+part of 'cart_update_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-CartModel _$CartModelFromJson(Map<String, dynamic> json) => CartModel(
+CartUpdateModel _$CartUpdateModelFromJson(Map<String, dynamic> json) =>
+    CartUpdateModel(
       productId: json['product_id'] as int,
       properties:
           (json['properties'] as List<dynamic>).map((e) => e as int).toList(),
+      quantity: json['quantity'] as int,
     );
 
-Map<String, dynamic> _$CartModelToJson(CartModel instance) => <String, dynamic>{
+Map<String, dynamic> _$CartUpdateModelToJson(CartUpdateModel instance) =>
+    <String, dynamic>{
       'product_id': instance.productId,
       'properties': instance.properties,
+      'quantity': instance.quantity,
     };

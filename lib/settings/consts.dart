@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hh_express/helpers/extentions.dart';
+import 'package:intl/intl.dart';
 
 class AppPaddings {
+  static String thousandsSeperator(String num) {
+    var formatter = NumberFormat('#,##0.' + "#" * 5);
+    final val = formatter.format(double.parse(num)).replaceAll(',', ' ')..log();
+    return val;
+  }
+
   static const secondSplashAlign = Alignment(0.35, -0.12);
 //! Aligns
 

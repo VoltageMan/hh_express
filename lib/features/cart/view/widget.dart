@@ -6,12 +6,16 @@ import 'package:hh_express/features/components/widgets/place_holder.dart';
 import 'package:hh_express/features/components/widgets/svg_icons.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/spacers.dart';
+import 'package:hh_express/models/products/product_model.dart';
 import 'package:hh_express/settings/consts.dart';
 import 'package:hh_express/settings/theme.dart';
 
 class CartWidget extends StatefulWidget {
-  const CartWidget();
-
+  CartWidget({
+    this.model,
+  });
+  ProductModel? model;
+  // final int count;
   @override
   State<CartWidget> createState() => _CartWidgetState();
 }
@@ -51,7 +55,7 @@ class _CartWidgetState extends State<CartWidget> {
             child: ClipRRect(
               borderRadius: BorderRadius.horizontal(left: Radius.circular(5.r)),
               child: CachedNetworkImage(
-                imageUrl: AssetsPath.macBook,
+                imageUrl: AssetsPath.exampleColor,
                 fit: BoxFit.cover,
                 placeholder: (context, url) => MyShimerPlaceHolder(
                   radius: BorderRadius.horizontal(

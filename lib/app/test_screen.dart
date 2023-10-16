@@ -1,17 +1,13 @@
-import 'dart:io';
-
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hh_express/app/setup.dart';
 import 'package:hh_express/data/local/secured_storage.dart';
 import 'package:hh_express/features/components/my_text_button.dart';
 import 'package:hh_express/helpers/extentions.dart';
-import 'package:hh_express/models/cart/cart_model.dart';
+import 'package:hh_express/models/cart/cart_model/cart_model.dart';
+import 'package:hh_express/models/cart/cart_update/cart_update_model.dart';
+import 'package:hh_express/models/products/product_model.dart';
 import 'package:hh_express/settings/consts.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:flutter_avif/flutter_avif.dart';
 
 // final avifImage =
 //     'https://aomediacodec.github.io/av1-avif/testFiles/Link-U/hato.profile0.8bpc.yuv420.no-cdef.avif';
@@ -62,7 +58,7 @@ class _TestScreenState extends State<TestScreen> {
     ..interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) {
-          options.data.toString().log();
+          options.data.toString().log(message: 'sent Data');
           options.baseUrl.log();
           // options.path.log();
           options.headers.log();
@@ -72,6 +68,7 @@ class _TestScreenState extends State<TestScreen> {
           handler.next(e);
         },
         onResponse: (e, handler) {
+          e.statusCode.log(message: 'Response Status code');
           handler.next(e);
         },
       ),
@@ -85,29 +82,37 @@ class _TestScreenState extends State<TestScreen> {
           title: 'Fetch Data',
           width: 250.w,
           onTap: () async {
-            final token = '1|DrHzJugoiAXT1zLovJVLfLgZ5xA8I6FxNQTN8St6ad95ad08';
-            final model = CartModel(
-              productId: 1,
+            final token = LocalStorage.getToken;
+            final model = CartUpdateModel(
+              productId: 2,
+              quantity: 1,
               properties: [
                 1,
               ],
             );
+
             try {
               final some = await dio
-                  .get(
-                      (EndPoints.baseUrl + EndPoints.currentCart)
-                        ..log(message: 'url'),
-                      options: Options(
-                        headers: {
-                          'Authorization': 'Bearer $token',
-                        },
-                      ),
-                      data: model.toJson()
-                        ..addAll({
-                          'quantity': 1,
-                        }))
+                  .delete(
+                (EndPoints.baseUrl + EndPoints.clearCart)..log(message: 'url'),
+                options: Options(
+                  headers: {
+                    'Authorization': 'Bearer $token',
+                  },
+                ),
+                data: model.toJson()
+                  ..remove(
+                    'properties',
+                  ),
+              )
                   .then((value) {
                 value.log();
+
+                final model = ((value.data as Map<String, dynamic>)['data']
+                    as Map<String, dynamic>);
+                final cartMode =
+                    CartModel.fromJson(model['cart'] as Map<String, dynamic>)
+                      ..toJson().log(message: 'Cart Model');
               });
             } catch (e) {
               e.log();
@@ -118,3 +123,23 @@ class _TestScreenState extends State<TestScreen> {
     );
   }
 }
+
+var data = {
+  'uuid': '34b5-h343-235dw',
+  'total': '500 Tmt',
+  'weight_cost': '100 Tmt',
+  'delivery_cost': '50 Tmt',
+  'sub_total': '650 Tmt',
+  'products': [
+    {
+      'quantity': 2,
+      'selected_properties_id': [],
+      'product': {'productModel'}
+    },
+    {
+      'quantity': 3,
+      'selected_properties_id': [],
+      'product': {'productModel'}
+    }
+  ],
+};

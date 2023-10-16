@@ -21,6 +21,7 @@ class HomeProdWidget extends StatelessWidget {
     if (isLoading) {
       return _LoadingWidget(index: index);
     }
+
     final hasDiscount = prod?.discount != null;
     return GestureDetector(
       onTap: () {
@@ -85,7 +86,7 @@ class HomeProdWidget extends StatelessWidget {
                   FittedBox(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      '${prod?.salePrice} TMT',
+                      '${AppPaddings.thousandsSeperator(prod!.salePrice)} TMT',
                       style: Theme.of(context).textTheme.titleLarge,
                       textAlign: TextAlign.start,
                     ),
@@ -97,7 +98,7 @@ class HomeProdWidget extends StatelessWidget {
                       ? FittedBox(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            '${prod!.price} Tmt',
+                            '${prod?.price} Tmt',
                             style: AppTheme.lineThroughTitleSmall(context),
                             textAlign: TextAlign.start,
                           ),
