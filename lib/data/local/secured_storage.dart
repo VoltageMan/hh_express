@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hh_express/helpers/extentions.dart';
 
@@ -47,5 +48,14 @@ class LocalStorage {
         'SaveLangError'.log();
       }
     });
+  }
+
+  static Future<String?> readStr(String key) async {
+    return await _storage.read(key: key);
+  }
+
+  static Future<void> saveStr(
+      {required String val, required String key}) async {
+    return await _storage.write(key: key, value: val);
   }
 }

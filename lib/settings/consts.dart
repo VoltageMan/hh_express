@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hh_express/helpers/extentions.dart';
 import 'package:intl/intl.dart';
 
 class AppPaddings {
   static String thousandsSeperator(String num) {
     var formatter = NumberFormat('#,##0.' + "#" * 5);
-    final val = formatter.format(double.parse(num)).replaceAll(',', ' ')..log();
+    final val = formatter.format(double.parse(num)).replaceAll(',', ' ');
     return val;
   }
 
@@ -67,7 +66,7 @@ class AppPaddings {
   static EdgeInsets all_16 = EdgeInsets.all(16.sp);
   static EdgeInsets all_24 = EdgeInsets.all(24.sp);
   static EdgeInsets all_28 = EdgeInsets.all(28.sp);
-  static final all_2 = EdgeInsets.all(2.sp);
+  static final all_2 = EdgeInsets.symmetric(horizontal: 2.w, vertical: 2.h);
   static final all_4 = EdgeInsets.all(4.sp);
   static final all_5 = EdgeInsets.all(5.sp);
   static EdgeInsets all_6 = EdgeInsets.all(6.sp);
@@ -234,6 +233,7 @@ class EndPoints {
   static const currentCart = 'api/v1/cart/current';
   static const cartUpdate = 'api/v1/cart/update';
   static const clearCart = 'api/v1/cart/flush';
+  static const crateAddres = 'api/v1/address/create';
   //?
   static String cartFetch(String token) => 'api/v1/cart/$token/fetch';
   static String prodDetails(int id) => 'api/v1/product/$id';

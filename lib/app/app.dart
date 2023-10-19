@@ -62,10 +62,10 @@ class _MyAppState extends State<MyApp> {
                 localizationsDelegates: AppLocalizations.localizationsDelegates,
                 builder: (context, child) {
                   AppSpacing.init(context);
-                  // return TestScreen();
                   return Navigator(
                     onGenerateRoute: (settings) => MaterialPageRoute(
                       builder: (context) {
+                        // return TestScreen();
                         return child!;
                       },
                     ),

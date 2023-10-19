@@ -1,4 +1,5 @@
 import 'package:hh_express/data/remote/dio_client.dart';
+import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/models/cart/cart_model/cart_model.dart';
 import 'package:hh_express/models/cart/cart_update/cart_update_model.dart';
 import 'package:hh_express/repositories/cart/cart_repository.dart';
@@ -19,7 +20,7 @@ class CartRepoImpl extends CartRepo with DioClientMixin {
   Future<CartModel?> updateCart(CartUpdateModel model) async {
     final response = await dio.post(
       endPoint: EndPoints.cartUpdate,
-      data: model.toJson(),
+      data: model.toJson()..log(message: 'Upadte Data'),
     );
     if (response.success) {
       final model = CartModel.fromJson(response.data[APIKeys.cart]);
@@ -29,10 +30,11 @@ class CartRepoImpl extends CartRepo with DioClientMixin {
   }
 
   Future<CartModel?> completeCart(String uuid) async {
-    final response = await dio.get(endPoint: EndPoints.cartComplete);
+    final response = await dio.post(endPoint: EndPoints.cartComplete, data: {
+      'address_uuid': uuid,
+    });
     if (response.success) {
-      final data = response.data[APIKeys.cart];
-      final model = CartModel.fromJson(data as Map<String, dynamic>);
+      final model = CartModel.fromJson(response.data[APIKeys.cart]);
       return model;
     }
     return null;

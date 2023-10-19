@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/routes.dart';
+import 'package:hh_express/helpers/spacers.dart';
 import 'package:hh_express/settings/consts.dart';
 
 class OverlayHelper {
@@ -33,13 +35,14 @@ class OverlayHelper {
                     'GestureTap'.log();
                   },
                   child: Text(
-                    'SomeThis',
+                    'Loading...',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 20,
                     ),
                   ),
                 ),
+                AppSpacing.vertical_10,
                 CircularProgressIndicator()
               ],
             ),
@@ -53,7 +56,19 @@ class OverlayHelper {
 
 class SnackBarHelper {
   static SnackBar _snackBar(String message) {
-    return SnackBar(content: Text(message));
+    final needMargin = appRouter.location == AppRoutes.mainScreen;
+    return SnackBar(
+      backgroundColor: Colors.transparent,
+      content: Container(
+        margin: needMargin ? EdgeInsets.only(bottom: 60.h) : EdgeInsets.zero,
+        decoration: BoxDecoration(
+          borderRadius: AppBorderRadiuses.border_10,
+          color: Colors.black87,
+        ),
+        padding: AppPaddings.all_12,
+        child: Text(message),
+      ),
+    );
   }
 
   static void showMessageSnack(String message) {

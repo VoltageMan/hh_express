@@ -11,7 +11,7 @@ import 'package:hh_express/helpers/confirm_exit.dart';
 import 'package:hh_express/helpers/modal_sheets.dart';
 import 'dart:developer';
 
-import '../../../settings/consts.dart';
+import 'package:hh_express/helpers/overlay_helper.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({
@@ -51,6 +51,9 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
+        // if(OverlayHelper.){
+        //   return
+        // }
         final val = ModelBottomSheetHelper.doPop();
         if (!val) {
           return false;

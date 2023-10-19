@@ -97,6 +97,7 @@ class AppTheme {
         fontSize: 12.sp,
         color: AppColors.darkGrey,
       ),
+      
       border: InputBorder.none,
       errorBorder: InputBorder.none,
       enabledBorder: InputBorder.none,

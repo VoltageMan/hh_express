@@ -3,8 +3,13 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'dart:developer' as devtools show log;
 
+import 'package:hh_express/helpers/routes.dart';
+
 extension Log on Object? {
   void log({StackTrace? stackTrace, String? message}) {
+    if (this is double) {
+      devtools.log(appRouter.location);
+    }
     devtools.log(
       '${this.toString()} ${message ?? ''}',
       stackTrace: stackTrace,

@@ -25,6 +25,8 @@ class ProdDetailsBottomBar extends StatefulWidget {
 }
 
 class _ProdDetailsBottomBarState extends State<ProdDetailsBottomBar> {
+  int quantity = 0;
+
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
@@ -36,7 +38,6 @@ class _ProdDetailsBottomBarState extends State<ProdDetailsBottomBar> {
             color: Colors.transparent,
           );
         final cartCubit = context.read<CartCubit>();
-        final quantity = cartCubit.getQuantity(widget.id);
         return NavBarBody(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -45,6 +46,7 @@ class _ProdDetailsBottomBarState extends State<ProdDetailsBottomBar> {
                 child: MyDarkTextButton(
                   title: l10n.buy,
                   onTap: () {
+                    return;
                     ModelBottomSheetHelper.showBuyProd();
                   },
                 ),
@@ -54,27 +56,35 @@ class _ProdDetailsBottomBarState extends State<ProdDetailsBottomBar> {
                 child: CounterButton(
                   quantity: quantity,
                   title: l10n.addToCart,
-                  onAdd: () {
+                  onAdd: () async {
                     if (cartCubit.state == CartAPIState.unAuthorized) {
                       SnackBarHelper.showMessageSnack('Un Authorized');
                       return;
                     }
-                    cartCubit.cartUpdate(
+                    final updated = await cartCubit.cartUpdate(
                       CartUpdateModel(
                         productId: widget.id,
                         properties: List.empty(),
                         quantity: quantity + 1,
                       ),
                     );
+                    if (updated) {
+                      quantity++;
+                      setState(() {});
+                    }
                   },
-                  onRemove: () {
-                    cartCubit.cartUpdate(
+                  onRemove: () async {
+                    final updated = await cartCubit.cartUpdate(
                       CartUpdateModel(
                         productId: widget.id,
                         properties: [],
                         quantity: quantity - 1,
                       ),
                     );
+                    if (updated) {
+                      quantity--;
+                      setState(() {});
+                    }
                   },
                 ),
               ),

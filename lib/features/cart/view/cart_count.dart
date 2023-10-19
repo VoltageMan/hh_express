@@ -8,15 +8,17 @@ class CartCount extends StatefulWidget {
     super.key,
     required this.onAdd,
     required this.onRemove,
+    required this.count,
   });
   final VoidCallback onAdd;
   final VoidCallback onRemove;
+  final int count;
+
   @override
   State<CartCount> createState() => _CartCountState();
 }
 
 class _CartCountState extends State<CartCount> {
-  int count = 1;
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -67,7 +69,7 @@ class _CartCountState extends State<CartCount> {
             color: AppColors.darkGrey,
             child: FittedBox(
               child: Text(
-                '$count',
+                '${widget.count}',
                 style: context.theme.textTheme.labelSmall,
               ),
             ),

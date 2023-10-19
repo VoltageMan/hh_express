@@ -47,12 +47,24 @@ class CartCubit extends Cubit<CartState> {
     );
   }
 
-  Future<void> cartUpdate(CartUpdateModel model) async {
+  /// returns is success
+  Future<bool> cartUpdate(CartUpdateModel model) async {
     OverlayHelper.showLoading();
     final data = await _repo.updateCart(model);
+    var value = false;
+    if (data != null) {
+      emit(
+        CartState(
+          apiState: CartAPIState.succses,
+          cart: data,
+        ),
+      );
+      value = true;
+    }
     SnackBarHelper.showMessageSnack(
-        data != null ? 'succses' : 'some things went wrong');
+        value ? 'succses' : 'some things went wrong');
     OverlayHelper.remove();
+    return value;
   }
 
   int getQuantity(int id, {List? selectedProps}) {
@@ -68,5 +80,21 @@ class CartCubit extends Cubit<CartState> {
     return state.cart!.orders[index].quantity;
   }
 
-  Future<void> complete() async {}
+  Future<void> complete(String uuid) async {
+    OverlayHelper.showLoading();
+    final data = await _repo.completeCart(uuid);
+    var value = false;
+    if (data != null) {
+      emit(
+        CartState(
+          apiState: CartAPIState.succses,
+          cart: data,
+        ),
+      );
+      value = true;
+    }
+    SnackBarHelper.showMessageSnack(
+        value ? 'succses' : 'some things went wrong');
+    OverlayHelper.remove();
+  }
 }

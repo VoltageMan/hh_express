@@ -31,8 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Future initApp() async {
     await LocalStorage.init();
     context.read<CategoryBloc>()..add(InitCategories());
-    await context.read<CartCubit>()
-      ..getCurrentCart();
+    await context.read<CartCubit>().getCurrentCart();
 
     Future.delayed(const Duration(seconds: 1))
         .then((value) => appRouter.go(AppRoutes.mainScreen));
@@ -41,7 +40,6 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = context.theme.textTheme;
-
     return SafeArea(
       top: false,
       child: Scaffold(

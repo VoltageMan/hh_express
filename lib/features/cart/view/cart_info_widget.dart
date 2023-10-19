@@ -20,9 +20,10 @@ class CartInfoWidget extends StatelessWidget {
       l10n.perKilogram,
     ];
     final content = [
-      model!.total,
-      model!.deliveryCost,
-      model!.subTotal,
+      AppPaddings.thousandsSeperator(model!.total),
+      AppPaddings.thousandsSeperator(model!.deliveryCost),
+      AppPaddings.thousandsSeperator(model!.weightCost),
+      AppPaddings.thousandsSeperator(model!.subTotal),
     ];
     return Container(
       margin: AppPaddings.all_16,
@@ -40,14 +41,14 @@ class CartInfoWidget extends StatelessWidget {
           for (int i = 0; i < 3; i++)
             OrderInfoListTile(
               title: titles[i],
-              content: content[i],
+              content: '${content[i]} TMT',
             ),
           DashedLine(
             isLoading: false,
           ),
           OrderInfoListTile(
             title: 'Jemi bahasy',
-            content: isLoading ? null : '643 TMT',
+            content: isLoading ? null : '${content.last} TMT',
             contentBold: true,
             titleBold: true,
           )

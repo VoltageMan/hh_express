@@ -28,7 +28,7 @@ class _CartWidgetState extends State<CartWidget> {
     final paddings = 50.h;
     final textSizes = AppSpacing.getTextHeight(42);
     final height = paddings + textSizes;
-    return height..log();
+    return height;
   }
 
   @override
@@ -98,7 +98,7 @@ class _CartWidgetState extends State<CartWidget> {
                             Padding(
                               padding: AppPaddings.vertic_6,
                               child: Text(
-                                '${product.salePrice} TMT',
+                                '${AppPaddings.thousandsSeperator(product.salePrice)} TMT',
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: AppTheme.titleMedium14(context),
@@ -138,6 +138,7 @@ class _CartWidgetState extends State<CartWidget> {
                           width: 23.w,
                         ),
                         CartCount(
+                          count: model.quantity,
                           onAdd: () {
                             cubit.cartUpdate(
                               CartUpdateModel(

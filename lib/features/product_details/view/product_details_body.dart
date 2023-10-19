@@ -149,13 +149,13 @@ class _ProdDetailsBodyState extends State<ProdDetailsBody>
                   crossAxisAlignment: WrapCrossAlignment.center,
                   children: [
                     Text(
-                      '${product.salePrice} TMT',
+                      '${AppPaddings.thousandsSeperator(product.salePrice)} TMT',
                       style: AppTheme.titleMedium16(context),
                     ),
                     AppSpacing.horizontal_8,
                     hasDiscount
                         ? Text(
-                            '${product.discount} TMT',
+                            '${AppPaddings.thousandsSeperator(product.discount!)} TMT',
                             style: AppTheme.lineThroughTitleSmall(context),
                             textAlign: TextAlign.start,
                           )

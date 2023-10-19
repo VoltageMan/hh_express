@@ -1,12 +1,5 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hh_express/data/local/secured_storage.dart';
-import 'package:hh_express/features/components/my_text_button.dart';
-import 'package:hh_express/helpers/extentions.dart';
-import 'package:hh_express/models/cart/cart_model/cart_model.dart';
-import 'package:hh_express/models/cart/cart_update/cart_update_model.dart';
-import 'package:hh_express/models/products/product_model.dart';
 import 'package:hh_express/settings/consts.dart';
 
 // final avifImage =
@@ -54,93 +47,36 @@ class TestScreen extends StatefulWidget {
 }
 
 class _TestScreenState extends State<TestScreen> {
-  final dio = Dio()
-    ..interceptors.add(
-      InterceptorsWrapper(
-        onRequest: (options, handler) {
-          options.data.toString().log(message: 'sent Data');
-          options.baseUrl.log();
-          // options.path.log();
-          options.headers.log();
-          handler.next(options);
-        },
-        onError: (e, handler) {
-          handler.next(e);
-        },
-        onResponse: (e, handler) {
-          e.statusCode.log(message: 'Response Status code');
-          handler.next(e);
-        },
-      ),
-    );
+  final focus = FocusNode();
+  final controller = TextEditingController();
+
+  final scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context).inputDecorationTheme;
     return Scaffold(
+      backgroundColor: Colors.black,
+      resizeToAvoidBottomInset: false,
       body: Center(
-        child: MyDarkTextButton(
-          title: 'Fetch Data',
-          width: 250.w,
-          onTap: () async {
-            final token = LocalStorage.getToken;
-            final model = CartUpdateModel(
-              productId: 2,
-              quantity: 1,
-              properties: [
-                1,
-              ],
-            );
-
-            try {
-              final some = await dio
-                  .get(
-                (EndPoints.baseUrl + EndPoints.currentCart)
-                  ..log(message: 'url'),
-                options: Options(
-                  headers: {
-                    'Authorization': 'Bearer $token',
-                  },
-                ),
-                data: model.toJson()
-                  ..remove(
-                    'properties',
-                  ),
-              )
-                  .then((value) {
-                value.log();
-
-                final model = ((value.data as Map<String, dynamic>)['data']
-                    as Map<String, dynamic>);
-                final cartMode =
-                    CartModel.fromJson(model['cart'] as Map<String, dynamic>)
-                      ..toJson().log(message: 'Cart Model');
-              });
-            } catch (e) {
-              e.log();
-            }
-          },
+        child: Container(
+          height: 40.h,
+          width: 246.w,
+          color: Colors.white,
+          margin: AppPaddings.all_12,
+          padding: AppPaddings.vertic_6,
+          child: TextField(
+            scrollPadding: EdgeInsets.zero,
+            decoration: InputDecoration(
+              contentPadding: EdgeInsets.zero,
+              fillColor: Colors.red,
+              focusColor: Colors.blue,
+              border: OutlineInputBorder(),
+            ),
+            maxLines: 1,
+          ),
         ),
       ),
     );
   }
 }
-
-var data = {
-  'uuid': '34b5-h343-235dw',
-  'total': '500 Tmt',
-  'weight_cost': '100 Tmt',
-  'delivery_cost': '50 Tmt',
-  'sub_total': '650 Tmt',
-  'products': [
-    {
-      'quantity': 2,
-      'selected_properties_id': [],
-      'product': {'productModel'}
-    },
-    {
-      'quantity': 3,
-      'selected_properties_id': [],
-      'product': {'productModel'}
-    }
-  ],
-};
