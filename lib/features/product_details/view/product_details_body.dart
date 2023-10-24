@@ -8,6 +8,7 @@ import 'package:hh_express/features/home/bloc/home_bloc.dart';
 import 'package:hh_express/features/home/view/components/product_widget.dart';
 import 'package:hh_express/features/product_details/bloc/product_details_bloc.dart';
 import 'package:hh_express/features/product_details/components/color_builder.dart';
+import 'package:hh_express/features/product_details/components/delivery_widget/delivery_widget.dart';
 import 'package:hh_express/features/product_details/components/image_indicator.dart';
 import 'package:hh_express/features/product_details/components/image_place_holder.dart';
 import 'package:hh_express/features/product_details/components/property_builder.dart';
@@ -183,6 +184,8 @@ class _ProdDetailsBodyState extends State<ProdDetailsBody>
                   style: textTheme.titleSmall,
                 ),
               ),
+              DeliveryWidget(),
+              AppSpacing.vertical_26,
               Padding(
                 padding: AppPaddings.top_20.add(AppPaddings.horiz_16),
                 child: Row(

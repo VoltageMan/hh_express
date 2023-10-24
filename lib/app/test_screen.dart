@@ -1,5 +1,13 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hh_express/app/setup.dart';
+import 'package:hh_express/data/local/secured_storage.dart';
+import 'package:hh_express/data/remote/dio_client.dart';
+import 'package:hh_express/features/components/my_text_button.dart';
+import 'package:hh_express/helpers/extentions.dart';
+import 'package:hh_express/models/auth/auth_model.dart';
+import 'package:hh_express/repositories/auth/auth_repositori.dart';
 import 'package:hh_express/settings/consts.dart';
 
 // final avifImage =
@@ -46,7 +54,7 @@ class TestScreen extends StatefulWidget {
   State<TestScreen> createState() => _TestScreenState();
 }
 
-class _TestScreenState extends State<TestScreen> {
+class _TestScreenState extends State<TestScreen> with DioClientMixin {
   final focus = FocusNode();
   final controller = TextEditingController();
 
@@ -56,24 +64,28 @@ class _TestScreenState extends State<TestScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context).inputDecorationTheme;
     return Scaffold(
-      backgroundColor: Colors.black,
+      // backgroundColor: Colors.black,
       resizeToAvoidBottomInset: false,
       body: Center(
         child: Container(
-          height: 40.h,
+          // height: 40.h,
           width: 246.w,
           color: Colors.white,
           margin: AppPaddings.all_12,
           padding: AppPaddings.vertic_6,
-          child: TextField(
-            scrollPadding: EdgeInsets.zero,
-            decoration: InputDecoration(
-              contentPadding: EdgeInsets.zero,
-              fillColor: Colors.red,
-              focusColor: Colors.blue,
-              border: OutlineInputBorder(),
-            ),
-            maxLines: 1,
+          child: MyDarkTextButton(
+            title: 'FEthc',
+            onTap: () {
+              '13|X4vYRFnzqSGIRaihUm0HsY9JoNCe77mZIOZ3mJTM98c453dd';
+              final token = LocalStorage.getToken..log();
+              dio.post(
+                endPoint: EndPoints.createAddres,
+                data: {
+                  'address': 'Chehow',
+                },
+              );
+            },
+            width: 200.w,
           ),
         ),
       ),

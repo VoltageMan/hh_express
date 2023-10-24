@@ -194,6 +194,8 @@ class AssetsPath {
   static const splashBackground = 'assets/images/splash.svg';
   static const splashBackPng = 'assets/images/splash_back.png';
   //! icons
+  static const deliveryPlane = 'assets/icons/delivery_plane.svg';
+  static const deliveryTrack = 'assets/icons/delivery_track.svg';
   static const logoIcon = 'assets/icons/logo.svg';
   static const searchIcon = 'assets/icons/search.svg';
   static const deleteIcon = 'assets/icons/delete.svg';
@@ -233,14 +235,18 @@ class EndPoints {
   static const currentCart = 'api/v1/cart/current';
   static const cartUpdate = 'api/v1/cart/update';
   static const clearCart = 'api/v1/cart/flush';
-  static const crateAddres = 'api/v1/address/create';
+  static const createAddres = 'api/v1/address/create';
+  static const addressList = 'api/v1/address/list';
   //?
   static String cartFetch(String token) => 'api/v1/cart/$token/fetch';
   static String prodDetails(int id) => 'api/v1/product/$id';
+  static String addressFetch(String uuid) => 'api/v1/address/$uuid/fetch';
+  static String addressUpdate(String uuid) => 'api/v1/address/$uuid/update';
 }
 
 class APIKeys {
   static const mainCategories = 'main_categories';
+  static const address = 'address';
   static const cart = 'cart';
   static const subCategories = 'sub_categories';
   static const activCategory = 'active_category';

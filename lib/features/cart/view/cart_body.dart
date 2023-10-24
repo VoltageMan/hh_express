@@ -70,7 +70,7 @@ class CartScreen extends StatelessWidget with DioClientMixin {
                   if (uuid == null) {
                     try {
                       final response = await dio.post(
-                        endPoint: EndPoints.crateAddres,
+                        endPoint: EndPoints.createAddres,
                         data: {
                           'address': 'hitrowka',
                         },
