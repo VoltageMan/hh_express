@@ -14,6 +14,13 @@ enum CategoryAPIState {
   succses,
 }
 
+enum AddressApiState {
+  init,
+  loading,
+  error,
+  succses,
+}
+
 enum CartAPIState {
   unAuthorized,
   init,

@@ -48,6 +48,7 @@ class _DioClient {
   Options addHeaders(Options? options) {
     final token = LocalStorage.getToken;
     final langHead = {
+      'Accept': 'application/json',
       'Accept-Language': locale.value,
       'Authorization': 'Bearer $token',
     };

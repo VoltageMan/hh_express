@@ -35,8 +35,8 @@ class DeliveryWidget extends StatelessWidget {
                       padding: EdgeInsets.only(left: 20.w, right: 9.w),
                       child: SvgPicture.asset(
                         index == 0
-                            ? AssetsPath.deliveryPlane
-                            : AssetsPath.deliveryTrack,
+                            ? AssetsPath.deliveryPlaneIcon
+                            : AssetsPath.deliveryTrackIcon,
                         height: AppSpacing.getTextHeight(10),
                       ),
                     ),

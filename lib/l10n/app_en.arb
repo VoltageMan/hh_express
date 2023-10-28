@@ -60,5 +60,6 @@
   "similarProducts": "Similar products",
   "orderInfo": "Order information",
   "description": "Description",
-  "more": "More"
+  "more": "More",
+  "address": "Address"
 }

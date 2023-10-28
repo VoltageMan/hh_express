@@ -9,6 +9,7 @@ import 'package:hh_express/features/auth/components/auth_field.dart';
 import 'package:hh_express/features/auth/components/confirm_terms%20_of_use.dart';
 import 'package:hh_express/features/components/my_text_button.dart';
 import 'package:hh_express/helpers/extentions.dart';
+import 'package:hh_express/helpers/overlay_helper.dart';
 import 'package:hh_express/helpers/routes.dart';
 import 'package:hh_express/models/auth/auth_model.dart';
 import 'package:hh_express/settings/consts.dart';
@@ -47,20 +48,6 @@ class _AuthBodyState extends State<AuthBody>
     super.dispose();
   }
 
-  void myShowSnack(String message, APIState state) {
-    if (state == APIState.error) {
-      showTopSnackBar(
-        Overlay.of(context),
-        CustomSnackBar.error(message: message),
-      );
-      return;
-    }
-    if (state == APIState.succses) {
-      showTopSnackBar(
-          Overlay.of(context), CustomSnackBar.success(message: message));
-    }
-  }
-
   bool _loading = false;
   late AuthBloc bloc;
 
@@ -71,7 +58,8 @@ class _AuthBodyState extends State<AuthBody>
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
         'AuthListener'.log();
-        myShowSnack(state.message ?? ' NoMessage', state.apiState);
+        SnackBarHelper.showTopSnack(
+            state.message ?? ' NoMessage', state.apiState);
       },
       child: Column(
         children: [
@@ -91,12 +79,18 @@ class _AuthBodyState extends State<AuthBody>
                 Column(
                   children: [
                     AuthField(
+                      keyboardType: widget.forSingUp
+                          ? TextInputType.text
+                          : TextInputType.phone,
                       label:
                           widget.forSingUp ? l10n.userName : l10n.phoneNumber,
                       controller:
                           widget.forSingUp ? nameController : numController,
                     ),
                     AuthField(
+                      keyboardType: widget.forSingUp
+                          ? TextInputType.phone
+                          : TextInputType.text,
                       label:
                           widget.forSingUp ? l10n.phoneNumber : l10n.password,
                       controller:
@@ -111,6 +105,7 @@ class _AuthBodyState extends State<AuthBody>
                 Column(
                   children: [
                     AuthField(
+                      keyboardType: TextInputType.text,
                       label: context.l10n.password,
                       controller: codeController,
                     )
@@ -138,7 +133,8 @@ class _AuthBodyState extends State<AuthBody>
                 }
                 if (widget.forSingUp) {
                   if (!bloc.state.termsConfirmed) {
-                    myShowSnack('Confirm Terms of usage', APIState.error);
+                    SnackBarHelper.showTopSnack(
+                        'Confirm Terms of usage', APIState.error);
                     return;
                   }
                   if (tabController.index == 0) {

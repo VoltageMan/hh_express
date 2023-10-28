@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/app/setup.dart';
 import 'package:hh_express/app/test_screen.dart';
 import 'package:hh_express/data/local/secured_storage.dart';
+import 'package:hh_express/features/address/cubit/address_cubit.dart';
 import 'package:hh_express/features/auth/bloc/auth_bloc.dart';
 import 'package:hh_express/features/cart/cubit/cart_cubit.dart';
 import 'package:hh_express/features/categories/bloc/category_bloc.dart';
@@ -44,6 +45,7 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(create: (context) => ProductDetailsBloc()),
         BlocProvider(create: (context) => FilterBloc()),
         BlocProvider(create: (context) => CartCubit()),
+        BlocProvider(create: (context) => AddressCubit()),
       ],
       child: ScreenUtilInit(
         designSize: const Size(360, 800),

@@ -4,6 +4,9 @@ import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/routes.dart';
 import 'package:hh_express/helpers/spacers.dart';
 import 'package:hh_express/settings/consts.dart';
+import 'package:hh_express/settings/enums.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class OverlayHelper {
   static OverlayEntry? _entry;
@@ -71,8 +74,25 @@ class SnackBarHelper {
     );
   }
 
+  static void showTopSnack(String message, APIState state) {
+    final context = appRouter.currentContext;
+    if (state == APIState.error) {
+      showTopSnackBar(
+        Overlay.of(context),
+        CustomSnackBar.error(message: message),
+      );
+      return;
+    }
+    if (state == APIState.succses) {
+      showTopSnackBar(
+          Overlay.of(context), CustomSnackBar.success(message: message));
+    }
+  }
+
   static void showMessageSnack(String message) {
-    ScaffoldMessenger.of(appRouter.currentContext)
-        .showSnackBar(_snackBar(message));
+    final context = appRouter.currentContext;
+    final messenger = ScaffoldMessenger.of(context);
+    messenger.clearSnackBars();
+    messenger.showSnackBar(_snackBar(message));
   }
 }

@@ -97,7 +97,6 @@ class AppTheme {
         fontSize: 12.sp,
         color: AppColors.darkGrey,
       ),
-      
       border: InputBorder.none,
       errorBorder: InputBorder.none,
       enabledBorder: InputBorder.none,
@@ -122,11 +121,13 @@ class AppTheme {
         color: AppColors.lightGrey,
         width: 2.w,
       ),
-      fillColor: MaterialStateColor.resolveWith((states) {
-        return states.isNotEmpty && states.last == MaterialState.selected
-            ? AppColors.mainOrange
-            : AppColors.white;
-      }),
+      fillColor: MaterialStateColor.resolveWith(
+        (states) {
+          return states.isNotEmpty && states.last == MaterialState.selected
+              ? AppColors.mainOrange
+              : AppColors.white;
+        },
+      ),
       checkColor:
           MaterialStateColor.resolveWith((states) => AppColors.lightGrey),
       shape: RoundedRectangleBorder(

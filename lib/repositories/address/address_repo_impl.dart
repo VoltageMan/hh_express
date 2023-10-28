@@ -5,7 +5,7 @@ import 'package:hh_express/repositories/address/address_repo.dart';
 import 'package:hh_express/settings/consts.dart';
 import 'package:injectable/injectable.dart';
 
-@Injectable()
+@Injectable(as: AddressRepo)
 class AddressRepoImpl extends AddressRepo with DioClientMixin {
   @override
   Future<AddressModel?> create(String address) async {
@@ -17,6 +17,27 @@ class AddressRepoImpl extends AddressRepo with DioClientMixin {
     );
     if (response.success) {
       return AddressModel.fromJson(response.data[APIKeys.address]);
+    }
+    return null;
+  }
+
+  @override
+  Future<Map<String, dynamic>?> read(int page) async {
+    final response =
+        await dio.get(endPoint: EndPoints.addressList, queryParameters: {
+      APIKeys.page: page,
+    });
+    if (response.success) {
+      final data =
+          (response.data[APIKeys.products][APIKeys.data] as List<dynamic>)
+              .map((e) => AddressModel.fromJson(e as Map<String, dynamic>))
+              .toList();
+      final pagination = PaginationModel.fromJson(
+          response.data[APIKeys.products][APIKeys.pagination]);
+      return {
+        APIKeys.data: data,
+        APIKeys.pagination: pagination,
+      };
     }
     return null;
   }
@@ -40,26 +61,6 @@ class AddressRepoImpl extends AddressRepo with DioClientMixin {
     final response = await dio.get(endPoint: EndPoints.cartFetch(uuid));
     if (response.success) {
       return AddressModel.fromJson(response.data[APIKeys.address]);
-    }
-    return null;
-  }
-
-  @override
-  Future<Map<String, dynamic>?> read(int page) async {
-    final response =
-        await dio.get(endPoint: EndPoints.addressList, queryParameters: {
-      APIKeys.page: page,
-    });
-    if (response.success) {
-      final data = (response.data[APIKeys.data] as List<Map<String, dynamic>>)
-          .map((e) => AddressModel.fromJson(e))
-          .toList();
-      final pagination =
-          PaginationModel.fromJson(response.data[APIKeys.pagination]);
-      return {
-        APIKeys.data: data,
-        APIKeys.pagination: pagination,
-      };
     }
     return null;
   }

@@ -194,8 +194,8 @@ class AssetsPath {
   static const splashBackground = 'assets/images/splash.svg';
   static const splashBackPng = 'assets/images/splash_back.png';
   //! icons
-  static const deliveryPlane = 'assets/icons/delivery_plane.svg';
-  static const deliveryTrack = 'assets/icons/delivery_track.svg';
+  static const deliveryPlaneIcon = 'assets/icons/delivery_plane.svg';
+  static const deliveryTrackIcon = 'assets/icons/delivery_track.svg';
   static const logoIcon = 'assets/icons/logo.svg';
   static const searchIcon = 'assets/icons/search.svg';
   static const deleteIcon = 'assets/icons/delete.svg';
@@ -203,13 +203,8 @@ class AssetsPath {
   static const bellIcon = 'assets/icons/bell.svg';
   static const crossIcon = 'assets/icons/cross.svg';
   static const roundedCrossIcon = 'assets/icons/roundedCross.svg';
-  static const navBarIcons = [
-    'assets/icons/navBarIcons/home.svg',
-    'assets/icons/navBarIcons/video.svg',
-    'assets/icons/navBarIcons/category.svg',
-    'assets/icons/navBarIcons/cart.svg',
-    'assets/icons/navBarIcons/profile.svg',
-  ];
+
+  static const addresIcon = 'assets/icons/delivery_address.svg';
   static const langIcon = 'assets/icons/profileIcons/lang.svg';
   static const favorIcon = 'assets/icons/profileIcons/favor.svg';
   static const locationIcon = 'assets/icons/profileIcons/location.svg';
@@ -219,6 +214,13 @@ class AssetsPath {
   static const forvardIcon = 'assets/icons/forvard.svg';
   static const favorFilled = 'assets/icons/favor_filled.svg';
   static const appTitle = 'Yuanshop';
+  static const navBarIcons = [
+    'assets/icons/navBarIcons/home.svg',
+    'assets/icons/navBarIcons/video.svg',
+    'assets/icons/navBarIcons/category.svg',
+    'assets/icons/navBarIcons/cart.svg',
+    'assets/icons/navBarIcons/profile.svg',
+  ];
   //!
 }
 

@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hh_express/data/local/secured_storage.dart';
+import 'package:hh_express/features/address/cubit/address_cubit.dart';
 import 'package:hh_express/features/cart/cubit/cart_cubit.dart';
 import 'package:hh_express/features/categories/bloc/category_bloc.dart';
 import 'package:hh_express/helpers/extentions.dart';
@@ -32,7 +33,7 @@ class _SplashScreenState extends State<SplashScreen> {
     await LocalStorage.init();
     context.read<CategoryBloc>()..add(InitCategories());
     await context.read<CartCubit>().getCurrentCart();
-
+    await context.read<AddressCubit>().init();
     Future.delayed(const Duration(seconds: 1))
         .then((value) => appRouter.go(AppRoutes.mainScreen));
   }
