@@ -83,7 +83,7 @@ class SnackBarHelper {
       );
       return;
     }
-    if (state == APIState.succses) {
+    if (state == APIState.success) {
       showTopSnackBar(
           Overlay.of(context), CustomSnackBar.success(message: message));
     }

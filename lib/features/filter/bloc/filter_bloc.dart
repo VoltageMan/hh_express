@@ -64,7 +64,7 @@ final class FilterBloc extends Bloc<FilterEvent, FilterState> {
             properties: data,
             prodByCatselecteds: List.empty(growable: true),
             homeSelecteds: List.empty(growable: true),
-            state: FilterAPIState.succses,
+            state: FilterAPIState.success,
           ),
         );
       }

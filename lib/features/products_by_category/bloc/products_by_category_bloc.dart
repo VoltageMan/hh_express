@@ -43,7 +43,7 @@ class ProductsByCategoryBloc extends Cubit<ProductsByCategoryState> {
     if (data != null) {
       emit(
         ProductsByCategoryState(
-          state: ProductAPIState.succses,
+          state: ProductAPIState.success,
           pagination: data[APIKeys.pagination],
           products: List.from(data[APIKeys.products]),
           category: category,
@@ -76,7 +76,7 @@ class ProductsByCategoryBloc extends Cubit<ProductsByCategoryState> {
     if (data != null) {
       return emit(
         ProductsByCategoryState(
-          state: ProductAPIState.succses,
+          state: ProductAPIState.success,
           category: state.category,
           pagination: data[APIKeys.pagination],
           products: List.from(state.products ?? [])

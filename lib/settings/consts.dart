@@ -254,7 +254,7 @@ class APIKeys {
   static const activCategory = 'active_category';
   static const accsesToken = 'accses_token';
   static const user = 'user';
-  static const succses = 'succsess';
+  static const success = 'succsess';
   static const message = 'message';
   static const error = 'error';
   static const data = 'data';

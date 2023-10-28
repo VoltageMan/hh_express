@@ -37,7 +37,7 @@ class AuthBloc extends Cubit<AuthState> {
     final response = await _repo.authMe(token);
     if (response.success) {
       emit(AuthState(
-          apiState: APIState.succses,
+          apiState: APIState.success,
           message: response.message,
           termsConfirmed: state.termsConfirmed));
       return response.data;
@@ -105,8 +105,8 @@ class AuthBloc extends Cubit<AuthState> {
     if (response != null) {
       emit(
         AuthState(
-          apiState: APIState.succses,
-          message: 'Succses',
+          apiState: APIState.success,
+          message: 'success',
           termsConfirmed: state.termsConfirmed,
         ),
       );
@@ -127,7 +127,7 @@ class AuthBloc extends Cubit<AuthState> {
   //   final response = await _repo.logOut(token!);
   //   if (response.success) {
   //     emit(AuthState(
-  //         apiState: APIState.succses,
+  //         apiState: APIState.success,
   //         message: response.message,
   //         termsConfirmed: state.termsConfirmed));
   //     OverlayHelper.remove();
@@ -156,7 +156,7 @@ class AuthBloc extends Cubit<AuthState> {
     if (response != null) {
       emit(
         AuthState(
-          apiState: APIState.succses,
+          apiState: APIState.success,
           message: 'Success',
           termsConfirmed: state.termsConfirmed,
         ),

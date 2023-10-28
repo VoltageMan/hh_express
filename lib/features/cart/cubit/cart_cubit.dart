@@ -33,7 +33,7 @@ class CartCubit extends Cubit<CartState> {
     if (data != null) {
       emit(
         CartState(
-          apiState: CartAPIState.succses,
+          apiState: CartAPIState.success,
           cart: data,
         ),
       );
@@ -55,14 +55,15 @@ class CartCubit extends Cubit<CartState> {
     if (data != null) {
       emit(
         CartState(
-          apiState: CartAPIState.succses,
+          apiState: CartAPIState.success,
           cart: data,
         ),
       );
       value = true;
     }
     SnackBarHelper.showMessageSnack(
-        value ? 'succses' : 'some things went wrong');
+        data != null ? 'success' : 'some things went wrong');
+    emit(CartState(apiState: CartAPIState.success, cart: data));
     OverlayHelper.remove();
     return value;
   }
@@ -87,7 +88,7 @@ class CartCubit extends Cubit<CartState> {
     if (data != null) {
       emit(
         CartState(
-          apiState: CartAPIState.succses,
+          apiState: CartAPIState.success,
           cart: data,
         ),
       );

@@ -153,7 +153,7 @@ class _CartWidgetState extends State<CartWidget> {
                               CartUpdateModel(
                                 productId: product.id,
                                 properties: List.empty(),
-                                quantity: model.quantity + 1,
+                                quantity: model.quantity - 1,
                               ),
                             );
                           },

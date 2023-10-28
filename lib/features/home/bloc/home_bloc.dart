@@ -34,7 +34,7 @@ class HomeBloc extends Cubit<HomeState> {
     if (data != null) {
       return emit(
         HomeState(
-          state: ProductAPIState.succses,
+          state: ProductAPIState.success,
           pagination: data[APIKeys.pagination],
           prods: List.from(data[APIKeys.products]),
         ),
@@ -42,7 +42,7 @@ class HomeBloc extends Cubit<HomeState> {
     }
     return emit(
       HomeState(
-        state: ProductAPIState.error, 
+        state: ProductAPIState.error,
       ),
     );
   }
@@ -65,7 +65,7 @@ class HomeBloc extends Cubit<HomeState> {
     if (data != null) {
       return emit(
         HomeState(
-          state: ProductAPIState.succses,
+          state: ProductAPIState.success,
           pagination: data[APIKeys.pagination],
           prods: List.from(state.prods ?? List.empty())
             ..addAll(data[APIKeys.products]),

@@ -48,6 +48,20 @@ class _AuthBodyState extends State<AuthBody>
     super.dispose();
   }
 
+  void myShowSnack(String message, APIState state) {
+    if (state == APIState.error) {
+      showTopSnackBar(
+        Overlay.of(context),
+        CustomSnackBar.error(message: message),
+      );
+      return;
+    }
+    if (state == APIState.success) {
+      showTopSnackBar(
+          Overlay.of(context), CustomSnackBar.success(message: message));
+    }
+  }
+
   bool _loading = false;
   late AuthBloc bloc;
 

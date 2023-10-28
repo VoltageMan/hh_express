@@ -33,7 +33,7 @@ class CartScreen extends StatelessWidget with DioClientMixin {
         if (state.apiState == CartAPIState.unAuthorized) {
           return Center(
             child: Text(
-              'un Authorized',
+              'Unauthorized',
             ),
           );
         }

@@ -41,7 +41,7 @@ class ProductDetailsBloc extends Cubit<ProductDetailsState> {
       sesectedProps.add(0);
       return emit(
         ProductDetailsState(
-          state: ProdDetailsAPIState.succses,
+          state: ProdDetailsAPIState.success,
           products: List.from(state.products)..add(product),
         ),
       );
@@ -58,7 +58,7 @@ class ProductDetailsBloc extends Cubit<ProductDetailsState> {
   void screenDispose() {
     state.cancelToken?.cancel();
     final List<ProductDetailsModel> newProd = List.from(state.products);
-    if (state.state == ProdDetailsAPIState.succses) {
+    if (state.state == ProdDetailsAPIState.success) {
       sesectedProps.removeLast();
       newProd.removeLast();
     }
@@ -66,8 +66,8 @@ class ProductDetailsBloc extends Cubit<ProductDetailsState> {
     emit(
       ProductDetailsState(
         products: newProd,
-        state: ProdDetailsAPIState.succses,
-      )..log(message: 'disposing Succses State'),
+        state: ProdDetailsAPIState.success,
+      )..log(message: 'disposing success State'),
     );
   }
 

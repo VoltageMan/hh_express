@@ -32,7 +32,7 @@ class _ProdDetailsBottomBarState extends State<ProdDetailsBottomBar> {
     final l10n = context.l10n;
     return BlocBuilder<ProductDetailsBloc, ProductDetailsState>(
       builder: (context, state) {
-        if (state.state != ProdDetailsAPIState.succses)
+        if (state.state != ProdDetailsAPIState.success)
           return Container(
             height: 72.h,
             color: Colors.transparent,
@@ -58,7 +58,7 @@ class _ProdDetailsBottomBarState extends State<ProdDetailsBottomBar> {
                   title: l10n.addToCart,
                   onAdd: () async {
                     if (cartCubit.state == CartAPIState.unAuthorized) {
-                      SnackBarHelper.showMessageSnack('Un Authorized');
+                      SnackBarHelper.showMessageSnack('Unauthorized');
                       return;
                     }
                     final updated = await cartCubit.cartUpdate(

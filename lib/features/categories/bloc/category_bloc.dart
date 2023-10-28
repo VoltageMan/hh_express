@@ -26,7 +26,7 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
           subs: {},
         ),
       );
-      'Succses emit'.log();
+      'success emit'.log();
 
       return;
     });
@@ -51,7 +51,7 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
     }
     return emit(
       CategoryState(
-        state: CategoryAPIState.succses,
+        state: CategoryAPIState.success,
         activIndex: index,
         mains: List<CategoryModel>.from(state.mains!),
         subs: Map<String, List<CategoryModel>>.from(state.subs!),
@@ -87,7 +87,7 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
     }
     emit(
       CategoryState(
-        state: CategoryAPIState.succses,
+        state: CategoryAPIState.success,
         activIndex: index,
         cancelToken: newCancelToken,
         mains: List<CategoryModel>.from(state.mains!),
