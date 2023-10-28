@@ -25,7 +25,7 @@ class MyNavBar extends StatelessWidget {
       width: double.maxFinite,
       height: 55.h,
       decoration: BoxDecoration(
-        color: theme.backgroundColor,
+        color: Colors.white,
         boxShadow: AppColors.navBarShaow,
       ),
       child: Row(
@@ -37,13 +37,13 @@ class MyNavBar extends StatelessWidget {
                     bodyIndex.value = index;
                   },
                 )
-              : GestureDetector(
+              : InkWell(
                   onTap: () {
                     bodyIndex.value = index;
                   },
                   child: Container(
                     // gyralaryna basanda basylanok, without color
-                    color: AppColors.transparent,
+                    // color: AppColors.transparent,
                     height: 72.h,
                     width: 72.w,
                     alignment: Alignment.center,
@@ -60,7 +60,8 @@ class MyNavBar extends StatelessWidget {
                               color: isSelected
                                   ? theme.selectedItemColor
                                   : theme.unselectedItemColor,
-                              iconSize: 18.w,
+                              iconSize: 18.h,
+                              contSize: 18.h,
                             ),
                             Text(
                               navBarTitles[index],

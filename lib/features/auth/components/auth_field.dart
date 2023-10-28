@@ -5,9 +5,15 @@ import 'package:hh_express/settings/consts.dart';
 import 'package:hh_express/settings/theme.dart';
 
 class AuthField extends StatefulWidget {
-  const AuthField({super.key, required this.label, required this.controller});
+  const AuthField({
+    super.key,
+    required this.controller,
+    required this.label,
+    required this.keyboardType,
+  });
   final String label;
   final TextEditingController controller;
+  final TextInputType keyboardType;
 
   @override
   State<AuthField> createState() => _AuthFieldState();
@@ -41,7 +47,7 @@ class _AuthFieldState extends State<AuthField> {
           return null;
         },
         style: AppTheme.titleMedium12(context),
-        keyboardType: forName || forPassWord ? null : TextInputType.phone,
+        keyboardType: widget.keyboardType,
         maxLength: hasPrefix ? 8 : null,
         obscureText: passWordShown!,
         decoration: InputDecoration(

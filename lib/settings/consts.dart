@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 
 class AppPaddings {
+  static String thousandsSeperator(String num) {
+    var formatter = NumberFormat('#,##0.' + "#" * 5);
+    final val = formatter.format(double.parse(num)).replaceAll(',', ' ');
+    return val;
+  }
+
   static const secondSplashAlign = Alignment(0.35, -0.12);
 //! Aligns
 
@@ -9,8 +16,8 @@ class AppPaddings {
     if (index < 0) return null;
     return EdgeInsets.only(
       top: 12.h,
-      left: index % 2 == 0 ? 16.w : 4.w,
-      right: index % 2 == 1 ? 16.w : 4.w,
+      left: 4.w,
+      right: 4.w,
     );
   }
 
@@ -53,12 +60,13 @@ class AppPaddings {
   static EdgeInsets bottom_16 = EdgeInsets.only(bottom: 16.h);
   static EdgeInsets bottom_12 = EdgeInsets.only(bottom: 12.h);
   static EdgeInsets bottom_10 = EdgeInsets.only(bottom: 10.h);
+  static EdgeInsets bottom_5 = EdgeInsets.only(bottom: 5.h);
 
   static EdgeInsets all_12 = EdgeInsets.all(12.sp);
   static EdgeInsets all_16 = EdgeInsets.all(16.sp);
   static EdgeInsets all_24 = EdgeInsets.all(24.sp);
   static EdgeInsets all_28 = EdgeInsets.all(28.sp);
-  static final all_2 = EdgeInsets.all(2.sp);
+  static final all_2 = EdgeInsets.symmetric(horizontal: 2.w, vertical: 2.h);
   static final all_4 = EdgeInsets.all(4.sp);
   static final all_5 = EdgeInsets.all(5.sp);
   static EdgeInsets all_6 = EdgeInsets.all(6.sp);
@@ -74,6 +82,7 @@ class AppPaddings {
   static EdgeInsets horiz_2 = EdgeInsets.symmetric(horizontal: 2.w);
   static EdgeInsets horiz_3 = EdgeInsets.symmetric(horizontal: 3.w);
   static EdgeInsets horiz_4 = EdgeInsets.symmetric(horizontal: 4.w);
+  static EdgeInsets horiz_5 = EdgeInsets.symmetric(horizontal: 5.w);
 
   static final vertic_10 = EdgeInsets.symmetric(vertical: 10.h);
   static final vertic_20 = EdgeInsets.symmetric(vertical: 20.h);
@@ -174,14 +183,19 @@ class AppDurations {
 }
 
 class AssetsPath {
+  static const exampleColor =
+      'https://assets-global.website-files.com/6009ec8cda7f305645c9d91b/6151d0ed6cb8220c95cf72e6_Frame%204.jpg';
+  static const mainCats = 'assets/data/main_cats.json';
   static const macBook =
       'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1026&q=80';
   static const exampleImage2 =
       'http://216.250.9.74/storage/21/conversions/men-thumb.webp';
 
   static const splashBackground = 'assets/images/splash.svg';
-  static const splashBack = 'assets/images/splash_back.png';
+  static const splashBackPng = 'assets/images/splash_back.png';
   //! icons
+  static const deliveryPlaneIcon = 'assets/icons/delivery_plane.svg';
+  static const deliveryTrackIcon = 'assets/icons/delivery_track.svg';
   static const logoIcon = 'assets/icons/logo.svg';
   static const searchIcon = 'assets/icons/search.svg';
   static const deleteIcon = 'assets/icons/delete.svg';
@@ -189,13 +203,8 @@ class AssetsPath {
   static const bellIcon = 'assets/icons/bell.svg';
   static const crossIcon = 'assets/icons/cross.svg';
   static const roundedCrossIcon = 'assets/icons/roundedCross.svg';
-  static const navBarIcons = [
-    'assets/icons/navBarIcons/home.svg',
-    'assets/icons/navBarIcons/video.svg',
-    'assets/icons/navBarIcons/category.svg',
-    'assets/icons/navBarIcons/cart.svg',
-    'assets/icons/navBarIcons/profile.svg',
-  ];
+
+  static const addresIcon = 'assets/icons/delivery_address.svg';
   static const langIcon = 'assets/icons/profileIcons/lang.svg';
   static const favorIcon = 'assets/icons/profileIcons/favor.svg';
   static const locationIcon = 'assets/icons/profileIcons/location.svg';
@@ -203,6 +212,15 @@ class AssetsPath {
   static const phoneIcon = 'assets/icons/profileIcons/phone.svg';
   static const ordersIcon = 'assets/icons/profileIcons/orders.svg';
   static const forvardIcon = 'assets/icons/forvard.svg';
+  static const favorFilled = 'assets/icons/favor_filled.svg';
+  static const appTitle = 'Yuanshop';
+  static const navBarIcons = [
+    'assets/icons/navBarIcons/home.svg',
+    'assets/icons/navBarIcons/video.svg',
+    'assets/icons/navBarIcons/category.svg',
+    'assets/icons/navBarIcons/cart.svg',
+    'assets/icons/navBarIcons/profile.svg',
+  ];
   //!
 }
 
@@ -215,15 +233,28 @@ class EndPoints {
   static const category = 'api/v1/category/list';
   static const products = 'api/v1/product/list';
   static const properties = 'api/v1/property/list';
+  static const cartComplete = 'api/v1/cart/complete';
+  static const currentCart = 'api/v1/cart/current';
+  static const cartUpdate = 'api/v1/cart/update';
+  static const clearCart = 'api/v1/cart/flush';
+  static const createAddres = 'api/v1/address/create';
+  static const addressList = 'api/v1/address/list';
+  //?
+  static String cartFetch(String token) => 'api/v1/cart/$token/fetch';
+  static String prodDetails(int id) => 'api/v1/product/$id';
+  static String addressFetch(String uuid) => 'api/v1/address/$uuid/fetch';
+  static String addressUpdate(String uuid) => 'api/v1/address/$uuid/update';
 }
 
 class APIKeys {
   static const mainCategories = 'main_categories';
+  static const address = 'address';
+  static const cart = 'cart';
   static const subCategories = 'sub_categories';
   static const activCategory = 'active_category';
   static const accsesToken = 'accses_token';
   static const user = 'user';
-  static const succses = 'succsess';
+  static const success = 'succsess';
   static const message = 'message';
   static const error = 'error';
   static const data = 'data';
@@ -232,5 +263,8 @@ class APIKeys {
   static const pagination = 'pagination';
   static const page = 'page';
   static const products = 'products';
+  static const product = 'product';
   static const urlDecoder = '%5B%5D';
+
+  static const colors = ['colors', 'цвета', 'reňkler'];
 }

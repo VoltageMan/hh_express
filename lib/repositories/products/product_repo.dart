@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:hh_express/settings/enums.dart';
 
 abstract class ProductRepo {
   Future<Map<String, dynamic>?> getProducts({
@@ -7,5 +5,4 @@ abstract class ProductRepo {
     required List<int> properties,
     required int page,
   });
-  bool doLoadMore(ScrollController scrollController, ProductAPIState state);
 }

@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/features/categories/view/body.dart';
+import 'package:hh_express/features/components/widgets/product_pagination_bottom.dart';
+import 'package:hh_express/features/filter/bloc/filter_bloc.dart';
 import 'package:hh_express/features/home/view/components/product_builder.dart';
 import 'package:hh_express/features/products_by_category/bloc/products_by_category_bloc.dart';
 import 'package:hh_express/features/products_by_category/view/app_bar_prods_by_cat.dart';
 import 'package:hh_express/features/products_by_category/view/products_by_category_info.dart';
-import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/modal_sheets.dart';
 import 'package:hh_express/models/categories/category_model.dart';
-import 'package:hh_express/settings/consts.dart';
 import 'package:hh_express/settings/enums.dart';
 
 class ProductsByCategory extends StatefulWidget {
@@ -23,12 +23,13 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
   @override
   void initState() {
     bloc = context.read<ProductsByCategoryBloc>()..init(widget.category);
+    filterBloc = context.read<FilterBloc>();
     scrollController.addListener(() {
       if (scrollController.position.pixels >=
               (scrollController.position.maxScrollExtent - 15.h) &&
           scrollController.position.isScrollingNotifier.value) {
         final state = bloc.state;
-        if (state.state != ProductAPIState.succses ||
+        if (state.state != ProductAPIState.success ||
             state.pagination!.currentPage == state.pagination!.lastPage) {
           return;
         }
@@ -41,10 +42,13 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
   @override
   void dispose() {
     scrollController.dispose();
+    bloc.dispose();
+    filterBloc.add(ClearFilter());
     super.dispose();
   }
 
   late final ProductsByCategoryBloc bloc;
+  late final FilterBloc filterBloc;
   final scrollController = ScrollController();
 
   @override
@@ -78,22 +82,12 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
                 HomeProdBuilder(
                   prods: state.products,
                 ),
-                (state.state == ProductAPIState.loadingMoreError
-                        ? CategoryErrorBody(
-                            onTap: () {
-                              bloc.loadMore();
-                            },
-                          )
-                        : state.pagination?.currentPage !=
-                                state.pagination?.lastPage
-                            ? Container(
-                                padding: AppPaddings.vertic_12,
-                                alignment: Alignment.center,
-                                child: CircularProgressIndicator(
-                                  color: AppColors.appOrange,
-                                ))
-                            : SizedBox())
-                    .toSliverBox
+                ProductPaginationBottom(
+                  isLastPage: state.pagination?.currentPage ==
+                      state.pagination?.lastPage,
+                  state: state.state,
+                  onErrorTap: () => bloc.loadMore(),
+                )
               ],
             );
           },

@@ -14,14 +14,13 @@ class OrdersWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isLoading = false;
-    final theme = Theme.of(context);
-
+    if (isLoading) return _LoadingWidget();
+    final theme = context.theme;
     final l10n = context.l10n;
     return GestureDetector(
       onTap: () {
         Navigator.pop(context);
-        appRouter.routerDelegate.navigatorKey.currentContext!
-            .push(AppRoutes.orderDetails);
+        appRouter.currentContext.push(AppRoutes.orderDetails);
       },
       child: Container(
         margin: AppPaddings.horiz_16.copyWith(bottom: 16.h),
@@ -36,35 +35,19 @@ class OrdersWidget extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            isLoading
-                ? SizedBox(
-                    width: 150.w,
-                    child: MyShimerPlaceHolder(
-                      height: 18.h,
-                      radius: AppBorderRadiuses.border_4,
-                    ),
-                  )
-                : FittedBox(
-                    child: Text(
-                      'LQNSU346JK ',
-                      style: theme.textTheme.titleLarge,
-                      maxLines: 1,
-                    ),
-                  ),
+            FittedBox(
+              child: Text(
+                'LQNSU346JK ',
+                style: theme.textTheme.titleLarge,
+                maxLines: 1,
+              ),
+            ),
             Padding(
               padding: AppPaddings.top15_bottom19,
-              child: isLoading
-                  ? SizedBox(
-                      width: 115.w,
-                      child: MyShimerPlaceHolder(
-                        height: 18.h,
-                        radius: AppBorderRadiuses.border_4,
-                      ),
-                    )
-                  : Text(
-                      '10.04.2023',
-                      style: theme.textTheme.displaySmall,
-                    ),
+              child: Text(
+                '10.04.2023',
+                style: theme.textTheme.displaySmall,
+              ),
             ),
             DashedLine(
               isLoading: isLoading,
@@ -72,15 +55,58 @@ class OrdersWidget extends StatelessWidget {
             for (int i = 0; i < 3; i++)
               OrderInfoListTile(
                 title: i == 2 ? l10n.price : context.l10n.orderState,
-                content: isLoading
-                    ? null
-                    : i == 2
-                        ? '700 TMT'
-                        : 'geldi',
+                content: i == 2 ? '700 TMT' : 'geldi',
                 contentBold: i == 2 ? true : null,
               ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _LoadingWidget extends StatelessWidget {
+  const _LoadingWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: AppPaddings.horiz_16.copyWith(bottom: 16.h),
+      decoration: BoxDecoration(
+        borderRadius: AppBorderRadiuses.border_6,
+        border: Border.all(
+          color: AppColors.lightGrey,
+          width: 1.5.sp,
+        ),
+      ),
+      padding: AppPaddings.all_16,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            width: 150.w,
+            child: MyShimerPlaceHolder(
+              height: 18.h,
+              radius: AppBorderRadiuses.border_4,
+            ),
+          ),
+          Padding(
+              padding: AppPaddings.top15_bottom19,
+              child: SizedBox(
+                width: 115.w,
+                child: MyShimerPlaceHolder(
+                  height: 18.h,
+                  radius: AppBorderRadiuses.border_4,
+                ),
+              )),
+          DashedLine(isLoading: true),
+          for (int i = 0; i < 3; i++)
+            OrderInfoListTile(
+              title: null,
+              content: null,
+              contentBold: i == 2 ? true : null,
+            ),
+        ],
       ),
     );
   }

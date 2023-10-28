@@ -10,7 +10,7 @@ class OrderStateCheck extends StatelessWidget {
   final int? tickedsCount;
   @override
   Widget build(BuildContext context) {
-    final isLoading = false;
+    final isLoading = tickedsCount == null;
     return Padding(
       padding: AppPaddings.vertic_8,
       child: Stack(
@@ -28,6 +28,7 @@ class OrderStateCheck extends StatelessWidget {
               3,
               (index) {
                 final isNotChecked = checkCount < (index + 1);
+                final isTicked = (tickedsCount ?? 0) >= (index + 1);
                 return isNotChecked
                     //  add not Checked box
                     ? SizedBox(
@@ -50,13 +51,17 @@ class OrderStateCheck extends StatelessWidget {
                             width: 24.sp,
                             alignment: Alignment.center,
                             padding: AppPaddings.all_4,
-                            decoration: const BoxDecoration(
-                              color: AppColors.mainOrange,
+                            decoration: BoxDecoration(
+                              color: isTicked
+                                  ? AppColors.mainOrange
+                                  : AppColors.darkGray,
                               shape: BoxShape.circle,
                             ),
-                            child: const FittedBox(
+                            child: FittedBox(
                               child: Icon(
-                                Icons.check_rounded,
+                                isTicked
+                                    ? Icons.check_rounded
+                                    : Icons.close_rounded,
                                 color: AppColors.white,
                               ),
                             ),

@@ -21,9 +21,10 @@ class _ProfileBodyState extends State<ProfileBody> {
     AssetsPath.navBarIcons[4],
     AssetsPath.phoneIcon,
     AssetsPath.ordersIcon,
-    AssetsPath.favorIcon,
+    AssetsPath.favorFilled,
     AssetsPath.locationIcon,
     AssetsPath.langIcon,
+    AssetsPath.locationIcon,
   ];
   @override
   Widget build(BuildContext context) {
@@ -34,6 +35,7 @@ class _ProfileBodyState extends State<ProfileBody> {
       context.l10n.favorites,
       context.l10n.welayat,
       context.l10n.programLang,
+      context.l10n.address,
     ];
     final l10n = context.l10n;
     final langs = {
@@ -45,7 +47,7 @@ class _ProfileBodyState extends State<ProfileBody> {
       children: [
         AppSpacing.vertical_30,
         ...List.generate(
-          6,
+          7,
           (index) => ProfileListTile(
             iconPath: icons[index],
             onTap: () {

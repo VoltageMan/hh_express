@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hh_express/features/cart/view/cart_body.dart';
 import 'package:hh_express/features/categories/view/body.dart';
 import 'package:hh_express/features/home/view/body.dart';
@@ -9,6 +10,8 @@ import 'package:hh_express/features/video/view/home_video.dart';
 import 'package:hh_express/helpers/confirm_exit.dart';
 import 'package:hh_express/helpers/modal_sheets.dart';
 import 'dart:developer';
+
+import 'package:hh_express/helpers/overlay_helper.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({
@@ -24,6 +27,8 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
+    SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(systemNavigationBarColor: Colors.white));
     super.initState();
   }
 
@@ -46,11 +51,13 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
+        // if(OverlayHelper.){
+        //   return
+        // }
         final val = ModelBottomSheetHelper.doPop();
         if (!val) {
           return false;
         }
-
         if (_dialogShown) {
           Navigator.pop(Confirm.currentContext!);
           return false;

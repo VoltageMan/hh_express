@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/features/components/widgets/place_holder.dart';
+import 'package:hh_express/helpers/spacers.dart';
 import 'package:hh_express/settings/consts.dart';
 import 'package:hh_express/settings/theme.dart';
 
@@ -9,9 +10,12 @@ class OrderStateWDate extends StatelessWidget {
   final String? date;
   @override
   Widget build(BuildContext context) {
+    final isLoading = date == null;
+    if (isLoading) return _LoadingWidget();
     final theme = Theme.of(context).textTheme;
-    final isLoading = false;
-    return SizedBox(
+
+    return Container(
+      // color: Colors.red,
       height: 40.h,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -39,6 +43,31 @@ class OrderStateWDate extends StatelessWidget {
                 ),
         ],
       ),
+    );
+  }
+}
+
+class _LoadingWidget extends StatelessWidget {
+  const _LoadingWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        MyShimerPlaceHolder(
+          height: 16.h,
+          width: 70.w,
+          radius: AppBorderRadiuses.border_4,
+        ),
+        SizedBox(height: 6.h),
+        MyShimerPlaceHolder(
+          height: 16.h,
+          width: 90.w,
+          radius: AppBorderRadiuses.border_4,
+        )
+      ],
     );
   }
 }

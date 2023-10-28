@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/routes.dart';
+import 'package:hh_express/helpers/spacers.dart';
 import 'package:hh_express/settings/consts.dart';
+import 'package:hh_express/settings/enums.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class OverlayHelper {
   static OverlayEntry? _entry;
@@ -33,13 +38,14 @@ class OverlayHelper {
                     'GestureTap'.log();
                   },
                   child: Text(
-                    'SomeThis',
+                    'Loading...',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 20,
                     ),
                   ),
                 ),
+                AppSpacing.vertical_10,
                 CircularProgressIndicator()
               ],
             ),
@@ -48,5 +54,45 @@ class OverlayHelper {
       },
     );
     ovv.insert(_entry!);
+  }
+}
+
+class SnackBarHelper {
+  static SnackBar _snackBar(String message) {
+    final needMargin = appRouter.location == AppRoutes.mainScreen;
+    return SnackBar(
+      backgroundColor: Colors.transparent,
+      content: Container(
+        margin: needMargin ? EdgeInsets.only(bottom: 60.h) : EdgeInsets.zero,
+        decoration: BoxDecoration(
+          borderRadius: AppBorderRadiuses.border_10,
+          color: Colors.black87,
+        ),
+        padding: AppPaddings.all_12,
+        child: Text(message),
+      ),
+    );
+  }
+
+  static void showTopSnack(String message, APIState state) {
+    final context = appRouter.currentContext;
+    if (state == APIState.error) {
+      showTopSnackBar(
+        Overlay.of(context),
+        CustomSnackBar.error(message: message),
+      );
+      return;
+    }
+    if (state == APIState.success) {
+      showTopSnackBar(
+          Overlay.of(context), CustomSnackBar.success(message: message));
+    }
+  }
+
+  static void showMessageSnack(String message) {
+    final context = appRouter.currentContext;
+    final messenger = ScaffoldMessenger.of(context);
+    messenger.clearSnackBars();
+    messenger.showSnackBar(_snackBar(message));
   }
 }

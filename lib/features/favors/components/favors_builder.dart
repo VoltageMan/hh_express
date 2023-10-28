@@ -14,7 +14,7 @@ class _FavrosBuilderState extends State<FavrosBuilder> {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 340.h,
-      child: ListView.builder(
+      child: ListView.builder( 
         itemBuilder: (context, index) {
           return const FavorsWidget();
         },

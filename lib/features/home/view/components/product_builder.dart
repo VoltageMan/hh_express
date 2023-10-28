@@ -15,6 +15,7 @@ class HomeProdBuilder extends StatelessWidget {
     final isLoading = prods == null;
     return SliverDynamicHeightGridView(
       crossAxisCount: 2,
+      crossAxisSpacing: 0.w,
       mainAxisSpacing: 10.h,
       itemCount: isLoading ? 100 : prods!.length,
       builder: (context, index) {

@@ -1,9 +1,14 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hh_express/app/setup.dart';
+import 'package:hh_express/features/filter/bloc/filter_bloc.dart';
+import 'package:hh_express/helpers/extentions.dart';
+import 'package:hh_express/helpers/routes.dart';
 import 'package:hh_express/models/categories/category_model.dart';
 import 'package:hh_express/models/pagination/pagination_model.dart';
 import 'package:hh_express/models/products/product_model.dart';
+import 'package:hh_express/models/property/values/property_value_model.dart';
 import 'package:hh_express/repositories/products/product_repo.dart';
 import 'package:hh_express/settings/consts.dart';
 import 'package:hh_express/settings/enums.dart';
@@ -14,6 +19,13 @@ class ProductsByCategoryBloc extends Cubit<ProductsByCategoryState> {
   ProductsByCategoryBloc()
       : super(ProductsByCategoryState(state: ProductAPIState.init));
   final _repo = getIt<ProductRepo>();
+
+  List<PropertyValue> _filters = List.empty(growable: true);
+  void dispose() {
+    emit(ProductsByCategoryState(state: ProductAPIState.init));
+    _filters.clear();
+  }
+
   Future<void> init(CategoryModel category) async {
     emit(
       ProductsByCategoryState(
@@ -25,13 +37,13 @@ class ProductsByCategoryBloc extends Cubit<ProductsByCategoryState> {
     );
     final data = await _repo.getProducts(
       slugs: List.empty(growable: true)..add(category.slug),
-      properties: List.empty(),
+      properties: _filters.map((e) => e.id).toList(),
       page: 0,
     );
     if (data != null) {
       emit(
         ProductsByCategoryState(
-          state: ProductAPIState.succses,
+          state: ProductAPIState.success,
           pagination: data[APIKeys.pagination],
           products: List.from(data[APIKeys.products]),
           category: category,
@@ -58,13 +70,13 @@ class ProductsByCategoryBloc extends Cubit<ProductsByCategoryState> {
     );
     final data = await _repo.getProducts(
       slugs: List.empty(growable: true)..add(state.category!.slug),
-      properties: List.empty(),
+      properties: _filters.map((e) => e.id).toList(),
       page: state.pagination!.currentPage + 1,
     );
     if (data != null) {
       return emit(
         ProductsByCategoryState(
-          state: ProductAPIState.succses,
+          state: ProductAPIState.success,
           category: state.category,
           pagination: data[APIKeys.pagination],
           products: List.from(state.products ?? [])
@@ -82,5 +94,11 @@ class ProductsByCategoryBloc extends Cubit<ProductsByCategoryState> {
         ),
       ),
     );
+  }
+
+  void filter(List<PropertyValue> props) {
+    _filters = List.from(props);
+    if (state.state == ProductAPIState.init) return;
+    init(state.category!);
   }
 }

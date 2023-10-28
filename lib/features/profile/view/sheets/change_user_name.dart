@@ -10,7 +10,6 @@ import 'package:hh_express/settings/consts.dart';
 
 class ChangeUserNameSheet extends StatefulWidget {
   const ChangeUserNameSheet({super.key});
-
   @override
   State<ChangeUserNameSheet> createState() => _ChangeUserNameSheetState();
 }
@@ -27,24 +26,26 @@ class _ChangeUserNameSheetState extends State<ChangeUserNameSheet> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return KeyboardSizeProvider(
       smallSize: 400,
       child: Column(
         children: [
           BottomSheetTitle(
-            title: context.l10n.userName,
+            title: l10n.userName,
             isPadded: true,
           ),
           AppSpacing.vertical_40,
           AuthField(
-            label: context.l10n.name,
+            keyboardType: TextInputType.text,
+            label: l10n.name,
             controller: controller,
           ),
           Padding(
             padding: AppPaddings.horiz_16.copyWith(bottom: 16.h, top: 10.h),
             child: MyDarkTextButton(
               title: context.l10n.save,
-              onTap: () {
+              onTap: () async {
                 Navigator.pop(context);
               },
             ),

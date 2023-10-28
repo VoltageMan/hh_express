@@ -57,5 +57,9 @@
   "password": "Password",
   "singIn": "Sing in",
   "next": "Continue",
-  "similarProducts": "Similar products"
+  "similarProducts": "Similar products",
+  "orderInfo": "Order information",
+  "description": "Description",
+  "more": "More",
+  "address": "Address"
 }

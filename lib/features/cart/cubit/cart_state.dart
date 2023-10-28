@@ -1,10 +1,14 @@
 part of 'cart_cubit.dart';
 
-abstract class CartState extends Equatable {
-  const CartState();
+class CartState extends Equatable {
+  const CartState({
+    required this.apiState,
+    this.cart,
+  });
+
+  final CartAPIState apiState;
+  final CartModel? cart;
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [apiState, cart];
 }
-
-class CartInitial extends CartState {}

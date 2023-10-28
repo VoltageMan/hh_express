@@ -12,8 +12,7 @@ class OrderInfoWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    final isLoading = false;
-    final forCart = prod is String;
+    if (prod == null) return _LoadingWidget();
     return Container(
       margin: AppPaddings.all_16,
       padding: AppPaddings.horiz16_vertic12,
@@ -28,30 +27,63 @@ class OrderInfoWidget extends StatelessWidget {
       child: Column(
         children: [
           for (int i = 0; i < 2; i++)
-            forCart
-                ? const SizedBox()
-                : OrderInfoListTile(
-                    title: context.l10n.orderState,
-                    content: isLoading
-                        ? null
-                        : i == 0
-                            ? 'geldi'
-                            : 'LQNSU346JK',
-                  ),
-          forCart ? const SizedBox() : DashedLine(isLoading: isLoading),
+            OrderInfoListTile(
+              title: l10n.orderState,
+              content: i == 0 ? 'geldi' : 'LQNSU346JK',
+            ),
+          DashedLine(isLoading: false),
           for (int i = 0; i < 3; i++)
             OrderInfoListTile(
-              title: context.l10n.orderState,
-              content: isLoading
-                  ? null
-                  : i == 0
-                      ? 'geldi'
-                      : 'LQNSU346JK',
+              title: l10n.orderState,
+              content: i == 0 ? 'geldi' : 'LQNSU346JK',
             ),
-          DashedLine(isLoading: isLoading),
+          DashedLine(isLoading: false),
           OrderInfoListTile(
             title: 'Jemi bahasy',
-            content: isLoading ? null : '643 TMT',
+            content: '643 TMT',
+            contentBold: true,
+            titleBold: true,
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class _LoadingWidget extends StatelessWidget {
+  const _LoadingWidget({
+    super.key,
+  });
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: AppPaddings.all_16,
+      padding: AppPaddings.horiz16_vertic12,
+      decoration: BoxDecoration(
+        borderRadius: AppBorderRadiuses.border_6,
+        border: Border.all(
+          color: AppColors.lightGrey,
+          width: 1.5.sp,
+        ),
+      ),
+      alignment: Alignment.topRight,
+      child: Column(
+        children: [
+          for (int i = 0; i < 2; i++)
+            OrderInfoListTile(
+              title: null,
+              content: null,
+            ),
+          DashedLine(isLoading: true),
+          for (int i = 0; i < 3; i++)
+            OrderInfoListTile(
+              title: null,
+              content: null,
+            ),
+          DashedLine(isLoading: true),
+          OrderInfoListTile(
+            title: null,
+            content: null,
             contentBold: true,
             titleBold: true,
           )

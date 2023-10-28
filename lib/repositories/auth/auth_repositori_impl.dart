@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:hh_express/data/local/secured_storage.dart';
 import 'package:hh_express/data/remote/dio_client.dart';
+import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/models/api/response_model.dart';
 import 'package:hh_express/models/auth/auth_model.dart';
 import 'package:hh_express/repositories/auth/auth_repositori.dart';
@@ -10,29 +11,32 @@ import 'package:injectable/injectable.dart';
 @Injectable(as: AuthRepo)
 class AuthRepoImpl extends AuthRepo with DioClientMixin {
   @override
-  Future<ApiResponse> logIn(AuthModel model) async {
+  Future<String?> logIn(AuthModel model) async {
     final response = await dio.post(
       endPoint: EndPoints.logIn,
       data: model.toJson(),
-      options: Options(),
     );
     if (response.success) {
-      await LocalStorage.saveToken(response.data['accec_token']);
+      final token = response.data['access_token'] as String;
+      await LocalStorage.saveToken(token..log(message: 'Tooken'));
+      return token;
     }
-    return response;
+    return null;
   }
 
   @override
-  Future<ApiResponse> register(AuthModel model) async {
+  Future<String?> register(AuthModel model) async {
     final response = await dio.post(
       endPoint: EndPoints.register,
       data: model.toJson(),
     );
     if (response.success) {
-      await LocalStorage.saveToken(response.data['accec_token']);
+      final token = response.data['access_token'] as String;
+      await LocalStorage.saveToken((token)..log(message: 'Tokeen'));
+      return token;
     }
 
-    return response;
+    return null;
   }
 
   @override

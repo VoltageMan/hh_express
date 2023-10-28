@@ -1,9 +1,11 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hh_express/app/setup.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/models/pagination/pagination_model.dart';
 import 'package:hh_express/models/products/product_model.dart';
+import 'package:hh_express/models/property/values/property_value_model.dart';
 import 'package:hh_express/repositories/products/product_repo.dart';
 import 'package:hh_express/settings/consts.dart';
 import 'package:hh_express/settings/enums.dart';
@@ -15,23 +17,24 @@ class HomeBloc extends Cubit<HomeState> {
 
   final _repo = getIt<ProductRepo>();
   double lastPosition = 0;
-
-  Future<void> init() async {
+  List<PropertyValue> _filters = List.empty();
+  Future<void> init({bool forUpdate = false}) async {
     if (state.state != ProductAPIState.init &&
-        state.state != ProductAPIState.error) {
+        state.state != ProductAPIState.error &&
+        !forUpdate) {
       return;
     }
     'Init Home'.log();
     emit(HomeState(state: ProductAPIState.loading));
     final data = await _repo.getProducts(
       slugs: List.empty(),
-      properties: List.empty(),
+      properties: _filters.map((e) => e.id).toList(),
       page: 0,
     );
     if (data != null) {
       return emit(
         HomeState(
-          state: ProductAPIState.succses,
+          state: ProductAPIState.success,
           pagination: data[APIKeys.pagination],
           prods: List.from(data[APIKeys.products]),
         ),
@@ -62,7 +65,7 @@ class HomeBloc extends Cubit<HomeState> {
     if (data != null) {
       return emit(
         HomeState(
-          state: ProductAPIState.succses,
+          state: ProductAPIState.success,
           pagination: data[APIKeys.pagination],
           prods: List.from(state.prods ?? List.empty())
             ..addAll(data[APIKeys.products]),
@@ -76,5 +79,11 @@ class HomeBloc extends Cubit<HomeState> {
         prods: List.from(state.prods ?? List.empty()),
       ),
     );
+  }
+
+  void filter(List<PropertyValue> props) {
+    _filters = List.from(props);
+    lastPosition = 0;
+    init(forUpdate: true);
   }
 }

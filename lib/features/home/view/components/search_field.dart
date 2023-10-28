@@ -13,11 +13,11 @@ class HomeSearchField extends StatefulWidget {
 
 class _HoemSearchFieldState extends State<HomeSearchField> {
   final focus = FocusNode();
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).inputDecorationTheme;
     return Container(
-      alignment: Alignment.centerLeft,
       padding: AppPaddings.all_2,
       margin: AppPaddings.vertic_6,
       decoration: BoxDecoration(
@@ -27,11 +27,12 @@ class _HoemSearchFieldState extends State<HomeSearchField> {
       child: TextField(
         maxLines: 1,
         scribbleEnabled: false,
-        // scrollPadding: EdgeInsets.zero,
+        scrollPadding: EdgeInsets.zero,
         textInputAction: TextInputAction.search,
         focusNode: focus,
         style: Theme.of(context).textTheme.bodyMedium,
         decoration: InputDecoration(
+          contentPadding: EdgeInsets.only(bottom: 0),
           hintText: context.l10n.searchHint,
           prefixIcon: Padding(
             padding: EdgeInsets.symmetric(

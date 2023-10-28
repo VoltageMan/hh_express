@@ -1,62 +1,84 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hh_express/features/cart/cubit/cart_cubit.dart';
+import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/settings/consts.dart';
 
-class CartCountButton extends StatelessWidget {
-  const CartCountButton({super.key});
+class CartCount extends StatefulWidget {
+  const CartCount({
+    super.key,
+    required this.onAdd,
+    required this.onRemove,
+    required this.count,
+  });
+  final VoidCallback onAdd;
+  final VoidCallback onRemove;
+  final int count;
+  @override
+  State<CartCount> createState() => _CartCountState();
+}
 
+class _CartCountState extends State<CartCount> {
   @override
   Widget build(BuildContext context) {
-    // there was litte space couse borderSide and i solve it with Stack
-    return SizedBox(
-      height: 24.sp,
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          Container(
-            width: 32.w,
-            color: AppColors.darkGrey,
-            alignment: Alignment.center,
-            padding: AppPaddings.all_5,
-            margin: AppPaddings.horiz_6,
-            child: const FittedBox(
+    return BlocBuilder<CartCubit, CartState>(builder: (context, state) {
+      return Expanded(
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                border: AppBorderRadiuses.defBorderDark,
+                borderRadius: AppBorderRadiuses.border_4,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: () {
+                        widget.onRemove();
+                      },
+                      child: FittedBox(
+                        child: Icon(
+                          Icons.remove_outlined,
+                          color: AppColors.darkGrey,
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 32.w),
+                  Expanded(
+                      child: GestureDetector(
+                    onTap: () {
+                      widget.onAdd();
+                    },
+                    child: FittedBox(
+                      child: Icon(
+                        Icons.add_outlined,
+                        color: AppColors.darkGrey,
+                      ),
+                    ),
+                  )),
+                ],
+              ),
+            ),
+            Container(
+              width: 32.w,
+              padding: AppPaddings.horiz_6,
               alignment: Alignment.center,
-              child: Text('1'),
-            ),
-          ),
-          Container(
-            width: 92.w,
-            decoration: BoxDecoration(
-              border: AppBorderRadiuses.defBorderDark,
-              borderRadius: AppBorderRadiuses.border_6,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(
-                  margin: AppPaddings.left_6,
-                  child: const FittedBox(
-                    alignment: Alignment.centerLeft,
-                    child: Icon(
-                      Icons.remove_rounded,
-                    ),
-                  ),
+              color: AppColors.darkGrey,
+              child: FittedBox(
+                child: Text(
+                  '${widget.count}',
+                  style: context.theme.textTheme.labelSmall,
                 ),
-                Container(
-                  margin: AppPaddings.right_6,
-                  child: const FittedBox(
-                    alignment: Alignment.centerRight,
-                    child: Icon(
-                      Icons.add_rounded,
-                    ),
-                  ),
-                ),
-              ],
+              ),
             ),
-          ),
-        ],
-      ),
-    );
+          ],
+        ),
+      );
+    });
   }
 }

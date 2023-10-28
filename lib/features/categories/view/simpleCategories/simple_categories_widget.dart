@@ -17,12 +17,14 @@ class SimpleCategoryWidget extends StatelessWidget {
   final CategoryModel? model;
   @override
   Widget build(BuildContext context) {
-    final isLoading = model == null;
+    if (model == null) {
+      return _LoadingWidet();
+    }
     return GestureDetector(
       onTap: () {
-        if (isLoading || appRouter.location == AppRoutes.productByCategory)
-          return;
-        appRouter.currentContext.push(AppRoutes.productByCategory, extra: model!);
+        if (appRouter.location == AppRoutes.productByCategory) return;
+        appRouter.currentContext
+            .push(AppRoutes.productByCategory, extra: model!);
       },
       child: Container(
         margin: AppPaddings.horiz_4,
@@ -38,34 +40,61 @@ class SimpleCategoryWidget extends StatelessWidget {
               child: SizedBox(
                 width: double.infinity,
                 height: 65.h,
-                child: isLoading
-                    ? const MyShimerPlaceHolder()
-                    : CachedNetworkImage(
-                        fit: BoxFit.cover,
-                        imageUrl: model!.image,
-                        placeholder: (context, url) =>
-                            const MyShimerPlaceHolder(),
-                        errorWidget: (context, url, error) =>
-                            const MyShimerPlaceHolder(),
-                      ),
+                child: CachedNetworkImage(
+                  fit: BoxFit.cover,
+                  imageUrl: model!.image,
+                  placeholder: (context, url) => const MyShimerPlaceHolder(),
+                  errorWidget: (context, url, error) =>
+                      const MyShimerPlaceHolder(),
+                ),
               ),
             ),
             Container(
-              padding: isLoading ? AppPaddings.all_6 : AppPaddings.all_4,
+              padding: AppPaddings.all_4,
               alignment: Alignment.center,
-              child: isLoading
-                  ? MyShimerPlaceHolder(
-                      radius: AppBorderRadiuses.border_2,
-                    )
-                  : Text(
-                      model!.name,
-                      style: AppTheme.bodyMedium10(context),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
+              child: Text(
+                '${model?.name}',
+                style: AppTheme.bodyMedium10(context),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _LoadingWidet extends StatelessWidget {
+  const _LoadingWidet({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: AppPaddings.horiz_4,
+      decoration: BoxDecoration(
+        color: AppColors.lightGrey,
+        borderRadius: AppBorderRadiuses.border_6,
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          ClipRRect(
+            borderRadius: AppBorderRadiuses.top_6,
+            child: SizedBox(
+              width: double.infinity,
+              height: 65.h,
+              child: const MyShimerPlaceHolder(),
+            ),
+          ),
+          Container(
+            alignment: Alignment.center,
+            child: MyShimerPlaceHolder(
+              radius: AppBorderRadiuses.border_2,
+            ),
+          ),
+        ],
       ),
     );
   }

@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_keyboard_size/flutter_keyboard_size.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hh_express/features/address/addres_read_sheet.dart';
+import 'package:hh_express/features/address/cubit/address_cubit.dart';
+import 'package:hh_express/features/address/view/address_field.dart';
 import 'package:hh_express/features/favors/view/favors_body.dart';
 import 'package:hh_express/features/filter/components/sheet_body.dart';
 import 'package:hh_express/features/orders/view/modalSheet/orders_sheet_body.dart';
-import 'package:hh_express/features/productDetails/view/modalSheet/body.dart';
+import 'package:hh_express/features/product_details/view/modalSheet/product_modal_body.dart';
 import 'package:hh_express/features/profile/view/sheets/change_lang_sheet.dart';
 import 'package:hh_express/features/profile/view/sheets/change_user_name.dart';
 import 'package:hh_express/features/profile/view/sheets/choose_welayat_sheet.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/routes.dart';
+import 'package:hh_express/models/addres/address_model.dart';
 
 class ModelBottomSheetHelper {
   static bool _sheetShown = false;
@@ -30,7 +36,9 @@ class ModelBottomSheetHelper {
       isScrollControlled: true,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+          topLeft: Radius.circular(10.r),
+          topRight: Radius.circular(10.r),
+        ),
       ),
       builder: (context) {
         _currentContext = context;
@@ -48,8 +56,8 @@ class ModelBottomSheetHelper {
       isScrollControlled: true,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(10),
-          topRight: Radius.circular(10),
+          topLeft: Radius.circular(10.r),
+          topRight: Radius.circular(10.r),
         ),
       ),
       builder: (context) {
@@ -82,15 +90,16 @@ class ModelBottomSheetHelper {
 
   static Future<void> showProfileSheets(int index) async {
     if (index == 1) return;
-
+    final l10n = appRouter.currentContext.l10n;
     _sheetShown = true;
-    const List<Widget> _profileSheets = [
+    List<Widget> _profileSheets = [
       ChangeUserNameSheet(),
       SizedBox(),
       OrdersSheetBody(),
       FavorsBody(),
-      ChooseWelayatSheet( ),
+      ChooseWelayatSheet(),
       ChangeLangSheet(),
+      AddressReadSheet(),
     ];
     await showModalBottomSheet(
       context: appRouter.currentContext,
@@ -103,6 +112,46 @@ class ModelBottomSheetHelper {
       builder: (context) {
         _currentContext = context;
         return _profileSheets[index];
+      },
+    );
+    _sheetShown = false;
+  }
+
+  static Future<void> showAddressSelecSheet() async {
+    final context = appRouter.currentContext;
+    await showModalBottomSheet(
+      context: context,
+      useRootNavigator: true,
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+      ),
+      builder: (context) {
+        _sheetShown = true;
+        _currentContext = context;
+        return AddressReadSheet(forComplete: true);
+      },
+    );
+    _sheetShown = false;
+  }
+
+  static Future<void> showAddressUpdateSheet(AddressModel? model) async {
+    final context = appRouter.currentContext;
+    await showModalBottomSheet(
+      context: context,
+      useRootNavigator: true,
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+      ),
+      builder: (context) {
+        _sheetShown = true;
+        _currentContext = context;
+        return AddressField(
+          model: model,
+        );
       },
     );
     _sheetShown = false;

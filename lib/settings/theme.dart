@@ -80,7 +80,7 @@ class AppTheme {
       textColor: AppColors.white,
       backgroundColor: AppColors.mainOrange,
       alignment: Alignment.center,
-      padding: EdgeInsets.all(3.sp),
+      padding: EdgeInsets.all(3.h),
       textStyle: TextStyle(
         fontWeight: FontWeight.w700,
         fontSize: 8.sp,
@@ -121,8 +121,13 @@ class AppTheme {
         color: AppColors.lightGrey,
         width: 2.w,
       ),
-      fillColor:
-          MaterialStateColor.resolveWith((states) => AppColors.mainOrange),
+      fillColor: MaterialStateColor.resolveWith(
+        (states) {
+          return states.isNotEmpty && states.last == MaterialState.selected
+              ? AppColors.mainOrange
+              : AppColors.white;
+        },
+      ),
       checkColor:
           MaterialStateColor.resolveWith((states) => AppColors.lightGrey),
       shape: RoundedRectangleBorder(
@@ -148,12 +153,12 @@ class AppTheme {
       selectedItemColor: AppColors.mainOrange,
       selectedLabelStyle: TextStyle(
         fontWeight: FontWeight.w400,
-        fontSize: 10.sp,
+        fontSize: 10.h,
         color: AppColors.mainOrange,
       ),
       unselectedLabelStyle: TextStyle(
         fontWeight: FontWeight.w400,
-        fontSize: 10.sp,
+        fontSize: 10.h,
         color: AppColors.darkGrey,
       ),
       unselectedItemColor: AppColors.darkGrey,
@@ -185,7 +190,7 @@ class AppTheme {
         fontWeight: FontWeight.w400,
       ),
       titleMedium: TextStyle(
-        fontWeight: FontWeight.w400,
+        fontWeight: FontWeight.w600,
         fontSize: 18.sp,
         color: AppColors.darkBlue,
       ),

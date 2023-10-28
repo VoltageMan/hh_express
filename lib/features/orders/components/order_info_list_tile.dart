@@ -20,7 +20,8 @@ class OrderInfoListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
-    final isLoading = false;
+    final isLoading = title == null;
+    if (isLoading) return _LoadingWidget();
     return Padding(
       padding: titleBold != null || contentBold != null
           ? EdgeInsets.zero
@@ -29,38 +30,52 @@ class OrderInfoListTile extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          isLoading
-              ? MyShimerPlaceHolder(
-                  width: 115.w,
-                  height: 18.h,
-                  radius: AppBorderRadiuses.border_4,
-                )
-              : Text(
-                  title!,
-                  overflow: TextOverflow.ellipsis,
-                  textAlign: TextAlign.start,
-                  style: titleBold ?? false
-                      ? theme.titleLarge
-                      : theme.displaySmall,
-                ),
+          Text(
+            '$title',
+            overflow: TextOverflow.ellipsis,
+            textAlign: TextAlign.start,
+            style: titleBold ?? false ? theme.titleLarge : theme.displaySmall,
+          ),
           AppSpacing.horizontal_8,
-          isLoading
-              ? MyShimerPlaceHolder(
-                  width: 70.w,
-                  height: 18.h,
-                  radius: AppBorderRadiuses.border_4,
-                )
-              : Expanded(
-                  child: Text(
-                    content!,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    textAlign: TextAlign.end,
-                    style: contentBold ?? false
-                        ? theme.bodyLarge
-                        : AppTheme.bodyMedium14(context),
-                  ),
-                ),
+          Expanded(
+            child: Text(
+              '$content',
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.end,
+              style: contentBold ?? false
+                  ? theme.bodyLarge
+                  : AppTheme.bodyMedium14(context),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _LoadingWidget extends StatelessWidget {
+  const _LoadingWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: AppPaddings.bottom_15,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          MyShimerPlaceHolder(
+            width: 115.w,
+            height: 18.h,
+            radius: AppBorderRadiuses.border_4,
+          ),
+          AppSpacing.horizontal_8,
+          MyShimerPlaceHolder(
+            width: 70.w,
+            height: 18.h,
+            radius: AppBorderRadiuses.border_4,
+          )
         ],
       ),
     );
