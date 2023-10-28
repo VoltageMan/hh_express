@@ -63,7 +63,12 @@ class CartCubit extends Cubit<CartState> {
     }
     SnackBarHelper.showMessageSnack(
         data != null ? 'success' : 'some things went wrong');
-    emit(CartState(apiState: CartAPIState.success, cart: data));
+    emit(
+      CartState(
+        apiState: CartAPIState.success,
+        cart: data == null ? state.cart : data,
+      ),
+    );
     OverlayHelper.remove();
     return value;
   }
