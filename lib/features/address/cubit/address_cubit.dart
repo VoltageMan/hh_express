@@ -40,7 +40,7 @@ class AddressCubit extends Cubit<AddressState> {
     }
     SnackBarHelper.showTopSnack(
       isSucceed ? 'Succes' : 'some Thins went Wrong',
-      isSucceed ? APIState.succses : APIState.error,
+      isSucceed ? APIState.success : APIState.error,
     );
     OverlayHelper.remove();
   }
@@ -94,7 +94,7 @@ class AddressCubit extends Cubit<AddressState> {
 
     SnackBarHelper.showTopSnack(
       isSucceed ? 'Succes' : 'some Thins went Wrong',
-      isSucceed ? APIState.succses : APIState.error,
+      isSucceed ? APIState.success : APIState.error,
     );
     OverlayHelper.remove();
   }
