@@ -2,7 +2,7 @@ enum APIState {
   init,
   loading,
   error,
-  succses,
+  success,
 }
 
 enum CategoryAPIState {
@@ -11,7 +11,7 @@ enum CategoryAPIState {
   loadingSubs,
   error,
   errorSubs,
-  succses,
+  success,
 }
 
 enum AddressApiState {
@@ -26,7 +26,7 @@ enum CartAPIState {
   init,
   loading,
   error,
-  succses,
+  success,
 }
 
 enum LocalDataKeys {
@@ -40,19 +40,19 @@ enum ProductAPIState {
   loadingMore,
   loadingMoreError,
   error,
-  succses,
+  success,
 }
 
 enum ProdDetailsAPIState {
   init,
   loading,
   error,
-  succses,
+  success,
 }
 
 enum FilterAPIState {
   init,
   loading,
   error,
-  succses,
+  success,
 }

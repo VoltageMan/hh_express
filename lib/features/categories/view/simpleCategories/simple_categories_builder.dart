@@ -17,7 +17,7 @@ class SimpleCategoriesBuilder extends StatelessWidget {
     return BlocBuilder<CategoryBloc, CategoryState>(
       builder: (context, state) {
         final slug = state.mains?[state.activIndex ?? 0].slug;
-        if (state.state == CategoryAPIState.succses) {
+        if (state.state == CategoryAPIState.success) {
           return _UIBuilder(
             list: state.subs![slug],
           );

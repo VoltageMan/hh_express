@@ -29,7 +29,7 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
               (scrollController.position.maxScrollExtent - 15.h) &&
           scrollController.position.isScrollingNotifier.value) {
         final state = bloc.state;
-        if (state.state != ProductAPIState.succses ||
+        if (state.state != ProductAPIState.success ||
             state.pagination!.currentPage == state.pagination!.lastPage) {
           return;
         }

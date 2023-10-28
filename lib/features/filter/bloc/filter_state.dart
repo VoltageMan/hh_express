@@ -39,7 +39,7 @@ final class FilterState extends Equatable {
       properties: List.from(oldState.properties!),
       prodByCatselecteds: List.from(oldState.prodByCatselecteds),
       homeSelecteds: List.from(oldState.homeSelecteds),
-      state: FilterAPIState.succses,
+      state: FilterAPIState.success,
     );
   }
 }
