@@ -117,7 +117,7 @@ class ModelBottomSheetHelper {
     _sheetShown = false;
   }
 
-  static Future<void> showAddressSheet(AddressModel? model) async {
+  static Future<void> showAddressSelecSheet() async {
     final context = appRouter.currentContext;
     await showModalBottomSheet(
       context: context,
@@ -128,6 +128,26 @@ class ModelBottomSheetHelper {
             topLeft: Radius.circular(10), topRight: Radius.circular(10)),
       ),
       builder: (context) {
+        _sheetShown = true;
+        _currentContext = context;
+        return AddressReadSheet(forComplete: true);
+      },
+    );
+    _sheetShown = false;
+  }
+
+  static Future<void> showAddressUpdateSheet(AddressModel? model) async {
+    final context = appRouter.currentContext;
+    await showModalBottomSheet(
+      context: context,
+      useRootNavigator: true,
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+      ),
+      builder: (context) {
+        _sheetShown = true;
         _currentContext = context;
         return AddressField(
           model: model,

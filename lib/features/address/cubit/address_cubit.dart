@@ -16,7 +16,7 @@ class AddressCubit extends Cubit<AddressState> {
   AddressCubit() : super(AddressState(state: AddressApiState.init));
   final _repo = getIt<AddressRepo>();
 
-  final selectedAddresIndex = 0;
+  int selectedAddresIndex = -1;
   Future<void> create(String address) async {
     if (address.length < 5) {
       'address Must BeMore Than 5 Symbols'.log();

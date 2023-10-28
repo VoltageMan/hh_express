@@ -4,10 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/features/address/cubit/address_cubit.dart';
 import 'package:hh_express/features/address/view/address_list_tile.dart';
 import 'package:hh_express/features/categories/view/body.dart';
-import 'package:hh_express/features/components/my_text_button.dart';
 import 'package:hh_express/features/product_details/view/product_details_body.dart';
 import 'package:hh_express/helpers/extentions.dart';
-import 'package:hh_express/settings/consts.dart';
 import 'package:hh_express/settings/enums.dart';
 
 class AddressSheetBody extends StatefulWidget {
@@ -18,6 +16,7 @@ class AddressSheetBody extends StatefulWidget {
 }
 
 class _AddressSheetBodyState extends State<AddressSheetBody> {
+  late final cubit = context.read<AddressCubit>();
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -37,16 +36,23 @@ class _AddressSheetBodyState extends State<AddressSheetBody> {
           }
           return Column(
             mainAxisAlignment: MainAxisAlignment.start,
-            children: state.models
-                .map(
-                  (e) => AddressListTile(
-                    onTap: () {},
-                    forComplite: false,
-                    isSelected: false,
-                    model: e,
-                  ),
-                )
-                .toList(),
+            children: [
+              ...List.generate(
+                state.models.length,
+                (index) {
+                  return AddressListTile(
+                    onTap: () {
+                      if (!widget.forComplite) return;
+                      cubit.selectedAddresIndex = index;
+                      setState(() {});
+                    },
+                    forComplite: widget.forComplite,
+                    isSelected: index == cubit.selectedAddresIndex,
+                    model: state.models[index],
+                  );
+                },
+              ),
+            ],
           ).toSingleChildScrollView;
         },
       ),

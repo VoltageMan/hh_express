@@ -10,6 +10,7 @@ import 'package:hh_express/features/categories/view/body.dart';
 import 'package:hh_express/features/components/my_text_button.dart';
 import 'package:hh_express/features/product_details/view/product_details_body.dart';
 import 'package:hh_express/helpers/extentions.dart';
+import 'package:hh_express/helpers/modal_sheets.dart';
 import 'package:hh_express/helpers/overlay_helper.dart';
 import 'package:hh_express/helpers/spacers.dart';
 import 'package:hh_express/settings/consts.dart';
@@ -65,31 +66,8 @@ class CartScreen extends StatelessWidget with DioClientMixin {
                 title: context.l10n.next,
                 width: double.infinity,
                 onTap: () async {
-                  final str = 'uuid';
-                  String? uuid = await LocalStorage.readStr(str);
-                  if (uuid == null) {
-                    try {
-                      final response = await dio.post(
-                        endPoint: EndPoints.createAddres,
-                        data: {
-                          'address': 'hitrowka',
-                        },
-                      );
-                      if (response.success) {
-                        final data = response.data['address']['uuid'];
-                        final save =
-                            await LocalStorage.saveStr(key: 'uuid', val: data);
-                        uuid = data;
-                      } else {
-                        SnackBarHelper.showMessageSnack(
-                            'some things went wrong');
-                      }
-                    } catch (e) {
-                      SnackBarHelper.showMessageSnack('some things went wrong');
-                      return;
-                    }
-                  }
-                  context.read<CartCubit>().complete(uuid ?? 'emty');
+                  ModelBottomSheetHelper.showAddressSelecSheet();
+                  // context.read<CartCubit>().complete('');
                 },
               ),
             )
