@@ -148,7 +148,6 @@ class _CartWidgetState extends State<CartWidget> {
                               ),
                             );
                           },
-                          count: model.quantity,
                           onRemove: () {
                             cubit.cartUpdate(
                               CartUpdateModel(
