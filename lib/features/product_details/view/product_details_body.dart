@@ -119,7 +119,8 @@ class _ProdDetailsBodyState extends State<ProdDetailsBody>
                               child: CachedNetworkImage(
                                 imageUrl: image,
                                 //! errorWidget
-                                errorWidget: null,
+                                errorWidget: (context, url, error) =>
+                                    ProdDetailsImagePlaceHolder(),
                                 placeholder: (context, url) =>
                                     ProdDetailsImagePlaceHolder(),
                                 height: 300.h,
@@ -166,7 +167,7 @@ class _ProdDetailsBodyState extends State<ProdDetailsBody>
               ),
               ...product.properties.map(
                 (e) {
-                  if (e.name == 'colors') return const ProdColorBuilder();
+                  if (e.name == 'colors') return ProdColorBuilder(model: e);
                   return PropertyBuilder(model: e, id: id);
                 },
               ).toList(),

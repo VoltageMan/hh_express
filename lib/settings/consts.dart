@@ -78,6 +78,7 @@ class AppPaddings {
   static EdgeInsets horiz_21 = EdgeInsets.symmetric(horizontal: 21.w);
   static EdgeInsets horiz_28 = EdgeInsets.symmetric(horizontal: 28.h);
   static EdgeInsets horiz_8 = EdgeInsets.symmetric(horizontal: 8.w);
+  static EdgeInsets horiz_10 = EdgeInsets.symmetric(horizontal: 10.w);
   static EdgeInsets horiz_6 = EdgeInsets.symmetric(horizontal: 6.w);
   static EdgeInsets horiz_2 = EdgeInsets.symmetric(horizontal: 2.w);
   static EdgeInsets horiz_3 = EdgeInsets.symmetric(horizontal: 3.w);
