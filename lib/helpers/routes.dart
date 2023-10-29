@@ -13,7 +13,6 @@ import 'package:hh_express/models/categories/category_model.dart';
 enum EnumNavRoutes { home, video, category, cart, profile }
 
 class AppRoutes {
-  
   // static List<String> navBar = [
   //   '/${EnumNavRoutes.home.name}',
   //   '/${EnumNavRoutes.video.name}',
@@ -87,9 +86,16 @@ final appRouter = GoRouter(
     ),
     GoRoute(
       path: AppRoutes.prodDetails,
-      builder: (context, state) {
+      // name: AppRoutes.prodDetails.to,
+      // builder: (context, state) {
+      //   final id = state.extra as int;
+      //   return ProductDetails(id: id);
+      // },
+      pageBuilder: (context, state) {
         final id = state.extra as int;
-        return ProductDetails(id: id);
+        return CupertinoPage(
+          child: ProductDetails(id: id),
+        );
       },
     ),
     GoRoute(

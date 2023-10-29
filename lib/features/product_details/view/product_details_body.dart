@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/features/categories/view/body.dart';
-import 'package:hh_express/features/components/widgets/place_holder.dart';
 import 'package:hh_express/features/home/bloc/home_bloc.dart';
 import 'package:hh_express/features/home/view/components/product_widget.dart';
 import 'package:hh_express/features/product_details/bloc/product_details_bloc.dart';
@@ -38,7 +37,7 @@ class _ProdDetailsBodyState extends State<ProdDetailsBody>
   @override
   void dispose() {
     tabController?.dispose();
-    bloc.screenDispose();
+    // bloc.screenDispose();
     super.dispose();
   }
 
@@ -76,16 +75,15 @@ class _ProdDetailsBodyState extends State<ProdDetailsBody>
               id.log();
             },
           );
-        final prodIndex = bloc.fingProdIndex(id);
 
-        if (state.state == ProdDetailsAPIState.error || prodIndex == -1)
+        if (state.state == ProdDetailsAPIState.error)
           return CategoryErrorBody(
             onTap: () {
               bloc.init(id);
             },
           );
 
-        final product = state.products[prodIndex];
+        final product = state.product!;
         final hasDiscount = product.discount != null;
         final l10n = context.l10n;
         setTabController(product.images.length);
@@ -216,6 +214,7 @@ class _ProdDetailsBodyState extends State<ProdDetailsBody>
                     itemCount: context.read<HomeBloc>().state.prods!.length,
                     itemBuilder: (context, index) {
                       return HomeProdWidget(
+                        forProdDetails: true,
                         index: index == 0 ? -1 : -2,
                         prod: context.read<HomeBloc>().state.prods![index],
                       );
