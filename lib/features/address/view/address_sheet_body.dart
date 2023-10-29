@@ -17,7 +17,7 @@ class AddressSheetBody extends StatefulWidget {
 }
 
 class _AddressSheetBodyState extends State<AddressSheetBody> {
-  late final cubit = context.read<AddressCubit>()..init();
+  late final cubit = context.read<AddressCubit>();
   @override
   Widget build(BuildContext context) {
     return SizedBox(
