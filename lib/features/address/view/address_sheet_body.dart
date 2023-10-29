@@ -27,7 +27,12 @@ class _AddressSheetBodyState extends State<AddressSheetBody> {
         bloc: cubit,
         builder: (context, state) {
           if (state.state == AddressApiState.init) return SizedBox();
-          if (state.state == AddressApiState.error) return CategoryErrorBody();
+          if (state.state == AddressApiState.error)
+            return CategoryErrorBody(
+              onTap: () {
+                cubit.init();
+              },
+            );
           if (state.state == AddressApiState.loading) return CenterLoading();
           if (state.state == AddressApiState.unAuthorized)
             return _centerText('unAuthorized');

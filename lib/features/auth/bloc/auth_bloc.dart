@@ -18,10 +18,12 @@ class AuthBloc extends Cubit<AuthState> {
   final _repo = getIt<AuthRepo>();
 
   void confirmTerms(bool val) {
-    emit(AuthState(
-      apiState: APIState.init,
-      termsConfirmed: val,
-    ));
+    emit(
+      AuthState(
+        apiState: APIState.init,
+        termsConfirmed: val,
+      ),
+    );
   }
 
   Future<Map<String, dynamic>?> authMe() async {
@@ -35,7 +37,7 @@ class AuthBloc extends Cubit<AuthState> {
           apiState: APIState.init, termsConfirmed: state.termsConfirmed));
       return null;
     }
-    final response = await _repo.authMe(token);
+    final response = await _repo.authMe();
     if (response.success) {
       emit(AuthState(
           apiState: APIState.success,
@@ -122,17 +124,21 @@ class AuthBloc extends Cubit<AuthState> {
   }
 
   Future<bool> logOut() async {
-    emit(AuthState(
-        apiState: APIState.loading, termsConfirmed: state.termsConfirmed));
+    emit(
+      AuthState(
+        apiState: APIState.loading,
+        termsConfirmed: state.termsConfirmed,
+      ),
+    );
     OverlayHelper.showLoading();
-    final token = LocalStorage.getToken;
-    final response = await _repo.logOut(token!);
-    if (response.success) {
+    'request.log'.log();
+    final response = await _repo.logOut();
+    if (response) {
       reInitOtherScreens();
       emit(
         AuthState(
           apiState: APIState.success,
-          message: response.message,
+          message: 'succses',
           termsConfirmed: state.termsConfirmed,
         ),
       );
@@ -142,10 +148,15 @@ class AuthBloc extends Cubit<AuthState> {
     emit(
       AuthState(
         apiState: APIState.error,
-        message: response.message,
+        message: 'somehings went wrong',
         termsConfirmed: state.termsConfirmed,
       ),
     );
+    SnackBarHelper.showTopSnack(
+      response ? 'succses' : 'somethingwent wrong',
+      response ? APIState.success : APIState.error,
+    );
+
     OverlayHelper.remove();
     return false;
   }

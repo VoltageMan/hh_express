@@ -25,6 +25,7 @@ class LocalStorage {
   }
 
   static Future<void> deleteToken() async {
+    _token = null;
     await _storage.delete(key: LocalDataKeys.token.name);
   }
 

@@ -16,7 +16,6 @@ class OverlayHelper {
   }
 
   static Future<void> showLoading() async {
-    'kuukuk'.log();
     var ovv = Overlay.of(appRouter.currentContext);
     _entry = OverlayEntry(
       builder: (context) {

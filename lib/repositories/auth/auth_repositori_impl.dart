@@ -40,31 +40,17 @@ class AuthRepoImpl extends AuthRepo with DioClientMixin {
   }
 
   @override
-  Future<ApiResponse> logOut(String token) async {
-    final headers = {
-      'Authorization': 'Bearer $token',
-    };
-    final response = await dio.delete(
-      endPoint: EndPoints.logOut,
-      options: Options(headers: headers),
-    );
+  Future<bool> logOut() async {
+    final response = await dio.delete(endPoint: EndPoints.logOut);
     if (response.success) {
       await LocalStorage.deleteToken();
     }
-    return response;
+    return response.success;
   }
 
   @override
-  Future<ApiResponse> authMe(String token) async {
-    final headers = {
-      'Authorization': 'Authorization: Bearer $token',
-    };
-    final response = await dio.get(
-      endPoint: EndPoints.authMe,
-      options: Options(
-        headers: headers,
-      ),
-    );
+  Future<ApiResponse> authMe() async {
+    final response = await dio.get(endPoint: EndPoints.authMe);
     return response;
   }
 }

@@ -48,20 +48,6 @@ class _AuthBodyState extends State<AuthBody>
     super.dispose();
   }
 
-  void myShowSnack(String message, APIState state) {
-    if (state == APIState.error) {
-      showTopSnackBar(
-        Overlay.of(context),
-        CustomSnackBar.error(message: message),
-      );
-      return;
-    }
-    if (state == APIState.success) {
-      showTopSnackBar(
-          Overlay.of(context), CustomSnackBar.success(message: message));
-    }
-  }
-
   bool _loading = false;
   late AuthBloc bloc;
 
@@ -72,6 +58,8 @@ class _AuthBodyState extends State<AuthBody>
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
         'AuthListener'.log();
+        if (state.apiState != APIState.success ||
+            state.apiState != APIState.error) return;
         SnackBarHelper.showTopSnack(
             state.message ?? ' NoMessage', state.apiState);
       },
