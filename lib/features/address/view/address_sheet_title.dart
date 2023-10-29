@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hh_express/features/address/cubit/address_cubit.dart';
 import 'package:hh_express/features/components/widgets/svg_icons.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/modal_sheets.dart';
 import 'package:hh_express/settings/consts.dart';
+import 'package:hh_express/settings/enums.dart';
 import 'package:hh_express/settings/theme.dart';
 
 class AddressSheetTitle extends StatelessWidget {
@@ -20,6 +23,10 @@ class AddressSheetTitle extends StatelessWidget {
           !forComplete
               ? GestureDetector(
                   onTap: () async {
+                    final state = context.read<AddressCubit>().state;
+                    if (state.state != AddressApiState.succses) {
+                      return;
+                    }
                     ModelBottomSheetHelper.doPop();
                     await ModelBottomSheetHelper.showAddressUpdateSheet(null);
 

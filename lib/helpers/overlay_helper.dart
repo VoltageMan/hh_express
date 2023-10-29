@@ -86,7 +86,9 @@ class SnackBarHelper {
     if (state == APIState.success) {
       showTopSnackBar(
           Overlay.of(context), CustomSnackBar.success(message: message));
+      return;
     }
+    showTopSnackBar(Overlay.of(context), CustomSnackBar.info(message: message));
   }
 
   static void showMessageSnack(String message) {
