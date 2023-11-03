@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:dart_pusher_channels/dart_pusher_channels.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hh_express/app/setup.dart';
@@ -13,6 +11,8 @@ import 'package:hh_express/settings/enums.dart';
 class ChatBloc extends Bloc<ChatEvent, ChatState> {
   ChatBloc() : super(ChatState()) {
     final repo = getIt<ChatRepo>();
+
+    ///Adding user's sended message (file or text) to messages list, don't request messages list from the server for that.
     on<AddMessageToListEvent>((event, emit) async {
       await Future.delayed(
         Duration(
@@ -31,9 +31,10 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
           messages: newSet,
         ),
       );
-      print('last message image - ${state.messages?.last.image}');
       return;
     });
+
+    ///Getting messages page, if page is first - connect to websocket.
     on<GetMessagesListEvent>((event, emit) async {
       emit(
         state.update(
@@ -69,6 +70,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       );
     });
 
+    ///Sending message to server (file or text)
     on<SendMessageEvent>(
       (event, emit) async {
         final response = await repo.sendMessage(
@@ -94,9 +96,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     );
   }
 
-  final wsUrl =
-      'ws://216.250.9.74:6001/app/asmanKbdgI?protocol=7&client=js&version=4.3.1&flash=false';
-  final authEndpoint = 'http://216.250.9.74/api/broadcasting/auth';
+  final _authEndpoint = 'http://216.250.9.74/api/broadcasting/auth';
   late PusherChannelsClient pusher;
 
   void connectToWebsocket(int conversationId) async {
@@ -116,6 +116,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     pusher = PusherChannelsClient.websocket(
       options: options,
       connectionErrorHandler: (dynamic exception, trace, refresh) {
+        //TODO: show snack bar until succesful connection, don't remove refresh()
         refresh();
       },
     );
@@ -124,25 +125,20 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     final token = LocalStorage.getToken;
 
     await pusher.connect();
-    print('TOKEN - - - - -$token');
     final channel = pusher.privateChannel('User.Chat.$conversationId',
         authorizationDelegate:
             EndpointAuthorizableChannelTokenAuthorizationDelegate
                 .forPrivateChannel(
-          authorizationEndpoint: Uri.parse(authEndpoint),
+          authorizationEndpoint: Uri.parse(_authEndpoint),
           headers: {'Authorization': 'Bearer $token'},
           onAuthFailed: (exception, trace) {
-            log('FAIL - ${(exception as EndpointAuthorizableChannelTokenAuthorizationException).response.body}, ${(exception).response.statusCode}, stack --- $trace');
+            //TODO: show dialog with error.
           },
         ));
     channel.bind('MessageCreated').listen((event) {
-      log('MESSAGE - - - -  ${event.data}');
       final message = Message.fromJson(event.data);
       add(AddMessageToListEvent(message: message));
     });
     channel.subscribe();
   }
 }
-
-// User.Chat.{conversation_id}
-// }

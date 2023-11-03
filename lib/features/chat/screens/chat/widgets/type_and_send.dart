@@ -28,13 +28,93 @@ class _TypeAndSendState extends State<TypeAndSend> {
     });
   }
 
+  void showCameraOrGallerySelector() {
+    final bloc = BlocProvider.of<ChatBloc>(context);
+    showModalBottomSheet(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(
+              20,
+            ),
+          ),
+        ),
+        context: context,
+        builder: (ctx) {
+          return Container(
+            padding: EdgeInsets.all(20.sp),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(
+                      20,
+                    ),
+                  ),
+                  padding: EdgeInsets.all(5.sp),
+                  child: IconButton(
+                    onPressed: () async {
+                      Navigator.of(ctx).pop();
+                      final image = await ImagePicker().pickImage(
+                          source: ImageSource.camera, imageQuality: 50);
+                      if (image != null) {
+                        bloc.add(
+                          SendMessageEvent(
+                            file: image,
+                          ),
+                        );
+                      }
+                    },
+                    icon: Icon(
+                      Icons.camera_outlined,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 30.h,
+                  child: VerticalDivider(
+                    thickness: 1,
+                    color: Colors.black,
+                  ),
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(
+                      20,
+                    ),
+                  ),
+                  padding: EdgeInsets.all(5.sp),
+                  child: IconButton(
+                    onPressed: () async {
+                      Navigator.of(ctx).pop();
+                      final image = await ImagePicker().pickImage(
+                          source: ImageSource.gallery, imageQuality: 50);
+                      if (image != null) {
+                        bloc.add(
+                          SendMessageEvent(
+                            file: image,
+                          ),
+                        );
+                      }
+                    },
+                    icon: Icon(
+                      Icons.image_outlined,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     final bloc = BlocProvider.of<ChatBloc>(context);
     return BottomAppBar(
       padding:
           EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-      color: Colors.white70,
+      color: Colors.white,
       child: Row(
         children: [
           SizedBox(
@@ -52,15 +132,7 @@ class _TypeAndSendState extends State<TypeAndSend> {
           ),
           IconButton(
             onPressed: () async {
-              final image = await ImagePicker()
-                  .pickImage(source: ImageSource.gallery, imageQuality: 50);
-              if (image != null) {
-                bloc.add(
-                  SendMessageEvent(
-                    file: image,
-                  ),
-                );
-              }
+              showCameraOrGallerySelector();
             },
             icon: const Icon(
               Icons.attach_file,

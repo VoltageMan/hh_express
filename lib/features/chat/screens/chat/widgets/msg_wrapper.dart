@@ -19,7 +19,9 @@ class MessageWrapper extends StatelessWidget {
       padding: const EdgeInsets.all(10),
       margin: const EdgeInsets.all(4),
       decoration: BoxDecoration(
-        color: msg.is_owner ? Colors.blue[400] : Colors.blue[200],
+        color: msg.is_owner
+            ? Color.fromARGB(255, 164, 216, 233)
+            : Color.fromARGB(255, 134, 180, 196),
         borderRadius: BorderRadius.circular(10),
       ),
       child: msg.type == 'file'

@@ -12,6 +12,7 @@ class ChatWithBackground extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MsgsList(msgs: msgs);
+    return ColoredBox(
+        color: Color.fromARGB(255, 208, 226, 180), child: MsgsList(msgs: msgs));
   }
 }
