@@ -1,9 +1,9 @@
-import 'package:dio/dio.dart';
 import 'package:hh_express/data/local/secured_storage.dart';
 import 'package:hh_express/data/remote/dio_client.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/models/api/response_model.dart';
 import 'package:hh_express/models/auth/auth_model.dart';
+import 'package:hh_express/models/auth/user/user_model.dart';
 import 'package:hh_express/repositories/auth/auth_repositori.dart';
 import 'package:hh_express/settings/consts.dart';
 import 'package:injectable/injectable.dart';
@@ -11,29 +11,32 @@ import 'package:injectable/injectable.dart';
 @Injectable(as: AuthRepo)
 class AuthRepoImpl extends AuthRepo with DioClientMixin {
   @override
-  Future<String?> logIn(AuthModel model) async {
+  Future<UserModel?> logIn(AuthModel model) async {
     final response = await dio.post(
       endPoint: EndPoints.logIn,
       data: model.toJson(),
     );
     if (response.success) {
-      final token = response.data['access_token'] as String;
+      final token = response.data[APIKeys.accsesToken] as String;
+      final user = UserModel.fromJson(response.data[APIKeys.user]);
       await LocalStorage.saveToken(token..log(message: 'Tooken'));
-      return token;
+      return user;
     }
     return null;
   }
 
   @override
-  Future<String?> register(AuthModel model) async {
+  Future<UserModel?> register(AuthModel model) async {
     final response = await dio.post(
       endPoint: EndPoints.register,
       data: model.toJson(),
     );
     if (response.success) {
-      final token = response.data['access_token'] as String;
+      final token = response.data[APIKeys.accsesToken] as String;
+      final user = UserModel.fromJson(response.data[APIKeys.user]);
+
       await LocalStorage.saveToken((token)..log(message: 'Tokeen'));
-      return token;
+      return user;
     }
 
     return null;
@@ -49,8 +52,12 @@ class AuthRepoImpl extends AuthRepo with DioClientMixin {
   }
 
   @override
-  Future<ApiResponse> authMe() async {
+  Future<UserModel?> authMe() async {
     final response = await dio.get(endPoint: EndPoints.authMe);
-    return response;
+    if (response.success) {
+      final user = UserModel.fromJson(response.data[APIKeys.user]);
+      return user;
+    }
+    return null;
   }
 }

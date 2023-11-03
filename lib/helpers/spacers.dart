@@ -33,6 +33,9 @@ class AppSpacing {
   static SizedBox horizontal_16 = SizedBox(
     width: 16.w,
   );
+  static SizedBox horizontal_15 = SizedBox(
+    width: 15.w,
+  );
   static SizedBox vertical_18 = SizedBox(
     height: 18.h,
   );
@@ -93,10 +96,10 @@ class AppSpacing {
     topPad = padding;
   }
 
-  static double getTextHeight(int size) {
+  static double getTextHeight(num size, {FontWeight? weight}) {
     RenderParagraph renderParagraph = RenderParagraph(
       TextSpan(
-        text: 'h',
+        text: 'T',
         style: TextStyle(
           fontSize: size.sp,
         ),

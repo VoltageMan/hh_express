@@ -13,7 +13,10 @@ class MyButtonStyle extends ButtonStyle {
 }
 
 class AppTheme {
-  static final mainTheme = ThemeData();
+  static TextStyle titleLargeW600(BuildContext context) => Theme.of(context)
+      .textTheme
+      .titleLarge!
+      .copyWith(fontWeight: FontWeight.w600);
   static TextStyle titleLarge12(BuildContext context) =>
       Theme.of(context).textTheme.titleLarge!.copyWith(fontSize: 12.sp);
   static TextStyle titleLarge18(BuildContext context) =>

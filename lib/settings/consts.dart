@@ -120,8 +120,9 @@ class AppPaddings {
 }
 
 class AppBorderRadiuses {
-  static final border_2 = BorderRadius.circular(2);
-  static final border_4 = BorderRadius.circular(4);
+  static final border_2 = BorderRadius.circular(2.r);
+  static final border_4 = BorderRadius.circular(4.r);
+  static final border_5 = BorderRadius.circular(5.r);
   static final border_6 = BorderRadius.circular(6);
   static final border_8 = BorderRadius.circular(8.r);
   static final border_10 = BorderRadius.circular(10.r);
@@ -253,7 +254,7 @@ class APIKeys {
   static const cart = 'cart';
   static const subCategories = 'sub_categories';
   static const activCategory = 'active_category';
-  static const accsesToken = 'accses_token';
+  static const accsesToken = 'access_token';
   static const user = 'user';
   static const success = 'succsess';
   static const message = 'message';
