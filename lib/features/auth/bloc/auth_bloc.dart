@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hh_express/app/setup.dart';
@@ -8,6 +9,7 @@ import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/overlay_helper.dart';
 import 'package:hh_express/helpers/routes.dart';
 import 'package:hh_express/models/auth/auth_model.dart';
+import 'package:hh_express/models/auth/user/user_model.dart';
 import 'package:hh_express/repositories/auth/auth_repositori.dart';
 import 'package:hh_express/settings/enums.dart';
 
@@ -26,30 +28,21 @@ class AuthBloc extends Cubit<AuthState> {
     );
   }
 
-  Future<Map<String, dynamic>?> authMe() async {
+  Future<void> authMe() async {
     emit(AuthState(
         apiState: APIState.loading, termsConfirmed: state.termsConfirmed));
-    final token = LocalStorage.getToken;
-    if (token == null) {
-      // do log in
-      appRouter.currentContext.push(AppRoutes.auth, extra: true);
-      emit(AuthState(
-          apiState: APIState.init, termsConfirmed: state.termsConfirmed));
-      return null;
-    }
+    OverlayHelper.showLoading();
     final response = await _repo.authMe();
-    if (response.success) {
-      emit(AuthState(
-          apiState: APIState.success,
-          message: response.message,
-          termsConfirmed: state.termsConfirmed));
-      return response.data;
-    }
-    emit(AuthState(
-        apiState: APIState.error,
-        message: response.message,
-        termsConfirmed: state.termsConfirmed));
-    return null;
+    final isSuccess = response != null;
+    emit(
+      AuthState(
+        apiState: isSuccess ? APIState.success : APIState.error,
+        message: isSuccess ? 'Success' : 'error',
+        termsConfirmed: state.termsConfirmed,
+        user: response,
+      ),
+    );
+    OverlayHelper.remove();
   }
 
   bool checkName(String? name) {
@@ -105,22 +98,19 @@ class AuthBloc extends Cubit<AuthState> {
     );
     OverlayHelper.showLoading();
     final response = await _repo.logIn(data);
-    if (response != null) {
+    final isSuccess = response != null;
+    if (isSuccess) {
       reInitOtherScreens();
-      emit(
-        AuthState(
-          apiState: APIState.success,
-          message: 'success',
-          termsConfirmed: state.termsConfirmed,
-        ),
-      );
-      OverlayHelper.remove();
-      return true;
     }
-
+    emit(
+      AuthState(
+        apiState: isSuccess ? APIState.success : APIState.error,
+        message: isSuccess ? 'Success' : 'error',
+        termsConfirmed: state.termsConfirmed,
+      ),
+    );
     OverlayHelper.remove();
-    wrongState('Error');
-    return false;
+    return isSuccess;
   }
 
   Future<bool> logOut() async {
@@ -135,15 +125,8 @@ class AuthBloc extends Cubit<AuthState> {
     final response = await _repo.logOut();
     if (response) {
       reInitOtherScreens();
-      emit(
-        AuthState(
-          apiState: APIState.success,
-          message: 'succses',
-          termsConfirmed: state.termsConfirmed,
-        ),
-      );
       OverlayHelper.remove();
-      return true;
+      return response;
     }
     emit(
       AuthState(
@@ -170,21 +153,19 @@ class AuthBloc extends Cubit<AuthState> {
     );
     OverlayHelper.showLoading();
     final response = await _repo.register(model);
-    if (response != null) {
+    final isSuccess = response != null;
+    if (isSuccess) {
       reInitOtherScreens();
-      emit(
-        AuthState(
-          apiState: APIState.success,
-          message: 'Success',
-          termsConfirmed: state.termsConfirmed,
-        ),
-      );
-      OverlayHelper.remove();
-      return true;
     }
+    emit(
+      AuthState(
+        apiState: isSuccess ? APIState.success : APIState.error,
+        message: isSuccess ? 'Success' : 'error',
+        termsConfirmed: state.termsConfirmed,
+      ),
+    );
     OverlayHelper.remove();
-    wrongState('Error');
-    return false;
+    return isSuccess;
   }
 
   void wrongState(String message) {
@@ -199,7 +180,7 @@ class AuthBloc extends Cubit<AuthState> {
 
   void reInitOtherScreens() {
     final context = appRouter.currentContext;
-    final addressCubit = context.read<AddressCubit>()..init();
-    final cartCubit = context.read<CartCubit>()..getCurrentCart();
+    context.read<AddressCubit>()..init();
+    context.read<CartCubit>()..getCurrentCart();
   }
 }

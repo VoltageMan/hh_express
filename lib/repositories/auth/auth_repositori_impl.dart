@@ -53,6 +53,7 @@ class AuthRepoImpl extends AuthRepo with DioClientMixin {
 
   @override
   Future<UserModel?> authMe() async {
+    if (LocalStorage.getToken == null) return null;
     final response = await dio.get(endPoint: EndPoints.authMe);
     if (response.success) {
       final user = UserModel.fromJson(response.data[APIKeys.user]);
