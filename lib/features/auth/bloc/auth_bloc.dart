@@ -1,12 +1,16 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart' show Cubit;
+import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hh_express/app/setup.dart';
 import 'package:hh_express/data/local/secured_storage.dart';
+import 'package:hh_express/features/address/cubit/address_cubit.dart';
+import 'package:hh_express/features/cart/cubit/cart_cubit.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/overlay_helper.dart';
 import 'package:hh_express/helpers/routes.dart';
 import 'package:hh_express/models/auth/auth_model.dart';
+import 'package:hh_express/models/auth/user/user_model.dart';
 import 'package:hh_express/repositories/auth/auth_repositori.dart';
 import 'package:hh_express/settings/enums.dart';
 
@@ -17,36 +21,29 @@ class AuthBloc extends Cubit<AuthState> {
   final _repo = getIt<AuthRepo>();
 
   void confirmTerms(bool val) {
-    emit(AuthState(
-      apiState: APIState.init,
-      termsConfirmed: val,
-    ));
+    emit(
+      AuthState(
+        apiState: APIState.init,
+        termsConfirmed: val,
+      ),
+    );
   }
 
-  Future<Map<String, dynamic>?> authMe() async {
+  Future<void> authMe() async {
     emit(AuthState(
         apiState: APIState.loading, termsConfirmed: state.termsConfirmed));
-    final token = LocalStorage.getToken;
-    if (token == null) {
-      // do log in
-      appRouter.currentContext.push(AppRoutes.auth, extra: true);
-      emit(AuthState(
-          apiState: APIState.init, termsConfirmed: state.termsConfirmed));
-      return null;
-    }
-    final response = await _repo.authMe(token);
-    if (response.success) {
-      emit(AuthState(
-          apiState: APIState.success,
-          message: response.message,
-          termsConfirmed: state.termsConfirmed));
-      return response.data;
-    }
-    emit(AuthState(
-        apiState: APIState.error,
-        message: response.message,
-        termsConfirmed: state.termsConfirmed));
-    return null;
+    OverlayHelper.showLoading();
+    final response = await _repo.authMe();
+    final isSuccess = response != null;
+    emit(
+      AuthState(
+        apiState: isSuccess ? APIState.success : APIState.error,
+        message: isSuccess ? 'Success' : 'error',
+        termsConfirmed: state.termsConfirmed,
+        user: response,
+      ),
+    );
+    OverlayHelper.remove();
   }
 
   bool checkName(String? name) {
@@ -102,47 +99,51 @@ class AuthBloc extends Cubit<AuthState> {
     );
     OverlayHelper.showLoading();
     final response = await _repo.logIn(data);
-    if (response != null) {
-      emit(
-        AuthState(
-          apiState: APIState.success,
-          message: 'success',
-          termsConfirmed: state.termsConfirmed,
-        ),
-      );
-      OverlayHelper.remove();
-      return true;
+    final isSuccess = response != null;
+    if (isSuccess) {
+      reInitOtherScreens();
     }
-
+    emit(
+      AuthState(
+        apiState: isSuccess ? APIState.success : APIState.error,
+        message: isSuccess ? 'Success' : 'error',
+        termsConfirmed: state.termsConfirmed,
+      ),
+    );
     OverlayHelper.remove();
-    wrongState('Error');
-    return false;
+    return isSuccess;
   }
 
-  // Future<bool> logOut() async {
-  //   emit(AuthState(
-  //       apiState: APIState.loading, termsConfirmed: state.termsConfirmed));
-  //   OverlayHelper.showLoading();
-  //   final token = LocalStorage.getToken;
-  //   final response = await _repo.logOut(token!);
-  //   if (response.success) {
-  //     emit(AuthState(
-  //         apiState: APIState.success,
-  //         message: response.message,
-  //         termsConfirmed: state.termsConfirmed));
-  //     OverlayHelper.remove();
-  //     return true;
-  //   }
-  //   emit(
-  //     AuthState(
-  //       apiState: APIState.error,
-  //       message: response.message,
-  //       termsConfirmed: state.termsConfirmed,
-  //     ),
-  //   );
-  //   OverlayHelper.remove();
-  //   return false;
-  // }
+  Future<bool> logOut() async {
+    emit(
+      AuthState(
+        apiState: APIState.loading,
+        termsConfirmed: state.termsConfirmed,
+      ),
+    );
+    OverlayHelper.showLoading();
+    'request.log'.log();
+    final response = await _repo.logOut();
+    if (response) {
+      reInitOtherScreens();
+      OverlayHelper.remove();
+      return response;
+    }
+    emit(
+      AuthState(
+        apiState: APIState.error,
+        message: 'somehings went wrong',
+        termsConfirmed: state.termsConfirmed,
+      ),
+    );
+    SnackBarHelper.showTopSnack(
+      response ? 'succses' : 'somethingwent wrong',
+      response ? APIState.success : APIState.error,
+    );
+
+    OverlayHelper.remove();
+    return false;
+  }
 
   Future<bool> singUp(AuthModel model) async {
     emit(
@@ -153,20 +154,19 @@ class AuthBloc extends Cubit<AuthState> {
     );
     OverlayHelper.showLoading();
     final response = await _repo.register(model);
-    if (response != null) {
-      emit(
-        AuthState(
-          apiState: APIState.success,
-          message: 'Success',
-          termsConfirmed: state.termsConfirmed,
-        ),
-      );
-      OverlayHelper.remove();
-      return true;
+    final isSuccess = response != null;
+    if (isSuccess) {
+      reInitOtherScreens();
     }
+    emit(
+      AuthState(
+        apiState: isSuccess ? APIState.success : APIState.error,
+        message: isSuccess ? 'Success' : 'error',
+        termsConfirmed: state.termsConfirmed,
+      ),
+    );
     OverlayHelper.remove();
-    wrongState('Error');
-    return false;
+    return isSuccess;
   }
 
   void wrongState(String message) {
@@ -177,5 +177,11 @@ class AuthBloc extends Cubit<AuthState> {
         termsConfirmed: state.termsConfirmed,
       ),
     );
+  }
+
+  void reInitOtherScreens() {
+    final context = appRouter.currentContext;
+    context.read<AddressCubit>()..init();
+    context.read<CartCubit>()..getCurrentCart();
   }
 }

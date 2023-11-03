@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/settings/consts.dart';
 import 'package:hh_express/settings/theme.dart';
 
@@ -9,10 +10,13 @@ class MyDarkTextButton extends StatelessWidget {
     required this.title,
     this.onTap,
     this.width,
+    this.padding,
   });
   final String title;
   final double? width;
   final VoidCallback? onTap;
+
+  final EdgeInsets? padding;
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
@@ -23,11 +27,15 @@ class MyDarkTextButton extends StatelessWidget {
         child: InkWell(
           onTap: onTap,
           child: Container(
+            //todo pad 14
+            padding: padding ?? AppPaddings.vertic_15,
             alignment: Alignment.center,
-            height: 48.h,
             width: width,
-            child: Text(
-              title,
+            child: FittedBox(
+              child: Text(
+                title,
+                style: context.theme.textTheme.labelMedium,
+              ),
             ),
           ),
         ),

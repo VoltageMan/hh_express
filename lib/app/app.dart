@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/app/setup.dart';
-import 'package:hh_express/app/test_screen.dart';
-import 'package:hh_express/data/local/secured_storage.dart';
 import 'package:hh_express/features/address/cubit/address_cubit.dart';
 import 'package:hh_express/features/auth/bloc/auth_bloc.dart';
 import 'package:hh_express/features/cart/cubit/cart_cubit.dart';
 import 'package:hh_express/features/categories/bloc/category_bloc.dart';
+import 'package:hh_express/features/chat/bloc/chat_bloc.dart';
 import 'package:hh_express/features/filter/bloc/filter_bloc.dart';
 import 'package:hh_express/features/home/bloc/home_bloc.dart';
 import 'package:hh_express/features/product_details/bloc/product_details_bloc.dart';
@@ -38,6 +37,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider(create: (context) => ChatBloc()),
         BlocProvider(create: (context) => HomeBloc()),
         BlocProvider(create: (context) => AuthBloc()),
         BlocProvider(create: (context) => CategoryBloc()),

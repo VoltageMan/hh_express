@@ -7,7 +7,6 @@ import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/models/api/response_model.dart';
 import 'package:hh_express/settings/consts.dart';
 import 'package:hh_express/settings/globals.dart';
-import 'package:injectable/injectable.dart';
 
 mixin DioClientMixin {
   final _DioClient _dio = _DioClient();
@@ -110,11 +109,12 @@ class _DioClient {
       final response = await _dio.delete(
         endPoint,
         data: data,
-        options: addHeaders(options!),
+        options: addHeaders(options),
         queryParameters: queryParameters,
       );
       return ApiResponse.fromJson(response.data);
     } catch (e, s) {
+      e.log();
       return _handleException(e, s);
     }
   }

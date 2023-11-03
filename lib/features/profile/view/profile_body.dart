@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hh_express/data/local/secured_storage.dart';
 import 'package:hh_express/features/profile/components/profile_list_tile.dart';
+import 'package:hh_express/helpers/confirm_exit.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/modal_sheets.dart';
 import 'package:hh_express/helpers/routes.dart';
@@ -52,6 +54,10 @@ class _ProfileBodyState extends State<ProfileBody> {
             iconPath: icons[index],
             onTap: () {
               if (index == 1) {
+                if (LocalStorage.getToken != null) {
+                  Confirm.showLogOutDialog(context);
+                  return;
+                }
                 GoRouter.of(context).push(AppRoutes.auth, extra: true);
                 return;
               }

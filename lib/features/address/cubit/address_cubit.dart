@@ -1,9 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hh_express/app/setup.dart';
+import 'package:hh_express/data/local/secured_storage.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/overlay_helper.dart';
-import 'package:hh_express/helpers/routes.dart';
 import 'package:hh_express/models/addres/address_model.dart';
 import 'package:hh_express/models/pagination/pagination_model.dart';
 import 'package:hh_express/repositories/address/address_repo.dart';
@@ -26,6 +26,7 @@ class AddressCubit extends Cubit<AddressState> {
       /// show fail message
       return;
     }
+
     OverlayHelper.showLoading();
     final response = await _repo.create(address);
     bool isSucceed = false;
@@ -46,6 +47,11 @@ class AddressCubit extends Cubit<AddressState> {
   }
 
   Future<void> init({bool forUpdate = false}) async {
+    if (LocalStorage.getToken == null) {
+      return emit(
+        AddressState(state: AddressApiState.unAuthorized),
+      );
+    }
     emit(
       AddressState(
         state: AddressApiState.loading,

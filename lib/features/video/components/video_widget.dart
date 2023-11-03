@@ -73,7 +73,6 @@ class VideoWidget extends StatelessWidget {
 
 class _WidgetsPlaceHolder extends StatelessWidget {
   const _WidgetsPlaceHolder({
-    super.key,
     required this.index,
   });
   final int index;

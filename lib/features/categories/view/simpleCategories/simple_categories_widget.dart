@@ -67,7 +67,7 @@ class SimpleCategoryWidget extends StatelessWidget {
 }
 
 class _LoadingWidet extends StatelessWidget {
-  const _LoadingWidet({super.key});
+  const _LoadingWidet();
 
   @override
   Widget build(BuildContext context) {

@@ -60,6 +60,17 @@
     "similarProducts": "Meňzeş harytlar",
     "orderInfo": "Sargyt maglumady",
     "description": "Mazmuny",
-    "more": "Giňişleýin",
-    "address": "Salgy"
+    "more": "Yene",
+    "theAddress":"Salgyňyz",
+    "selecTAddress":"Adres Salgynyzy",
+    "address": "Slagy",
+    "someThingWent":"Yalňyşlylar yüze çykdy",
+    "succsess":"Üstünlik",
+    "socketExeption":"Servere baglanyp bolamdy",
+    "tryAgain":"Täzeden Synanşyp göriň",
+    "unauthorized":"Ulgama girilmedik",
+    "empty":"Boş" ,
+    "least5Symbols":" ",
+    "contiansWrongSymbols":"Field contains wrong symbols. Please remove them"
+
 }

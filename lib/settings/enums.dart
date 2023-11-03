@@ -19,6 +19,7 @@ enum AddressApiState {
   loading,
   error,
   succses,
+  unAuthorized,
 }
 
 enum CartAPIState {

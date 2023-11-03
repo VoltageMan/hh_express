@@ -1,5 +1,7 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hh_express/features/auth/bloc/auth_bloc.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/settings/theme.dart';
 
@@ -17,6 +19,16 @@ class Confirm {
     );
     log('$exit after tap');
     return exit;
+  }
+
+  static Future<void> showLogOutDialog(BuildContext context) async {
+    await showDialog(
+      context: context,
+      builder: (context) {
+        currentContext = context;
+        return const LogOutDialog();
+      },
+    );
   }
 }
 
@@ -42,6 +54,42 @@ class ConfirmExitDialog extends StatelessWidget {
         TextButton(
           onPressed: () {
             Confirm.exit = true;
+            Navigator.pop(context);
+          },
+          style: theme,
+          child: Text(
+            context.l10n.exit,
+            style: theme.myTextStyle,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+// todo made only one dynamic dialog for messageing
+class LogOutDialog extends StatelessWidget {
+  const LogOutDialog({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context).textButtonTheme.style as MyButtonStyle;
+    return AlertDialog(
+      content: Text(
+        'Do you really wnt to "log-out"?',
+      ),
+      actions: [
+        TextButton(
+          style: theme,
+          onPressed: () => Navigator.pop(context),
+          child: Text(
+            context.l10n.cancle,
+            style: theme.myTextStyle,
+          ),
+        ),
+        TextButton(
+          onPressed: () async {
+            final bloc = await context.read<AuthBloc>().logOut();
             Navigator.pop(context);
           },
           style: theme,

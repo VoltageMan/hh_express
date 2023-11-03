@@ -2,14 +2,14 @@ part of 'product_details_bloc.dart';
 
 class ProductDetailsState extends Equatable {
   final ProdDetailsAPIState state;
-  final List<ProductDetailsModel> products;
+  final ProductDetailsModel? product;
   final CancelToken? cancelToken;
   ProductDetailsState({
-    required this.products,
+    this.product,
     required this.state,
     this.cancelToken,
   });
 
   @override
-  List<Object?> get props => [state, products, cancelToken];
+  List<Object?> get props => [state, product, cancelToken];
 }

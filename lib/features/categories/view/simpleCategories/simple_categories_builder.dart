@@ -39,7 +39,6 @@ class SimpleCategoriesBuilder extends StatelessWidget {
 
 class _UIBuilder extends StatelessWidget {
   const _UIBuilder({
-    super.key,
     this.list,
   });
   final List<CategoryModel>? list;

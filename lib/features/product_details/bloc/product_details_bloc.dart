@@ -12,12 +12,7 @@ part 'product_details_state.dart';
 class ProductDetailsBloc extends Cubit<ProductDetailsState> {
   ProductDetailsBloc()
       : super(
-          ProductDetailsState(
-            state: ProdDetailsAPIState.init,
-            products: List.empty(
-              growable: true,
-            ),
-          ),
+          ProductDetailsState(state: ProdDetailsAPIState.init, product: null),
         );
   int? currentProdId;
   List<int> sesectedProps = List.empty(growable: true);
@@ -29,7 +24,7 @@ class ProductDetailsBloc extends Cubit<ProductDetailsState> {
     emit(
       ProductDetailsState(
         state: ProdDetailsAPIState.loading,
-        products: List.from(state.products),
+        product: null,
         cancelToken: cancleToken,
       ),
     );
@@ -42,7 +37,7 @@ class ProductDetailsBloc extends Cubit<ProductDetailsState> {
       return emit(
         ProductDetailsState(
           state: ProdDetailsAPIState.success,
-          products: List.from(state.products)..add(product),
+          product: product,
         ),
       );
     }
@@ -50,28 +45,28 @@ class ProductDetailsBloc extends Cubit<ProductDetailsState> {
     return emit(
       ProductDetailsState(
         state: ProdDetailsAPIState.error,
-        products: List.from(state.products),
+        product: null,
       )..log(message: 'Getting Error'),
     );
   }
 
-  void screenDispose() {
-    state.cancelToken?.cancel();
-    final List<ProductDetailsModel> newProd = List.from(state.products);
-    if (state.state == ProdDetailsAPIState.success) {
-      sesectedProps.removeLast();
-      newProd.removeLast();
-    }
-    currentProdId = newProd.isNotEmpty ? newProd.last.id : null;
-    emit(
-      ProductDetailsState(
-        products: newProd,
-        state: ProdDetailsAPIState.success,
-      )..log(message: 'disposing success State'),
-    );
-  }
+  // void screenDispose() {
+  //   state.cancelToken?.cancel();
+  //   final List<ProductDetailsModel> newProd = List.from(state.products);
+  //   if (state.state == ProdDetailsAPIState.success) {
+  //     sesectedProps.removeLast();
+  //     newProd.removeLast();
+  //   }
+  //   currentProdId = newProd.isNotEmpty ? newProd.last.id : null;
+  //   emit(
+  //     ProductDetailsState(
+  //       products: newProd,
+  //       state: ProdDetailsAPIState.success,
+  //     )..log(message: 'disposing success State'),
+  //   );
+  // }
 
-  int fingProdIndex(int id) {
-    return state.products.map((e) => e.id).toList().indexOf(id);
-  }
+  // int fingProdIndex(int id) {
+  //   return state.products.map((e) => e.id).toList().indexOf(id);
+  // }
 }

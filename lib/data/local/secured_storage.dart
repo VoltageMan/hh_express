@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hh_express/helpers/extentions.dart';
 
@@ -25,6 +24,7 @@ class LocalStorage {
   }
 
   static Future<void> deleteToken() async {
+    _token = null;
     await _storage.delete(key: LocalDataKeys.token.name);
   }
 

@@ -2,8 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/features/components/widgets/place_holder.dart';
-import 'package:hh_express/helpers/extentions.dart';
-import 'package:hh_express/models/property/property_model.dart';
 import 'package:hh_express/models/property/values/property_value_model.dart';
 import 'package:hh_express/settings/consts.dart';
 
@@ -14,7 +12,9 @@ class FilterColorWidget extends StatelessWidget {
     required this.color,
     this.isSelected,
     this.onTap,
+    this.isMargined = false,
   });
+  final bool isMargined;
   final PropertyValue color;
   final bool? isSelected;
   final VoidCallback? onTap;
@@ -28,7 +28,8 @@ class FilterColorWidget extends StatelessWidget {
         alignment: Alignment.center,
         children: [
           Padding(
-            padding: AppPaddings.bottom_5,
+            padding: AppPaddings.bottom_5
+                .add(isMargined ? AppPaddings.horiz_10 : EdgeInsets.zero),
             child: ClipRRect(
               borderRadius: AppBorderRadiuses.border_6,
               child: CachedNetworkImage(

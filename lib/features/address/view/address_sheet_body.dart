@@ -7,6 +7,7 @@ import 'package:hh_express/features/categories/view/body.dart';
 import 'package:hh_express/features/product_details/view/product_details_body.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/settings/enums.dart';
+import 'package:hh_express/settings/theme.dart';
 
 class AddressSheetBody extends StatefulWidget {
   const AddressSheetBody({super.key, required this.forComplite});
@@ -23,17 +24,20 @@ class _AddressSheetBodyState extends State<AddressSheetBody> {
       width: double.infinity,
       height: 200.h,
       child: BlocBuilder<AddressCubit, AddressState>(
+        bloc: cubit,
         builder: (context, state) {
           if (state.state == AddressApiState.init) return SizedBox();
-          if (state.state == AddressApiState.error) return CategoryErrorBody();
-          if (state.state == AddressApiState.loading) return CenterLoading();
-          if (state.models.isEmpty) {
-            Center(
-              child: Text(
-                'empty',
-              ),
+          if (state.state == AddressApiState.error)
+            return CategoryErrorBody(
+              onTap: () {
+                cubit.init();
+              },
             );
-          }
+          if (state.state == AddressApiState.loading) return CenterLoading();
+          if (state.state == AddressApiState.unAuthorized)
+            return _centerText('unAuthorized');
+          if (state.models.isEmpty) return _centerText('empty');
+
           return Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -58,4 +62,15 @@ class _AddressSheetBodyState extends State<AddressSheetBody> {
       ),
     );
   }
+}
+
+Widget _centerText(String message) {
+  return Builder(builder: (context) {
+    return Center(
+      child: Text(
+        message,
+        style: AppTheme.bodyMedium14(context),
+      ),
+    );
+  });
 }
