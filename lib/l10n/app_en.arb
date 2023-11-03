@@ -61,5 +61,15 @@
   "orderInfo": "Order information",
   "description": "Description",
   "more": "More",
-  "address": "Address"
+  "theAddress":"The address",
+  "selecTAddress":"Selec Address",
+  "address": "Address",
+  "socketExeption":"Connection was failed",
+  "succsess":"Success",
+  "someThingWent":"Some things went wrong",
+  "tryAgain":"Try again",
+  "unauthorized":"Unauthorizedd ",
+  "empty":"Empty",
+  "least5Symbols":"Filed must be at least 5 symbols",
+  "contiansWrongSymbols":"Field contains wrong symbols"
 }

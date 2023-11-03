@@ -37,7 +37,7 @@ class _ProdDetailsBodyState extends State<ProdDetailsBody>
   @override
   void dispose() {
     tabController?.dispose();
-    bloc.screenDispose();
+    // bloc.screenDispose();
     super.dispose();
   }
 
@@ -75,16 +75,15 @@ class _ProdDetailsBodyState extends State<ProdDetailsBody>
               id.log();
             },
           );
-        final prodIndex = bloc.fingProdIndex(id);
 
-        if (state.state == ProdDetailsAPIState.error || prodIndex == -1)
+        if (state.state == ProdDetailsAPIState.error)
           return CategoryErrorBody(
             onTap: () {
               bloc.init(id);
             },
           );
 
-        final product = state.products[prodIndex];
+        final product = state.product!;
         final hasDiscount = product.discount != null;
         final l10n = context.l10n;
         setTabController(product.images.length);
@@ -118,7 +117,8 @@ class _ProdDetailsBodyState extends State<ProdDetailsBody>
                               child: CachedNetworkImage(
                                 imageUrl: image,
                                 //! errorWidget
-                                errorWidget: null,
+                                errorWidget: (context, url, error) =>
+                                    ProdDetailsImagePlaceHolder(),
                                 placeholder: (context, url) =>
                                     ProdDetailsImagePlaceHolder(),
                                 height: 300.h,
@@ -165,7 +165,7 @@ class _ProdDetailsBodyState extends State<ProdDetailsBody>
               ),
               ...product.properties.map(
                 (e) {
-                  if (e.name == 'colors') return const ProdColorBuilder();
+                  if (e.name == 'colors') return ProdColorBuilder(model: e);
                   return PropertyBuilder(model: e, id: id);
                 },
               ).toList(),
@@ -214,6 +214,7 @@ class _ProdDetailsBodyState extends State<ProdDetailsBody>
                     itemCount: context.read<HomeBloc>().state.prods!.length,
                     itemBuilder: (context, index) {
                       return HomeProdWidget(
+                        forProdDetails: true,
                         index: index == 0 ? -1 : -2,
                         prod: context.read<HomeBloc>().state.prods![index],
                       );

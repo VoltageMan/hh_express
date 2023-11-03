@@ -47,7 +47,8 @@ class AddressListTile extends StatelessWidget {
                       borderRadius: AppBorderRadiuses.border_50,
                       onTap: () async {
                         ModelBottomSheetHelper.doPop();
-                        await ModelBottomSheetHelper.showAddressSheet(model);
+                        await ModelBottomSheetHelper.showAddressUpdateSheet(
+                            model);
 
                         /// 6 index of it self to return addres sheet back
                         ModelBottomSheetHelper.showProfileSheets(6);

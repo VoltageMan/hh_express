@@ -47,7 +47,8 @@ dependencies:
   flutter_avif: ^1.4.0
   dart_pusher_channels: ^1.1.1
   image_picker: ^1.0.4
-
+  # flutter_avif: ^1.4.0
+  web_socket_channel: ^2.4.0
 
 dev_dependencies:
   json_serializable: ^6.7.1

@@ -109,11 +109,12 @@ class _DioClient {
       final response = await _dio.delete(
         endPoint,
         data: data,
-        options: addHeaders(options!),
+        options: addHeaders(options),
         queryParameters: queryParameters,
       );
       return ApiResponse.fromJson(response.data);
     } catch (e, s) {
+      e.log();
       return _handleException(e, s);
     }
   }

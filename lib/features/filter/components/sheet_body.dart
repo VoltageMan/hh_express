@@ -59,34 +59,35 @@ class _FilterSheetBodyState extends State<FilterSheetBody> {
             );
           return Column(
             children: [
+              BottomSheetTitle(
+                isPadded: true,
+                title: context.l10n.filter,
+              ),
+              AppSpacing.vertical_15,
+              Padding(
+                padding: AppPaddings.horiz16_vertic12.copyWith(bottom: 0),
+                child: SelectedPropsBuilder(),
+              ),
               Expanded(
-                child: SingleChildScrollView(
-                  child: Padding(
-                    padding: AppPaddings.horiz16_vertic12,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        BottomSheetTitle(
-                          title: context.l10n.filter,
-                        ),
-                        AppSpacing.vertical_15,
-                        SelectedPropsBuilder(),
-                        ...state.properties!
-                            .map(
-                              (e) => FilterPropertyBuilder(
-                                prop: e,
-                              ),
-                            )
-                            .toList(),
-                        FilterSwithListTile(
-                          title: context.l10n.news,
-                        ),
-                        FilterSwithListTile(
-                          title: 'Köp Satylanlar',
-                        ),
-                      ],
-                    ),
+                child: Padding(
+                  padding: AppPaddings.horiz16_vertic12.copyWith(top: 0),
+                  child: CustomScrollView(
+                    slivers: [
+                      SliverList.builder(
+                        itemCount: state.properties!.length,
+                        itemBuilder: (context, index) {
+                          return FilterPropertyBuilder(
+                            prop: state.properties![index],
+                          )..log();
+                        },
+                      ),
+                      FilterSwithListTile(
+                        title: context.l10n.news,
+                      ).toSliverBox,
+                      FilterSwithListTile(
+                        title: 'Köp Satylanlar',
+                      ).toSliverBox,
+                    ],
                   ),
                 ),
               ),

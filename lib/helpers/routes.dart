@@ -94,9 +94,16 @@ final appRouter = GoRouter(
     ),
     GoRoute(
       path: AppRoutes.prodDetails,
-      builder: (context, state) {
+      // name: AppRoutes.prodDetails.to,
+      // builder: (context, state) {
+      //   final id = state.extra as int;
+      //   return ProductDetails(id: id);
+      // },
+      pageBuilder: (context, state) {
         final id = state.extra as int;
-        return ProductDetails(id: id);
+        return CupertinoPage(
+          child: ProductDetails(id: id),
+        );
       },
     ),
     GoRoute(

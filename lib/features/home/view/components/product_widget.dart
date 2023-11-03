@@ -10,9 +10,15 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:hh_express/settings/theme.dart';
 
 class HomeProdWidget extends StatelessWidget {
-  const HomeProdWidget({super.key, required this.index, this.prod});
+  const HomeProdWidget({
+    super.key,
+    required this.index,
+    this.prod,
+    this.forProdDetails = false,
+  });
   final int index;
   final ProductModel? prod;
+  final bool forProdDetails;
   @override
   Widget build(BuildContext context) {
     final isLoading = prod == null;
@@ -23,9 +29,14 @@ class HomeProdWidget extends StatelessWidget {
     final hasDiscount = prod?.discount != null;
     return GestureDetector(
       onTap: () {
-        prod!.id.log();
-        prod!.image.log();
-        // return;
+        if (appRouter.location == AppRoutes.prodDetails && !forProdDetails)
+          return;
+        if (forProdDetails) {
+          /// not pushReplacement cause in that case there is no CupertinoPage animation
+          context.pop();
+          context.push(AppRoutes.prodDetails, extra: prod!.id);
+          return;
+        }
         context.push(AppRoutes.prodDetails, extra: prod!.id);
       },
       child: Container(

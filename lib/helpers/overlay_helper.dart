@@ -16,7 +16,6 @@ class OverlayHelper {
   }
 
   static Future<void> showLoading() async {
-    'kuukuk'.log();
     var ovv = Overlay.of(appRouter.currentContext);
     _entry = OverlayEntry(
       builder: (context) {
@@ -86,7 +85,9 @@ class SnackBarHelper {
     if (state == APIState.success) {
       showTopSnackBar(
           Overlay.of(context), CustomSnackBar.success(message: message));
+      return;
     }
+    showTopSnackBar(Overlay.of(context), CustomSnackBar.info(message: message));
   }
 
   static void showMessageSnack(String message) {

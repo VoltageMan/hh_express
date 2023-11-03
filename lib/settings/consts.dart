@@ -78,6 +78,7 @@ class AppPaddings {
   static EdgeInsets horiz_21 = EdgeInsets.symmetric(horizontal: 21.w);
   static EdgeInsets horiz_28 = EdgeInsets.symmetric(horizontal: 28.h);
   static EdgeInsets horiz_8 = EdgeInsets.symmetric(horizontal: 8.w);
+  static EdgeInsets horiz_10 = EdgeInsets.symmetric(horizontal: 10.w);
   static EdgeInsets horiz_6 = EdgeInsets.symmetric(horizontal: 6.w);
   static EdgeInsets horiz_2 = EdgeInsets.symmetric(horizontal: 2.w);
   static EdgeInsets horiz_3 = EdgeInsets.symmetric(horizontal: 3.w);
@@ -119,8 +120,9 @@ class AppPaddings {
 }
 
 class AppBorderRadiuses {
-  static final border_2 = BorderRadius.circular(2);
-  static final border_4 = BorderRadius.circular(4);
+  static final border_2 = BorderRadius.circular(2.r);
+  static final border_4 = BorderRadius.circular(4.r);
+  static final border_5 = BorderRadius.circular(5.r);
   static final border_6 = BorderRadius.circular(6);
   static final border_8 = BorderRadius.circular(8.r);
   static final border_10 = BorderRadius.circular(10.r);
@@ -254,7 +256,7 @@ class APIKeys {
   static const cart = 'cart';
   static const subCategories = 'sub_categories';
   static const activCategory = 'active_category';
-  static const accsesToken = 'accses_token';
+  static const accsesToken = 'access_token';
   static const user = 'user';
   static const success = 'succsess';
   static const message = 'message';

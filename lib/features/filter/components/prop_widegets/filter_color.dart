@@ -12,7 +12,9 @@ class FilterColorWidget extends StatelessWidget {
     required this.color,
     this.isSelected,
     this.onTap,
+    this.isMargined = false,
   });
+  final bool isMargined;
   final PropertyValue color;
   final bool? isSelected;
   final VoidCallback? onTap;
@@ -26,7 +28,8 @@ class FilterColorWidget extends StatelessWidget {
         alignment: Alignment.center,
         children: [
           Padding(
-            padding: AppPaddings.bottom_5,
+            padding: AppPaddings.bottom_5
+                .add(isMargined ? AppPaddings.horiz_10 : EdgeInsets.zero),
             child: ClipRRect(
               borderRadius: AppBorderRadiuses.border_6,
               child: CachedNetworkImage(

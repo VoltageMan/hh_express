@@ -61,5 +61,15 @@
     "orderInfo": "Сведения заказа",
     "description": "Описание",
     "more": "Больше",
-    "address": "Адрес"
+    "theAddress":"Ваш аддресс",
+    "address": "Адресс",
+    "someThingWent":"Что-то пошло не так",
+    "selecTAddress":"Выберите адрес",
+    "succsess":"Успех",
+    "socketExeption":"Подключение было прервано",
+    "tryAgain":"Повторить попытку",
+    "unauthorized":"Не зарегистрирован",
+    "empty":"Путсо",
+    "least5Symbols":"Поле должно быть минимум 5 символов",
+    "contiansWrongSymbols":"Поле содержит не поддерживаемые символы"
 }
