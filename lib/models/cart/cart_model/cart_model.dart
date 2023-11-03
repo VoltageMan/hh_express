@@ -1,5 +1,4 @@
 import 'package:hh_express/models/cart/cart_order_model/cart_order_model.dart';
-import 'package:hh_express/models/products/product_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'cart_model.g.dart';

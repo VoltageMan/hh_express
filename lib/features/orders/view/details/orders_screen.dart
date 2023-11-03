@@ -55,7 +55,7 @@ class OrderDetailsScreen extends StatelessWidget {
 }
 
 class _LoadingBody extends StatelessWidget {
-  const _LoadingBody({super.key});
+  const _LoadingBody();
 
   @override
   Widget build(BuildContext context) {

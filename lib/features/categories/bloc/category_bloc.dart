@@ -5,7 +5,6 @@ import 'package:hh_express/app/setup.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/models/categories/category_model.dart';
 import 'package:hh_express/repositories/categories/categories_repository.dart';
-import 'package:hh_express/settings/consts.dart';
 import 'package:hh_express/settings/enums.dart';
 
 part 'category_event.dart';

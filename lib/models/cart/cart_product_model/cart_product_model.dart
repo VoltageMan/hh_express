@@ -1,4 +1,3 @@
-import 'package:hh_express/models/products/product_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'cart_product_model.g.dart';

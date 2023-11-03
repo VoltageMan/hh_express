@@ -1,4 +1,3 @@
-import 'package:hh_express/models/products/product_model.dart';
 import 'package:hh_express/models/property/property_model.dart';
 import 'package:hh_express/settings/consts.dart';
 import 'package:json_annotation/json_annotation.dart';

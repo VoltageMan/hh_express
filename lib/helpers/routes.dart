@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hh_express/features/auth/view/auth_screen.dart' as auth;
+import 'package:hh_express/features/chat/screens/chat/chat.dart';
 import 'package:hh_express/features/products_by_category/view/products_by_category.dart';
 import 'package:hh_express/features/mainScreen/view/main_screen.dart';
 import 'package:hh_express/features/notifications/view/notification_screen.dart';
@@ -29,6 +30,7 @@ class AppRoutes {
   static const notifications = '/notifications';
   static const prodDetails = '/prodDetails';
   static const videoDetails = '/videoDetails';
+  static const chat = '/chat';
 }
 
 final appRouter = GoRouter(
@@ -44,6 +46,12 @@ final appRouter = GoRouter(
       path: AppRoutes.splashScreen,
       builder: (context, state) {
         return SplashScreen();
+      },
+    ),
+    GoRoute(
+      path: AppRoutes.chat,
+      builder: (context, state) {
+        return ChatScreen();
       },
     ),
     GoRoute(

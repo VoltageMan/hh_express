@@ -6,7 +6,6 @@ import 'package:hh_express/features/filter/bloc/filter_bloc.dart';
 import 'package:hh_express/features/filter/components/line.dart';
 import 'package:hh_express/features/filter/components/prop_widegets/remove_all_selecteds.dart';
 import 'package:hh_express/features/filter/components/prop_widegets/selected_prop_widget.dart';
-import 'package:hh_express/helpers/routes.dart';
 import 'package:hh_express/settings/consts.dart';
 import 'package:hh_express/settings/theme.dart';
 
