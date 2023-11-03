@@ -12,7 +12,6 @@ import 'package:hh_express/models/cart/cart_order_model/cart_order_model.dart';
 import 'package:hh_express/models/cart/cart_update/cart_update_model.dart';
 import 'package:hh_express/settings/consts.dart';
 import 'package:hh_express/settings/theme.dart';
-import 'package:injectable/injectable.dart';
 
 class CartWidget extends StatefulWidget {
   CartWidget({

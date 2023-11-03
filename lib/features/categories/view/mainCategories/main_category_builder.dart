@@ -1,11 +1,9 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hh_express/features/categories/bloc/category_bloc.dart';
 import 'package:hh_express/features/categories/view/mainCategories/main_category_widget.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/models/categories/category_model.dart';
-import 'package:hh_express/settings/enums.dart';
 
 class MainCategoriesBuilder extends StatelessWidget {
   const MainCategoriesBuilder({

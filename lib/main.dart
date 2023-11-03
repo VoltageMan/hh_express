@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hh_express/app/app.dart';
@@ -16,5 +18,7 @@ void main() async {
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]);
-  runApp(const MyApp());
+  runZonedGuarded(() => runApp(const MyApp()), (error, stack) {
+    print('${error} , $stack');
+  });
 }

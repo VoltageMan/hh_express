@@ -114,7 +114,6 @@ class HomeProdWidget extends StatelessWidget {
 
 class _LoadingWidget extends StatelessWidget {
   const _LoadingWidget({
-    super.key,
     required this.index,
   });
   final int index;

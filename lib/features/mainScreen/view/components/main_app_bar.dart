@@ -48,7 +48,9 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
                     IconButton(
                         splashRadius: 1,
                         splashColor: Colors.transparent,
-                        onPressed: () {},
+                        onPressed: () {
+                          appRouter.currentContext.push(AppRoutes.chat);
+                        },
                         icon: Icon(Icons.chat))
                   ],
                 )
