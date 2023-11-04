@@ -73,6 +73,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.4.1"
+  build_cli_annotations:
+    dependency: transitive
+    description:
+      name: build_cli_annotations
+      sha256: b59d2769769efd6c9ff6d4c4cede0be115a566afc591705c2040b707534b1172
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.0"
   build_config:
     dependency: transitive
     description:
@@ -201,6 +209,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.17.2"
+  colorize:
+    dependency: transitive
+    description:
+      name: colorize
+      sha256: "584746cd6ba1cba0633b6720f494fe6f9601c4170f0666c1579d2aa2a61071ba"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.0"
   convert:
     dependency: transitive
     description:
@@ -406,6 +422,62 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_avif:
+    dependency: "direct main"
+    description:
+      name: flutter_avif
+      sha256: "02ae7a7f5967007a4cb3a8f5f3367cd5b70e4e7ef10a86ad27feadcd38eb2666"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.4.0"
+  flutter_avif_android:
+    dependency: transitive
+    description:
+      name: flutter_avif_android
+      sha256: "1a77170ce3dbea9c71be31d1ee7657385d9af7b67c54f41311410504176afb56"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.4.0"
+  flutter_avif_ios:
+    dependency: transitive
+    description:
+      name: flutter_avif_ios
+      sha256: "6fdfb98bbdd9ec72bdfdb443f8089f8cebac1accf8ba79ae1651ee01783a0be9"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.4.0"
+  flutter_avif_linux:
+    dependency: transitive
+    description:
+      name: flutter_avif_linux
+      sha256: ea28d927feed26a95c9d1547d259642df3ef6f6ec85192767df455073bac9e12
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.4.0"
+  flutter_avif_macos:
+    dependency: transitive
+    description:
+      name: flutter_avif_macos
+      sha256: cd187aee609622fe9cb140c3677cc81b532e0c41c8995b3f971024b0c0f2b7f5
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.4.0"
+  flutter_avif_platform_interface:
+    dependency: transitive
+    description:
+      name: flutter_avif_platform_interface
+      sha256: "80a0ca63ceaa71fb58a944220b10997d4b571680e82832bbd3afa772444538d9"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.4.0"
+  flutter_avif_windows:
+    dependency: transitive
+    description:
+      name: flutter_avif_windows
+      sha256: "21564bf44bff0c8254e5918a0e2ceda809ef6b0e244949ad076288801246c142"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.4.0"
   flutter_bloc:
     dependency: "direct main"
     description:
@@ -965,6 +1037,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.3"
+  puppeteer:
+    dependency: transitive
+    description:
+      name: puppeteer
+      sha256: dd49117259867d0ce0de33ddd95628fb70cff94581a6432c08272447b8dd1d27
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.24.0"
   recase:
     dependency: transitive
     description:
@@ -989,6 +1069,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.4.1"
+  shelf_static:
+    dependency: transitive
+    description:
+      name: shelf_static
+      sha256: a41d3f53c4adf0f57480578c1d61d90342cd617de7fc8077b1304643c2d85c1e
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.2"
   shelf_web_socket:
     dependency: transitive
     description:
@@ -1122,6 +1210,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.0"
+  tuple:
+    dependency: transitive
+    description:
+      name: tuple
+      sha256: a97ce2013f240b2f3807bcbaf218765b6f301c3eff91092bcfa23a039e7dd151
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.2"
   typed_data:
     dependency: transitive
     description:
@@ -1299,7 +1395,7 @@ packages:
     source: hosted
     version: "0.1.4-beta"
   web_socket_channel:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: web_socket_channel
       sha256: d88238e5eac9a42bb43ca4e721edba3c08c6354d4a53063afaa568516217621b
