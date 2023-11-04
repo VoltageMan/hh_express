@@ -29,12 +29,3 @@ class OrderHistoryModel {
       _$OrderHistoryModelFromJson(json);
   Map<String, dynamic> toJson() => _$OrderHistoryModelToJson(this);
 }
-
-
-//  "uuid": "9a6e9bc2-c655-4ad5-a94f-09d66c4a82b8",
-//           "total": "2606.6",
-//           "delivery_cost": "50",
-//           "weight_cost": "5",
-//           "sub_total": "2661.6",
-//           "status": "PENDING",
-//           "status_trans": "PENDING",

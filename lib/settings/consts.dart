@@ -243,6 +243,7 @@ class EndPoints {
   static const addressList = 'api/v1/address/list';
   static const chatSend = 'api/v1/chat/message/send';
   static const chatMessagesList = 'api/v1/chat/message/list';
+  static const orderHistory = 'api/v1/cart/history';
   //?
   static String cartFetch(String token) => 'api/v1/cart/$token/fetch';
   static String prodDetails(int id) => 'api/v1/product/$id';
