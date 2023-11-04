@@ -4,10 +4,12 @@ import 'package:hh_express/models/order_history/order_history_model.dart';
 import 'package:hh_express/models/pagination/pagination_model.dart';
 import 'package:hh_express/repositories/order/order_repo.dart';
 import 'package:hh_express/settings/consts.dart';
+import 'package:injectable/injectable.dart';
 
-class OrderRepoImpl with DioClientMixin implements OrderRepo {
+@Injectable(as: OrderRepo)
+class OrderRepoImpl extends OrderRepo with DioClientMixin  {
   @override
-  Future<PaginatedDataModel?> getOrderHistory(int page) async {
+  Future<PaginatedDataModel<List<OrderHistoryModel>>?> getOrderHistory(int page) async {
     final response = await dio.get(endPoint: EndPoints.orderHistory);
 
     if (response.success) {
