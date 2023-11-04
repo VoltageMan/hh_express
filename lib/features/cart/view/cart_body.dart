@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/data/local/secured_storage.dart';
 import 'package:hh_express/data/remote/dio_client.dart';
 import 'package:hh_express/features/cart/cubit/cart_cubit.dart';
@@ -59,14 +60,14 @@ class CartScreen extends StatelessWidget with DioClientMixin {
                 ],
               ),
             ),
-            Padding(
-              padding: AppPaddings.all_16,
+            Container(
+              height: 48.h,
+              margin: AppPaddings.all_16,
               child: MyDarkTextButton(
                 title: context.l10n.next,
                 width: double.infinity,
                 onTap: () async {
                   ModelBottomSheetHelper.showAddressSelecSheet();
-                  // context.read<CartCubit>().complete('');
                 },
               ),
             )
