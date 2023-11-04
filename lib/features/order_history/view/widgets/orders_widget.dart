@@ -8,8 +8,8 @@ import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/routes.dart';
 import 'package:hh_express/settings/consts.dart';
 
-class OrdersWidget extends StatelessWidget {
-  const OrdersWidget({super.key, this.order});
+class OrderHistoryWidget extends StatelessWidget {
+  const OrderHistoryWidget({super.key, this.order});
   final dynamic order;
   @override
   Widget build(BuildContext context) {
