@@ -129,6 +129,7 @@ class _CartWidgetState extends State<CartWidget> {
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       children: [
+                        // todo localization
                         Text(
                           'Halanlaryma goş',
                           style: context.theme.textTheme.bodySmall,

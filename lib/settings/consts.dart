@@ -243,6 +243,7 @@ class EndPoints {
   static const addressList = 'api/v1/address/list';
   static const chatSend = 'api/v1/chat/message/send';
   static const chatMessagesList = 'api/v1/chat/message/list';
+  static const orderHistory = 'api/v1/cart/history';
   static const notificationList = 'api/v1/notification/list';
   static const notificationCount = 'api/v1/notification/count';
   static String notificationDelete(int id) => 'api/v1/notification/$id/delete';
