@@ -27,6 +27,10 @@ import 'package:hh_express/repositories/filters/filters_repository_impl.dart'
     as _i14;
 import 'package:hh_express/repositories/order/order_repo.dart' as _i15;
 import 'package:hh_express/repositories/order/order_repo_impl.dart' as _i16;
+import 'package:hh_express/repositories/notifications/notifications_repo.dart'
+    as _i15;
+import 'package:hh_express/repositories/notifications/notifications_repo_impl.dart'
+    as _i16;
 import 'package:hh_express/repositories/product_details/product_details_repository.dart'
     as _i17;
 import 'package:hh_express/repositories/product_details/product_details_repository_impl.dart'
@@ -54,6 +58,7 @@ extension GetItInjectableX on _i1.GetIt {
     gh.factory<_i11.ChatRepo>(() => _i12.ChatRepoIMpl());
     gh.factory<_i13.FilterRepo>(() => _i14.FilterRepoImpl());
     gh.factory<_i15.OrderRepo>(() => _i16.OrderRepoImpl());
+    gh.factory<_i15.NotificationsRepo>(() => _i16.NotificationsRepoImpl());
     gh.factory<_i17.ProductDetailsRepo>(() => _i18.ProductDetailsRepoImpl());
     gh.factory<_i19.ProductRepo>(() => _i20.ProductRepoImpl());
     return this;
