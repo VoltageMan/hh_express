@@ -25,13 +25,17 @@ import 'package:hh_express/repositories/filters/filters_repository.dart'
     as _i13;
 import 'package:hh_express/repositories/filters/filters_repository_impl.dart'
     as _i14;
-import 'package:hh_express/repositories/product_details/product_details_repository.dart'
+import 'package:hh_express/repositories/notifications/notifications_repo.dart'
     as _i15;
-import 'package:hh_express/repositories/product_details/product_details_repository_impl.dart'
+import 'package:hh_express/repositories/notifications/notifications_repo_impl.dart'
     as _i16;
-import 'package:hh_express/repositories/products/product_repo.dart' as _i17;
-import 'package:hh_express/repositories/products/product_repo_impl.dart'
+import 'package:hh_express/repositories/product_details/product_details_repository.dart'
+    as _i17;
+import 'package:hh_express/repositories/product_details/product_details_repository_impl.dart'
     as _i18;
+import 'package:hh_express/repositories/products/product_repo.dart' as _i19;
+import 'package:hh_express/repositories/products/product_repo_impl.dart'
+    as _i20;
 import 'package:injectable/injectable.dart' as _i2;
 
 extension GetItInjectableX on _i1.GetIt {
@@ -51,8 +55,9 @@ extension GetItInjectableX on _i1.GetIt {
     gh.factory<_i9.CategoryRepo>(() => _i10.CategoryRepoIMpl());
     gh.factory<_i11.ChatRepo>(() => _i12.ChatRepoIMpl());
     gh.factory<_i13.FilterRepo>(() => _i14.FilterRepoImpl());
-    gh.factory<_i15.ProductDetailsRepo>(() => _i16.ProductDetailsRepoImpl());
-    gh.factory<_i17.ProductRepo>(() => _i18.ProductRepoImpl());
+    gh.factory<_i15.NotificationsRepo>(() => _i16.NotificationsRepoImpl());
+    gh.factory<_i17.ProductDetailsRepo>(() => _i18.ProductDetailsRepoImpl());
+    gh.factory<_i19.ProductRepo>(() => _i20.ProductRepoImpl());
     return this;
   }
 }

@@ -7,14 +7,14 @@ class NotificationModel {
     required this.date,
     required this.subTitle,
     required this.title,
-    required this.slug,
     required this.id,
+    this.is_seen = true,
   });
   final String subTitle;
   final String title;
   final int id;
-  final String slug;
-  final String date;
+  final String? date;
+  final bool? is_seen;
 
   factory NotificationModel.fromJson(Map<String, dynamic> json) =>
       _$NotificationModelFromJson(json);
