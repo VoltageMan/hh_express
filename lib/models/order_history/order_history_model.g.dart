@@ -17,6 +17,7 @@ OrderHistoryModel _$OrderHistoryModelFromJson(Map<String, dynamic> json) =>
       total: json['total'] as String,
       subTotal: json['sub_total'] as String,
       uuid: json['uuid'] as String,
+      date: json['date'] as String,
     );
 
 Map<String, dynamic> _$OrderHistoryModelToJson(OrderHistoryModel instance) =>
@@ -27,5 +28,6 @@ Map<String, dynamic> _$OrderHistoryModelToJson(OrderHistoryModel instance) =>
       'sub_total': instance.subTotal,
       'status': instance.status,
       'status_trans': instance.statusTrans,
+      'date': instance.date,
       'orders': instance.orders,
     };

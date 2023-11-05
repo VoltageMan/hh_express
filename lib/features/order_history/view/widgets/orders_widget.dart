@@ -1,24 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hh_express/features/components/widgets/place_holder.dart';
+import 'package:hh_express/features/order_history/cubit/order_history_cubit.dart';
 import 'package:hh_express/features/orders/components/dashed_line.dart';
 import 'package:hh_express/features/orders/components/order_info_list_tile.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/routes.dart';
+import 'package:hh_express/models/order_history/order_history_model.dart';
 import 'package:hh_express/settings/consts.dart';
 
 class OrderHistoryWidget extends StatelessWidget {
-  const OrderHistoryWidget({super.key, this.order});
-  final dynamic order;
+  const OrderHistoryWidget({super.key, this.model});
+  final OrderHistoryModel? model;
   @override
   Widget build(BuildContext context) {
-    final isLoading = false;
+    final isLoading = model == null;
     if (isLoading) return _LoadingWidget();
     final theme = context.theme;
     final l10n = context.l10n;
+
+    final List<String> titles = [l10n.orderState, l10n.products, l10n.price];
+    final List<String> content = [
+      '${model?.statusTrans}',
+      '${model?.orders.length} ${l10n.products}',
+      '${model?.subTotal} TMT'
+    ];
     return GestureDetector(
       onTap: () {
+        context.read<OrderHistoryCubit>().state.pagination?.toJson().log();
+        context.read<OrderHistoryCubit>().state.apiState.log();
+        context.read<OrderHistoryCubit>().state.models.length.log();
+        return;
         Navigator.pop(context);
         appRouter.currentContext.push(AppRoutes.orderDetails);
       },
@@ -36,8 +50,8 @@ class OrderHistoryWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             FittedBox(
-              child: Text(
-                'LQNSU346JK ',
+              child: SelectableText(
+                '${model?.uuid}',
                 style: theme.textTheme.titleLarge,
                 maxLines: 1,
               ),
@@ -45,7 +59,7 @@ class OrderHistoryWidget extends StatelessWidget {
             Padding(
               padding: AppPaddings.top15_bottom19,
               child: Text(
-                '10.04.2023',
+                '${model?.date}',
                 style: theme.textTheme.displaySmall,
               ),
             ),
@@ -54,8 +68,8 @@ class OrderHistoryWidget extends StatelessWidget {
             ),
             for (int i = 0; i < 3; i++)
               OrderInfoListTile(
-                title: i == 2 ? l10n.price : context.l10n.orderState,
-                content: i == 2 ? '700 TMT' : 'geldi',
+                title: titles[i],
+                content: content[i],
                 contentBold: i == 2 ? true : null,
               ),
           ],

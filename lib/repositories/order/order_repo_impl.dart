@@ -7,15 +7,18 @@ import 'package:hh_express/settings/consts.dart';
 import 'package:injectable/injectable.dart';
 
 @Injectable(as: OrderRepo)
-class OrderRepoImpl extends OrderRepo with DioClientMixin  {
+class OrderRepoImpl extends OrderRepo with DioClientMixin {
   @override
-  Future<PaginatedDataModel<List<OrderHistoryModel>>?> getOrderHistory(int page) async {
-    final response = await dio.get(endPoint: EndPoints.orderHistory);
+  Future<PaginatedDataModel<List<OrderHistoryModel>>?> getOrderHistory(
+      int page) async {
+    final response = await dio
+        .get(endPoint: EndPoints.orderHistory, queryParameters: {'page': page});
 
     if (response.success) {
       final responseData = response.data[APIKeys.products];
       final pagination =
           PaginationModel.fromJson(responseData[APIKeys.pagination]);
+      ///
       final orders = (responseData[APIKeys.data] as List)
           .map((e) => OrderHistoryModel.fromJson(e as Map<String, dynamic>))
           .toList();

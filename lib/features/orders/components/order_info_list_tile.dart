@@ -32,7 +32,8 @@ class OrderInfoListTile extends StatelessWidget {
         children: [
           Text(
             '$title',
-            overflow: TextOverflow.ellipsis,
+            // overflow: TextOverflow.ellipsis,
+
             textAlign: TextAlign.start,
             style: titleBold ?? false ? theme.titleLarge : theme.displaySmall,
           ),

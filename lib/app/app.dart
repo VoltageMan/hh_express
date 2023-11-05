@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/app/setup.dart';
+import 'package:hh_express/app/test_screen.dart';
 import 'package:hh_express/features/address/cubit/address_cubit.dart';
 import 'package:hh_express/features/auth/bloc/auth_bloc.dart';
 import 'package:hh_express/features/cart/cubit/cart_cubit.dart';
@@ -9,6 +10,7 @@ import 'package:hh_express/features/categories/bloc/category_bloc.dart';
 import 'package:hh_express/features/chat/bloc/chat_bloc.dart';
 import 'package:hh_express/features/filter/bloc/filter_bloc.dart';
 import 'package:hh_express/features/home/bloc/home_bloc.dart';
+import 'package:hh_express/features/order_history/cubit/order_history_cubit.dart';
 import 'package:hh_express/features/product_details/bloc/product_details_bloc.dart';
 import 'package:hh_express/features/products_by_category/bloc/products_by_category_bloc.dart';
 import 'package:hh_express/helpers/extentions.dart';
@@ -46,6 +48,7 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(create: (context) => FilterBloc()),
         BlocProvider(create: (context) => CartCubit()),
         BlocProvider(create: (context) => AddressCubit()),
+        BlocProvider(create: (context) => OrderHistoryCubit()),
       ],
       child: ScreenUtilInit(
         designSize: const Size(360, 800),

@@ -14,6 +14,16 @@ enum CategoryAPIState {
   success,
 }
 
+enum OrderHistoryAPIState {
+  init,
+  loading,
+  loadingMore,
+  error,
+  errorMore,
+  success,
+  unauthorized,
+}
+
 enum AddressApiState {
   init,
   loading,

@@ -12,7 +12,7 @@ class OrderHistoryModel {
   final String subTotal;
   final String status;
   final String statusTrans;
-
+  final String date;
   final List<CartOrderModel> orders;
 
   const OrderHistoryModel({
@@ -23,6 +23,7 @@ class OrderHistoryModel {
     required this.total,
     required this.subTotal,
     required this.uuid,
+    required this.date,
   });
 
   factory OrderHistoryModel.fromJson(Map<String, dynamic> json) =>
