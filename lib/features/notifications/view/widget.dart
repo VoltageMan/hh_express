@@ -1,24 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/features/components/widgets/place_holder.dart';
 import 'package:hh_express/features/components/widgets/svg_icons.dart';
+import 'package:hh_express/features/notifications/cubit/notification_cubit.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/spacers.dart';
+import 'package:hh_express/models/notifications/notification_model.dart';
 import 'package:hh_express/settings/consts.dart';
+import 'package:hh_express/settings/enums.dart';
 import 'package:hh_express/settings/theme.dart';
 
-class NotificationWidget extends StatelessWidget {
-  const NotificationWidget({super.key, this.notifi});
+class NotificationWidget extends StatefulWidget {
+  const NotificationWidget({super.key, required this.notif});
 
-  final dynamic notifi;
+  final NotificationModel? notif;
+
+  @override
+  State<NotificationWidget> createState() => _NotificationWidgetState();
+}
+
+class _NotificationWidgetState extends State<NotificationWidget> {
   @override
   Widget build(BuildContext context) {
     final theme = context.theme.textTheme;
-    final isLoading = notifi == null;
-    if (isLoading) {
-      return _LoadingWidget();
-    }
-    return Padding(
+    final notifCubit = context.read<NotificationCubit>();
+    return Container(
+      margin: AppPaddings.bottom_5,
+      color:
+          widget.notif?.is_seen ?? false ? Colors.grey.shade100 : Colors.white,
       padding: AppPaddings.horiz16_vertic18,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -27,7 +37,10 @@ class NotificationWidget extends StatelessWidget {
             path: AssetsPath.crossIcon,
             contSize: 24.sp,
             color: AppColors.mainOrange,
-            onTap: () {},
+            onTap: () {
+              if (widget.notif != null)
+                notifCubit.deleteNotification(widget.notif!.id);
+            },
           ),
           AppSpacing.horizontal_12,
           SizedBox(
@@ -36,72 +49,20 @@ class NotificationWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  '# 7548 Zakazyňyz kabul edildi',
+                  '#${widget.notif?.id} ${widget.notif?.title}',
                   style: theme.titleLarge,
                 ),
                 Padding(
                   padding: AppPaddings.vertic_8,
                   child: Text(
-                    'Zakazyňyz kabul edildi doly maglumatlary profiliňizde görüp bilersiňiz.',
+                    widget.notif?.subTitle ?? '',
                     style: theme.titleSmall,
                   ),
                 ),
                 Text(
-                  '15.04.2023 1:01 PM',
+                  widget.notif?.date ?? '',
                   style: AppTheme.bodyMedium10(context),
                 ),
-              ],
-            ),
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class _LoadingWidget extends StatelessWidget {
-  const _LoadingWidget();
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: AppPaddings.horiz16_vertic18,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          MyShimerPlaceHolder(
-            height: 24.sp,
-            width: 24.sp,
-          ),
-          AppSpacing.horizontal_12,
-          SizedBox(
-            width: 292.w,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                MyShimerPlaceHolder(
-                  height: 20.h,
-                  width: 160.w,
-                ),
-                Padding(
-                    padding: AppPaddings.vertic_8,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        MyShimerPlaceHolder(
-                          height: 20.h,
-                        ),
-                        MyShimerPlaceHolder(
-                          height: 20.h,
-                          width: 100.w,
-                          margin: AppPaddings.top_6,
-                        ),
-                      ],
-                    )),
-                MyShimerPlaceHolder(
-                  height: 20.h,
-                  width: 140.w,
-                )
               ],
             ),
           )

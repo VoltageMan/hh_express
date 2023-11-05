@@ -9,6 +9,7 @@ import 'package:hh_express/features/categories/bloc/category_bloc.dart';
 import 'package:hh_express/features/chat/bloc/chat_bloc.dart';
 import 'package:hh_express/features/filter/bloc/filter_bloc.dart';
 import 'package:hh_express/features/home/bloc/home_bloc.dart';
+import 'package:hh_express/features/notifications/cubit/notification_cubit.dart';
 import 'package:hh_express/features/product_details/bloc/product_details_bloc.dart';
 import 'package:hh_express/features/products_by_category/bloc/products_by_category_bloc.dart';
 import 'package:hh_express/helpers/extentions.dart';
@@ -37,6 +38,9 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider(
+          create: (context) => NotificationCubit(),
+        ),
         BlocProvider(create: (context) => ChatBloc()),
         BlocProvider(create: (context) => HomeBloc()),
         BlocProvider(create: (context) => AuthBloc()),
