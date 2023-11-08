@@ -1,9 +1,9 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:hh_express/app/setup.dart';
 import 'package:hh_express/data/local/secured_storage.dart';
 import 'package:hh_express/helpers/extentions.dart';
-import 'package:hh_express/models/order_history/order_history_model.dart';
-import 'package:hh_express/repositories/order/order_repo.dart';
+import 'package:hh_express/repositories/product_details/product_details_repository.dart';
 
 class TestScreen extends StatefulWidget {
   const TestScreen({super.key});
@@ -13,7 +13,7 @@ class TestScreen extends StatefulWidget {
 }
 
 class _TestScreenState extends State<TestScreen> {
-  final repo = getIt<OrderRepo>();
+  final repo = getIt<ProductDetailsRepo>();
   @override
   Widget build(BuildContext context) {
     LocalStorage.init();
@@ -22,9 +22,8 @@ class _TestScreenState extends State<TestScreen> {
       body: Center(
         child: ElevatedButton(
           onPressed: () async {
-            LocalStorage.getToken..log();
-            final data = await repo.getOrderHistory(0);
-            (data?.data)!.first.toJson().log();
+            final data = await repo.get(1, CancelToken());
+            data?.toJson().log();
           },
           child: Text(
             'fetch',

@@ -19,6 +19,9 @@ ProductDetailsModel _$ProductDetailsModelFromJson(Map<String, dynamic> json) =>
           .map((e) => PropertyModel.fromJson(e as Map<String, dynamic>))
           .toList(),
       salePrice: json['sale_price'] as String,
+      similarProducts: (json['similar_products'] as List<dynamic>?)
+          ?.map((e) => ProductModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$ProductDetailsModelToJson(
@@ -32,4 +35,5 @@ Map<String, dynamic> _$ProductDetailsModelToJson(
       'discount_price': instance.discount,
       'images': instance.images,
       'properties': instance.properties,
+      'similar_products': instance.similarProducts,
     };
