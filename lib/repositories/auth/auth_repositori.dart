@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:hh_express/models/api/response_model.dart';
 import 'package:hh_express/models/auth/auth_model.dart';
 import 'package:hh_express/models/auth/user/user_model.dart';
 

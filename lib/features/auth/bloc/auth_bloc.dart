@@ -1,9 +1,6 @@
-import 'package:flutter_bloc/flutter_bloc.dart' show Cubit;
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hh_express/app/setup.dart';
-import 'package:hh_express/data/local/secured_storage.dart';
 import 'package:hh_express/features/address/cubit/address_cubit.dart';
 import 'package:hh_express/features/cart/cubit/cart_cubit.dart';
 import 'package:hh_express/helpers/extentions.dart';
@@ -30,8 +27,12 @@ class AuthBloc extends Cubit<AuthState> {
   }
 
   Future<void> authMe() async {
-    emit(AuthState(
-        apiState: APIState.loading, termsConfirmed: state.termsConfirmed));
+    emit(
+      AuthState(
+        apiState: APIState.loading,
+        termsConfirmed: state.termsConfirmed,
+      ),
+    );
     OverlayHelper.showLoading();
     final response = await _repo.authMe();
     final isSuccess = response != null;
@@ -51,23 +52,39 @@ class AuthBloc extends Cubit<AuthState> {
     if (name == null || name.length >= 5) {
       return true;
     }
-    if (name.contains(' ')) {
-      emit(AuthState(
+    SnackBarHelper.showTopSnack('user name is wrong', APIState.error);
+    if (name.contains('')) {
+      emit(
+        AuthState(
           apiState: APIState.error,
           message: 'length of UserName less than 5',
-          termsConfirmed: state.termsConfirmed));
+          termsConfirmed: state.termsConfirmed,
+        ),
+      );
     }
-    emit(AuthState(
+    emit(
+      AuthState(
         apiState: APIState.error,
         message: 'length of UserName less than 5',
-        termsConfirmed: state.termsConfirmed));
-    'Number is incorrect'.log();
+        termsConfirmed: state.termsConfirmed,
+      ),
+    );
     return false;
+  }
+
+  bool checkTerms() {
+    final val = state.termsConfirmed;
+    if (val) {}
+    SnackBarHelper.showTopSnack('Confirm Terms of usage', APIState.error);
+    return val;
   }
 
   bool checkNum(String num) {
     num.log();
     if (num.length != 11) {
+      SnackBarHelper.showTopSnack(
+          'length of Number less than 8', APIState.error);
+
       emit(AuthState(
           apiState: APIState.error,
           message: 'length of Number less than 8',
@@ -80,6 +97,9 @@ class AuthBloc extends Cubit<AuthState> {
 
   bool checkPass(String model) {
     if (model.length < 5) {
+      SnackBarHelper.showTopSnack(
+          'Length of password less than 5', APIState.error);
+
       emit(AuthState(
           apiState: APIState.error,
           message: 'Length of password less than 5',
@@ -101,6 +121,11 @@ class AuthBloc extends Cubit<AuthState> {
     final response = await _repo.logIn(data);
     final isSuccess = response != null;
     if (isSuccess) {
+      appRouter.pop();
+      SnackBarHelper.showTopSnack(
+        appRouter.currentContext.l10n.succsess,
+        APIState.success,
+      );
       reInitOtherScreens();
     }
     emit(
@@ -127,6 +152,10 @@ class AuthBloc extends Cubit<AuthState> {
     if (response) {
       reInitOtherScreens();
       OverlayHelper.remove();
+      SnackBarHelper.showTopSnack(
+        appRouter.currentContext.l10n.succsess,
+        APIState.success,
+      );
       return response;
     }
     emit(
@@ -135,10 +164,6 @@ class AuthBloc extends Cubit<AuthState> {
         message: 'somehings went wrong',
         termsConfirmed: state.termsConfirmed,
       ),
-    );
-    SnackBarHelper.showTopSnack(
-      response ? 'succses' : 'somethingwent wrong',
-      response ? APIState.success : APIState.error,
     );
 
     OverlayHelper.remove();
@@ -156,6 +181,11 @@ class AuthBloc extends Cubit<AuthState> {
     final response = await _repo.register(model);
     final isSuccess = response != null;
     if (isSuccess) {
+      appRouter.pop();
+      SnackBarHelper.showTopSnack(
+        appRouter.currentContext.l10n.succsess,
+        APIState.success,
+      );
       reInitOtherScreens();
     }
     emit(
@@ -170,6 +200,10 @@ class AuthBloc extends Cubit<AuthState> {
   }
 
   void wrongState(String message) {
+    SnackBarHelper.showTopSnack(
+      message,
+      APIState.success,
+    );
     emit(
       AuthState(
         apiState: APIState.error,
