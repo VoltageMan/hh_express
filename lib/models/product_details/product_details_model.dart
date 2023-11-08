@@ -16,7 +16,7 @@ class ProductDetailsModel {
   final String? discount;
   final List<String> images;
   final List<PropertyModel> properties;
-  final List<ProductModel>? similarProducts;
+  final List<ProductModel> similarProducts;
 
   const ProductDetailsModel({
     required this.id,
@@ -27,7 +27,7 @@ class ProductDetailsModel {
     required this.price,
     required this.properties,
     required this.salePrice,
-    required this.similarProducts,
+    this.similarProducts = const [],
   });
 
   factory ProductDetailsModel.fromJson(Map<String, dynamic> data) {

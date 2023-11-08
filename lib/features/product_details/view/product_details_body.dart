@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dynamic_height_grid_view/dynamic_height_grid_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -211,12 +212,12 @@ class _ProdDetailsBodyState extends State<ProdDetailsBody>
                   behavior: MyBehavior(),
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
-                    itemCount: context.read<HomeBloc>().state.prods!.length,
+                    itemCount: product.similarProducts.length,
                     itemBuilder: (context, index) {
                       return HomeProdWidget(
                         forProdDetails: true,
                         index: index == 0 ? -1 : -2,
-                        prod: context.read<HomeBloc>().state.prods![index],
+                        prod: product.similarProducts[index],
                       );
                     },
                   ),

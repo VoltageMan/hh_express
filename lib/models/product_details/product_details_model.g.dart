@@ -20,8 +20,9 @@ ProductDetailsModel _$ProductDetailsModelFromJson(Map<String, dynamic> json) =>
           .toList(),
       salePrice: json['sale_price'] as String,
       similarProducts: (json['similar_products'] as List<dynamic>?)
-          ?.map((e) => ProductModel.fromJson(e as Map<String, dynamic>))
-          .toList(),
+              ?.map((e) => ProductModel.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
     );
 
 Map<String, dynamic> _$ProductDetailsModelToJson(
