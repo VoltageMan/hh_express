@@ -166,8 +166,9 @@ class _ProdDetailsBodyState extends State<ProdDetailsBody>
               ),
               ...product.properties.map(
                 (e) {
-                  if (e.name == 'colors') return ProdColorBuilder(model: e);
-                  return PropertyBuilder(model: e, id: id);
+                  if (AppColors.isColorProp(e.name))
+                    return ProdColorBuilder(model: e);
+                  return PropertyBuilder(model: e);
                 },
               ).toList(),
               Padding(

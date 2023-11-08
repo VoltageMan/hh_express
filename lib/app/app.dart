@@ -74,7 +74,6 @@ class _MyAppState extends State<MyApp> {
                   return Navigator(
                     onGenerateRoute: (settings) => MaterialPageRoute(
                       builder: (context) {
-                        return TestScreen();
                         return child!;
                       },
                     ),

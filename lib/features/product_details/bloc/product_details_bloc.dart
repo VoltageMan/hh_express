@@ -2,7 +2,10 @@ import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hh_express/app/setup.dart';
+import 'package:hh_express/data/local/secured_storage.dart';
 import 'package:hh_express/helpers/extentions.dart';
+import 'package:hh_express/helpers/overlay_helper.dart';
+import 'package:hh_express/helpers/routes.dart';
 import 'package:hh_express/models/product_details/product_details_model.dart';
 import 'package:hh_express/repositories/product_details/product_details_repository.dart';
 import 'package:hh_express/settings/enums.dart';
@@ -12,10 +15,12 @@ part 'product_details_state.dart';
 class ProductDetailsBloc extends Cubit<ProductDetailsState> {
   ProductDetailsBloc()
       : super(
-          ProductDetailsState(state: ProdDetailsAPIState.init, product: null),
+          ProductDetailsState(
+            state: ProdDetailsAPIState.init,
+            product: null,
+          ),
         );
   int? currentProdId;
-  List<int> sesectedProps = List.empty(growable: true);
   final repo = getIt<ProductDetailsRepo>();
 
   Future<void> init(int id) async {
@@ -33,11 +38,11 @@ class ProductDetailsBloc extends Cubit<ProductDetailsState> {
       cancleToken,
     );
     if (product != null) {
-      sesectedProps.add(0);
       return emit(
         ProductDetailsState(
           state: ProdDetailsAPIState.success,
           product: product,
+          selectedProps: {},
         ),
       );
     }
@@ -69,4 +74,32 @@ class ProductDetailsBloc extends Cubit<ProductDetailsState> {
   // int fingProdIndex(int id) {
   //   return state.products.map((e) => e.id).toList().indexOf(id);
   // }
+
+  void selecProp(String propName, int id) {
+    state.selectedProps[propName] = id;
+  }
+
+  int? getSelectedPropid(String propName) {
+    return state.selectedProps[propName];
+  }
+
+  bool isNotAllPropsSelected() {
+    final val =
+        state.product!.properties.map((e) => e.name).toList().any((element) {
+      return state.selectedProps[element] == null;
+    });
+    if (val) {
+      SnackBarHelper.showTopSnack('not all props are selected', APIState.error);
+    }
+    return val;
+  }
+
+  bool isUnauthorized() {
+    final val = LocalStorage.getToken == null;
+    if (val) {
+      SnackBarHelper.showTopSnack(
+          appRouter.currentContext.l10n.unauthorized, APIState.error);
+    }
+    return val;
+  }
 }

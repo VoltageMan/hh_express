@@ -29,32 +29,35 @@ class _ImageIndicatorState extends State<ImageIndicator> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 120.w, vertical: 5.h),
+      margin: EdgeInsets.symmetric(horizontal: 20.w, vertical: 5.h),
       decoration: BoxDecoration(
           color: Colors.black26, borderRadius: BorderRadius.circular(8)),
       padding: AppPaddings.all_2,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: List.generate(
-          widget.controller.length,
-          (index) {
-            return ValueListenableBuilder(
-              valueListenable: _currentIndex,
-              builder: (context, value, child) {
-                final isSelected = _currentIndex.value == index;
-                return AnimatedContainer(
-                  duration: AppDurations.duration_250ms,
-                  margin: AppPaddings.horiz_2.add(AppPaddings.vertic_6),
-                  height: 5.sp,
-                  width: 5.sp,
-                  decoration: BoxDecoration(
-                    borderRadius: AppBorderRadiuses.border_50,
-                    color: isSelected ? AppColors.white : AppColors.darkGrey,
-                  ),
-                );
-              },
-            );
-          },
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: List.generate(
+            widget.controller.length,
+            (index) {
+              return ValueListenableBuilder(
+                valueListenable: _currentIndex,
+                builder: (context, value, child) {
+                  final isSelected = _currentIndex.value == index;
+                  return AnimatedContainer(
+                    duration: AppDurations.duration_250ms,
+                    margin: AppPaddings.horiz_2.add(AppPaddings.vertic_6),
+                    height: 5.sp,
+                    width: 5.sp,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: isSelected ? AppColors.white : AppColors.darkGrey,
+                    ),
+                  );
+                },
+              );
+            },
+          ),
         ),
       ),
     );
