@@ -14,8 +14,6 @@ import 'package:hh_express/models/auth/auth_model.dart';
 import 'package:hh_express/settings/consts.dart';
 import 'package:hh_express/settings/enums.dart';
 import 'package:hh_express/settings/theme.dart';
-import 'package:top_snackbar_flutter/custom_snack_bar.dart';
-import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class AuthBody extends StatefulWidget {
   const AuthBody({super.key, required this.forSingUp});

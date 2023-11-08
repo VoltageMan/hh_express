@@ -5,8 +5,7 @@ import 'package:hh_express/helpers/routes.dart';
 import 'package:hh_express/helpers/spacers.dart';
 import 'package:hh_express/settings/consts.dart';
 import 'package:hh_express/settings/enums.dart';
-import 'package:top_snackbar_flutter/custom_snack_bar.dart';
-import 'package:top_snackbar_flutter/top_snack_bar.dart';
+import 'package:another_flushbar/flushbar.dart';
 
 class OverlayHelper {
   static OverlayEntry? _entry;
@@ -57,12 +56,15 @@ class OverlayHelper {
 }
 
 class SnackBarHelper {
+  static final _keys = List<GlobalKey>.empty(growable: true);
   static SnackBar _snackBar(String message) {
     final needMargin = appRouter.location == AppRoutes.mainScreen;
     return SnackBar(
+      behavior: SnackBarBehavior.floating,
+      showCloseIcon: true,
+      margin: needMargin ? EdgeInsets.only(bottom: 60.h) : EdgeInsets.zero,
       backgroundColor: Colors.transparent,
       content: Container(
-        margin: needMargin ? EdgeInsets.only(bottom: 60.h) : EdgeInsets.zero,
         decoration: BoxDecoration(
           borderRadius: AppBorderRadiuses.border_10,
           color: Colors.black87,
@@ -73,21 +75,14 @@ class SnackBarHelper {
     );
   }
 
-  static void showTopSnack(String message, APIState state) {
+  static void showTopSnack(String message, APIState state, {String? title}) {
     final context = appRouter.currentContext;
-    if (state == APIState.error) {
-      showTopSnackBar(
-        Overlay.of(context),
-        CustomSnackBar.error(message: message),
-      );
-      return;
+    if (_keys.isNotEmpty) {
+      (_keys.last.currentWidget as Flushbar?)?.dismiss();
+      _keys.removeLast();
     }
-    if (state == APIState.success) {
-      showTopSnackBar(
-          Overlay.of(context), CustomSnackBar.success(message: message));
-      return;
-    }
-    showTopSnackBar(Overlay.of(context), CustomSnackBar.info(message: message));
+    _keys.add(GlobalKey());
+    topFlush(message, state, title: title).show(context);
   }
 
   static void showMessageSnack(String message) {
@@ -95,5 +90,27 @@ class SnackBarHelper {
     final messenger = ScaffoldMessenger.of(context);
     messenger.clearSnackBars();
     messenger.showSnackBar(_snackBar(message));
+  }
+
+  static Flushbar topFlush(String message, APIState state, {String? title}) {
+    final colors = {
+      APIState.success: Color.fromARGB(255, 86, 209, 90),
+      APIState.error: const Color.fromARGB(255, 255, 89, 77),
+    };
+    return Flushbar(
+      margin: AppPaddings.all_12..add(AppPaddings.top_6),
+      borderRadius: AppBorderRadiuses.border_10,
+      key: _keys.last,
+      flushbarPosition: FlushbarPosition.TOP,
+      title: title,
+      animationDuration: AppDurations.duration_500ms,
+      duration: Duration(seconds: 3),
+      messageText: Text(
+        message,
+        maxLines: 2,
+        style: TextStyle(color: Colors.white),
+      ),
+      backgroundColor: colors[state] ?? Color.fromARGB(255, 74, 174, 255),
+    );
   }
 }
