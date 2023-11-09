@@ -59,8 +59,10 @@ final appRouter = GoRouter(
     ),
     GoRoute(
       path: AppRoutes.search,
-      builder: (context, state) {
-        return SearchScreen();
+      pageBuilder: (context, state) {
+        return CupertinoPage(
+          child: SearchScreen(),
+        );
       },
     ),
     GoRoute(
