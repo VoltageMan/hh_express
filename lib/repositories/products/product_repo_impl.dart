@@ -12,9 +12,11 @@ class ProductRepoImpl extends ProductRepo with DioClientMixin {
     required List<String> slugs,
     required List<int> properties,
     required int page,
+    String? search,
   }) async {
-    final response =
-        await dio.get(endPoint: _endPoint(slugs, properties, page));
+    final response = await dio.get(
+        endPoint: _endPoint(slugs, properties, page),
+        queryParameters: search != null ? {'search': search} : null);
     if (response.success) {
       // converting paginationModel from json
       final data = response.data[APIKeys.products];

@@ -7,6 +7,7 @@ import 'package:hh_express/features/mainScreen/view/main_screen.dart';
 import 'package:hh_express/features/notifications/view/notification_screen.dart';
 import 'package:hh_express/features/orders/view/details/orders_screen.dart';
 import 'package:hh_express/features/product_details/view/product_details.dart';
+import 'package:hh_express/features/search/view/search_screen.dart';
 import 'package:hh_express/features/video/view/details/video_details.dart';
 import 'package:hh_express/helpers/splash_screen.dart';
 import 'package:hh_express/models/categories/category_model.dart';
@@ -21,7 +22,9 @@ class AppRoutes {
   //   '/${EnumNavRoutes.cart.name}',
   //   '/${EnumNavRoutes.profile.name}',
   // ];
+
   static const mainScreen = '/mainScreen';
+  static const search = '/search';
   static const splashScreen = '/splashScreen';
   static const filterDetails = '/filterDetails';
   static const auth = '/auth';
@@ -52,6 +55,12 @@ final appRouter = GoRouter(
       path: AppRoutes.chat,
       builder: (context, state) {
         return ChatScreen();
+      },
+    ),
+    GoRoute(
+      path: AppRoutes.search,
+      builder: (context, state) {
+        return SearchScreen();
       },
     ),
     GoRoute(
