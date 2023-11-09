@@ -179,6 +179,7 @@ class AppColors {
 class AppDurations {
   static Duration duration_250ms = const Duration(milliseconds: 250);
   static Duration duration_150ms = const Duration(milliseconds: 150);
+  static Duration duration_100ms = const Duration(milliseconds: 100);
   static Duration duration_50ms = const Duration(milliseconds: 50);
   static Duration duration_500ms = const Duration(milliseconds: 500);
   static Duration duration_1500ms = const Duration(milliseconds: 1500);
