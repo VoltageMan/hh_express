@@ -65,15 +65,11 @@ class FilterPropertyBuilder extends StatelessWidget {
                         ? FilterColorWidget(
                             color: e,
                             isSelected: bloc.isSelected(e.id),
-                            onTap: () {
-                              bloc.add(AddFilterProperty(model: e));
-                            },
+                            onTap: () => bloc.switchProp(e),
                           )
                         : FilterPropWidget(
                             model: e,
-                            onTap: () {
-                              bloc.add(AddFilterProperty(model: e));
-                            },
+                            onTap: () => bloc.switchProp(e),
                           ),
                   )
                   .toList(),

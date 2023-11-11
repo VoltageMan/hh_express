@@ -137,6 +137,8 @@ class AppBorderRadiuses {
       Border.all(width: 1.5.sp, color: AppColors.darkGrey);
   static final transparentBorder =
       Border.all(width: 1.5.sp, color: Colors.transparent);
+  static final appOrangetBorder =
+      Border.all(width: 1.5.sp, color: AppColors.appOrange.withOpacity(0.8));
 }
 
 class AppColors {

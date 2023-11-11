@@ -36,6 +36,7 @@ class _FilterSheetBodyState extends State<FilterSheetBody> {
   late FilterBloc bloc;
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Container(
       height: 735.h,
       width: double.infinity,
@@ -93,7 +94,38 @@ class _FilterSheetBodyState extends State<FilterSheetBody> {
               ),
               NavBarBody(
                 child: MyDarkTextButton(
-                  title: 'Harytlar (500)',
+                  title: l10n.products,
+                  child: ValueListenableBuilder(
+                    valueListenable: bloc.productCountNotifier,
+                    child: Text(
+                      '${l10n.products}',
+                      style: context.theme.textTheme.labelMedium,
+                    ),
+                    builder: (context, val, child) {
+                      return Text(
+                        '${l10n.products} (${bloc.getProdCount})',
+                        style: context.theme.textTheme.labelMedium,
+                      );
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          child!,
+                          AppSpacing.horizontal_8,
+                          val == APIState.loading
+                              ? FittedBox(
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 5.w,
+                                    color: AppColors.white,
+                                  ),
+                                )
+                              : Text(
+                                  ('(${bloc.getProdCount})'),
+                                  style: context.theme.textTheme.labelMedium,
+                                ),
+                        ],
+                      );
+                    },
+                  ),
                   onTap: () {
                     if (bloc.forHome) {
                       context.read<HomeBloc>().filter(bloc.state.homeSelecteds);
