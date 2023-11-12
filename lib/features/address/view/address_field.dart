@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_size/flutter_keyboard_size.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/features/address/cubit/address_cubit.dart';
@@ -9,6 +10,7 @@ import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/spacers.dart';
 import 'package:hh_express/models/addres/address_model.dart';
 import 'package:hh_express/settings/consts.dart';
+import 'package:hh_express/settings/theme.dart';
 
 class AddressField extends StatefulWidget {
   const AddressField({super.key, required this.model});
@@ -32,10 +34,50 @@ class _AddressFieldState extends State<AddressField> {
             isPadded: true,
           ),
           AppSpacing.vertical_40,
-          AuthField(
-            keyboardType: TextInputType.text,
-            label: l10n.address,
-            controller: controller,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                child: AuthField(
+                  keyboardType: TextInputType.text,
+                  label: l10n.address,
+                  controller: controller,
+                ),
+              ),
+              Container(
+                margin: AppPaddings.horiz_10.copyWith(bottom: 30.h),
+                padding: AppPaddings.horiz_8,
+                height: 48.h,
+                width: 90.w,
+                decoration: BoxDecoration(
+                  borderRadius: AppBorderRadiuses.border_6,
+                  color: AppColors.lightGrey,
+                  border: Border.all(color: AppColors.darkBlue, width: 1.5.sp),
+                ),
+                alignment: Alignment.center,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: FittedBox(
+                        child: Text(
+                          'Ashgabat',
+                          style: AppTheme.titleMedium12(context),
+                        ),
+                      ),
+                    ),
+                    AppSpacing.horizontal_4,
+                    Icon(
+                      Icons.keyboard_arrow_down_sharp,
+                      color: AppColors.darkBlue,
+                      size: 18.sp,
+                    )
+                  ],
+                ),
+              ),
+            ],
           ),
           Padding(
             padding: AppPaddings.horiz_16.copyWith(bottom: 16.h, top: 10.h),

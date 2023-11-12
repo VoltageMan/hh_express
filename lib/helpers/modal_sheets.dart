@@ -93,11 +93,10 @@ class ModelBottomSheetHelper {
     List<Widget> _profileSheets = [
       ChangeUserNameSheet(),
       SizedBox(),
+      AddressReadSheet(),
       OrdersSheetBody(),
       FavorsBody(),
-      ChooseWelayatSheet(),
       ChangeLangSheet(),
-      AddressReadSheet(),
     ];
     await showModalBottomSheet(
       context: appRouter.currentContext,
