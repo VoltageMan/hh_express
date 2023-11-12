@@ -20,12 +20,12 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
         ),
       );
       var newSet = state.messages;
-      final newList = newSet?.toList()
-        ?..insert(
-          0,
-          event.message,
-        );
-      newSet = newList?.toSet();
+      newSet = {
+        ...{event.message},
+        ...newSet ?? {}
+      };
+      final newList = newSet.toList();
+      newSet = newList.toSet();
       emit(
         state.update(
           messages: newSet,
