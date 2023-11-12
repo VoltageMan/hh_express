@@ -50,8 +50,8 @@ class AddressListTile extends StatelessWidget {
                         await ModelBottomSheetHelper.showAddressUpdateSheet(
                             model);
 
-                        /// 6 index of it self to return addres sheet back
-                        ModelBottomSheetHelper.showProfileSheets(6);
+                        /// 2 index of it self to return addres sheet back
+                        ModelBottomSheetHelper.showProfileSheets(2);
                       },
                       child: Container(
                         decoration: BoxDecoration(
