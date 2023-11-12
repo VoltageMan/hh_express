@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -44,30 +45,37 @@ class MainCategoriesWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Container(
-              height: 55.sp,
-              width: 55.sp,
+            CachedNetworkImage(
+              imageUrl: model!.image,
+              placeholder: (context, url) => MyShimerPlaceHolder(),
+              errorWidget: (context, url, error) {
+                return SizedBox();
+              },
+              fit: BoxFit.contain,
               alignment: Alignment.center,
-              padding: AppPaddings.all_2,
-              decoration: const BoxDecoration(
-                color: AppColors.lightGrey,
-                shape: BoxShape.circle,
-              ),
-              child: Container(
-                width: double.infinity,
-                height: double.infinity,
-                decoration: BoxDecoration(
-                  color: context.theme.scaffoldBackgroundColor,
+              imageBuilder: (context, imageProvider) => Container(
+                height: 55.sp,
+                width: 55.sp,
+                alignment: Alignment.center,
+                padding: AppPaddings.all_2,
+                decoration: const BoxDecoration(
+                  color: AppColors.lightGrey,
                   shape: BoxShape.circle,
                 ),
-                alignment: Alignment.center,
-                child: CircleAvatar(
-                  backgroundColor: Colors.transparent,
-                  child: Image.asset(
-                    model!.image,
-                    fit: BoxFit.contain,
-                    alignment: Alignment.center,
+                child: Container(
+                  width: double.infinity,
+                  height: double.infinity,
+                  decoration: BoxDecoration(
+                    color: context.theme.scaffoldBackgroundColor,
+                    shape: BoxShape.circle,
                   ),
+                  alignment: Alignment.center,
+                  child: CircleAvatar(
+                      backgroundColor: Colors.transparent,
+                      child: Image(
+                        image: imageProvider,
+                        fit: BoxFit.contain,
+                      )),
                 ),
               ),
             ),
@@ -131,10 +139,14 @@ class _LoadingWidget extends StatelessWidget {
             ),
           ),
           AppSpacing.vertical_10,
-          SizedBox(
-            height: 12,
-            child: MyShimerPlaceHolder(
-              radius: AppBorderRadiuses.border_2,
+          ...List.generate(
+            2,
+            (index) => Container(
+              margin: AppPaddings.vertic_2,
+              height: 12,
+              child: MyShimerPlaceHolder(
+                radius: AppBorderRadiuses.border_2,
+              ),
             ),
           ),
           AppSpacing.vertical_4,

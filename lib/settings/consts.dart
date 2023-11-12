@@ -95,6 +95,7 @@ class AppPaddings {
   static EdgeInsets vertic_8 = EdgeInsets.symmetric(vertical: 8.h);
   static EdgeInsets vertic_6 = EdgeInsets.symmetric(vertical: 6.h);
   static EdgeInsets vertic_4 = EdgeInsets.symmetric(vertical: 4.h);
+  static EdgeInsets vertic_2 = EdgeInsets.symmetric(vertical: 2.h);
 
   //! speciffics
   static final horiz16_vertic12 = horiz_16.copyWith(bottom: 12.h, top: 12.h);

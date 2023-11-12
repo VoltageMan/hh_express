@@ -15,8 +15,7 @@ class CategoryBody extends StatefulWidget {
 class _CategoryBodyState extends State<CategoryBody> {
   @override
   void initState() {
-    final bloc = context.read<CategoryBloc>();
-    bloc.add(ChangeCategory(slug: bloc.state.mains!.first.slug));
+    // final bloc = context.read<CategoryBloc>();
 
     super.initState();
   }
@@ -25,8 +24,8 @@ class _CategoryBodyState extends State<CategoryBody> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         MainCategoriesBuilder(),
         const SimpleCategoriesBuilder(),
