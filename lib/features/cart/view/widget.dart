@@ -6,7 +6,6 @@ import 'package:hh_express/features/cart/cubit/cart_cubit.dart';
 import 'package:hh_express/features/cart/view/cart_count.dart';
 import 'package:hh_express/features/components/widgets/place_holder.dart';
 import 'package:hh_express/features/components/widgets/svg_icons.dart';
-import 'package:hh_express/features/product_details/view/modalSheet/product_modal_body.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/modal_sheets.dart';
 import 'package:hh_express/helpers/spacers.dart';
@@ -32,7 +31,7 @@ class _CartWidgetState extends State<CartWidget> {
     return height;
   }
 
-  late final model = widget.model;
+  late CartOrderModel model = widget.model;
   late final product = model.product;
   late final cubit = context.read<CartCubit>();
 
@@ -124,7 +123,8 @@ class _CartWidgetState extends State<CartWidget> {
                             await cubit.cartUpdate(
                               CartUpdateModel(
                                 productId: product.id,
-                                properties: List.empty(),
+                                properties:
+                                    model.selectedPropsId ?? List.empty(),
                                 quantity: 0,
                               ),
                             );
@@ -146,23 +146,33 @@ class _CartWidgetState extends State<CartWidget> {
                           ),
                           CartCount(
                             count: model.quantity,
-                            onAdd: () {
-                              cubit.cartUpdate(
+                            onAdd: () async {
+                              final newCount = model.quantity + 1;
+                              final val = await cubit.cartUpdate(
                                 CartUpdateModel(
                                   productId: product.id,
-                                  properties: List.empty(),
-                                  quantity: model.quantity + 1,
+                                  properties:
+                                      model.selectedPropsId ?? List.empty(),
+                                  quantity: newCount,
                                 ),
                               );
+                              if (val) {
+                                model = model.copyWith(quantity: newCount);
+                              }
                             },
-                            onRemove: () {
-                              cubit.cartUpdate(
+                            onRemove: () async {
+                              final newCount = model.quantity - 1;
+                              final val = await cubit.cartUpdate(
                                 CartUpdateModel(
                                   productId: product.id,
-                                  properties: List.empty(),
-                                  quantity: model.quantity - 1,
+                                  properties:
+                                      model.selectedPropsId ?? List.empty(),
+                                  quantity: newCount,
                                 ),
                               );
+                              if (val) {
+                                model = model.copyWith(quantity: newCount);
+                              }
                             },
                           )
                         ],
