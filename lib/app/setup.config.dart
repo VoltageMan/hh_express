@@ -22,22 +22,26 @@ import 'package:hh_express/repositories/categories/categories_repository_impl.da
 import 'package:hh_express/repositories/chat/chat_repository.dart' as _i11;
 import 'package:hh_express/repositories/chat/chat_repository_impl.dart' as _i12;
 import 'package:hh_express/repositories/filters/filters_repository.dart'
-    as _i13;
-import 'package:hh_express/repositories/filters/filters_repository_impl.dart'
-    as _i14;
-import 'package:hh_express/repositories/order/order_repo.dart' as _i15;
-import 'package:hh_express/repositories/order/order_repo_impl.dart' as _i16;
-import 'package:hh_express/repositories/notifications/notifications_repo.dart'
     as _i15;
-import 'package:hh_express/repositories/notifications/notifications_repo_impl.dart'
+import 'package:hh_express/repositories/filters/filters_repository_impl.dart'
     as _i16;
-import 'package:hh_express/repositories/product_details/product_details_repository.dart'
+import 'package:hh_express/repositories/notifications/notifications_repo.dart'
     as _i17;
-import 'package:hh_express/repositories/product_details/product_details_repository_impl.dart'
+import 'package:hh_express/repositories/notifications/notifications_repo_impl.dart'
     as _i18;
-import 'package:hh_express/repositories/products/product_repo.dart' as _i19;
+import 'package:hh_express/repositories/order/order_repo.dart' as _i19;
+import 'package:hh_express/repositories/order/order_repo_impl.dart' as _i20;
+import 'package:hh_express/repositories/product_details/product_details_repository.dart'
+    as _i21;
+import 'package:hh_express/repositories/product_details/product_details_repository_impl.dart'
+    as _i22;
+import 'package:hh_express/repositories/products/product_repo.dart' as _i23;
 import 'package:hh_express/repositories/products/product_repo_impl.dart'
-    as _i20;
+    as _i24;
+import 'package:hh_express/repositories/profile/favorites/favorites_repository.dart'
+    as _i13;
+import 'package:hh_express/repositories/profile/favorites/favorites_repository_impl.dart'
+    as _i14;
 import 'package:injectable/injectable.dart' as _i2;
 
 extension GetItInjectableX on _i1.GetIt {
@@ -56,11 +60,12 @@ extension GetItInjectableX on _i1.GetIt {
     gh.factory<_i7.CartRepo>(() => _i8.CartRepoImpl());
     gh.factory<_i9.CategoryRepo>(() => _i10.CategoryRepoIMpl());
     gh.factory<_i11.ChatRepo>(() => _i12.ChatRepoIMpl());
-    gh.factory<_i13.FilterRepo>(() => _i14.FilterRepoImpl());
-    gh.factory<_i15.OrderRepo>(() => _i16.OrderRepoImpl());
-    gh.factory<_i15.NotificationsRepo>(() => _i16.NotificationsRepoImpl());
-    gh.factory<_i17.ProductDetailsRepo>(() => _i18.ProductDetailsRepoImpl());
-    gh.factory<_i19.ProductRepo>(() => _i20.ProductRepoImpl());
+    gh.factory<_i13.FavorsRepo>(() => _i14.FavorsRepoImpl());
+    gh.factory<_i15.FilterRepo>(() => _i16.FilterRepoImpl());
+    gh.factory<_i17.NotificationsRepo>(() => _i18.NotificationsRepoImpl());
+    gh.factory<_i19.OrderRepo>(() => _i20.OrderRepoImpl());
+    gh.factory<_i21.ProductDetailsRepo>(() => _i22.ProductDetailsRepoImpl());
+    gh.factory<_i23.ProductRepo>(() => _i24.ProductRepoImpl());
     return this;
   }
 }

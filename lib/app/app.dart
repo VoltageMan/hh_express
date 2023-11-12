@@ -8,6 +8,7 @@ import 'package:hh_express/features/auth/bloc/auth_bloc.dart';
 import 'package:hh_express/features/cart/cubit/cart_cubit.dart';
 import 'package:hh_express/features/categories/bloc/category_bloc.dart';
 import 'package:hh_express/features/chat/bloc/chat_bloc.dart';
+import 'package:hh_express/features/favors/bloc/favors_bloc.dart';
 import 'package:hh_express/features/filter/bloc/filter_bloc.dart';
 import 'package:hh_express/features/home/bloc/home_bloc.dart';
 import 'package:hh_express/features/order_history/cubit/order_history_cubit.dart';
@@ -53,6 +54,7 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(create: (context) => CartCubit()),
         BlocProvider(create: (context) => AddressCubit()),
         BlocProvider(create: (context) => OrderHistoryCubit()),
+        BlocProvider(create: (context) => FavorsCubit()),
       ],
       child: ScreenUtilInit(
         designSize: const Size(360, 800),
@@ -74,7 +76,7 @@ class _MyAppState extends State<MyApp> {
                   return Navigator(
                     onGenerateRoute: (settings) => MaterialPageRoute(
                       builder: (context) {
-                        // return TestScreen();
+                        if (TestScreen.showTest) return TestScreen();
                         return child!;
                       },
                     ),
