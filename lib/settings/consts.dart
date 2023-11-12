@@ -275,6 +275,7 @@ class APIKeys {
   static const page = 'page';
   static const products = 'products';
   static const product = 'product';
+  static const history = 'history';
   static const urlDecoder = '%5B%5D';
 
   static const colors = ['colors', 'цвета', 'reňkler'];
