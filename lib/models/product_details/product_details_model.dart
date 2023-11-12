@@ -7,7 +7,7 @@ part 'product_details_model.g.dart';
 @JsonSerializable(fieldRename: FieldRename.snake)
 class ProductDetailsModel {
   final int id;
-
+  final bool isFavorite;
   final String name;
   final String description;
   final String price;
@@ -19,6 +19,7 @@ class ProductDetailsModel {
   final List<ProductModel> similarProducts;
 
   const ProductDetailsModel({
+    required this.isFavorite,
     required this.id,
     required this.images,
     required this.description,

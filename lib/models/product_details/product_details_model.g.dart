@@ -8,6 +8,7 @@ part of 'product_details_model.dart';
 
 ProductDetailsModel _$ProductDetailsModelFromJson(Map<String, dynamic> json) =>
     ProductDetailsModel(
+      isFavorite: json['is_favorite'] as bool,
       id: json['id'] as int,
       images:
           (json['images'] as List<dynamic>).map((e) => e as String).toList(),
@@ -29,6 +30,7 @@ Map<String, dynamic> _$ProductDetailsModelToJson(
         ProductDetailsModel instance) =>
     <String, dynamic>{
       'id': instance.id,
+      'is_favorite': instance.isFavorite,
       'name': instance.name,
       'description': instance.description,
       'price': instance.price,

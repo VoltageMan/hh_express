@@ -32,7 +32,7 @@ class _ImageIndicatorState extends State<ImageIndicator> {
       margin: EdgeInsets.symmetric(horizontal: 20.w, vertical: 5.h),
       decoration: BoxDecoration(
           color: Colors.black26, borderRadius: BorderRadius.circular(8)),
-      padding: AppPaddings.all_2,
+      padding: AppPaddings.all_2.add(AppPaddings.horiz_4),
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Row(
