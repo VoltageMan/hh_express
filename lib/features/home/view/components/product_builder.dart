@@ -17,7 +17,7 @@ class HomeProdBuilder extends StatelessWidget {
       crossAxisCount: 2,
       crossAxisSpacing: 0.w,
       mainAxisSpacing: 10.h,
-      itemCount: isLoading ? 100 : prods!.length,
+      itemCount: isLoading ? 24 : prods!.length,
       builder: (context, index) {
         return HomeProdWidget(
           index: index,
