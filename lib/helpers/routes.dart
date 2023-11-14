@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hh_express/features/auth/view/auth_screen.dart' as auth;
 import 'package:hh_express/features/chat/screens/chat/chat.dart';
+import 'package:hh_express/features/filter/details/view/filter_details.dart';
 import 'package:hh_express/features/products_by_category/view/products_by_category.dart';
 import 'package:hh_express/features/mainScreen/view/main_screen.dart';
 import 'package:hh_express/features/notifications/view/notification_screen.dart';
@@ -11,6 +12,7 @@ import 'package:hh_express/features/search/view/search_screen.dart';
 import 'package:hh_express/features/video/view/details/video_details.dart';
 import 'package:hh_express/helpers/splash_screen.dart';
 import 'package:hh_express/models/categories/category_model.dart';
+import 'package:hh_express/models/property/property_model.dart';
 
 enum EnumNavRoutes { home, video, category, cart, profile }
 
@@ -139,12 +141,16 @@ final appRouter = GoRouter(
         );
       },
     ),
-    // GoRoute(
-    //   path: AppRoutes.filterDetails,
-    //   name: AppRoutes.filterDetails.replaceAll('/', ''),
-    //   builder: (context, state) {
-    //     return const FilterDetailsScreen();
-    //   },
-    // )
+    GoRoute(
+      path: AppRoutes.filterDetails,
+      name: AppRoutes.filterDetails.replaceAll('/', ''),
+      pageBuilder: (context, state) {
+        return CupertinoPage(
+          child: FilterDetailsScreen(
+            model: state.extra as PropertyModel,
+          ),
+        );
+      },
+    )
   ],
 );

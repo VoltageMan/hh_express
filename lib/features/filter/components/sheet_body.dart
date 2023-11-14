@@ -106,24 +106,6 @@ class _FilterSheetBodyState extends State<FilterSheetBody> {
                         '${l10n.products} (${bloc.getProdCount})',
                         style: context.theme.textTheme.labelMedium,
                       );
-                      return Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          child!,
-                          AppSpacing.horizontal_8,
-                          val == APIState.loading
-                              ? FittedBox(
-                                  child: CircularProgressIndicator(
-                                    strokeWidth: 5.w,
-                                    color: AppColors.white,
-                                  ),
-                                )
-                              : Text(
-                                  ('(${bloc.getProdCount})'),
-                                  style: context.theme.textTheme.labelMedium,
-                                ),
-                        ],
-                      );
                     },
                   ),
                   onTap: () {

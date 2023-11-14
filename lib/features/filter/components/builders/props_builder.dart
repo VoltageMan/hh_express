@@ -7,6 +7,8 @@ import 'package:hh_express/features/filter/components/line.dart';
 import 'package:hh_express/features/filter/components/prop_widegets/filter_color.dart';
 import 'package:hh_express/features/filter/components/prop_widegets/filter_prop_widget.dart';
 import 'package:hh_express/helpers/extentions.dart';
+import 'package:hh_express/helpers/modal_sheets.dart';
+import 'package:hh_express/helpers/routes.dart';
 import 'package:hh_express/helpers/spacers.dart';
 import 'package:hh_express/models/property/property_model.dart';
 import 'package:hh_express/settings/theme.dart';
@@ -40,7 +42,14 @@ class FilterPropertyBuilder extends StatelessWidget {
               ),
             ),
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                ModelBottomSheetHelper.doPop();
+                appRouter
+                    .push(AppRoutes.filterDetails, extra: prop)
+                    .then((value) {
+                  ModelBottomSheetHelper.showFilterSheet();
+                });
+              },
               style: buttonTheme,
               child: Text(
                 context.l10n.all,
