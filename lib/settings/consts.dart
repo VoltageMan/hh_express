@@ -143,6 +143,11 @@ class AppBorderRadiuses {
 }
 
 class AppColors {
+  static bool isColorProp(String name) {
+    return ['colors', 'reňkler', 'цвета']
+        .any((element) => element.toLowerCase() == name.toLowerCase());
+  }
+
   static const red = Color(0xFFDB3022);
   static const superAppColor = Color.fromRGBO(62, 82, 188, 1);
   static const superAppShadowColor = Color.fromRGBO(51, 67, 152, 1);
@@ -250,6 +255,9 @@ class EndPoints {
   static const orderHistory = 'api/v1/cart/history';
   static const notificationList = 'api/v1/notification/list';
   static const notificationCount = 'api/v1/notification/count';
+  static const favorsList = 'api/v1/favorite/list';
+  static const favorsSwitch = 'api/v1/favorite';
+
   static String notificationDelete(int id) => 'api/v1/notification/$id/delete';
   //?
   static String cartFetch(String token) => 'api/v1/cart/$token/fetch';
@@ -276,6 +284,8 @@ class APIKeys {
   static const page = 'page';
   static const products = 'products';
   static const product = 'product';
+  static const similarProducts = 'similar_products';
+  static const isFavor = 'is_favorite';
   static const history = 'history';
   static const urlDecoder = '%5B%5D';
 

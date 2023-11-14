@@ -8,6 +8,7 @@ part of 'product_details_model.dart';
 
 ProductDetailsModel _$ProductDetailsModelFromJson(Map<String, dynamic> json) =>
     ProductDetailsModel(
+      isFavorite: json['is_favorite'] as bool,
       id: json['id'] as int,
       images:
           (json['images'] as List<dynamic>).map((e) => e as String).toList(),
@@ -19,12 +20,17 @@ ProductDetailsModel _$ProductDetailsModelFromJson(Map<String, dynamic> json) =>
           .map((e) => PropertyModel.fromJson(e as Map<String, dynamic>))
           .toList(),
       salePrice: json['sale_price'] as String,
+      similarProducts: (json['similar_products'] as List<dynamic>?)
+              ?.map((e) => ProductModel.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
     );
 
 Map<String, dynamic> _$ProductDetailsModelToJson(
         ProductDetailsModel instance) =>
     <String, dynamic>{
       'id': instance.id,
+      'is_favorite': instance.isFavorite,
       'name': instance.name,
       'description': instance.description,
       'price': instance.price,
@@ -32,4 +38,5 @@ Map<String, dynamic> _$ProductDetailsModelToJson(
       'discount_price': instance.discount,
       'images': instance.images,
       'properties': instance.properties,
+      'similar_products': instance.similarProducts,
     };

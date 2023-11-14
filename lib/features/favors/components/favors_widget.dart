@@ -1,24 +1,47 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/features/components/widgets/favors_image.dart';
 import 'package:hh_express/features/components/widgets/place_holder.dart';
 import 'package:hh_express/features/components/widgets/svg_icons.dart';
+import 'package:hh_express/features/favors/bloc/favors_bloc.dart';
 import 'package:hh_express/helpers/extentions.dart';
+import 'package:hh_express/helpers/modal_sheets.dart';
 import 'package:hh_express/helpers/spacers.dart';
+import 'package:hh_express/models/cart/cart_product_model/cart_product_model.dart';
 import 'package:hh_express/settings/consts.dart';
 import 'package:hh_express/settings/theme.dart';
+import 'package:hh_express/helpers/routes.dart';
 
-class FavorsWidget extends StatelessWidget {
-  const FavorsWidget({super.key, this.isFavor, this.prod});
-  final bool? isFavor;
-  final dynamic prod;
+class FavorsWidget extends StatefulWidget {
+  FavorsWidget({
+    super.key,
+    this.model,
+    required this.isFavor,
+  });
+  final CartProductModel? model;
+  final bool isFavor;
+  @override
+  State<FavorsWidget> createState() => _FavorsWidgetState();
+}
+
+class _FavorsWidgetState extends State<FavorsWidget> {
+  late bool isFavor = widget.isFavor;
   @override
   Widget build(BuildContext context) {
-    final isLoading = prod == null;
+    final cubit = context.read<FavorsCubit>();
+    final isLoading = widget.model == null;
     if (isLoading) return _LoadingWidget();
     return GestureDetector(
       onTap: () {
-        'hello'.log();
+        ModelBottomSheetHelper.doPop();
+        appRouter
+            .push(AppRoutes.prodDetails, extra: widget.model!.id)
+            .then((value) {
+          if (appRouter.location != AppRoutes.mainScreen) return;
+          // 4 index of favors modal sheet
+          ModelBottomSheetHelper.showProfileSheets(4);
+        });
       },
       child: Container(
         margin: AppPaddings.horiz16_botto10,
@@ -33,8 +56,8 @@ class FavorsWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const FavorsImage(
-              imgPath: 'Put Here Image Path',
+            FavorsImage(
+              imgPath: widget.model?.image,
             ),
             Expanded(
               child: Column(
@@ -42,14 +65,14 @@ class FavorsWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'MacBook  2023',
+                    '${widget.model?.name}',
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: AppTheme.titleMedium16(context),
                   ),
                   AppSpacing.vertical_7,
                   Text(
-                    '700.12 TMT',
+                    '${widget.model!.salePrice} TMT',
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: AppTheme.titleMedium14(context),
@@ -58,7 +81,14 @@ class FavorsWidget extends StatelessWidget {
               ),
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () async {
+                if (widget.model == null) return;
+                final val = await cubit.switchFavor(widget.model!);
+                if (val != null) {
+                  isFavor = val;
+                  setState(() {});
+                }
+              },
               style: ElevatedButton.styleFrom(
                 shadowColor: AppColors.transparent,
                 side: BorderSide.none,
@@ -71,9 +101,11 @@ class FavorsWidget extends StatelessWidget {
                 foregroundColor: Colors.grey.withOpacity(0.1),
               ),
               child: MyImageIcon(
-                path: AssetsPath.favorIcon,
-                color:
-                    isFavor ?? true ? AppColors.mainOrange : AppColors.darkGrey,
+                path: AssetsPath.favorFilled,
+                color: (cubit.isFavor(widget.model?.id ?? 0)
+                      ..log(message: '${widget.model!.name}:'))
+                    ? AppColors.mainOrange
+                    : AppColors.darkGrey,
                 contSize: 24.sp,
                 iconSize: 19.w,
               ),

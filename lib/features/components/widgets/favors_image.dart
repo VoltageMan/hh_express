@@ -29,9 +29,17 @@ class FavorsImage extends StatelessWidget {
                 radius: BorderRadius.zero,
               )
             : CachedNetworkImage(
-                imageUrl: AssetsPath.macBook,
-                imageBuilder: (context, imageProvider) {
-                  return Image(image: imageProvider);
+                // todo remove start with
+                imageUrl:
+                    imgPath!.startsWith('http') ? imgPath! : AssetsPath.macBook,
+                // todo error widget
+                errorWidget: (context, url, error) {
+                  return Center(
+                    child: Icon(
+                      Icons.image_outlined,
+                      color: AppColors.darkBlue,
+                    ),
+                  );
                 },
                 fit: BoxFit.cover,
                 placeholder: (context, url) => const MyShimerPlaceHolder(),

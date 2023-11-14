@@ -9,26 +9,17 @@ import 'package:hh_express/settings/consts.dart';
 import 'package:hh_express/settings/theme.dart';
 
 class PropertyBuilder extends StatefulWidget {
-  const PropertyBuilder({super.key, required this.model, required this.id});
+  const PropertyBuilder({super.key, required this.model});
   final PropertyModel model;
-  final int id;
   @override
   State<PropertyBuilder> createState() => _PropertyBuilderState();
 }
 
 class _PropertyBuilderState extends State<PropertyBuilder> {
-  @override
-  void initState() {
-    // TODO: implement initState
-    bloc = context.read<ProductDetailsBloc>();
-
-    super.initState();
-  }
-
-  late final ProductDetailsBloc bloc;
+  late final model = widget.model;
+  late final bloc = context.read<ProductDetailsBloc>();
   @override
   Widget build(BuildContext context) {
-    final model = widget.model;
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -47,19 +38,24 @@ class _PropertyBuilderState extends State<PropertyBuilder> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: List.generate(model.values.length, (i) {
-                return GestureDetector(
-                  onTap: () {
-                    bloc.sesectedProps.last = i;
-                    setState(() {});
-                  },
-                  child: PropertyWidget(
-                    isFirst: i == 0,
-                    value: model.values[i],
-                    isSelected: bloc.sesectedProps.last == i,
-                  ),
-                );
-              }),
+              children: List.generate(
+                model.values.length,
+                (i) {
+                  final theModel = model.values[i];
+                  return GestureDetector(
+                    onTap: () {
+                      bloc.selecProp(model.name, theModel.id);
+                      setState(() {});
+                    },
+                    child: PropertyWidget(
+                      isFirst: i == 0,
+                      value: theModel,
+                      isSelected:
+                          bloc.getSelectedPropid(model.name) == theModel.id,
+                    ),
+                  );
+                },
+              ),
             ),
           ),
         ),

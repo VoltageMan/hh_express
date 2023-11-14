@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hh_express/data/local/secured_storage.dart';
 import 'package:hh_express/features/cart/cubit/cart_cubit.dart';
 import 'package:hh_express/features/components/my_text_button.dart';
 import 'package:hh_express/features/components/widgets/nav_bar_body.dart';
@@ -26,6 +27,8 @@ class ProdDetailsBottomBar extends StatefulWidget {
 
 class _ProdDetailsBottomBarState extends State<ProdDetailsBottomBar> {
   int quantity = 0;
+  late final prodBloc = context.read<ProductDetailsBloc>();
+  late final cartCubit = context.read<CartCubit>();
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +40,6 @@ class _ProdDetailsBottomBarState extends State<ProdDetailsBottomBar> {
             height: 72.h,
             color: Colors.transparent,
           );
-        final cartCubit = context.read<CartCubit>();
         return NavBarBody(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -57,14 +59,12 @@ class _ProdDetailsBottomBarState extends State<ProdDetailsBottomBar> {
                   quantity: quantity,
                   title: l10n.addToCart,
                   onAdd: () async {
-                    if (cartCubit.state == CartAPIState.unAuthorized) {
-                      SnackBarHelper.showMessageSnack('Unauthorized');
-                      return;
-                    }
+                    if (prodBloc.isNotAllPropsSelected() ||
+                        prodBloc.isUnauthorized()) return;
                     final updated = await cartCubit.cartUpdate(
                       CartUpdateModel(
                         productId: widget.id,
-                        properties: List.empty(),
+                        properties: state.selectedProps.values.toList(),
                         quantity: quantity + 1,
                       ),
                     );
@@ -77,7 +77,7 @@ class _ProdDetailsBottomBarState extends State<ProdDetailsBottomBar> {
                     final updated = await cartCubit.cartUpdate(
                       CartUpdateModel(
                         productId: widget.id,
-                        properties: [],
+                        properties: state.selectedProps.values.toList(),
                         quantity: quantity - 1,
                       ),
                     );

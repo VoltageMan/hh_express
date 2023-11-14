@@ -8,16 +8,16 @@ part of 'notification_model.dart';
 
 NotificationModel _$NotificationModelFromJson(Map<String, dynamic> json) =>
     NotificationModel(
-      date: json['created_at'] as String,
-      subTitle: json['description'] as String,
+      date: json['date'] as String?,
+      subTitle: json['subTitle'] as String,
       title: json['title'] as String,
       id: json['id'] as int,
-      is_seen: json['is_seen'] as bool,
+      is_seen: json['is_seen'] as bool? ?? true,
     );
 
 Map<String, dynamic> _$NotificationModelToJson(NotificationModel instance) =>
     <String, dynamic>{
-      'description': instance.subTitle,
+      'subTitle': instance.subTitle,
       'title': instance.title,
       'id': instance.id,
       'date': instance.date,

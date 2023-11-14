@@ -35,9 +35,9 @@ class OrderDetailsScreen extends StatelessWidget {
                   ...List.generate(
                     2,
                     (index) => FavorsWidget(
-                      prod: 2,
-                      isFavor: index != 0,
-                    ),
+                        // prod: 2,
+                        isFavor: index != 0,
+                        ),
                   ),
                   Padding(
                     padding: AppPaddings.left_18,
@@ -77,7 +77,7 @@ class _LoadingBody extends StatelessWidget {
           ...List.generate(
             2,
             (index) => FavorsWidget(
-              prod: null,
+              // prod: null,
               isFavor: index != 0,
             ),
           ),

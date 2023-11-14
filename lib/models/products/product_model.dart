@@ -1,9 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 part 'product_model.g.dart';
 
-@JsonSerializable(
-  fieldRename: FieldRename.snake
-)
+@JsonSerializable(fieldRename: FieldRename.snake)
 class ProductModel {
   final int id;
   final String name;
@@ -14,8 +12,10 @@ class ProductModel {
   final String? discount;
   @JsonKey(name: 'images')
   final String image;
+  final bool isFavorite;
 
   const ProductModel({
+    required this.isFavorite,
     required this.description,
     required this.id,
     required this.image,

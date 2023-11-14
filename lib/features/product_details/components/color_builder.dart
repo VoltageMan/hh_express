@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hh_express/features/filter/components/prop_widegets/filter_color.dart';
+import 'package:hh_express/features/product_details/bloc/product_details_bloc.dart';
 import 'package:hh_express/helpers/extentions.dart';
-import 'package:hh_express/helpers/spacers.dart';
 import 'package:hh_express/models/property/property_model.dart';
 import 'package:hh_express/settings/consts.dart';
 import 'package:hh_express/settings/theme.dart';
@@ -17,9 +18,10 @@ class ProdColorBuilder extends StatefulWidget {
 }
 
 class _ProdColorBuilderState extends State<ProdColorBuilder> {
+  late final bloc = context.read<ProductDetailsBloc>();
   @override
   Widget build(BuildContext context) {
-    final colors = widget.model;
+    final model = widget.model;
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -36,18 +38,25 @@ class _ProdColorBuilderState extends State<ProdColorBuilder> {
           child: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
-              children: colors.values.map((item) {
+              children: model.values.map((item) {
+                final isSelected =
+                    bloc.getSelectedPropid(model.name) == item.id;
                 return Column(
                   children: [
-                    FilterColorWidget(
-                      isMargined: true,
-                      color: item,
-                      isSelected: false,
-                      onTap: () {
-                        // bloc.add(AddFilterProperty(model: e));
-                      },
-                    )
-                    // if (item == selected) AppSpacing.vertical_8
+                    AnimatedPadding(
+                      duration: Duration(milliseconds: 100),
+                      padding:
+                          isSelected ? EdgeInsets.zero : AppPaddings.top_12,
+                      child: FilterColorWidget(
+                        isMargined: true,
+                        color: item,
+                        isSelected: isSelected,
+                        onTap: () {
+                          bloc.selecProp(model.name, item.id);
+                          setState(() {});
+                        },
+                      ),
+                    ),
                   ],
                 );
               }).toList(),
@@ -59,8 +68,19 @@ class _ProdColorBuilderState extends State<ProdColorBuilder> {
   }
 }
 
-
-
+class AnimatedSpace extends StatelessWidget {
+  const AnimatedSpace({super.key, this.height, this.width});
+  final double? height;
+  final double? width;
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedContainer(
+      duration: AppDurations.duration_50ms,
+      height: height,
+      width: width,
+    );
+  }
+}
 // class ProdColorWidget extends StatelessWidget {
 //   ProdColorWidget({
 //     super.key,
