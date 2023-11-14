@@ -15,10 +15,10 @@ class VideoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isLoading = true;
-    if (isLoading) {
-      return _WidgetsPlaceHolder(index: index);
-    }
+    // final isLoading = true;
+    // if (isLoading) {
+    //   return _WidgetsPlaceHolder(index: index);
+    // }
     return GestureDetector(
       onTap: () {
         appRouter.currentContext.push(AppRoutes.videoDetails);

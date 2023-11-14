@@ -45,13 +45,44 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(titles[index], style: textTheme.titleMedium),
-                    IconButton(
-                        splashRadius: 1,
-                        splashColor: Colors.transparent,
-                        onPressed: () {
-                          appRouter.currentContext.push(AppRoutes.chat);
-                        },
-                        icon: Icon(Icons.chat))
+                    SizedBox(
+                      height: 30.h,
+                      child: Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          MyImageIcon(
+                            path: AssetsPath.bellIcon,
+                            contSize: 24.sp,
+                            iconSize: 19.2.sp,
+                            onTap: () {
+                              appRouter.currentContext
+                                  .push(AppRoutes.notifications);
+                            },
+                          ),
+                          Positioned(
+                            top: 0,
+                            right: 0,
+                            child: Container(
+                              height: 20.h,
+                              padding: EdgeInsets.all(3.sp),
+                              decoration: BoxDecoration(
+                                color: Colors.red,
+                                shape: BoxShape.circle,
+                              ),
+                              child: FittedBox(
+                                child: Text(
+                                  "3",
+                                  style: context.theme.textTheme.displaySmall!
+                                      .copyWith(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 )
               : index != 0
@@ -69,15 +100,14 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
                                 ModelBottomSheetHelper.showFilterSheet(),
                           ),
                         ),
-                        MyImageIcon(
-                          path: AssetsPath.bellIcon,
-                          contSize: 24.sp,
-                          iconSize: 19.2.sp,
-                          onTap: () {
-                            appRouter.currentContext
-                                .push(AppRoutes.notifications);
-                          },
-                        ),
+                        IconButton(
+                            splashRadius: 1,
+                            splashColor: Colors.transparent,
+                            iconSize: 22.sp,
+                            onPressed: () {
+                              appRouter.currentContext.push(AppRoutes.chat);
+                            },
+                            icon: Icon(Icons.chat))
                       ],
                     ),
         );

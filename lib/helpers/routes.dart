@@ -108,8 +108,24 @@ final appRouter = GoRouter(
     ),
     GoRoute(
       path: AppRoutes.videoDetails,
-      builder: (context, state) {
-        return const VideoDetails();
+      pageBuilder: (context, state) {
+        return CustomTransitionPage(
+          child: const VideoDetails(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+              SlideTransition(
+            position: Tween<Offset>(
+              begin: const Offset(0.0, 1.0),
+              end: Offset.zero,
+            ).animate(animation),
+            child: SlideTransition(
+              position: Tween<Offset>(
+                begin: Offset.zero,
+                end: const Offset(0.0, -1.0),
+              ).animate(secondaryAnimation),
+              child: child,
+            ),
+          ),
+        );
       },
     ),
     // GoRoute(
