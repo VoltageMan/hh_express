@@ -20,7 +20,6 @@ class ProfileBody extends StatefulWidget {
 
 class _ProfileBodyState extends State<ProfileBody> {
   final List<String> icons = [
-    AssetsPath.navBarIcons[4],
     AssetsPath.phoneIcon,
     AssetsPath.locationIcon,
     AssetsPath.ordersIcon,
@@ -30,7 +29,6 @@ class _ProfileBodyState extends State<ProfileBody> {
   @override
   Widget build(BuildContext context) {
     final List<String> titles = [
-      context.l10n.userName,
       context.l10n.phoneNumber,
       context.l10n.address,
       context.l10n.myOrders,
@@ -47,11 +45,11 @@ class _ProfileBodyState extends State<ProfileBody> {
       children: [
         AppSpacing.vertical_30,
         ...List.generate(
-          6,
+          titles.length,
           (index) => ProfileListTile(
             iconPath: icons[index],
             onTap: () {
-              if (index == 1) {
+              if (index == 0) {
                 if (LocalStorage.getToken != null) {
                   Confirm.showLogOutDialog(context);
                   return;
@@ -59,10 +57,11 @@ class _ProfileBodyState extends State<ProfileBody> {
                 GoRouter.of(context).push(AppRoutes.auth, extra: true);
                 return;
               }
+              index.log();
               ModelBottomSheetHelper.showProfileSheets(index);
             },
             title: titles[index],
-            tralling: index == 5 ? langs[locale.value]! : 'someData',
+            tralling: index == 4 ? langs[locale.value]! : 'someData',
           ),
         ),
       ],

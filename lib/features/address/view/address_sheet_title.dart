@@ -30,8 +30,8 @@ class AddressSheetTitle extends StatelessWidget {
                     ModelBottomSheetHelper.doPop();
                     await ModelBottomSheetHelper.showAddressUpdateSheet(null);
 
-                    /// 2 index of it self to return addres sheet back
-                    ModelBottomSheetHelper.showProfileSheets(2);
+                    /// 1 index of it self to return addres sheet back
+                    ModelBottomSheetHelper.showProfileSheets(1);
                   },
                   child: SizedBox.square(
                     dimension: 22.sp,

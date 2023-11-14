@@ -10,7 +10,7 @@ import 'package:hh_express/helpers/modal_sheets.dart';
 import 'package:hh_express/helpers/spacers.dart';
 import 'package:hh_express/settings/consts.dart';
 
-class AddressReadSheet extends StatefulWidget {
+class AddressReadSheet extends StatelessWidget {
   const AddressReadSheet({
     super.key,
     this.forComplete = false,
@@ -18,21 +18,15 @@ class AddressReadSheet extends StatefulWidget {
   final bool forComplete;
 
   @override
-  State<AddressReadSheet> createState() => _AddressReadSheetState();
-}
-
-class _AddressReadSheetState extends State<AddressReadSheet> {
-  // late cubit
-  @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         AddressSheetTitle(
-          forComplete: widget.forComplete,
+          forComplete: forComplete,
         ),
         AppSpacing.vertical_16,
-        AddressSheetBody(forComplite: widget.forComplete),
-        widget.forComplete
+        AddressSheetBody(forComplite: forComplete),
+        forComplete
             ? Padding(
                 padding: AppPaddings.horiz16_vertic12,
                 child: MyDarkTextButton(

@@ -87,11 +87,8 @@ class ModelBottomSheetHelper {
   }
 
   static Future<void> showProfileSheets(int index) async {
-    if (index == 1) return;
-    final l10n = appRouter.currentContext.l10n;
     _sheetShown = true;
     List<Widget> _profileSheets = [
-      ChangeUserNameSheet(),
       SizedBox(),
       AddressReadSheet(),
       OrdersSheetBody(),

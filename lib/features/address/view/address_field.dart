@@ -6,9 +6,11 @@ import 'package:hh_express/features/auth/components/auth_field.dart';
 import 'package:hh_express/features/components/my_text_button.dart';
 import 'package:hh_express/features/components/widgets/sheet_titles.dart';
 import 'package:hh_express/helpers/extentions.dart';
+import 'package:hh_express/helpers/overlay_helper.dart';
 import 'package:hh_express/helpers/spacers.dart';
 import 'package:hh_express/models/addres/address_model.dart';
 import 'package:hh_express/settings/consts.dart';
+import 'package:hh_express/settings/enums.dart';
 import 'package:hh_express/settings/theme.dart';
 
 class AddressField extends StatefulWidget {
@@ -80,7 +82,8 @@ class _AddressFieldState extends State<AddressField> {
                       height: 48.h,
                       width: 90.w,
                       decoration: BoxDecoration(
-                        borderRadius: AppBorderRadiuses.border_6,  ),
+                        borderRadius: AppBorderRadiuses.border_6,
+                      ),
                       alignment: Alignment.center,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -114,6 +117,11 @@ class _AddressFieldState extends State<AddressField> {
               title: l10n.save,
               onTap: () async {
                 final model = widget.model;
+                if (controller.text.length < 5) {
+                  SnackBarHelper.showTopSnack(
+                      'Address Must be at least 5 letters', APIState.error);
+                  return;
+                }
                 if (model == null) {
                   final data =
                       await cubit.create('${controller.text} $theWelayat');
