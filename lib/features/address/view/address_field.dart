@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_size/flutter_keyboard_size.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,8 +19,25 @@ class AddressField extends StatefulWidget {
 }
 
 class _AddressFieldState extends State<AddressField> {
-  late final controller = TextEditingController(text: widget.model?.address);
+  @override
+  void initState() {
+    if (widget.model != null) {
+      final splittedList = List.from(widget.model!.address.split(' '));
+      theWelayat =
+          widget.model != null ? splittedList.last : context.l10n.ashgabat;
+      splittedList.removeLast();
+      controller.text = splittedList.join(' ');
+    }
+
+    super.initState();
+  }
+
+  late final controller = TextEditingController();
   late final cubit = context.read<AddressCubit>();
+  final _key = GlobalKey();
+  double kbHeight = 0;
+
+  late String theWelayat = context.l10n.ashgabat;
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
@@ -45,36 +61,49 @@ class _AddressFieldState extends State<AddressField> {
                   controller: controller,
                 ),
               ),
-              Container(
-                margin: AppPaddings.horiz_10.copyWith(bottom: 30.h),
-                padding: AppPaddings.horiz_8,
-                height: 48.h,
-                width: 90.w,
-                decoration: BoxDecoration(
-                  borderRadius: AppBorderRadiuses.border_6,
+              Padding(
+                padding: AppPaddings.horiz_10.copyWith(bottom: 30.h),
+                child: Material(
                   color: AppColors.lightGrey,
-                  border: Border.all(color: AppColors.darkBlue, width: 1.5.sp),
-                ),
-                alignment: Alignment.center,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Expanded(
-                      child: FittedBox(
-                        child: Text(
-                          'Ashgabat',
-                          style: AppTheme.titleMedium12(context),
-                        ),
+                  borderRadius: AppBorderRadiuses.border_6,
+                  child: InkWell(
+                    borderRadius: AppBorderRadiuses.border_6,
+                    onTap: () async {
+                      await showWelayatSelector(_key.currentContext!, kbHeight,
+                          (val) => theWelayat = val);
+                      setState(() {});
+                    },
+                    child: Container(
+                      key: _key,
+                      padding:
+                          EdgeInsets.symmetric(vertical: 15.h, horizontal: 5.w),
+                      height: 48.h,
+                      width: 90.w,
+                      decoration: BoxDecoration(
+                        borderRadius: AppBorderRadiuses.border_6,  ),
+                      alignment: Alignment.center,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: FittedBox(
+                              child: Text(
+                                theWelayat,
+                                style: AppTheme.titleMedium12(context),
+                              ),
+                            ),
+                          ),
+                          AppSpacing.horizontal_4,
+                          Icon(
+                            Icons.keyboard_arrow_down_sharp,
+                            color: AppColors.darkBlue,
+                            size: 18.sp,
+                          )
+                        ],
                       ),
                     ),
-                    AppSpacing.horizontal_4,
-                    Icon(
-                      Icons.keyboard_arrow_down_sharp,
-                      color: AppColors.darkBlue,
-                      size: 18.sp,
-                    )
-                  ],
+                  ),
                 ),
               ),
             ],
@@ -86,10 +115,11 @@ class _AddressFieldState extends State<AddressField> {
               onTap: () async {
                 final model = widget.model;
                 if (model == null) {
-                  final data = await cubit.create(controller.text);
-                } else {
                   final data =
-                      await cubit.update(model.update(controller.text));
+                      await cubit.create('${controller.text} $theWelayat');
+                } else {
+                  final data = await cubit
+                      .update(model.update('${controller.text} $theWelayat'));
                 }
                 Navigator.pop(context);
               },
@@ -97,6 +127,7 @@ class _AddressFieldState extends State<AddressField> {
           ),
           Consumer<ScreenHeight>(
             builder: (context, value, child) {
+              kbHeight = value.keyboardHeight;
               return SizedBox(
                 height: value.keyboardHeight,
               );
@@ -107,3 +138,34 @@ class _AddressFieldState extends State<AddressField> {
     ).toSingleChildScrollView;
   }
 }
+
+Future<void> showWelayatSelector(
+    BuildContext context, double kbHeight, onSelect<String> onSelect) async {
+  final mqWidth = MediaQuery.sizeOf(context);
+  final position =
+      (context.findRenderObject() as RenderBox).localToGlobal(Offset.zero);
+  final l10n = context.l10n;
+  final welayats = [
+    l10n.ashgabat,
+    l10n.ahal,
+    l10n.mary,
+    l10n.lebap,
+    l10n.dasoguz,
+  ];
+  return await showMenu<void>(
+      context: context,
+      position: RelativeRect.fromLTRB(position.dx,
+          kbHeight == 0 ? position.dy : kbHeight, mqWidth.width, 0),
+      items: welayats
+          .map(
+            (e) => PopupMenuItem(
+              textStyle: AppTheme.titleMedium12(context),
+              value: e,
+              onTap: () => onSelect(e),
+              child: Text(e),
+            ),
+          )
+          .toList());
+}
+
+typedef onSelect<T> = T Function(T val);

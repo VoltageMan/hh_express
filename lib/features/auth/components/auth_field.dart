@@ -40,6 +40,16 @@ class _AuthFieldState extends State<AuthField> {
       alignment: Alignment.center,
       margin: AppPaddings.horiz_16.copyWith(bottom: 30.h),
       child: TextField(
+        focusNode: FocusNode(),
+        // canRequestFocus: true,
+        // onKeyEvent: (node, event) {
+        //   event.character.log();
+        //   event.logicalKey.log();
+        //   event.physicalKey.log();
+        //   event.synthesized.log();
+        //   return KeyEventResult.handled;
+        // },
+        // ),
         controller: widget.controller,
         autocorrect: false,
         buildCounter: (context,
