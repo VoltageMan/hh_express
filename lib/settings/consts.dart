@@ -95,6 +95,7 @@ class AppPaddings {
   static EdgeInsets vertic_8 = EdgeInsets.symmetric(vertical: 8.h);
   static EdgeInsets vertic_6 = EdgeInsets.symmetric(vertical: 6.h);
   static EdgeInsets vertic_4 = EdgeInsets.symmetric(vertical: 4.h);
+  static EdgeInsets vertic_2 = EdgeInsets.symmetric(vertical: 2.h);
 
   //! speciffics
   static final horiz16_vertic12 = horiz_16.copyWith(bottom: 12.h, top: 12.h);
@@ -137,6 +138,8 @@ class AppBorderRadiuses {
       Border.all(width: 1.5.sp, color: AppColors.darkGrey);
   static final transparentBorder =
       Border.all(width: 1.5.sp, color: Colors.transparent);
+  static final appOrangetBorder =
+      Border.all(width: 1.5.sp, color: AppColors.appOrange.withOpacity(0.8));
 }
 
 class AppColors {
@@ -184,6 +187,7 @@ class AppColors {
 class AppDurations {
   static Duration duration_250ms = const Duration(milliseconds: 250);
   static Duration duration_150ms = const Duration(milliseconds: 150);
+  static Duration duration_100ms = const Duration(milliseconds: 100);
   static Duration duration_50ms = const Duration(milliseconds: 50);
   static Duration duration_500ms = const Duration(milliseconds: 500);
   static Duration duration_1500ms = const Duration(milliseconds: 1500);
@@ -251,6 +255,9 @@ class EndPoints {
   static const orderHistory = 'api/v1/cart/history';
   static const notificationList = 'api/v1/notification/list';
   static const notificationCount = 'api/v1/notification/count';
+  static const favorsList = 'api/v1/favorite/list';
+  static const favorsSwitch = 'api/v1/favorite';
+
   static String notificationDelete(int id) => 'api/v1/notification/$id/delete';
   //?
   static String cartFetch(String token) => 'api/v1/cart/$token/fetch';
@@ -278,6 +285,8 @@ class APIKeys {
   static const products = 'products';
   static const product = 'product';
   static const similarProducts = 'similar_products';
+  static const isFavor = 'is_favorite';
+  static const history = 'history';
   static const urlDecoder = '%5B%5D';
 
   static const colors = ['colors', 'цвета', 'reňkler'];

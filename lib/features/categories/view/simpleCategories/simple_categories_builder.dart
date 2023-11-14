@@ -17,10 +17,9 @@ class SimpleCategoriesBuilder extends StatelessWidget {
     return BlocBuilder<CategoryBloc, CategoryState>(
       builder: (context, state) {
         final slug = state.mains?[state.activIndex ?? 0].slug;
-        if (state.state == CategoryAPIState.success) {
-          return _UIBuilder(
-            list: state.subs![slug],
-          );
+        final apiState = state.state;
+        if (apiState == CategoryAPIState.error) {
+          return SizedBox(width: double.infinity);
         }
         if (state.state == CategoryAPIState.errorSubs) {
           return Expanded(
@@ -31,7 +30,9 @@ class SimpleCategoriesBuilder extends StatelessWidget {
             ),
           );
         }
-        return _UIBuilder();
+        return _UIBuilder(
+          list: state.subs?[slug],
+        );
       },
     );
   }

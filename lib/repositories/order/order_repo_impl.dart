@@ -15,7 +15,7 @@ class OrderRepoImpl extends OrderRepo with DioClientMixin {
         .get(endPoint: EndPoints.orderHistory, queryParameters: {'page': page});
 
     if (response.success) {
-      final responseData = response.data[APIKeys.products];
+      final responseData = response.data[APIKeys.history];
       final pagination =
           PaginationModel.fromJson(responseData[APIKeys.pagination]);
       ///

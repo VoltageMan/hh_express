@@ -1,7 +1,6 @@
 import 'package:hh_express/data/local/secured_storage.dart';
 import 'package:hh_express/data/remote/dio_client.dart';
 import 'package:hh_express/helpers/extentions.dart';
-import 'package:hh_express/models/api/response_model.dart';
 import 'package:hh_express/models/auth/auth_model.dart';
 import 'package:hh_express/models/auth/user/user_model.dart';
 import 'package:hh_express/repositories/auth/auth_repositori.dart';
@@ -44,7 +43,7 @@ class AuthRepoImpl extends AuthRepo with DioClientMixin {
 
   @override
   Future<bool> logOut() async {
-    final response = await dio.delete(endPoint: EndPoints.logOut);
+    final response = await dio.post(endPoint: EndPoints.logOut);
     if (response.success) {
       await LocalStorage.deleteToken();
     }

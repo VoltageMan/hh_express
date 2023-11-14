@@ -2,9 +2,9 @@ import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hh_express/app/setup.dart';
-import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/models/categories/category_model.dart';
 import 'package:hh_express/repositories/categories/categories_repository.dart';
+import 'package:hh_express/settings/consts.dart';
 import 'package:hh_express/settings/enums.dart';
 
 part 'category_event.dart';
@@ -14,21 +14,35 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
   final repo = getIt<CategoryRepo>();
 
   CategoryBloc() : super(CategoryState(state: CategoryAPIState.init)) {
-    on<InitCategories>((event, emit) async {
-      //
-      final data = await repo.getAssetMains();
-      emit(
-        CategoryState(
-          state: CategoryAPIState.errorSubs,
-          activIndex: 0,
-          mains: List<CategoryModel>.from(data),
-          subs: {},
-        ),
-      );
-      'success emit'.log();
-
-      return;
-    });
+    on<InitCategories>(
+      (event, emit) async {
+        //
+        emit(
+          CategoryState(state: CategoryAPIState.loading),
+        );
+        final data = await repo.getAll();
+        if (data != null) {
+          final mains = data[APIKeys.mainCategories]!;
+          final subs = data[APIKeys.subCategories]!;
+          return emit(
+            CategoryState(
+              state: CategoryAPIState.success,
+              activIndex: 0,
+              mains: List<CategoryModel>.from(mains),
+              subs: {
+                mains.first.slug: subs,
+              },
+            ),
+          );
+        }
+        emit(
+          CategoryState(
+            state: CategoryAPIState.error,
+          ),
+        );
+        return;
+      },
+    );
     //
     on<ChangeCategory>((event, emit) async {
       final index =
@@ -36,7 +50,6 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
       if (state.state == CategoryAPIState.loadingSubs) {
         state.cancelToken?.cancel();
       }
-
       await _checkSubExisting(event.slug, emit, index);
     });
   }
@@ -74,7 +87,7 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
     final data = await repo.getSubsBySlug(slug, newCancelToken);
     if (data == null) {
       if (newCancelToken.isCancelled) return;
-      emit(
+      return emit(
         CategoryState(
           state: CategoryAPIState.errorSubs,
           activIndex: index,
@@ -82,7 +95,6 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
           subs: Map<String, List<CategoryModel>>.from(state.subs!),
         ),
       );
-      return;
     }
     emit(
       CategoryState(

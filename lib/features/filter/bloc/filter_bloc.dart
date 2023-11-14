@@ -1,10 +1,18 @@
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hh_express/app/setup.dart';
+import 'package:hh_express/features/products_by_category/bloc/products_by_category_bloc.dart';
+import 'package:hh_express/helpers/extentions.dart';
+import 'package:hh_express/helpers/routes.dart';
+import 'package:hh_express/models/api/paginated_data_model.dart';
+import 'package:hh_express/models/pagination/pagination_model.dart';
 import 'package:hh_express/models/property/property_model.dart';
 import 'package:hh_express/models/property/values/property_value_model.dart';
 import 'package:hh_express/repositories/filters/filters_repository.dart';
+import 'package:hh_express/repositories/products/product_repo.dart';
+import 'package:hh_express/settings/consts.dart';
 import 'package:hh_express/settings/enums.dart';
 import 'package:meta/meta.dart';
 
@@ -27,6 +35,7 @@ final class FilterBloc extends Bloc<FilterEvent, FilterState> {
           newState.prodByCatselecteds.add(theProp);
         }
         emit(newState);
+        switchProdCount();
       },
     );
     on<RemoveFilterProperty>(
@@ -39,6 +48,7 @@ final class FilterBloc extends Bloc<FilterEvent, FilterState> {
           newState.prodByCatselecteds.remove(theProp);
         }
         emit(newState);
+        switchProdCount();
       },
     );
     on<ClearFilter>(
@@ -77,4 +87,46 @@ final class FilterBloc extends Bloc<FilterEvent, FilterState> {
     final num = selecteds.map((e) => e.id).toList().indexOf(id);
     return num != -1;
   }
+
+  void switchProp(PropertyValue model) {
+    if (isSelected(model.id)) {
+      add(RemoveFilterProperty(model: model));
+      return;
+    }
+    add(AddFilterProperty(model: model));
+  }
+
+  final List<int> _productCount = [0, 0];
+
+  /// state mannager for count text of products after filter in bottom button of modal sheet
+  final productCountNotifier = ValueNotifier<APIState>(APIState.init);
+
+  final productRepo = getIt<ProductRepo>();
+  void switchProdCount() async {
+    final propList = forHome ? state.homeSelecteds : state.prodByCatselecteds;
+    final slugs = forHome
+        ? List<String>.empty()
+        : [
+            appRouter.currentContext
+                    .read<ProductsByCategoryBloc>()
+                    .state
+                    .category
+                    ?.slug ??
+                ''
+          ];
+    productCountNotifier.value = APIState.loading;
+    final data = await productRepo.getProducts(
+      slugs: slugs,
+      properties: propList.map((e) => e.id).toList(),
+      page: 0,
+    );
+    if (data != null) {
+      final count = (data[APIKeys.pagination] as PaginationModel).total;
+      _productCount[forHome ? 0 : 1] = count;
+    }
+
+    productCountNotifier.value = APIState.success;
+  }
+
+  int get getProdCount => _productCount[forHome ? 0 : 1];
 }

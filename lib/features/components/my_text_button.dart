@@ -11,12 +11,13 @@ class MyDarkTextButton extends StatelessWidget {
     this.onTap,
     this.width,
     this.padding,
+    this.child,
   });
   final String title;
   final double? width;
   final VoidCallback? onTap;
-
   final EdgeInsets? padding;
+  final Widget? child;
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
@@ -31,12 +32,13 @@ class MyDarkTextButton extends StatelessWidget {
             padding: padding ?? AppPaddings.vertic_15,
             alignment: Alignment.center,
             width: width,
-            child: FittedBox(
-              child: Text(
-                title,
-                style: context.theme.textTheme.labelMedium,
-              ),
-            ),
+            child: child ??
+                FittedBox(
+                  child: Text(
+                    title,
+                    style: context.theme.textTheme.labelMedium,
+                  ),
+                ),
           ),
         ),
       ),

@@ -1,14 +1,16 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/features/categories/bloc/category_bloc.dart';
 import 'package:hh_express/features/components/widgets/place_holder.dart';
+import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/spacers.dart';
 import 'package:hh_express/models/categories/category_model.dart';
 import 'package:hh_express/settings/consts.dart';
 import 'package:hh_express/settings/theme.dart';
 
-class MainCategoriesWidget extends StatefulWidget {
+class MainCategoriesWidget extends StatelessWidget {
   const MainCategoriesWidget({
     super.key,
     required this.isSelected,
@@ -19,35 +21,21 @@ class MainCategoriesWidget extends StatefulWidget {
   final bool isSelected;
 
   @override
-  State<MainCategoriesWidget> createState() => _MainCategoriesWidgetState();
-}
-
-class _MainCategoriesWidgetState extends State<MainCategoriesWidget> {
-  @override
-  void initState() {
-    bloc = context.read<CategoryBloc>();
-
-    super.initState();
-  }
-
-  late CategoryBloc bloc;
-  bool hasError = false;
-
-  @override
   Widget build(BuildContext context) {
-    final model = widget.model;
-    final isLoading = model == null;
-    if (isLoading) {
+    final bloc = context.read<CategoryBloc>();
+
+    /// isLoading
+    if (model == null) {
       return _LoadingWidget();
     }
     return GestureDetector(
       onTap: () {
         final state = bloc.state;
-        final itSelf = state.mains![state.activIndex!].slug == model.slug;
+        final itSelf = state.mains![state.activIndex!].slug == model!.slug;
         if (itSelf) {
           return;
         }
-        bloc.add(ChangeCategory(slug: model.slug));
+        bloc.add(ChangeCategory(slug: model!.slug));
       },
       child: Container(
         width: 76.w,
@@ -57,47 +45,62 @@ class _MainCategoriesWidgetState extends State<MainCategoriesWidget> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Container(
-              height: 55.sp,
-              width: 55.sp,
+            CachedNetworkImage(
+              imageUrl: model!.image,
+              placeholder: (context, url) => MyShimerPlaceHolder(),
+              errorWidget: (context, url, error) {
+                return SizedBox();
+              },
+              fit: BoxFit.contain,
               alignment: Alignment.center,
-              padding: AppPaddings.all_2,
-              decoration: const BoxDecoration(
-                color: AppColors.lightGrey,
-                shape: BoxShape.circle,
-              ),
-              child: Container(
-                height: 50.sp,
-                width: 50.sp,
+              imageBuilder: (context, imageProvider) => Container(
+                height: 55.sp,
+                width: 55.sp,
+                alignment: Alignment.center,
+                padding: AppPaddings.all_2,
                 decoration: const BoxDecoration(
-                  color: AppColors.white,
+                  color: AppColors.lightGrey,
                   shape: BoxShape.circle,
                 ),
-                padding: AppPaddings.vertic_6,
-                child: Image.asset(
-                  model.image,
-                  fit: BoxFit.contain,
+                child: Container(
+                  width: double.infinity,
+                  height: double.infinity,
+                  decoration: BoxDecoration(
+                    color: context.theme.scaffoldBackgroundColor,
+                    shape: BoxShape.circle,
+                  ),
+                  alignment: Alignment.center,
+                  child: CircleAvatar(
+                      backgroundColor: Colors.transparent,
+                      child: Image(
+                        image: imageProvider,
+                        fit: BoxFit.contain,
+                      )),
                 ),
-                alignment: Alignment.center,
               ),
             ),
             AppSpacing.vertical_10,
-            Center(
+            Container(
+              alignment: Alignment.topCenter,
+              height: (AppSpacing.getTextHeight(10) * 2),
               child: Text(
-                '${model.name}',
+                '${model!.name}',
                 style: AppTheme.bodyMedium10(context),
+                maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.center,
               ),
             ),
-            AppSpacing.vertical_4,
-            if (widget.isSelected)
-              Container(
-                height: 3.h,
-                width: 68.w,
-                margin: AppPaddings.horiz_4,
-                color: AppColors.black,
-              )
+            AnimatedContainer(
+              duration: Duration(milliseconds: 200),
+              margin: AppPaddings.vertic_4,
+              width: double.infinity,
+              height: 2.h,
+              decoration: BoxDecoration(
+                borderRadius: AppBorderRadiuses.border_2,
+                color: isSelected ? AppColors.black : Colors.transparent,
+              ),
+            )
           ],
         ),
       ),
@@ -110,8 +113,6 @@ class _LoadingWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Map<int, int> map = {};
-
     return Container(
       width: 76.w,
       padding: AppPaddings.horiz_10half,
@@ -138,10 +139,14 @@ class _LoadingWidget extends StatelessWidget {
             ),
           ),
           AppSpacing.vertical_10,
-          SizedBox(
-            height: 12,
-            child: MyShimerPlaceHolder(
-              radius: AppBorderRadiuses.border_2,
+          ...List.generate(
+            2,
+            (index) => Container(
+              margin: AppPaddings.vertic_2,
+              height: 12,
+              child: MyShimerPlaceHolder(
+                radius: AppBorderRadiuses.border_2,
+              ),
             ),
           ),
           AppSpacing.vertical_4,

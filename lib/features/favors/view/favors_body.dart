@@ -19,14 +19,6 @@ class FavorsBody extends StatelessWidget {
         ),
         AppSpacing.vertical_10,
         const FavrosBuilder(),
-        NavBarBody(
-          child: MyDarkTextButton(
-            title: context.l10n.clear,
-            onTap: () {
-              Navigator.pop(context);
-            },
-          ),
-        )
       ],
     ).toSingleChildScrollView;
   }

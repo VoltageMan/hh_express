@@ -4,8 +4,11 @@ import 'package:dio/dio.dart';
 import 'package:hh_express/data/local/secured_storage.dart';
 import 'package:hh_express/data/remote/interceptors/log_interceptor.dart';
 import 'package:hh_express/helpers/extentions.dart';
+import 'package:hh_express/helpers/overlay_helper.dart';
+import 'package:hh_express/helpers/routes.dart';
 import 'package:hh_express/models/api/response_model.dart';
 import 'package:hh_express/settings/consts.dart';
+import 'package:hh_express/settings/enums.dart';
 import 'package:hh_express/settings/globals.dart';
 
 mixin DioClientMixin {
@@ -122,10 +125,20 @@ class _DioClient {
 
 ApiResponse _handleException(Object e, StackTrace? stack) {
   final isDioExeption = e is DioException;
+
   if (!isDioExeption) {
+    SnackBarHelper.showTopSnack(
+      e.toString(),
+      APIState.error,
+    );
     return ApiResponse.unknownError;
   }
-  if (e.error is SocketException) {
+
+  if (e.error is SocketException || e.response?.statusCode == 104) {
+    SnackBarHelper.showTopSnack(
+      appRouter.currentContext.l10n.socketExeption,
+      APIState.error,
+    );
     'MY log Soceet Exeptionnn'.log();
     return ApiResponse(
       data: {},
@@ -136,7 +149,16 @@ ApiResponse _handleException(Object e, StackTrace? stack) {
   }
   if (e.response != null && e.response!.data is Map) {
     '${e.requestOptions.data} MyDioExeption'.log();
+    SnackBarHelper.showTopSnack(
+      e.response!.data['message'] ??
+          appRouter.currentContext.l10n.someThingWent,
+      APIState.error,
+    );
     return ApiResponse.fromJson(e.response!.data);
   }
+  SnackBarHelper.showTopSnack(
+    e.message ?? e.error.toString(),
+    APIState.error,
+  );
   return ApiResponse.unknownError;
 }
