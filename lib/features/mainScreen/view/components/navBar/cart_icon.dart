@@ -4,6 +4,9 @@ import 'package:hh_express/features/mainScreen/view/components/navBar/nav_bar.da
 import 'package:hh_express/features/components/widgets/svg_icons.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/settings/consts.dart';
+import 'package:hh_express/features/cart/cubit/cart_cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hh_express/settings/enums.dart';
 
 class CartIcon extends StatelessWidget {
   const CartIcon({
@@ -69,28 +72,34 @@ class CartBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Container(
-      margin: EdgeInsets.only(left: 25.h, bottom: 30.h),
-      padding: EdgeInsets.all(2.5.h),
-      decoration: BoxDecoration(
-        color: theme.bottomNavigationBarTheme.backgroundColor,
-        shape: BoxShape.circle,
-      ),
-      child: Container(
-        height: 18.h,
-        padding: theme.badgeTheme.padding,
-        decoration: BoxDecoration(
-          color: theme.badgeTheme.backgroundColor,
-          shape: BoxShape.circle,
-        ),
-        child: FittedBox(
-          child: Text(
-            '20',
-            style: theme.badgeTheme.textStyle!,
-            textAlign: TextAlign.center,
+    return BlocBuilder<CartCubit, CartState>(
+      builder: (context, state) {
+        if (state.apiState != CartAPIState.success ||
+            state.cart!.orders.isEmpty) return SizedBox();
+        return Container(
+          margin: EdgeInsets.only(left: 25.h, bottom: 30.h),
+          padding: EdgeInsets.all(2.5.h),
+          decoration: BoxDecoration(
+            color: theme.bottomNavigationBarTheme.backgroundColor,
+            shape: BoxShape.circle,
           ),
-        ),
-      ),
+          child: Container(
+            height: 18.h,
+            padding: theme.badgeTheme.padding,
+            decoration: BoxDecoration(
+              color: theme.badgeTheme.backgroundColor,
+              shape: BoxShape.circle,
+            ),
+            child: FittedBox(
+              child: Text(
+                '${state.cart?.orders.length}',
+                style: theme.badgeTheme.textStyle!,
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }

@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:json_annotation/json_annotation.dart';
 
 part 'cart_update_model.g.dart';
@@ -25,4 +26,16 @@ class CartUpdateModel {
     return _$CartUpdateModelFromJson(json);
   }
   Map<String, dynamic> toJson() => _$CartUpdateModelToJson(this);
+
+  CartUpdateModel copyWith({
+    int? productId,
+    List<int>? properties,
+    int? quantity,
+  }) {
+    return CartUpdateModel(
+      productId: productId ?? this.productId,
+      properties: properties ?? this.properties,
+      quantity: quantity ?? this.quantity,
+    );
+  }
 }
