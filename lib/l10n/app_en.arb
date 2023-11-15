@@ -71,5 +71,6 @@
   "unauthorized":"Unauthorizedd ",
   "empty":"Empty",
   "least5Symbols":"Filed must be at least 5 symbols",
-  "contiansWrongSymbols":"Field contains wrong symbols"
+  "contiansWrongSymbols":"Field contains wrong symbols", 
+  "addToFavors":"Add to favorites"
 }

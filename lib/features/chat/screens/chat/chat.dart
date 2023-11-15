@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hh_express/features/chat/bloc/chat_bloc.dart';
 import 'package:hh_express/features/chat/bloc/chat_events.dart';
-import 'package:hh_express/features/chat/bloc/chat_state.dart';
 import 'package:hh_express/features/chat/screens/chat/widgets/chat_title.dart';
 import 'package:hh_express/features/chat/screens/chat/widgets/chat_with_bg.dart';
 import 'package:hh_express/features/chat/screens/chat/widgets/type_and_send.dart';
@@ -47,9 +46,6 @@ class _ChatScreenState extends State<ChatScreen> {
           id: chatBLoc.state.conversation?.id ?? 0,
         ),
       ),
-      bottomNavigationBar: chatBLoc.state.messagesListState == APIState.error
-          ? null
-          : const TypeAndSend(),
       body: chatBLoc.state.messagesListState == APIState.loading &&
               (!chatBLoc.state.gettingNewPage!)
           ? Center(
@@ -62,6 +58,9 @@ class _ChatScreenState extends State<ChatScreen> {
               : ChatWithBackground(
                   msgs: chatBLoc.state.messages ?? {},
                 ),
+      bottomNavigationBar: chatBLoc.state.messagesListState == APIState.error
+          ? null
+          : const TypeAndSend(),
     );
   }
 

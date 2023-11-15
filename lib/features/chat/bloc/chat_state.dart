@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:dio/dio.dart';
 import 'package:hh_express/features/chat/models/conversation.dart';
 import 'package:hh_express/features/chat/models/message.dart';
 import 'package:hh_express/settings/enums.dart';

@@ -74,8 +74,9 @@ class AuthBloc extends Cubit<AuthState> {
 
   bool checkTerms() {
     final val = state.termsConfirmed;
-    if (val) {}
-    SnackBarHelper.showTopSnack('Confirm Terms of usage', APIState.error);
+    if (!val) {
+      SnackBarHelper.showTopSnack('Confirm Terms of usage', APIState.error);
+    }
     return val;
   }
 

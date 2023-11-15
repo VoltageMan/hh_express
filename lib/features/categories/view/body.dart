@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hh_express/features/categories/bloc/category_bloc.dart';
 import 'package:hh_express/features/categories/view/mainCategories/main_category_builder.dart';
 import 'package:hh_express/features/categories/view/simpleCategories/simple_categories_builder.dart';
 import 'package:hh_express/settings/consts.dart';

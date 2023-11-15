@@ -39,8 +39,8 @@ class _FavorsWidgetState extends State<FavorsWidget> {
             .push(AppRoutes.prodDetails, extra: widget.model!.id)
             .then((value) {
           if (appRouter.location != AppRoutes.mainScreen) return;
-          // 4 index of favors modal sheet
-          ModelBottomSheetHelper.showProfileSheets(4);
+          // 3 index of favors modal sheet
+          ModelBottomSheetHelper.showProfileSheets(3);
         });
       },
       child: Container(

@@ -7,7 +7,6 @@ import 'package:hh_express/features/cart/view/cart_count.dart';
 import 'package:hh_express/features/components/widgets/place_holder.dart';
 import 'package:hh_express/features/components/widgets/svg_icons.dart';
 import 'package:hh_express/helpers/extentions.dart';
-import 'package:hh_express/helpers/modal_sheets.dart';
 import 'package:hh_express/helpers/spacers.dart';
 import 'package:hh_express/models/cart/cart_order_model/cart_order_model.dart';
 import 'package:hh_express/models/cart/cart_update/cart_update_model.dart';
@@ -39,7 +38,8 @@ class _CartWidgetState extends State<CartWidget> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        ModelBottomSheetHelper.showBuyProd();
+        // ModelBottomSheetHelper.showBuyProd();
+        model.toJson().log();
       },
       child: Container(
         width: 360.w,
@@ -120,15 +120,17 @@ class _CartWidgetState extends State<CartWidget> {
                           iconSize: 19.sp,
                           onTap: () async {
                             final cubit = context.read<CartCubit>();
+                            model.propertyValues!.length.log();
                             await cubit.cartUpdate(
                               CartUpdateModel(
                                 productId: product.id,
-                                properties:
-                                    model.selectedPropsId ?? List.empty(),
+                                properties: model.propertyValues
+                                        ?.map((e) => e.id)
+                                        .toList() ??
+                                    List.empty(),
                                 quantity: 0,
                               ),
                             );
-                            print('hii');
                           },
                         ),
                       ],
@@ -147,12 +149,16 @@ class _CartWidgetState extends State<CartWidget> {
                           CartCount(
                             count: model.quantity,
                             onAdd: () async {
+                              if (model.quantity == 10) return;
+
                               final newCount = model.quantity + 1;
                               final val = await cubit.cartUpdate(
                                 CartUpdateModel(
                                   productId: product.id,
-                                  properties:
-                                      model.selectedPropsId ?? List.empty(),
+                                  properties: model.propertyValues
+                                          ?.map((e) => e.id)
+                                          .toList() ??
+                                      List.empty(),
                                   quantity: newCount,
                                 ),
                               );
@@ -161,12 +167,15 @@ class _CartWidgetState extends State<CartWidget> {
                               }
                             },
                             onRemove: () async {
+                              if (model.quantity == 0) return;
                               final newCount = model.quantity - 1;
                               final val = await cubit.cartUpdate(
                                 CartUpdateModel(
                                   productId: product.id,
-                                  properties:
-                                      model.selectedPropsId ?? List.empty(),
+                                  properties: model.propertyValues
+                                          ?.map((e) => e.id)
+                                          .toList() ??
+                                      List.empty(),
                                   quantity: newCount,
                                 ),
                               );

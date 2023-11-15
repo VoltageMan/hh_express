@@ -38,6 +38,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     on<GetMessagesListEvent>((event, emit) async {
       emit(
         state.update(
+          
           messagesListState: APIState.loading,
           gettingNewPage: event.gettinNewPage,
         ),
@@ -83,7 +84,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
           AddMessageToListEvent(
             message: Message(
               image: event.file,
-              date: message.body,
+              date: message.date,
               id: message.id,
               is_owner: message.is_owner,
               body: message.body,

@@ -71,6 +71,7 @@
     "unauthorized":"Ulgama girilmedik",
     "empty":"Boş" ,
     "least5Symbols":" ",
-    "contiansWrongSymbols":"Field contains wrong symbols. Please remove them"
-
+    "contiansWrongSymbols":"Field contains wrong symbols. Please remove them",
+    "addToFavors":"Halanlaryma goş"
+    
 }

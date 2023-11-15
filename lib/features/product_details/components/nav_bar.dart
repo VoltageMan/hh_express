@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hh_express/data/local/secured_storage.dart';
 import 'package:hh_express/features/cart/cubit/cart_cubit.dart';
 import 'package:hh_express/features/components/my_text_button.dart';
 import 'package:hh_express/features/components/widgets/nav_bar_body.dart';
@@ -9,7 +8,6 @@ import 'package:hh_express/features/product_details/bloc/product_details_bloc.da
 import 'package:hh_express/features/product_details/components/counter_button.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/modal_sheets.dart';
-import 'package:hh_express/helpers/overlay_helper.dart';
 import 'package:hh_express/helpers/spacers.dart';
 import 'package:hh_express/models/cart/cart_update/cart_update_model.dart';
 import 'package:hh_express/settings/enums.dart';
