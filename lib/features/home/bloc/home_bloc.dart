@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hh_express/app/setup.dart';
 import 'package:hh_express/helpers/extentions.dart';
+import 'package:hh_express/models/delivery_info/deliery_info_model.dart';
 import 'package:hh_express/models/pagination/pagination_model.dart';
 import 'package:hh_express/models/products/product_model.dart';
 import 'package:hh_express/models/property/values/property_value_model.dart';
@@ -13,7 +14,9 @@ import 'package:hh_express/settings/enums.dart';
 part 'home_state.dart';
 
 class HomeBloc extends Cubit<HomeState> {
-  HomeBloc() : super(HomeState(state: ProductAPIState.init));
+  HomeBloc()
+      : super(
+            HomeState(state: ProductAPIState.init, deliveryInfo: List.empty()));
 
   final _repo = getIt<ProductRepo>();
   double lastPosition = 0;
@@ -25,31 +28,41 @@ class HomeBloc extends Cubit<HomeState> {
       return;
     }
     'Init Home'.log();
-    emit(HomeState(state: ProductAPIState.loading));
+    emit(
+      HomeState(
+        deliveryInfo: state.deliveryInfo,
+        state: ProductAPIState.loading,
+      ),
+    );
     final data = await _repo.getProducts(
       slugs: List.empty(),
       properties: _filters.map((e) => e.id).toList(),
       page: 0,
     );
-    if (data != null) {
+    List<DeliveryInfoModel>? deliveryInfo;
+    if (state.deliveryInfo.isEmpty) {
+      deliveryInfo = await _repo.getDeliveryInfo();
+    } else {
+      deliveryInfo = state.deliveryInfo;
+    }
+    if (data != null && deliveryInfo != null) {
       return emit(
         HomeState(
           state: ProductAPIState.success,
           pagination: data[APIKeys.pagination],
           prods: List.from(data[APIKeys.products]),
+          deliveryInfo: deliveryInfo,
         ),
       );
     }
-    return emit(
-      HomeState(
-        state: ProductAPIState.error,
-      ),
-    );
+    return emit(HomeState(
+        deliveryInfo: state.deliveryInfo, state: ProductAPIState.error));
   }
 
   Future<void> loadMore() async {
     emit(
       HomeState(
+        deliveryInfo: state.deliveryInfo,
         state: ProductAPIState.loadingMore,
         pagination: state.pagination,
         prods: List.from(
@@ -65,6 +78,7 @@ class HomeBloc extends Cubit<HomeState> {
     if (data != null) {
       return emit(
         HomeState(
+          deliveryInfo: state.deliveryInfo,
           state: ProductAPIState.success,
           pagination: data[APIKeys.pagination],
           prods: List.from(state.prods ?? List.empty())
@@ -74,6 +88,7 @@ class HomeBloc extends Cubit<HomeState> {
     }
     return emit(
       HomeState(
+        deliveryInfo: state.deliveryInfo,
         state: ProductAPIState.loadingMoreError,
         pagination: state.pagination,
         prods: List.from(state.prods ?? List.empty()),

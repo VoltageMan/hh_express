@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hh_express/features/home/bloc/home_bloc.dart';
 import 'package:hh_express/helpers/spacers.dart';
 import 'package:hh_express/settings/consts.dart';
 import 'package:hh_express/settings/theme.dart';
@@ -10,6 +12,7 @@ class DeliveryWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final models = context.read<HomeBloc>().state.deliveryInfo;
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -22,32 +25,45 @@ class DeliveryWidget extends StatelessWidget {
           ),
         ),
         ...List.generate(
-          3,
-          (index) => index == 1
-              ? AppSpacing.vertical_16
-              : Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(left: 20.w, right: 9.w),
-                      child: SvgPicture.asset(
-                        index == 0
-                            ? AssetsPath.deliveryPlaneIcon
-                            : AssetsPath.deliveryTrackIcon,
-                        height: AppSpacing.getTextHeight(10),
+          models.length,
+          (index) {
+            final e = models[index];
+            return Padding(
+              padding: AppPaddings.vertic_8,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(left: 20.w, right: 9.w),
+                    child: SizedBox.square(
+                      dimension: AppSpacing.getTextHeight(10),
+                      child: FittedBox(
+                        alignment: Alignment.center,
+                        child: SvgPicture.network(
+                          e.icon,
+                          placeholderBuilder: (context) {
+                            return Icon(
+                              Icons.car_repair_outlined,
+                              color: Colors.green,
+                            );
+                          },
+                        ),
                       ),
                     ),
-                    Expanded(
-                      child: Text(
-                        'Uçakla teslimat, siparişin kabul edildiği tarihten itibaren 1 ila 2 hafta içinde yapılır.',
-                        style: AppTheme.bodyMedium10(context),
-                      ),
-                    )
-                  ],
-                ),
-        )
+                  ),
+                  Expanded(
+                    child: Text(
+                      e.text,
+                      style: AppTheme.bodyMedium10(context),
+                    ),
+                  )
+                ],
+              ),
+            );
+          },
+        ),
       ],
     );
   }

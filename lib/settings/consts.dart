@@ -257,6 +257,7 @@ class EndPoints {
   static const notificationCount = 'api/v1/notification/count';
   static const favorsList = 'api/v1/favorite/list';
   static const favorsSwitch = 'api/v1/favorite';
+  static const deliveryInfo = '/api/v1/state';
 
   static String notificationDelete(int id) => 'api/v1/notification/$id/delete';
   //?
@@ -288,6 +289,7 @@ class APIKeys {
   static const isFavor = 'is_favorite';
   static const history = 'history';
   static const urlDecoder = '%5B%5D';
+  static const deliveryInfo = 'delivery_info';
 
   static const colors = ['colors', 'цвета', 'reňkler'];
 }

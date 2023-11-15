@@ -1,4 +1,5 @@
 import 'package:hh_express/data/remote/dio_client.dart';
+import 'package:hh_express/models/delivery_info/deliery_info_model.dart';
 import 'package:hh_express/models/pagination/pagination_model.dart';
 import 'package:hh_express/models/products/product_model.dart';
 import 'package:hh_express/repositories/products/product_repo.dart';
@@ -30,6 +31,17 @@ class ProductRepoImpl extends ProductRepo with DioClientMixin {
         APIKeys.pagination: pagination,
         APIKeys.products: products,
       };
+    }
+    return null;
+  }
+
+  @override
+  Future<List<DeliveryInfoModel>?> getDeliveryInfo() async {
+    final response = await dio.get(endPoint: EndPoints.deliveryInfo);
+    if (response.success) {
+      final dataList =
+          (response.data as Map<String, dynamic>)[APIKeys.deliveryInfo] as List;
+      return dataList.map((e) => DeliveryInfoModel.fromMap(e)).toList();
     }
     return null;
   }

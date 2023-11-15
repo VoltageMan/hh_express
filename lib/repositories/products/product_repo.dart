@@ -1,3 +1,5 @@
+import 'package:hh_express/models/delivery_info/deliery_info_model.dart';
+
 abstract class ProductRepo {
   Future<Map<String, dynamic>?> getProducts({
     required List<String> slugs,
@@ -5,4 +7,5 @@ abstract class ProductRepo {
     required int page,
     String? search,
   });
+  Future<List<DeliveryInfoModel>?> getDeliveryInfo();
 }

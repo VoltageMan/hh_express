@@ -8,6 +8,7 @@ import 'package:hh_express/data/local/secured_storage.dart';
 import 'package:hh_express/features/address/cubit/address_cubit.dart';
 import 'package:hh_express/features/cart/cubit/cart_cubit.dart';
 import 'package:hh_express/features/categories/bloc/category_bloc.dart';
+import 'package:hh_express/features/home/bloc/home_bloc.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/routes.dart';
 import 'package:hh_express/helpers/spacers.dart';
@@ -31,6 +32,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future initApp() async {
     await LocalStorage.init();
+    context.read<HomeBloc>().init();
     context.read<CategoryBloc>()..add(InitCategories());
     context.read<CartCubit>().getCurrentCart();
     context.read<AddressCubit>().init();

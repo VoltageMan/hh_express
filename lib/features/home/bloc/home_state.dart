@@ -1,16 +1,19 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+
 part of 'home_bloc.dart';
 
-final class HomeState extends Equatable {
+class HomeState extends Equatable {
   const HomeState({
     required this.state,
     this.pagination,
     this.prods,
+    required this.deliveryInfo,
   });
-
   final ProductAPIState state;
   final List<ProductModel>? prods;
+  final List<DeliveryInfoModel> deliveryInfo;
   final PaginationModel? pagination;
 
   @override
-  List<Object?> get props => [state, prods, pagination];
+  List<Object?> get props => [state, prods, deliveryInfo, pagination];
 }
