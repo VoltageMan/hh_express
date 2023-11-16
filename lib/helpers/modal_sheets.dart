@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hh_express/features/address/addres_read_sheet.dart';
 import 'package:hh_express/features/address/view/address_field.dart';
+import 'package:hh_express/features/chat/bloc/chat_bloc.dart';
+import 'package:hh_express/features/chat/bloc/chat_events.dart';
 import 'package:hh_express/features/favors/view/favors_body.dart';
 import 'package:hh_express/features/filter/components/sheet_body.dart';
 import 'package:hh_express/features/order_history/view/screens/orders_sheet_body.dart';
@@ -10,6 +14,7 @@ import 'package:hh_express/features/profile/view/sheets/change_lang_sheet.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/routes.dart';
 import 'package:hh_express/models/addres/address_model.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ModelBottomSheetHelper {
   static bool _sheetShown = false;
@@ -147,5 +152,87 @@ class ModelBottomSheetHelper {
       },
     );
     _sheetShown = false;
+  }
+
+  static Future<void> showCameraOrGallerySelector(BuildContext context) async {
+    final bloc = BlocProvider.of<ChatBloc>(context);
+    bool? isFromCamera;
+    await showModalBottomSheet(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(
+            10,
+          ),
+        ),
+      ),
+      context: context,
+      builder: (ctx) {
+        return Container(
+          padding: EdgeInsets.all(20.sp),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(
+                    20,
+                  ),
+                ),
+                padding: EdgeInsets.all(5.sp),
+                child: IconButton(
+                  onPressed: () async {
+                    isFromCamera = true;
+                    Navigator.of(ctx).pop();
+                  },
+                  icon: Icon(
+                    Icons.camera_outlined,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 30.h,
+                child: VerticalDivider(
+                  thickness: 1,
+                  color: Colors.black,
+                ),
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(
+                    20,
+                  ),
+                ),
+                padding: EdgeInsets.all(5.sp),
+                child: IconButton(
+                  onPressed: () async {
+                    isFromCamera = false;
+                    Navigator.of(ctx).pop();
+                  },
+                  icon: Icon(
+                    Icons.image_outlined,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+    if (isFromCamera != null) {
+      final image = await ImagePicker().pickImage(
+        source: isFromCamera! ? ImageSource.camera : ImageSource.gallery,
+        imageQuality: 50,
+      );
+      if (image != null) {
+        bloc.add(
+          SendMessageEvent(
+            file: image,
+          ),
+        );
+        if (appRouter.location != AppRoutes.chat) {
+          context.push(AppRoutes.chat);
+        }
+      }
+    }
   }
 }

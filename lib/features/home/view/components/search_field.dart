@@ -40,6 +40,8 @@ class _HoemSearchFieldState extends State<HomeSearchField> {
     final theme = Theme.of(context).inputDecorationTheme;
     return Container(
       padding: AppPaddings.all_2,
+      width: double.infinity,
+      height: double.infinity,
       margin: AppPaddings.vertic_6,
       decoration: BoxDecoration(
         color: theme.fillColor,
@@ -82,7 +84,6 @@ class HomeSearchFieldDummy extends StatelessWidget {
   Widget build(BuildContext context) {
     final inputTheme = context.theme.inputDecorationTheme;
     final l10n = context.l10n;
-    final textStyle = context.theme.textTheme.bodyMedium;
 
     return GestureDetector(
       onTap: () {

@@ -1,10 +1,9 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/features/chat/bloc/chat_bloc.dart';
 import 'package:hh_express/features/chat/bloc/chat_events.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:hh_express/helpers/modal_sheets.dart';
 
 class TypeAndSend extends StatefulWidget {
   const TypeAndSend({
@@ -25,86 +24,6 @@ class _TypeAndSendState extends State<TypeAndSend> {
     setState(() {
       isTextEmpty = v.isEmpty;
     });
-  }
-
-  Future<void> showCameraOrGallerySelector() async {
-    final bloc = BlocProvider.of<ChatBloc>(context);
-    await showModalBottomSheet(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(
-            top: Radius.circular(
-              20,
-            ),
-          ),
-        ),
-        context: context,
-        builder: (ctx) {
-          return Container(
-            padding: EdgeInsets.all(20.sp),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(
-                      20,
-                    ),
-                  ),
-                  padding: EdgeInsets.all(5.sp),
-                  child: IconButton(
-                    onPressed: () async {
-                      Navigator.of(ctx).pop();
-                      final image = await ImagePicker().pickImage(
-                          source: ImageSource.camera, imageQuality: 50);
-                      if (image != null) {
-                        bloc.add(
-                          SendMessageEvent(
-                            file: image,
-                          ),
-                        );
-                      }
-                    },
-                    icon: Icon(
-                      Icons.camera_outlined,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 30.h,
-                  child: VerticalDivider(
-                    thickness: 1,
-                    color: Colors.black,
-                  ),
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(
-                      20,
-                    ),
-                  ),
-                  padding: EdgeInsets.all(5.sp),
-                  child: IconButton(
-                    onPressed: () async {
-                      Navigator.of(ctx).pop();
-                      final image = await ImagePicker().pickImage(
-                          source: ImageSource.gallery, imageQuality: 50);
-                      if (image != null) {
-                        bloc.add(
-                          SendMessageEvent(
-                            file: image,
-                          ),
-                        );
-                      }
-                    },
-                    icon: Icon(
-                      Icons.image_outlined,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          );
-        });
   }
 
   @override
@@ -131,7 +50,7 @@ class _TypeAndSendState extends State<TypeAndSend> {
           ),
           IconButton(
             onPressed: () async {
-              showCameraOrGallerySelector();
+              ModelBottomSheetHelper.showCameraOrGallerySelector(context);
             },
             icon: const Icon(
               Icons.attach_file,
