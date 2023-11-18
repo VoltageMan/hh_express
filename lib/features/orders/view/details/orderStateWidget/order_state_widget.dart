@@ -5,15 +5,29 @@ import 'package:hh_express/features/orders/view/details/orderStateWidget/state_d
 import 'package:hh_express/helpers/spacers.dart';
 import 'package:hh_express/settings/consts.dart';
 
-class OrderStateWidget extends StatelessWidget {
-  const OrderStateWidget({super.key, this.prod});
+class OrderStateWidget extends StatefulWidget {
+  const OrderStateWidget({
+    super.key,
+    this.prod,
+  });
   final dynamic prod;
+
+  @override
+  State<OrderStateWidget> createState() => _OrderStateWidgetState();
+}
+
+class _OrderStateWidgetState extends State<OrderStateWidget> {
+  double? maxHeight;
+  bool isLoading = true;
+  bool loadingWent = false;
+  final key = GlobalKey();
+
   @override
   Widget build(BuildContext context) {
-    final isLoading = prod == null;
-    if (isLoading) return _LoadingWidget();
+    final isLoading = widget.prod == null;
     return Container(
-      height: 200.h,
+      key: key,
+      height: maxHeight,
       margin: AppPaddings.all_16,
       padding: AppPaddings.horiz16_vertic12,
       decoration: BoxDecoration(
@@ -23,103 +37,106 @@ class OrderStateWidget extends StatelessWidget {
           width: 1.5.sp,
         ),
       ),
-      alignment: Alignment.topRight,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          OrderStateCheck(
-            checkCount: 3,
-            tickedsCount: 3,
-          ),
-          AppSpacing.horizontal_5_5,
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: List.generate(
-              3,
-              (index) => OrderStateWDate(
-                date: 'some',
-              ),
+      child: isLoading
+          ? _LoadingWidget()
+          : Row(
+              children: [
+                OrderStateCheck(
+                  checkCount: 3,
+                  tickedsCount: 3,
+                  maxHeight: maxHeight,
+                  isLoading: false,
+                ),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: List.generate(
+                      3,
+                      (index) => OrderStateWDate(
+                        date: 'some',
+                      ),
+                    ),
+                  ),
+                ),
+                AppSpacing.horizontal_12,
+                OrderStateCheck(
+                  checkCount: 2,
+                  tickedsCount: 2,
+                  maxHeight: maxHeight,
+                  isLoading: false,
+                ),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: List.generate(
+                      3,
+                      (index) => index == 2
+                          ? SizedBox(
+                              height: AppSpacing.getTextHeight(12 * 2),
+                            )
+                          : OrderStateWDate(
+                              date: 'some',
+                            ),
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ),
-          const Expanded(child: SizedBox()),
-          OrderStateCheck(
-            checkCount: 2,
-            tickedsCount: 2,
-          ),
-          AppSpacing.horizontal_5_5,
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: List.generate(
-              3,
-              (index) {
-                return index != 2
-                    ? OrderStateWDate(date: '2134')
-                    : SizedBox(
-                        height: 40.h,
-                      );
-              },
-            ),
-          ),
-        ],
-      ),
     );
   }
 }
 
-class _LoadingWidget extends StatelessWidget {
+class _LoadingWidget extends StatefulWidget {
   const _LoadingWidget();
 
   @override
+  State<_LoadingWidget> createState() => _LoadingWidgetState();
+}
+
+class _LoadingWidgetState extends State<_LoadingWidget> {
+  double? maxHeight;
+  @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 200.h,
-      margin: AppPaddings.all_16,
-      padding: AppPaddings.horiz16_vertic12,
-      decoration: BoxDecoration(
-        borderRadius: AppBorderRadiuses.border_6,
-        border: Border.all(
-          color: AppColors.lightGrey,
-          width: 1.5.sp,
-        ),
-      ),
-      alignment: Alignment.topRight,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          OrderStateCheck(checkCount: 3, tickedsCount: null),
-          AppSpacing.horizontal_5_5,
-          Column(
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: List.generate(
               3,
-              (index) => OrderStateWDate(),
+              (index) => Padding(
+                padding: index == 1 ? AppPaddings.vertic_24 : EdgeInsets.zero,
+                child: OrderStateWDate(),
+              ),
             ),
           ),
-          const Expanded(
-            child: SizedBox(),
-          ),
-          OrderStateCheck(
-            checkCount: 2,
-            tickedsCount: null,
-          ),
-          AppSpacing.horizontal_5_5,
-          Column(
+        ),
+        AppSpacing.horizontal_12,
+        Expanded(
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: List.generate(
               3,
               (index) {
-                return index != 2
-                    ? OrderStateWDate()
-                    : SizedBox(
-                        height: 40.h,
+                return index == 2
+                    ? SizedBox(
+                        height: AppSpacing.getTextHeight(12 * 2),
+                      )
+                    : Padding(
+                        padding: index == 1
+                            ? AppPaddings.vertic_24
+                            : EdgeInsets.zero,
+                        child: OrderStateWDate(),
                       );
               },
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

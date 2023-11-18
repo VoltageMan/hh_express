@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/features/components/widgets/place_holder.dart';
+import 'package:hh_express/helpers/spacers.dart';
 import 'package:hh_express/settings/consts.dart';
 import 'package:hh_express/settings/theme.dart';
 
@@ -12,36 +13,25 @@ class OrderStateWDate extends StatelessWidget {
     final isLoading = date == null;
     if (isLoading) return _LoadingWidget();
     final theme = Theme.of(context).textTheme;
-
-    return Container(
-      // color: Colors.red,
-      height: 40.h,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          isLoading
-              ? MyShimerPlaceHolder(
-                  height: 16.h,
-                  width: 70.w,
-                  radius: AppBorderRadiuses.border_4,
-                )
-              : Text(
-                  'Garaşylýar',
-                  style: AppTheme.titleLarge12(context),
-                ),
-          isLoading
-              ? MyShimerPlaceHolder(
-                  height: 16.h,
-                  width: 90.w,
-                  radius: AppBorderRadiuses.border_4,
-                )
-              : Text(
-                  '14.05.23/09:21',
-                  style: theme.titleSmall,
-                ),
-        ],
-      ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        FittedBox(
+          child: Text(
+            'Pendings',
+            maxLines: 1,
+            style: AppTheme.titleLarge12(context),
+          ),
+        ),
+        FittedBox(
+          child: Text(
+            '14.05.23/09:21',
+            maxLines: 1,
+            style: theme.titleSmall,
+          ),
+        )
+      ],
     );
   }
 }
@@ -51,21 +41,38 @@ class _LoadingWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      crossAxisAlignment: CrossAxisAlignment.start,
+    final theme = Theme.of(context).textTheme;
+    final height = AppSpacing.getTextHeight(12);
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
       children: [
         MyShimerPlaceHolder(
-          height: 16.h,
-          width: 70.w,
-          radius: AppBorderRadiuses.border_4,
+          height: height * 1.6,
+          child: Container(
+            height: height * 1.6,
+            width: height * 1.6,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: AppColors.shimmerBodyColor,
+            ),
+          ),
         ),
-        SizedBox(height: 6.h),
-        MyShimerPlaceHolder(
-          height: 16.h,
-          width: 90.w,
-          radius: AppBorderRadiuses.border_4,
-        )
+        Expanded(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: List.generate(
+              2,
+              (index) => MyShimerPlaceHolder(
+                height: height,
+                margin: AppPaddings.horiz_8.copyWith(top: 2.h, bottom: 2.h),
+              ),
+            ),
+          ),
+        ),
       ],
     );
   }

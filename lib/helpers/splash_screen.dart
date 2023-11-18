@@ -6,9 +6,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hh_express/data/local/secured_storage.dart';
 import 'package:hh_express/features/address/cubit/address_cubit.dart';
+import 'package:hh_express/features/auth/bloc/auth_bloc.dart';
 import 'package:hh_express/features/cart/cubit/cart_cubit.dart';
 import 'package:hh_express/features/categories/bloc/category_bloc.dart';
+import 'package:hh_express/features/favors/bloc/favors_bloc.dart';
 import 'package:hh_express/features/home/bloc/home_bloc.dart';
+import 'package:hh_express/features/order_history/cubit/order_history_cubit.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/routes.dart';
 import 'package:hh_express/helpers/spacers.dart';
@@ -33,9 +36,12 @@ class _SplashScreenState extends State<SplashScreen> {
   Future initApp() async {
     await LocalStorage.init();
     context.read<HomeBloc>().init();
+    context.read<AuthBloc>().authMe();
     context.read<CategoryBloc>()..add(InitCategories());
     context.read<CartCubit>().getCurrentCart();
     context.read<AddressCubit>().init();
+    context.read<OrderHistoryCubit>().init();
+    context.read<FavorsCubit>().getFavors();
     Future.delayed(const Duration(seconds: 2))
         .then((value) => appRouter.go(AppRoutes.mainScreen));
   }
