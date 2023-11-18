@@ -21,8 +21,9 @@ class SearchAppbar extends StatelessWidget implements PreferredSizeWidget {
       width: double.infinity,
       padding: AppPaddings.horiz_16.copyWith(right: 4.w),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Expanded(child: HomeSearchField()),
+          HomeSearchField(),
           AppSpacing.horizontal_4,
           PhotoSenderWidget(),
         ],

@@ -38,40 +38,42 @@ class _HoemSearchFieldState extends State<HomeSearchField> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).inputDecorationTheme;
-    return Container(
-      padding: AppPaddings.all_2,
-      width: double.infinity,
-      height: double.infinity,
-      margin: AppPaddings.vertic_6,
-      decoration: BoxDecoration(
-        color: theme.fillColor,
-        borderRadius: AppBorderRadiuses.border_6,
-      ),
-      child: TextField(
-        controller: controller,
-        maxLines: 1,
-        scribbleEnabled: false,
-        scrollPadding: EdgeInsets.zero,
-        textInputAction: TextInputAction.search,
-        focusNode: focus,
-        style: Theme.of(context).textTheme.bodyMedium,
-        decoration: InputDecoration(
-          contentPadding: EdgeInsets.only(bottom: 0),
-          hintText: context.l10n.searchHint,
-          prefixIcon: Padding(
-            padding: EdgeInsets.symmetric(
-              vertical: 7.h,
-            ),
-            child: MyImageIcon(
-              path: AssetsPath.searchIcon,
-              iconSize: 20.8.h,
+    return Expanded(
+      child: Stack(
+        alignment: Alignment.center,
+        textDirection: TextDirection.ltr,
+        children: [
+          Container(
+            margin: AppPaddings.vertic_6,
+            decoration: BoxDecoration(
+              color: theme.fillColor,
+              borderRadius: AppBorderRadiuses.border_6,
             ),
           ),
-          border: InputBorder.none,
-          errorBorder: InputBorder.none,
-          disabledBorder: InputBorder.none,
-          enabledBorder: InputBorder.none,
-        ),
+          TextField(
+            textAlignVertical: TextAlignVertical.center,
+            controller: controller,
+            maxLines: 1,
+            scribbleEnabled: false,
+            scrollPadding: EdgeInsets.zero,
+            textInputAction: TextInputAction.search,
+            focusNode: focus,
+            textAlign: TextAlign.start,
+            style: Theme.of(context).textTheme.bodyMedium,
+            decoration: InputDecoration(
+              contentPadding: AppPaddings.horiz_6,
+              hintText: context.l10n.searchHint,
+              prefixIcon: MyImageIcon(
+                path: AssetsPath.searchIcon,
+                iconSize: 20.8.h,
+              ),
+              border: InputBorder.none,
+              errorBorder: InputBorder.none,
+              disabledBorder: InputBorder.none,
+              enabledBorder: InputBorder.none,
+            ),
+          ),
+        ],
       ),
     );
   }

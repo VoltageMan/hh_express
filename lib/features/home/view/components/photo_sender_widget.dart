@@ -10,7 +10,7 @@ class PhotoSenderWidget extends StatelessWidget {
     return IconButton(
       splashRadius: 1,
       splashColor: Colors.transparent,
-      iconSize: 22.sp,
+      iconSize: 22.h,
       icon: Icon(
         Icons.linked_camera_outlined,
       ),
