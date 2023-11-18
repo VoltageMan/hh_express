@@ -1,43 +1,59 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/features/components/widgets/place_holder.dart';
+import 'package:hh_express/helpers/spacers.dart';
 import 'package:hh_express/settings/consts.dart';
 
 class OrderStateCheck extends StatelessWidget {
-  const OrderStateCheck(
-      {super.key, required this.checkCount, required this.tickedsCount});
+  const OrderStateCheck({
+    super.key,
+    required this.checkCount,
+    required this.tickedsCount,
+    required this.isLoading,
+    this.maxHeight,
+  });
   final int checkCount;
-  final int? tickedsCount;
+  final int tickedsCount;
+  final bool isLoading;
+  final double? maxHeight;
   @override
   Widget build(BuildContext context) {
-    final isLoading = tickedsCount == null;
+    final height = AppSpacing.getTextHeight(12) * 1.6;
     return Padding(
-      padding: AppPaddings.vertic_8,
+      padding: AppPaddings.right_6,
       child: Stack(
         alignment: Alignment.topCenter,
         children: [
-          AnimatedContainer(
-            width: 2.w,
-            height: 70.h * ((tickedsCount ?? 1) - 1),
-            color: isLoading ? AppColors.transparent : AppColors.mainOrange,
-            duration: AppDurations.duration_500ms,
+          Container(
+            margin: EdgeInsets.only(top: 8.sp),
+            height: ((maxHeight ?? 0) / 2.5) *
+                ((tickedsCount == 0 ? 1 : tickedsCount) - 1),
+            width: 2.sp,
+            color: AppColors.appOrange,
           ),
           Column(
+            mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: List.generate(
               3,
               (index) {
                 final isNotChecked = checkCount < (index + 1);
-                final isTicked = (tickedsCount ?? 0) >= (index + 1);
                 return isNotChecked
-                    //  add not Checked box
                     ? SizedBox(
-                        height: 24.sp,
+                        height: height,
                       )
                     : isLoading
                         ? MyShimerPlaceHolder(
-                            height: 24.h,
+                            height: height,
                             child: Container(
+                              margin: index == 1
+                                  ? AppPaddings.vertic_24.add(
+                                      EdgeInsets.symmetric(
+                                        vertical: AppSpacing.getTextHeight(12),
+                                      ),
+                                    )
+                                  : EdgeInsets.zero,
                               height: 24.sp,
                               width: 24.sp,
                               decoration: BoxDecoration(
@@ -47,28 +63,30 @@ class OrderStateCheck extends StatelessWidget {
                             ),
                           )
                         : Container(
-                            height: 24.sp,
-                            width: 24.sp,
+                            margin: index == 1
+                                ? AppPaddings.vertic_24
+                                : EdgeInsets.zero,
+                            height: height,
                             alignment: Alignment.center,
                             padding: AppPaddings.all_4,
                             decoration: BoxDecoration(
-                              color: isTicked
+                              color: tickedsCount > index
                                   ? AppColors.mainOrange
-                                  : AppColors.darkGray,
+                                  : AppColors.lightGrey,
                               shape: BoxShape.circle,
                             ),
                             child: FittedBox(
                               child: Icon(
-                                isTicked
+                                tickedsCount > index
                                     ? Icons.check_rounded
-                                    : Icons.close_rounded,
+                                    : null,
                                 color: AppColors.white,
                               ),
                             ),
                           );
               },
             ),
-          )
+          ),
         ],
       ),
     );

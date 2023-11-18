@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hh_express/app/setup.dart';
 import 'package:hh_express/features/address/cubit/address_cubit.dart';
 import 'package:hh_express/features/cart/cubit/cart_cubit.dart';
+import 'package:hh_express/features/favors/bloc/favors_bloc.dart';
+import 'package:hh_express/features/order_history/cubit/order_history_cubit.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/overlay_helper.dart';
 import 'package:hh_express/helpers/routes.dart';
@@ -20,6 +22,7 @@ class AuthBloc extends Cubit<AuthState> {
   void confirmTerms(bool val) {
     emit(
       AuthState(
+        user: state.user,
         apiState: APIState.init,
         termsConfirmed: val,
       ),
@@ -29,11 +32,11 @@ class AuthBloc extends Cubit<AuthState> {
   Future<void> authMe() async {
     emit(
       AuthState(
+        user: state.user,
         apiState: APIState.loading,
         termsConfirmed: state.termsConfirmed,
       ),
     );
-    OverlayHelper.showLoading();
     final response = await _repo.authMe();
     final isSuccess = response != null;
     emit(
@@ -44,7 +47,6 @@ class AuthBloc extends Cubit<AuthState> {
         user: response,
       ),
     );
-    OverlayHelper.remove();
   }
 
   bool checkName(String? name) {
@@ -64,6 +66,7 @@ class AuthBloc extends Cubit<AuthState> {
     }
     emit(
       AuthState(
+        user: state.user,
         apiState: APIState.error,
         message: 'length of UserName less than 5',
         termsConfirmed: state.termsConfirmed,
@@ -86,10 +89,13 @@ class AuthBloc extends Cubit<AuthState> {
       SnackBarHelper.showTopSnack(
           'length of Number less than 8', APIState.error);
 
-      emit(AuthState(
+      emit(
+        AuthState(
           apiState: APIState.error,
           message: 'length of Number less than 8',
-          termsConfirmed: state.termsConfirmed));
+          termsConfirmed: state.termsConfirmed,
+        ),
+      );
       'Number is incorrect'.log();
       return false;
     }
@@ -114,6 +120,7 @@ class AuthBloc extends Cubit<AuthState> {
   Future<bool> logIn(AuthModel data) async {
     emit(
       AuthState(
+        user: state.user,
         apiState: APIState.loading,
         termsConfirmed: state.termsConfirmed,
       ),
@@ -127,6 +134,14 @@ class AuthBloc extends Cubit<AuthState> {
         appRouter.currentContext.l10n.succsess,
         APIState.success,
       );
+      emit(
+        AuthState(
+          apiState: APIState.success,
+          termsConfirmed: state.termsConfirmed,
+          user: response,
+          message: state.message,
+        ),
+      );
       reInitOtherScreens();
     }
     emit(
@@ -134,6 +149,7 @@ class AuthBloc extends Cubit<AuthState> {
         apiState: isSuccess ? APIState.success : APIState.error,
         message: isSuccess ? 'Success' : 'error',
         termsConfirmed: state.termsConfirmed,
+        user: state.user,
       ),
     );
     OverlayHelper.remove();
@@ -143,6 +159,7 @@ class AuthBloc extends Cubit<AuthState> {
   Future<bool> logOut() async {
     emit(
       AuthState(
+        user: state.user,
         apiState: APIState.loading,
         termsConfirmed: state.termsConfirmed,
       ),
@@ -157,10 +174,17 @@ class AuthBloc extends Cubit<AuthState> {
         appRouter.currentContext.l10n.succsess,
         APIState.success,
       );
+      emit(
+        AuthState(
+          apiState: APIState.success,
+          termsConfirmed: state.termsConfirmed,
+        ),
+      );
       return response;
     }
     emit(
       AuthState(
+        user: state.user,
         apiState: APIState.error,
         message: 'somehings went wrong',
         termsConfirmed: state.termsConfirmed,
@@ -174,6 +198,7 @@ class AuthBloc extends Cubit<AuthState> {
   Future<bool> singUp(AuthModel model) async {
     emit(
       AuthState(
+        user: state.user,
         apiState: APIState.loading,
         termsConfirmed: state.termsConfirmed,
       ),
@@ -187,10 +212,18 @@ class AuthBloc extends Cubit<AuthState> {
         appRouter.currentContext.l10n.succsess,
         APIState.success,
       );
+      emit(
+        AuthState(
+          apiState: APIState.success,
+          termsConfirmed: state.termsConfirmed,
+          user: response,
+        ),
+      );
       reInitOtherScreens();
     }
     emit(
       AuthState(
+        user: state.user,
         apiState: isSuccess ? APIState.success : APIState.error,
         message: isSuccess ? 'Success' : 'error',
         termsConfirmed: state.termsConfirmed,
@@ -207,6 +240,7 @@ class AuthBloc extends Cubit<AuthState> {
     );
     emit(
       AuthState(
+        user: state.user,
         apiState: APIState.error,
         message: message,
         termsConfirmed: state.termsConfirmed,
@@ -216,7 +250,9 @@ class AuthBloc extends Cubit<AuthState> {
 
   void reInitOtherScreens() {
     final context = appRouter.currentContext;
-    context.read<AddressCubit>()..init();
-    context.read<CartCubit>()..getCurrentCart();
+    context.read<AddressCubit>().init();
+    context.read<CartCubit>().getCurrentCart();
+    context.read<OrderHistoryCubit>().init();
+    context.read<FavorsCubit>().getFavors();
   }
 }

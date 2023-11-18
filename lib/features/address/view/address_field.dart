@@ -124,10 +124,10 @@ class _AddressFieldState extends State<AddressField> {
                 }
                 if (model == null) {
                   final data =
-                      await cubit.create('${controller.text} $theWelayat');
+                      await cubit.create('${controller.text}. $theWelayat');
                 } else {
                   final data = await cubit
-                      .update(model.update('${controller.text} $theWelayat'));
+                      .update(model.update('${controller.text}. $theWelayat'));
                 }
                 Navigator.pop(context);
               },

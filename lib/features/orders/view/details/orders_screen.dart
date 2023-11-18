@@ -14,7 +14,7 @@ class OrderDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final titlesTheme = AppTheme.titleMedium16(context);
-    const isLoading = false;
+    const isLoading = true;
     return Scaffold(
       appBar: const OrderDetailsAppBar(),
       body: isLoading
@@ -35,9 +35,8 @@ class OrderDetailsScreen extends StatelessWidget {
                   ...List.generate(
                     2,
                     (index) => FavorsWidget(
-                        // prod: 2,
-                        isFavor: index != 0,
-                        ),
+                      isFavor: index != 0,
+                    ),
                   ),
                   Padding(
                     padding: AppPaddings.left_18,
@@ -62,9 +61,7 @@ class _LoadingBody extends StatelessWidget {
     return ListView.custom(
       childrenDelegate: SliverChildListDelegate(
         [
-          const OrderStateWidget(
-              // prod: 123,
-              ),
+          const OrderStateWidget(),
           Padding(
             padding: AppPaddings.left_18.copyWith(bottom: 12.h),
             child: MyShimerPlaceHolder(
@@ -76,10 +73,7 @@ class _LoadingBody extends StatelessWidget {
           ),
           ...List.generate(
             2,
-            (index) => FavorsWidget(
-              // prod: null,
-              isFavor: index != 0,
-            ),
+            (index) => FavorsWidget(isFavor: index != 0),
           ),
           Padding(
             padding: AppPaddings.left_18,
@@ -90,9 +84,7 @@ class _LoadingBody extends StatelessWidget {
               radius: AppBorderRadiuses.border_4,
             ),
           ),
-          const OrderInfoWidget(
-              // prod: 1,
-              )
+          const OrderInfoWidget()
         ],
       ),
     );

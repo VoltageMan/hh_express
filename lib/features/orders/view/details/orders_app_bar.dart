@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hh_express/features/components/widgets/svg_icons.dart';
-import 'package:hh_express/helpers/extentions.dart';
-import 'package:hh_express/helpers/routes.dart';
 import 'package:hh_express/helpers/spacers.dart';
 import 'package:hh_express/settings/consts.dart';
 
@@ -26,15 +23,16 @@ class OrderDetailsAppBar extends StatelessWidget
         color: AppColors.white,
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           GestureDetector(
             onTap: () {
-              appRouter.currentContext.pop();
+              context.pop();
             },
             child: Container(
               height: double.infinity,
+              margin: AppPaddings.right_6,
               width: 24.sp,
               alignment: Alignment.center,
               child: FittedBox(
@@ -48,12 +46,6 @@ class OrderDetailsAppBar extends StatelessWidget
           Text(
             'Sargyt maglumady',
             style: theme.textTheme.titleMedium,
-          ),
-          MyImageIcon(
-            path: AssetsPath.deleteIcon,
-            contSize: 24.sp,
-            iconSize: 19.sp,
-            onTap: () {},
           ),
         ],
       ),
