@@ -13,29 +13,17 @@ import 'package:hh_express/models/cart/cart_update/cart_update_model.dart';
 import 'package:hh_express/settings/consts.dart';
 import 'package:hh_express/settings/theme.dart';
 
-class CartWidget extends StatefulWidget {
-  CartWidget({
+class CartWidget extends StatelessWidget {
+  const CartWidget({
     required this.model,
   });
-  CartOrderModel model;
-  @override
-  State<CartWidget> createState() => _CartWidgetState();
-}
 
-class _CartWidgetState extends State<CartWidget> {
-  double getSize() {
-    final paddings = 50.h;
-    final textSizes = AppSpacing.getTextHeight(42);
-    final height = paddings + textSizes;
-    return height;
-  }
-
-  late CartOrderModel model = widget.model;
-  late final product = model.product;
-  late final cubit = context.read<CartCubit>();
-
+  static late final _height = _getSize;
+  final CartOrderModel model;
   @override
   Widget build(BuildContext context) {
+    final product = model.product;
+    final cubit = context.read<CartCubit>();
     return GestureDetector(
       onTap: () {
         // ModelBottomSheetHelper.showBuyProd();
@@ -43,7 +31,7 @@ class _CartWidgetState extends State<CartWidget> {
       },
       child: Container(
         width: 360.w,
-        height: getSize(),
+        height: _height,
         alignment: Alignment.center,
         margin: AppPaddings.left20_right12.add(AppPaddings.top_16),
         decoration: BoxDecoration(
@@ -162,9 +150,9 @@ class _CartWidgetState extends State<CartWidget> {
                                   quantity: newCount,
                                 ),
                               );
-                              if (val) {
-                                model = model.copyWith(quantity: newCount);
-                              }
+                              // if (val) {
+                              //   model = model.copyWith(quantity: newCount);
+                              // }
                             },
                             onRemove: () async {
                               if (model.quantity == 0) return;
@@ -179,9 +167,9 @@ class _CartWidgetState extends State<CartWidget> {
                                   quantity: newCount,
                                 ),
                               );
-                              if (val) {
-                                model = model.copyWith(quantity: newCount);
-                              }
+                              // if (val) {
+                              //   model = model.copyWith(quantity: newCount);
+                              // }
                             },
                           )
                         ],
@@ -196,4 +184,11 @@ class _CartWidgetState extends State<CartWidget> {
       ),
     );
   }
+}
+
+double get _getSize {
+  final paddings = 50.h;
+  final textSizes = AppSpacing.getTextHeight(42);
+  final height = paddings + textSizes;
+  return height;
 }

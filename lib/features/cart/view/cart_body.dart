@@ -20,6 +20,7 @@ class CartScreen extends StatelessWidget with DioClientMixin {
   Widget build(BuildContext context) {
     return BlocBuilder<CartCubit, CartState>(
       builder: (context, state) {
+        'cartREBuild'.log();
         if (state.apiState == CartAPIState.init) return SizedBox();
         if (state.apiState == CartAPIState.loading) return CenterLoading();
         if (state.apiState == CartAPIState.error)
@@ -46,10 +47,11 @@ class CartScreen extends StatelessWidget with DioClientMixin {
             ListView.custom(
               childrenDelegate: SliverChildListDelegate(
                 [
-                  for (var i in state.cart!.orders)
-                    CartWidget(
-                      model: i,
-                    ),
+                  ...state.cart!.orders
+                      .map((e) => CartWidget(
+                            model: e,
+                          ))
+                      .toList(),
                   CartInfoWidget(
                     model: state.cart,
                   ),
