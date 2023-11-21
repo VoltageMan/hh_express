@@ -258,6 +258,7 @@ class EndPoints {
   static const favorsList = 'api/v1/favorite/list';
   static const favorsSwitch = 'api/v1/favorite';
   static const deliveryInfo = '/api/v1/state';
+  static const videoList = '/api/v1/video/list';
 
   static String notificationDelete(int id) => 'api/v1/notification/$id/delete';
   //?
@@ -290,6 +291,7 @@ class APIKeys {
   static const history = 'history';
   static const urlDecoder = '%5B%5D';
   static const deliveryInfo = 'delivery_info';
+  static const videos = 'videos';
 
   static const colors = ['colors', 'цвета', 'reňkler'];
 }
