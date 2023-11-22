@@ -42,6 +42,8 @@ import 'package:hh_express/repositories/profile/favorites/favorites_repository.d
     as _i13;
 import 'package:hh_express/repositories/profile/favorites/favorites_repository_impl.dart'
     as _i14;
+import 'package:hh_express/repositories/video/video_repo.dart' as _i25;
+import 'package:hh_express/repositories/video/video_repo_impl.dart' as _i26;
 import 'package:injectable/injectable.dart' as _i2;
 
 extension GetItInjectableX on _i1.GetIt {
@@ -66,6 +68,7 @@ extension GetItInjectableX on _i1.GetIt {
     gh.factory<_i19.OrderRepo>(() => _i20.OrderRepoImpl());
     gh.factory<_i21.ProductDetailsRepo>(() => _i22.ProductDetailsRepoImpl());
     gh.factory<_i23.ProductRepo>(() => _i24.ProductRepoImpl());
+    gh.factory<_i25.VideoRepo>(() => _i26.VideoRepoImpl());
     return this;
   }
 }
