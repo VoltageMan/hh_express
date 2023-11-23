@@ -17,16 +17,14 @@ class FavorsWidget extends StatefulWidget {
   FavorsWidget({
     super.key,
     this.model,
-    required this.isFavor,
   });
   final CartProductModel? model;
-  final bool isFavor;
   @override
   State<FavorsWidget> createState() => _FavorsWidgetState();
 }
 
 class _FavorsWidgetState extends State<FavorsWidget> {
-  late bool isFavor = widget.isFavor;
+  late bool isFavor = widget.model?.isFavorite ?? false;
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<FavorsCubit>();

@@ -88,6 +88,7 @@ class _ProdDetailsAppBarState extends State<ProdDetailsAppBar> {
                 onPressed: () async {
                   final prod = state.product!;
                   final model = CartProductModel(
+                    isFavorite: prod.isFavorite,
                     description: prod.description,
                     discountPrice: prod.discount,
                     id: prod.id,

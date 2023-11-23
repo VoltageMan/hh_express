@@ -50,8 +50,6 @@ class _FavrosBuilderState extends State<FavrosBuilder> {
                 itemCount: isLoading ? 10 : state.models.length,
                 itemBuilder: (context, index) {
                   return FavorsWidget(
-                    isFavor: true,
-
                     /// condition to show loading
                     model: isLoading ? null : state.models[index],
                   );

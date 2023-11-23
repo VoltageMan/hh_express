@@ -1,5 +1,6 @@
 import 'package:hh_express/data/remote/dio_client.dart';
 import 'package:hh_express/models/api/paginated_data_model.dart';
+import 'package:hh_express/models/cart/cart_model/cart_model.dart';
 import 'package:hh_express/models/order_history/order_history_model.dart';
 import 'package:hh_express/models/pagination/pagination_model.dart';
 import 'package:hh_express/repositories/order/order_repo.dart';
@@ -18,6 +19,7 @@ class OrderRepoImpl extends OrderRepo with DioClientMixin {
       final responseData = response.data[APIKeys.history];
       final pagination =
           PaginationModel.fromJson(responseData[APIKeys.pagination]);
+
       ///
       final orders = (responseData[APIKeys.data] as List)
           .map((e) => OrderHistoryModel.fromJson(e as Map<String, dynamic>))
@@ -27,6 +29,14 @@ class OrderRepoImpl extends OrderRepo with DioClientMixin {
         data: orders,
         pagination: pagination,
       );
+    }
+    return null;
+  }
+
+  Future<CartModel?> getDetails(String uuid) async {
+    final response = await dio.get(endPoint: EndPoints.cartFetch(uuid));
+    if (response.success) {
+      return CartModel.fromJson(response.data[APIKeys.cart]);
     }
     return null;
   }

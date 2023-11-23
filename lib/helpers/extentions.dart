@@ -31,6 +31,7 @@ extension L10n on BuildContext {
 
 extension FromStringtoInt on String {
   int get toInt => int.parse(this);
+  String get toRouteName => replaceAll('/', '');
 }
 
 extension MaterialResolve on Color {

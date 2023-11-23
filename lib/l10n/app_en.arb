@@ -72,5 +72,7 @@
   "empty":"Empty",
   "least5Symbols":"Filed must be at least 5 symbols",
   "contiansWrongSymbols":"Field contains wrong symbols", 
-  "addToFavors":"Add to favorites"
+  "addToFavors":"Add to favorites",
+  "uuid":"Mark",
+  "comeDate":"Come date"
 }

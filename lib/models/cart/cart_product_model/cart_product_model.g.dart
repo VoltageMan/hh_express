@@ -14,6 +14,7 @@ CartProductModel _$CartProductModelFromJson(Map<String, dynamic> json) =>
       description: json['description'] as String,
       discountPrice: json['discount_price'] as String?,
       name: json['name'] as String,
+      isFavorite: json['is_favorite'] as bool,
       salePrice: json['sale_price'] as String,
     );
 
@@ -26,4 +27,5 @@ Map<String, dynamic> _$CartProductModelToJson(CartProductModel instance) =>
       'price': instance.price,
       'sale_price': instance.salePrice,
       'discount_price': instance.discountPrice,
+      'is_favorite': instance.isFavorite,
     };

@@ -252,7 +252,7 @@ class AuthBloc extends Cubit<AuthState> {
     final context = appRouter.currentContext;
     context.read<AddressCubit>().init();
     context.read<CartCubit>().getCurrentCart();
-    context.read<OrderHistoryCubit>().init();
+    context.read<OrderHistoryCubit>().init(forUpdate: true);
     context.read<FavorsCubit>().getFavors();
   }
 }

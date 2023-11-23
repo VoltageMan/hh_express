@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hh_express/features/components/widgets/place_holder.dart';
-import 'package:hh_express/features/order_history/cubit/order_history_cubit.dart';
 import 'package:hh_express/features/orders/components/dashed_line.dart';
 import 'package:hh_express/features/orders/components/order_info_list_tile.dart';
 import 'package:hh_express/helpers/extentions.dart';
+import 'package:hh_express/helpers/modal_sheets.dart';
 import 'package:hh_express/helpers/routes.dart';
 import 'package:hh_express/models/order_history/order_history_model.dart';
 import 'package:hh_express/settings/consts.dart';
@@ -29,12 +28,17 @@ class OrderHistoryWidget extends StatelessWidget {
     ];
     return GestureDetector(
       onTap: () {
-        context.read<OrderHistoryCubit>().state.pagination?.toJson().log();
-        context.read<OrderHistoryCubit>().state.apiState.log();
-        context.read<OrderHistoryCubit>().state.models.length.log();
-        return;
-        Navigator.pop(context);
-        appRouter.currentContext.push(AppRoutes.orderDetails);
+        ModelBottomSheetHelper.doPop();
+        appRouter.currentContext.pushNamed(
+          AppRoutes.orderDetails.toRouteName,
+          queryParameters: {
+            'uuid': model!.uuid,
+            'order_length': model!.orders.length.toString(),
+          },
+        ).then((value) {
+          //2 index of Order History modal sheet to return modal sheet back
+          ModelBottomSheetHelper.showProfileSheets(2);
+        });
       },
       child: Container(
         margin: AppPaddings.horiz_16.copyWith(bottom: 16.h),

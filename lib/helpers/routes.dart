@@ -10,6 +10,7 @@ import 'package:hh_express/features/orders/view/details/orders_screen.dart';
 import 'package:hh_express/features/product_details/view/product_details.dart';
 import 'package:hh_express/features/search/view/search_screen.dart';
 import 'package:hh_express/features/video/view/details/video_details.dart';
+import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/splash_screen.dart';
 import 'package:hh_express/models/categories/category_model.dart';
 import 'package:hh_express/models/property/property_model.dart';
@@ -43,24 +44,28 @@ final appRouter = GoRouter(
   routes: [
     GoRoute(
       path: AppRoutes.mainScreen,
+      name: AppRoutes.mainScreen.toRouteName,
       builder: (context, state) {
         return MainScreen();
       },
     ),
     GoRoute(
       path: AppRoutes.splashScreen,
+      name: AppRoutes.splashScreen.toRouteName,
       builder: (context, state) {
         return SplashScreen();
       },
     ),
     GoRoute(
       path: AppRoutes.chat,
+      name: AppRoutes.chat.toRouteName,
       builder: (context, state) {
         return ChatScreen();
       },
     ),
     GoRoute(
       path: AppRoutes.search,
+      name: AppRoutes.search.toRouteName,
       pageBuilder: (context, state) {
         return CupertinoPage(
           child: SearchScreen(),
@@ -69,6 +74,7 @@ final appRouter = GoRouter(
     ),
     GoRoute(
       path: AppRoutes.auth,
+      name: AppRoutes.auth.toRouteName,
       pageBuilder: (context, state) {
         final extra = state.extra as bool?;
         return CustomTransitionPage(
@@ -87,12 +93,19 @@ final appRouter = GoRouter(
     ),
     GoRoute(
       path: AppRoutes.orderDetails,
+      name: AppRoutes.orderDetails.toRouteName,
       builder: (context, state) {
-        return const OrderDetailsScreen();
+        final uuid = state.queryParameters['uuid'];
+        final orderLength = state.queryParameters['order_length']!.toInt;
+        return OrderDetailsScreen(
+          ordersLength: orderLength,
+          uuid: uuid!,
+        );
       },
     ),
     GoRoute(
       path: AppRoutes.productByCategory,
+      name: AppRoutes.productByCategory.toRouteName,
       builder: (context, state) {
         return ProductsByCategory(
           category: state.extra as CategoryModel,
@@ -101,17 +114,14 @@ final appRouter = GoRouter(
     ),
     GoRoute(
       path: AppRoutes.notifications,
+      name: AppRoutes.notifications.toRouteName,
       builder: (context, state) {
         return const NotificationScreen();
       },
     ),
     GoRoute(
       path: AppRoutes.prodDetails,
-      // name: AppRoutes.prodDetails.to,
-      // builder: (context, state) {
-      //   final id = state.extra as int;
-      //   return ProductDetails(id: id);
-      // },
+      name: AppRoutes.prodDetails.toRouteName,
       pageBuilder: (context, state) {
         final id = state.extra as int;
         return CupertinoPage(
@@ -121,6 +131,7 @@ final appRouter = GoRouter(
     ),
     GoRoute(
       path: AppRoutes.videoDetails,
+      name: AppRoutes.videoDetails.toRouteName,
       pageBuilder: (context, state) {
         return CustomTransitionPage(
           child: const VideoDetails(),
@@ -143,7 +154,7 @@ final appRouter = GoRouter(
     ),
     GoRoute(
       path: AppRoutes.filterDetails,
-      name: AppRoutes.filterDetails.replaceAll('/', ''),
+      name: AppRoutes.filterDetails.toRouteName,
       pageBuilder: (context, state) {
         return CupertinoPage(
           child: FilterDetailsScreen(

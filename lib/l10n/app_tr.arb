@@ -73,5 +73,7 @@
     "least5Symbols":" ",
     "contiansWrongSymbols":"Field contains wrong symbols. Please remove them",
     "addToFavors":"Halanlaryma goş"
-    
+    ,
+  "uuid":"Belgisi",
+  "comeDate":"Gelmeli senesi"
 }

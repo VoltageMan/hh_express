@@ -12,6 +12,7 @@ class CartProductModel {
   final String price;
   final String salePrice;
   final String? discountPrice;
+  final bool isFavorite;
   const CartProductModel({
     required this.id,
     required this.image,
@@ -19,6 +20,7 @@ class CartProductModel {
     required this.description,
     required this.discountPrice,
     required this.name,
+    required this.isFavorite,
     required this.salePrice,
   });
 

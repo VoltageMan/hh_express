@@ -13,10 +13,10 @@ class OrderHistoryCubit extends Cubit<OrderHistoryState> {
   OrderHistoryCubit() : super(OrderHistoryState.deftState);
 
   final repo = getIt<OrderRepo>();
-  Future<void> init({bool? forUpdate}) async {
-    if (state.apiState != ProductAPIState.init &&
-        state.apiState != ProductAPIState.error &&
-        !(forUpdate ?? true)) {
+  Future<void> init({bool forUpdate = false}) async {
+    if (state.apiState != OrderHistoryAPIState.init &&
+        state.apiState != OrderHistoryAPIState.error &&
+        !forUpdate) {
       return;
     }
     if (LocalStorage.getToken == null) {

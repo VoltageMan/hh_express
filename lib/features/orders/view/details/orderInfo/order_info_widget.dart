@@ -3,16 +3,31 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/features/orders/components/dashed_line.dart';
 import 'package:hh_express/features/orders/components/order_info_list_tile.dart';
 import 'package:hh_express/helpers/extentions.dart';
+import 'package:hh_express/models/cart/cart_model/cart_model.dart';
 import 'package:hh_express/settings/consts.dart';
 
 class OrderInfoWidget extends StatelessWidget {
-  const OrderInfoWidget({super.key, this.prod});
-  final dynamic prod;
+  const OrderInfoWidget({super.key, this.model});
+  final CartModel? model;
 
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    if (prod == null) return _LoadingWidget();
+    if (model == null) return _LoadingWidget();
+    final titles = [
+      l10n.comeDate,
+      l10n.uuid,
+      '${l10n.products} (${model!.orders.length})',
+      l10n.delivery,
+      l10n.perKilogram,
+    ];
+    final contents = [
+      model!.date,
+      model!.uuid,
+      '',
+      '${model!.deliveryCost} TMT',
+      '${model!.weightCost} TMT',
+    ];
     return Container(
       margin: AppPaddings.all_16,
       padding: AppPaddings.horiz16_vertic12,
@@ -28,19 +43,19 @@ class OrderInfoWidget extends StatelessWidget {
         children: [
           for (int i = 0; i < 2; i++)
             OrderInfoListTile(
-              title: l10n.orderState,
-              content: i == 0 ? 'geldi' : 'LQNSU346JK',
+              title: titles[i],
+              content: contents[i],
             ),
           DashedLine(isLoading: false),
-          for (int i = 0; i < 3; i++)
+          for (int i = 2; i < 5; i++)
             OrderInfoListTile(
-              title: l10n.orderState,
-              content: i == 0 ? 'geldi' : 'LQNSU346JK',
+              title: titles[i],
+              content: contents[i],
             ),
           DashedLine(isLoading: false),
           OrderInfoListTile(
-            title: 'Jemi bahasy',
-            content: '643 TMT',
+            title: l10n.totalPrice,
+            content: '${model!.subTotal} TMT',
             contentBold: true,
             titleBold: true,
           )

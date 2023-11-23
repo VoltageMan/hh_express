@@ -2,15 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/features/components/widgets/place_holder.dart';
 import 'package:hh_express/helpers/spacers.dart';
+import 'package:hh_express/models/cart/cart_model/cart_model.dart';
 import 'package:hh_express/settings/consts.dart';
 import 'package:hh_express/settings/theme.dart';
 
 class OrderStateWDate extends StatelessWidget {
-  const OrderStateWDate({super.key, this.date});
-  final String? date;
+  const OrderStateWDate({super.key, this.model});
+  final OrderStateModel? model;
   @override
   Widget build(BuildContext context) {
-    final isLoading = date == null;
+    final isLoading = model == null;
     if (isLoading) return _LoadingWidget();
     final theme = Theme.of(context).textTheme;
     return Column(
@@ -19,14 +20,14 @@ class OrderStateWDate extends StatelessWidget {
       children: [
         FittedBox(
           child: Text(
-            'Pendings',
+            model!.state,
             maxLines: 1,
             style: AppTheme.titleLarge12(context),
           ),
         ),
         FittedBox(
           child: Text(
-            '14.05.23/09:21',
+            model?.completed_at ?? '00.00.0/00:00',
             maxLines: 1,
             style: theme.titleSmall,
           ),

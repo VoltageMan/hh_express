@@ -2,23 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/features/components/widgets/place_holder.dart';
 import 'package:hh_express/helpers/spacers.dart';
+import 'package:hh_express/models/cart/cart_model/cart_model.dart';
 import 'package:hh_express/settings/consts.dart';
 
 class OrderStateCheck extends StatelessWidget {
-  const OrderStateCheck({
-    super.key,
-    required this.checkCount,
-    required this.tickedsCount,
-    required this.isLoading,
-    this.maxHeight,
-  });
-  final int checkCount;
-  final int tickedsCount;
+  const OrderStateCheck(
+      {super.key,
+      required this.isLoading,
+      this.maxHeight,
+      required this.models});
+  final List<OrderStateModel> models;
   final bool isLoading;
   final double? maxHeight;
   @override
   Widget build(BuildContext context) {
     final height = AppSpacing.getTextHeight(12) * 1.6;
+    final checkCount = models.length;
+    final tickedsCount = getTicks(models);
     return Padding(
       padding: AppPaddings.right_6,
       child: Stack(
@@ -80,7 +80,7 @@ class OrderStateCheck extends StatelessWidget {
                                 tickedsCount > index
                                     ? Icons.check_rounded
                                     : null,
-                                color: AppColors.white,
+                                color: AppColors.lightGrey,
                               ),
                             ),
                           );
@@ -91,4 +91,15 @@ class OrderStateCheck extends StatelessWidget {
       ),
     );
   }
+}
+
+int getTicks(List<OrderStateModel> models) {
+  int length = 0;
+  for (final i in models) {
+    if (i.completed_at == null) {
+      return length;
+    }
+    length++;
+  }
+  return length;
 }

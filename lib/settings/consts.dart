@@ -261,7 +261,7 @@ class EndPoints {
 
   static String notificationDelete(int id) => 'api/v1/notification/$id/delete';
   //?
-  static String cartFetch(String token) => 'api/v1/cart/$token/fetch';
+  static String cartFetch(String uuid) => 'api/v1/cart/$uuid/fetch';
   static String prodDetails(int id) => 'api/v1/product/$id';
   static String addressFetch(String uuid) => 'api/v1/address/$uuid/fetch';
   static String addressUpdate(String uuid) => 'api/v1/address/$uuid/update';

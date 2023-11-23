@@ -82,28 +82,33 @@ class _OrderHistoryBuilderState extends State<OrderHistoryBuilder> {
             ),
           );
         final isLoading = apiState == OrderHistoryAPIState.loading;
-        return CustomScrollView(
-          controller: scrollController,
-          slivers: [
-            AppSpacing.vertical_10.toSliverBox,
-            SliverList.builder(
-              itemCount: isLoading ? 10 : state.models.length,
-              itemBuilder: (context, index) {
-                return OrderHistoryWidget(
-                  /// condition to show loading
-                  model: isLoading ? null : state.models[index],
-                );
-              },
-            ),
-            if (apiState == OrderHistoryAPIState.errorMore)
-              CategoryErrorBody(
-                onTap: () {
-                  cubit.loadMore();
+        return RefreshIndicator(
+          onRefresh: () async {
+            cubit.init(forUpdate: true);
+          },
+          child: CustomScrollView(
+            controller: scrollController,
+            slivers: [
+              AppSpacing.vertical_10.toSliverBox,
+              SliverList.builder(
+                itemCount: isLoading ? 10 : state.models.length,
+                itemBuilder: (context, index) {
+                  return OrderHistoryWidget(
+                    /// condition to show loading
+                    model: isLoading ? null : state.models[index],
+                  );
                 },
-              ).toSliverBox,
-            if (apiState == OrderHistoryAPIState.loadingMore)
-              CenterLoading().toSliverBox
-          ],
+              ),
+              if (apiState == OrderHistoryAPIState.errorMore)
+                CategoryErrorBody(
+                  onTap: () {
+                    cubit.loadMore();
+                  },
+                ).toSliverBox,
+              if (apiState == OrderHistoryAPIState.loadingMore)
+                CenterLoading().toSliverBox
+            ],
+          ),
         );
       },
     );
