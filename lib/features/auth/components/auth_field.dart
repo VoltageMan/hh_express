@@ -29,7 +29,6 @@ class _AuthFieldState extends State<AuthField> {
     final theme = Theme.of(context);
     final l10n = context.l10n;
     final hasPrefix = widget.label == l10n.phoneNumber;
-    final forName = widget.label == l10n.userName;
     final forPassWord = widget.label == l10n.password;
     if (passWordShown == null) {
       passWordShown = forPassWord;
@@ -74,7 +73,7 @@ class _AuthFieldState extends State<AuthField> {
                       : Icons.visibility_outlined),
                 )
               : null,
-          // contentPadding: AppPaddings.horiz12_vertic17.copyWith(bottom: 30.h),
+          contentPadding: EdgeInsets.zero,
           filled: true,
           labelText: widget.label,
           fillColor: theme.inputDecorationTheme.fillColor,
