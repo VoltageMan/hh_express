@@ -13,6 +13,7 @@ import 'package:hh_express/features/video/view/details/video_details.dart';
 import 'package:hh_express/helpers/splash_screen.dart';
 import 'package:hh_express/models/categories/category_model.dart';
 import 'package:hh_express/models/property/property_model.dart';
+import 'package:hh_express/models/videos/video_model.dart';
 
 enum EnumNavRoutes { home, video, category, cart, profile }
 
@@ -122,8 +123,11 @@ final appRouter = GoRouter(
     GoRoute(
       path: AppRoutes.videoDetails,
       pageBuilder: (context, state) {
+        final data = state.extra as HomeVideoModel;
         return CustomTransitionPage(
-          child: const VideoDetails(),
+          child: VideoDetails(
+            model: data,
+          ),
           transitionsBuilder: (context, animation, secondaryAnimation, child) =>
               SlideTransition(
             position: Tween<Offset>(

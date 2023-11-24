@@ -50,6 +50,16 @@ extension GetNavContext on GoRouter {
       routerDelegate.navigatorKey.currentContext!;
 }
 
+extension DurationExtensions on Duration {
+  String get toTime {
+    final formattedVal = this.toString().split('.').first;
+    final data = formattedVal.split(':');
+    if (data.first.toInt == 0) data.removeAt(0);
+
+    return data.join(':');
+  }
+}
+
 class MyBehavior extends ScrollBehavior {
   @override
   Widget buildOverscrollIndicator(

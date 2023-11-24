@@ -13,19 +13,16 @@ class VideoCubit extends Cubit<VideoState> {
 
   final _repo = getIt<VideoRepo>();
 
-  Future<void> getVideos({bool forRefresh = false}) async {
+  Future<void> loadMore({bool forRefresh = false}) async {
     emit(
       VideoState(
-        apiState: getLoadingState(forRefresh),
+        apiState: VideoAPIState.loadingMore,
         models: List.from(state.models),
         pagination: state.pagination,
       ),
     );
-    if (forRefresh) {
-      state.models.clear();
-    }
-    final response =
-        await _repo.getVideos((state.pagination?.currentPage ?? 0) + 1);
+
+    final response = await _repo.getVideos(state.pagination!.currentPage + 1);
     if (response != null) {
       return emit(
         VideoState(
@@ -37,20 +34,43 @@ class VideoCubit extends Cubit<VideoState> {
     }
     emit(
       VideoState(
-        apiState: getErrorState(forRefresh),
+        apiState: VideoAPIState.errorMore,
         models: List.from(state.models),
         pagination: state.pagination,
       ),
     );
   }
 
-  VideoAPIState getLoadingState(bool forRefresh) =>
-      state.pagination == null || forRefresh
-          ? VideoAPIState.loading
-          : VideoAPIState.loadingMore;
-
-  VideoAPIState getErrorState(bool forRefresh) =>
-      state.pagination == null || forRefresh
-          ? VideoAPIState.error
-          : VideoAPIState.errorMore;
+  Future<void> init({bool forUpdate = false}) async {
+    final apiState = state.apiState;
+    if (apiState != VideoAPIState.init &&
+        apiState != VideoAPIState.error &&
+        !forUpdate) {
+      return;
+    }
+    emit(
+      VideoState(
+        apiState: VideoAPIState.loading,
+        models: List.empty(),
+        pagination: state.pagination,
+      ),
+    );
+    final response = await _repo.getVideos(1);
+    if (response != null) {
+      return emit(
+        VideoState(
+          apiState: VideoAPIState.success,
+          models: List.from(response.data),
+          pagination: response.pagination,
+        ),
+      );
+    }
+    emit(
+      VideoState(
+        apiState: VideoAPIState.error,
+        models: List.empty(),
+        pagination: state.pagination,
+      ),
+    );
+  }
 }

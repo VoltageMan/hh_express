@@ -6,29 +6,39 @@ import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/modal_sheets.dart';
 import 'package:hh_express/helpers/routes.dart';
 import 'package:hh_express/helpers/spacers.dart';
+import 'package:hh_express/models/videos/video_model.dart';
 import 'package:hh_express/settings/consts.dart';
 import 'package:hh_express/settings/theme.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoDetails extends StatefulWidget {
-  const VideoDetails({super.key});
-
+  const VideoDetails({
+    super.key,
+    required this.model,
+  });
+  final HomeVideoModel model;
   @override
   State<VideoDetails> createState() => _VideoDetailsState();
 }
 
 class _VideoDetailsState extends State<VideoDetails> {
   late VideoPlayerController _controller;
-
+// http://216.250.9.74/api/v1/video/list
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.networkUrl(
-        Uri.parse('${EndPoints.baseUrl}video1.mp4'))
+    _controller = VideoPlayerController.networkUrl(Uri.parse(widget.model.url))
       ..initialize().then((_) {
         // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
         setState(() {});
+        _controller.play();
       });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -127,13 +137,12 @@ class _VideoDetailsState extends State<VideoDetails> {
                               ],
                             ),
                           ),
-                          Expanded(child: SizedBox())
                         ],
                       ),
                       Padding(
                         padding: AppPaddings.vertic_20,
                         child: Text(
-                          'Lorem ipsum is a pseudo-Latin text used in web design, typography, layout, and printisdfds...',
+                          widget.model.name,
                           style: displayMedium14,
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,

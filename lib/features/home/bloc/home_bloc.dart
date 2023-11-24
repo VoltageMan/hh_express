@@ -27,7 +27,6 @@ class HomeBloc extends Cubit<HomeState> {
         !forUpdate) {
       return;
     }
-    'Init Home'.log();
     emit(
       HomeState(
         deliveryInfo: state.deliveryInfo,

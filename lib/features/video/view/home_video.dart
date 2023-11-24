@@ -18,7 +18,7 @@ class HomeVideos extends StatefulWidget {
 }
 
 class _TestScrennStaee extends State<HomeVideos> {
-  late final cubit = context.read<VideoCubit>()..getVideos();
+  late final cubit = context.read<VideoCubit>()..init();
 
   final scrollController = ScrollController();
 
@@ -33,7 +33,7 @@ class _TestScrennStaee extends State<HomeVideos> {
             state.pagination!.currentPage == state.pagination!.lastPage) {
           return;
         }
-        cubit.getVideos();
+        cubit.loadMore();
       }
     });
     super.initState();
@@ -50,12 +50,14 @@ class _TestScrennStaee extends State<HomeVideos> {
           if (apiState == VideoAPIState.error)
             return CategoryErrorBody(
               onTap: () {
-                cubit.getVideos(forRefresh: true);
+                cubit.init();
               },
             );
           final isLoading = apiState == VideoAPIState.loading;
           return RefreshIndicator(
-            onRefresh: () async {},
+            onRefresh: () async {
+              cubit.init(forUpdate: true);
+            },
             child: CustomScrollView(
               slivers: [
                 SliverPadding(
@@ -77,7 +79,7 @@ class _TestScrennStaee extends State<HomeVideos> {
                   CenterLoading().toSliverBox,
                 if (apiState == VideoAPIState.errorMore)
                   CategoryErrorBody(
-                    onTap: cubit.getVideos,
+                    onTap: cubit.loadMore,
                   ).toSliverBox
               ],
             ),

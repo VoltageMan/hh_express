@@ -69,7 +69,7 @@ class _MyAppState extends State<MyApp> {
                 title: 'Yuan Shop',
                 supportedLocales: AppLocalizations.supportedLocales,
                 routerConfig: appRouter,
-                locale: Locale(locale),
+                locale: Locale('en'),
                 theme: AppTheme.lightTheme,
                 debugShowCheckedModeBanner: false,
                 localizationsDelegates: AppLocalizations.localizationsDelegates,
@@ -78,6 +78,7 @@ class _MyAppState extends State<MyApp> {
                   return Navigator(
                     onGenerateRoute: (settings) => MaterialPageRoute(
                       builder: (context) {
+                        return TestScreen();
                         return child!;
                       },
                     ),
