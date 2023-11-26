@@ -1,9 +1,4 @@
-
-
-import 'package:hh_express/models/products/product_model.dart';
 import 'package:json_annotation/json_annotation.dart';
-
-part 'video_model.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class HomeVideoModel {
@@ -43,11 +38,6 @@ class HomeVideoModel {
       url: map['url'] as String,
     );
   }
-
-  String toJson() => json.encode(toMap());
-
-  factory HomeVideoModel.fromJson(String source) =>
-      HomeVideoModel.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() => 'HomeVideoModel(id: $id, name: $name, url: $url)';
