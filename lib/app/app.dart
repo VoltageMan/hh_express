@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/app/setup.dart';
+import 'package:hh_express/app/test_screen.dart';
 import 'package:hh_express/features/address/cubit/address_cubit.dart';
 import 'package:hh_express/features/auth/bloc/auth_bloc.dart';
 import 'package:hh_express/features/cart/cubit/cart_cubit.dart';
@@ -14,6 +15,8 @@ import 'package:hh_express/features/order_history/cubit/order_history_cubit.dart
 import 'package:hh_express/features/notifications/cubit/notification_cubit.dart';
 import 'package:hh_express/features/product_details/bloc/product_details_bloc.dart';
 import 'package:hh_express/features/products_by_category/bloc/products_by_category_bloc.dart';
+import 'package:hh_express/features/video/cubit/simmilar_prods_cubit.dart';
+import 'package:hh_express/features/video/cubit/video_cubit.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/routes.dart';
 import 'package:hh_express/helpers/spacers.dart';
@@ -54,6 +57,8 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(create: (context) => AddressCubit()),
         BlocProvider(create: (context) => OrderHistoryCubit()),
         BlocProvider(create: (context) => FavorsCubit()),
+        BlocProvider(create: (context) => VideoCubit()),
+        BlocProvider(create: (context) => SimmilarProdsCubit())
       ],
       child: ScreenUtilInit(
         designSize: const Size(360, 800),
@@ -75,7 +80,7 @@ class _MyAppState extends State<MyApp> {
                   return Navigator(
                     onGenerateRoute: (settings) => MaterialPageRoute(
                       builder: (context) {
-                        // if (TestScreen.showTest) return TestScreen(); 
+                        // return TestScreen();
                         return child!;
                       },
                     ),

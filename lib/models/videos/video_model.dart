@@ -1,5 +1,11 @@
-import 'dart:convert';
 
+
+import 'package:hh_express/models/products/product_model.dart';
+import 'package:json_annotation/json_annotation.dart';
+
+part 'video_model.g.dart';
+
+@JsonSerializable(fieldRename: FieldRename.snake)
 class HomeVideoModel {
   final int id;
   final String name;

@@ -35,6 +35,8 @@ class AppTheme {
       Theme.of(context).textTheme.titleSmall!.copyWith(fontSize: 12.sp);
   static TextStyle displayMedium12(BuildContext context) =>
       Theme.of(context).textTheme.displayMedium!.copyWith(fontSize: 12.sp);
+  static TextStyle displaySmall12(BuildContext context) =>
+      Theme.of(context).textTheme.displaySmall!.copyWith(fontSize: 12.sp);
   static TextStyle displayMedium14(BuildContext context) =>
       Theme.of(context).textTheme.displayMedium!.copyWith(fontSize: 14.sp);
   static TextStyle titleMedium12(BuildContext context) => Theme.of(context)

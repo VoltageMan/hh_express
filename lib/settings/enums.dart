@@ -23,6 +23,15 @@ enum SearchAPIState {
   success,
 }
 
+enum VideoAPIState {
+  init,
+  loading,
+  loadingMore,
+  error,
+  errorMore,
+  success,
+}
+
 enum FavorsAPIState {
   init,
   loading,
@@ -32,7 +41,6 @@ enum FavorsAPIState {
   success,
   unauthorized
 }
-
 
 enum OrderHistoryAPIState {
   init,

@@ -14,9 +14,10 @@ class ProductRepoImpl extends ProductRepo with DioClientMixin {
     required List<int> properties,
     required int page,
     String? search,
+    int? videoId,
   }) async {
     final response = await dio.get(
-        endPoint: _endPoint(slugs, properties, page),
+        endPoint: _endPoint(slugs, properties, page, videoId),
         queryParameters: search != null ? {'search': search} : null);
     if (response.success) {
       // converting paginationModel from json
@@ -46,7 +47,8 @@ class ProductRepoImpl extends ProductRepo with DioClientMixin {
     return null;
   }
 
-  String _endPoint(List<String> slugs, List<int> properties, int page) {
+  String _endPoint(
+      List<String> slugs, List<int> properties, int page, int? videoId) {
     if (slugs.isEmpty && properties.isEmpty) {
       return '${EndPoints.products}?${APIKeys.page}=$page';
     }
@@ -70,7 +72,8 @@ class ProductRepoImpl extends ProductRepo with DioClientMixin {
     }
     final propertiesUrl = propertyList.join('&');
     final slugsUrl = slugList.join('&');
+    final videoParam = videoId == null ? '' : 'video_id=$videoId';
     final joiner = propertiesUrl.isNotEmpty && slugsUrl.isNotEmpty ? '&' : '';
-    return '${EndPoints.products}?$propertiesUrl$joiner$slugsUrl&${APIKeys.page}=$page&ishome=true';
+    return '${EndPoints.products}?$propertiesUrl$joiner$slugsUrl&${APIKeys.page}=$page&ishome=true$videoId';
   }
 }
