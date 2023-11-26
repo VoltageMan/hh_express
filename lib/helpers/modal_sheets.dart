@@ -2,18 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hh_express/app/test_screen.dart';
 import 'package:hh_express/features/address/addres_read_sheet.dart';
 import 'package:hh_express/features/address/view/address_field.dart';
+import 'package:hh_express/features/categories/view/body.dart';
 import 'package:hh_express/features/chat/bloc/chat_bloc.dart';
 import 'package:hh_express/features/chat/bloc/chat_events.dart';
+import 'package:hh_express/features/components/widgets/sheet_titles.dart';
 import 'package:hh_express/features/favors/view/favors_body.dart';
 import 'package:hh_express/features/filter/components/sheet_body.dart';
 import 'package:hh_express/features/order_history/view/screens/orders_sheet_body.dart';
 import 'package:hh_express/features/product_details/view/modalSheet/product_modal_body.dart';
+import 'package:hh_express/features/product_details/view/product_details_body.dart';
 import 'package:hh_express/features/profile/view/sheets/change_lang_sheet.dart';
+import 'package:hh_express/features/video/cubit/simmilar_prods_cubit.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/routes.dart';
+import 'package:hh_express/helpers/spacers.dart';
+import 'package:hh_express/helpers/widgets/sliver_pinnded_container.dart';
 import 'package:hh_express/models/addres/address_model.dart';
+import 'package:hh_express/settings/consts.dart';
+import 'package:hh_express/settings/enums.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ModelBottomSheetHelper {
@@ -90,7 +99,6 @@ class ModelBottomSheetHelper {
   }
 
   static Future<void> showProfileSheets(int index) async {
-    _sheetShown = true;
     List<Widget> _profileSheets = [
       SizedBox(),
       AddressReadSheet(),
@@ -107,6 +115,7 @@ class ModelBottomSheetHelper {
             topLeft: Radius.circular(10), topRight: Radius.circular(10)),
       ),
       builder: (context) {
+        _sheetShown = true;
         _currentContext = context;
         return _profileSheets[index];
       },
@@ -167,6 +176,7 @@ class ModelBottomSheetHelper {
       ),
       context: context,
       builder: (ctx) {
+        _sheetShown = true;
         return Container(
           padding: EdgeInsets.all(20.sp),
           child: Row(
@@ -234,5 +244,109 @@ class ModelBottomSheetHelper {
         }
       }
     }
+  }
+
+  static Future<void> showVideoSimmilarProds(BuildContext context) async {
+    await showModalBottomSheet(
+      context: appRouter.currentContext,
+      useRootNavigator: true,
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(10.r),
+          topRight: Radius.circular(10.r),
+        ),
+      ),
+      builder: (ctx) {
+        _sheetShown = true;
+        _currentContext = ctx;
+        return VideoSimmilarProdsSheet();
+      },
+    );
+    _sheetShown = false;
+  }
+}
+
+class VideoSimmilarProdsSheet extends StatefulWidget {
+  const VideoSimmilarProdsSheet({super.key});
+  @override
+  State<VideoSimmilarProdsSheet> createState() =>
+      _VideoSimmilarProdsSheetState();
+}
+
+class _VideoSimmilarProdsSheetState extends State<VideoSimmilarProdsSheet> {
+  final scrollController = ScrollController();
+  @override
+  void initState() {
+    scrollController.addListener(() {
+      if (scrollController.position.pixels >=
+              (scrollController.position.maxScrollExtent - 30.h) &&
+          scrollController.position.isScrollingNotifier.value) {
+        final state = cubit.state;
+        if (state.state != ProductAPIState.success ||
+            state.pagination!.currentPage == state.pagination!.lastPage) {
+          return;
+        }
+        cubit.loadMore();
+      }
+    });
+    super.initState();
+  }
+
+  late final cubit = context.read<SimmilarProdsCubit>();
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: AppBorderRadiuses.border_10,
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: AppBorderRadiuses.border_10,
+        ),
+        height: MediaQuery.sizeOf(context).height - 92.h - AppSpacing.topPad,
+        width: double.infinity,
+        child: BlocBuilder<SimmilarProdsCubit, SimmilarProdsState>(
+          bloc: cubit,
+          builder: (context, state) {
+            final apiState = state.state;
+            if (apiState == ProductAPIState.init) return SizedBox();
+            if (apiState == ProductAPIState.error) return CategoryErrorBody();
+            if (apiState == ProductAPIState.loading) return CenterLoading();
+            return CustomScrollView(
+              controller: scrollController,
+              slivers: [
+                SliverPersistentHeader(
+                  pinned: true,
+                  delegate: SliverPinndedContainer(
+                    height: AppSpacing.getTextHeight(16 + 32.sp),
+                    widget: Padding(
+                      padding: AppPaddings.all_16,
+                      child: BottomSheetTitle(
+                        title:
+                            '${context.l10n.all} (${state.pagination?.count ?? 0})',
+                      ),
+                    ),
+                  ),
+                ),
+                SliverList.builder(
+                  itemCount: state.prods!.length,
+                  itemBuilder: (context, index) => SimmilarVideoWidget(
+                    model: state.prods![index],
+                  ),
+                ),
+                if (apiState == ProductAPIState.loadingMoreError)
+                  CategoryErrorBody(
+                    onTap: () {
+                      cubit.loadMore();
+                    },
+                  ).toSliverBox,
+                if (apiState == ProductAPIState.loadingMore)
+                  CenterLoading().toSliverBox
+              ],
+            );
+          },
+        ),
+      ),
+    );
   }
 }

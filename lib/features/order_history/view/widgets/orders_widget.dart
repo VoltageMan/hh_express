@@ -105,14 +105,15 @@ class _LoadingWidget extends StatelessWidget {
             ),
           ),
           Padding(
-              padding: AppPaddings.top15_bottom19,
-              child: SizedBox(
-                width: 115.w,
-                child: MyShimerPlaceHolder(
-                  height: 18.h,
-                  radius: AppBorderRadiuses.border_4,
-                ),
-              )),
+            padding: AppPaddings.top15_bottom19,
+            child: SizedBox(
+              width: 115.w,
+              child: MyShimerPlaceHolder(
+                height: 18.h,
+                radius: AppBorderRadiuses.border_4,
+              ),
+            ),
+          ),
           DashedLine(isLoading: true),
           for (int i = 0; i < 3; i++)
             OrderInfoListTile(

@@ -1,7 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hh_express/features/components/widgets/place_holder.dart';
+import 'package:hh_express/features/video/cubit/simmilar_prods_cubit.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/modal_sheets.dart';
 import 'package:hh_express/helpers/routes.dart';
@@ -23,10 +26,12 @@ class VideoDetails extends StatefulWidget {
 
 class _VideoDetailsState extends State<VideoDetails> {
   late VideoPlayerController _controller;
-// http://216.250.9.74/api/v1/video/list
   @override
   void initState() {
     super.initState();
+    final simCubit = context.read<SimmilarProdsCubit>();
+    simCubit.videoId = widget.model.id;
+    simCubit.init();
     _controller = VideoPlayerController.networkUrl(Uri.parse(widget.model.url))
       ..initialize().then((_) {
         // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
@@ -100,7 +105,9 @@ class _VideoDetailsState extends State<VideoDetails> {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              ModelBottomSheetHelper.showFilterSheet();
+                              ModelBottomSheetHelper.showVideoSimmilarProds(
+                                context,
+                              );
                             },
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -108,6 +115,7 @@ class _VideoDetailsState extends State<VideoDetails> {
                                 Container(
                                   height: 45.sp,
                                   width: 45.sp,
+                                  alignment: Alignment.center,
                                   decoration: BoxDecoration(
                                     color: Colors.black,
                                     border: AppBorderRadiuses.defBorder,
@@ -118,6 +126,11 @@ class _VideoDetailsState extends State<VideoDetails> {
                                     child: CachedNetworkImage(
                                       imageUrl: AssetsPath.exampleImage2,
                                       fit: BoxFit.cover,
+                                      errorWidget: (context, url, error) {
+                                        return Icon(Icons.image_outlined);
+                                      },
+                                      placeholder: (context, url) =>
+                                          MyShimerPlaceHolder(),
                                     ),
                                   ),
                                 ),

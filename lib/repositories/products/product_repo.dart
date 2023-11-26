@@ -6,6 +6,7 @@ abstract class ProductRepo {
     required List<int> properties,
     required int page,
     String? search,
+    int? videoId,
   });
   Future<List<DeliveryInfoModel>?> getDeliveryInfo();
 }
