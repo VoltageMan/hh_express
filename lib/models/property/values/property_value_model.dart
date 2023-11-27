@@ -8,11 +8,13 @@ class PropertyValue {
     required this.icon,
     required this.id,
     required this.value,
+    required this.property,
     this.isSelected = false,
     this.isColor = false,
   });
   final int id;
   final String? icon;
+  final String property;
   final String value;
   @JsonKey(includeFromJson: false)
   bool isSelected;

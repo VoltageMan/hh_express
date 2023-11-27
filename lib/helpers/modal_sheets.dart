@@ -98,6 +98,24 @@ class ModelBottomSheetHelper {
     _sheetShown = false;
   }
 
+  static Future<void> showOrderInfo() async {
+    _sheetShown = true;
+    await showModalBottomSheet(
+      context: appRouter.currentContext,
+      useRootNavigator: true,
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+      ),
+      builder: (context) {
+        _currentContext = context;
+        return const BuyProdSheetBody();
+      },
+    );
+    _sheetShown = false;
+  }
+
   static Future<void> showProfileSheets(int index) async {
     List<Widget> _profileSheets = [
       SizedBox(),

@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/data/remote/dio_client.dart';
 import 'package:hh_express/features/cart/cubit/cart_cubit.dart';
 import 'package:hh_express/features/cart/view/cart_info_widget.dart';
-import 'package:hh_express/features/cart/view/widget.dart';
+import 'package:hh_express/features/cart/view/cart_widget.dart';
 import 'package:hh_express/features/categories/view/body.dart';
 import 'package:hh_express/features/components/my_text_button.dart';
 import 'package:hh_express/features/product_details/view/product_details_body.dart';

@@ -11,11 +11,13 @@ PropertyValue _$PropertyValueFromJson(Map<String, dynamic> json) =>
       icon: json['icon'] as String?,
       id: json['id'] as int,
       value: json['value'] as String,
+      property: json['property'] as String,
     );
 
 Map<String, dynamic> _$PropertyValueToJson(PropertyValue instance) =>
     <String, dynamic>{
       'id': instance.id,
       'icon': instance.icon,
+      'property': instance.property,
       'value': instance.value,
     };

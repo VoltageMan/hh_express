@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hh_express/features/home/view/components/search_field.dart';
 import 'package:hh_express/features/components/widgets/svg_icons.dart';
 import 'package:hh_express/features/mainScreen/view/components/navBar/nav_bar.dart';
+import 'package:hh_express/features/notifications/cubit/notification_cubit.dart';
+import 'package:hh_express/features/notifications/cubit/notification_state.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/modal_sheets.dart';
 import 'package:hh_express/helpers/routes.dart';
@@ -59,26 +62,32 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
                                   .push(AppRoutes.notifications);
                             },
                           ),
-                          Positioned(
-                            top: 0,
-                            right: 0,
-                            child: Container(
-                              height: 20.h,
-                              padding: EdgeInsets.all(3.sp),
-                              decoration: BoxDecoration(
-                                color: Colors.red,
-                                shape: BoxShape.circle,
-                              ),
-                              child: FittedBox(
-                                child: Text(
-                                  "3",
-                                  style: context.theme.textTheme.displaySmall!
-                                      .copyWith(
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
-                            ),
+                          BlocBuilder<NotificationCubit, NotificationState>(
+                            builder: (context, state) {
+                              return state.newNotificationsCount == 0
+                                  ? SizedBox()
+                                  : Positioned(
+                                      top: 0,
+                                      right: 0,
+                                      child: Container(
+                                        height: 20.h,
+                                        padding: EdgeInsets.all(3.sp),
+                                        decoration: BoxDecoration(
+                                          color: Colors.red,
+                                          shape: BoxShape.circle,
+                                        ),
+                                        child: FittedBox(
+                                            child: Text(
+                                          '${state.newNotificationsCount}',
+                                          style: context
+                                              .theme.textTheme.displaySmall!
+                                              .copyWith(
+                                            color: Colors.white,
+                                          ),
+                                        )),
+                                      ),
+                                    );
+                            },
                           ),
                         ],
                       ),

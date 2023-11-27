@@ -7,6 +7,7 @@ import 'package:hh_express/features/cart/view/cart_count.dart';
 import 'package:hh_express/features/components/widgets/place_holder.dart';
 import 'package:hh_express/features/components/widgets/svg_icons.dart';
 import 'package:hh_express/helpers/extentions.dart';
+import 'package:hh_express/helpers/modal_sheets.dart';
 import 'package:hh_express/helpers/spacers.dart';
 import 'package:hh_express/models/cart/cart_order_model/cart_order_model.dart';
 import 'package:hh_express/models/cart/cart_update/cart_update_model.dart';
@@ -26,7 +27,7 @@ class CartWidget extends StatelessWidget {
     final cubit = context.read<CartCubit>();
     return GestureDetector(
       onTap: () {
-        // ModelBottomSheetHelper.showBuyProd();
+        ModelBottomSheetHelper.showBuyProd();
         model.toJson().log();
       },
       child: Container(

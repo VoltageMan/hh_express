@@ -47,9 +47,23 @@ class MainCategoriesWidget extends StatelessWidget {
           children: [
             CachedNetworkImage(
               imageUrl: model!.image,
-              placeholder: (context, url) => MyShimerPlaceHolder(),
+              placeholder: (context, url) => MyShimerPlaceHolder(
+                height: 55.h,
+                width: 55.h,
+                radius: BorderRadius.circular(100.r),
+              ),
               errorWidget: (context, url, error) {
-                return SizedBox();
+                return Container(
+                  height: 55.sp,
+                  width: 55.sp,
+                  alignment: Alignment.center,
+                  padding: AppPaddings.all_2,
+                  decoration: const BoxDecoration(
+                    color: AppColors.lightGrey,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(Icons.image_outlined),
+                );
               },
               fit: BoxFit.contain,
               alignment: Alignment.center,
@@ -71,11 +85,12 @@ class MainCategoriesWidget extends StatelessWidget {
                   ),
                   alignment: Alignment.center,
                   child: CircleAvatar(
-                      backgroundColor: Colors.transparent,
-                      child: Image(
-                        image: imageProvider,
-                        fit: BoxFit.contain,
-                      )),
+                    backgroundColor: Colors.transparent,
+                    child: Image(
+                      image: imageProvider,
+                      fit: BoxFit.contain,
+                    ),
+                  ),
                 ),
               ),
             ),

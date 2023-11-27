@@ -40,15 +40,6 @@ class _AuthFieldState extends State<AuthField> {
       margin: AppPaddings.horiz_16.copyWith(bottom: 30.h),
       child: TextField(
         focusNode: FocusNode(),
-        // canRequestFocus: true,
-        // onKeyEvent: (node, event) {
-        //   event.character.log();
-        //   event.logicalKey.log();
-        //   event.physicalKey.log();
-        //   event.synthesized.log();
-        //   return KeyEventResult.handled;
-        // },
-        // ),
         controller: widget.controller,
         autocorrect: false,
         buildCounter: (context,
@@ -73,7 +64,7 @@ class _AuthFieldState extends State<AuthField> {
                       : Icons.visibility_outlined),
                 )
               : null,
-          contentPadding: EdgeInsets.zero,
+          contentPadding: AppPaddings.horiz_10,
           filled: true,
           labelText: widget.label,
           fillColor: theme.inputDecorationTheme.fillColor,

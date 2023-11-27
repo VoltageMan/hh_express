@@ -38,23 +38,29 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     on<GetMessagesListEvent>((event, emit) async {
       emit(
         state.update(
-          
           messagesListState: APIState.loading,
           gettingNewPage: event.gettinNewPage,
         ),
       );
+
       final data = await repo.getMessagesList(event.page);
       if (data.success) {
         final chatState = ChatState.fromMap(data.data);
         if (!event.gettinNewPage) {
           connectToWebsocket(chatState.conversation?.id ?? 0);
         }
+        if (event.page == 1) {
+          state.messages?.clear();
+        }
         emit(
           state.update(
             messagesListState: APIState.success,
-            messages:
-                state.messages == null ? chatState.messages : state.messages
-                  ?..addAll(chatState.messages!),
+            messages: state.messages == null
+                ? Set.from(chatState.messages ?? {})
+                : Set.from(state.messages ?? {})
+              ..addAll(
+                chatState.messages!,
+              ),
             conversation: chatState.conversation,
             currentPage: chatState.currentPage,
             notification_count: chatState.notification_count,
