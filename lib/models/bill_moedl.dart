@@ -1,6 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
+import 'package:hh_express/models/cart/cart_model/cart_model.dart';
+
 class BillModel {
   final String delivery_cost;
   final String weight_cost;
@@ -27,6 +29,14 @@ class BillModel {
     );
   }
 
+  factory BillModel.fromCartModel(CartModel model) {
+    return BillModel(
+      delivery_cost: model.deliveryCost,
+      weight_cost: model.weightCost,
+      total: model.total,
+      sub_total: model.subTotal,
+    );
+  }
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'delivery_cost': delivery_cost,

@@ -46,8 +46,8 @@ class _ProdDetailsBottomBarState extends State<ProdDetailsBottomBar> {
                 child: MyDarkTextButton(
                   title: l10n.buy,
                   onTap: () {
-                    return;
                     ModelBottomSheetHelper.showBuyProd();
+                    return;
                   },
                 ),
               ),
