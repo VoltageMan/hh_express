@@ -27,7 +27,7 @@ class CartWidget extends StatelessWidget {
     final cubit = context.read<CartCubit>();
     return GestureDetector(
       onTap: () {
-        ModelBottomSheetHelper.showBuyProd();
+        ModelBottomSheetHelper.showOrderDetails(model);
         model.toJson().log();
       },
       child: Container(

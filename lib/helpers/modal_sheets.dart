@@ -21,6 +21,7 @@ import 'package:hh_express/helpers/routes.dart';
 import 'package:hh_express/helpers/spacers.dart';
 import 'package:hh_express/helpers/widgets/sliver_pinnded_container.dart';
 import 'package:hh_express/models/addres/address_model.dart';
+import 'package:hh_express/models/cart/cart_order_model/cart_order_model.dart';
 import 'package:hh_express/settings/consts.dart';
 import 'package:hh_express/settings/enums.dart';
 import 'package:image_picker/image_picker.dart';
@@ -81,24 +82,24 @@ class ModelBottomSheetHelper {
 
   static Future<void> showBuyProd() async {
     _sheetShown = true;
-    await showModalBottomSheet(
-      context: appRouter.currentContext,
-      useRootNavigator: true,
-      isScrollControlled: true,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(10), topRight: Radius.circular(10)),
-      ),
-      builder: (context) {
-        _currentContext = context;
-        return const BuyProdSheetBody();
-      },
-    );
+    // await showModalBottomSheet(
+    //   context: appRouter.currentContext,
+    //   useRootNavigator: true,
+    //   isScrollControlled: true,
+    //   shape: RoundedRectangleBorder(
+    //     borderRadius: BorderRadius.only(
+    //         topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+    //   ),
+    //   builder: (context) {
+    //     _currentContext = context;
+    //     return BuyProdSheetBody();
+    //   },
+    // );
 
     _sheetShown = false;
   }
 
-  static Future<void> showOrderInfo() async {
+  static Future<void> showOrderDetails(CartOrderModel model) async {
     _sheetShown = true;
     await showModalBottomSheet(
       context: appRouter.currentContext,
@@ -110,7 +111,7 @@ class ModelBottomSheetHelper {
       ),
       builder: (context) {
         _currentContext = context;
-        return const BuyProdSheetBody();
+        return SizedBox(height: 700.h, child: BuyProdSheetBody(model: model));
       },
     );
     _sheetShown = false;

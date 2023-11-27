@@ -5,93 +5,77 @@ import 'package:hh_express/features/components/widgets/place_holder.dart';
 import 'package:hh_express/features/components/widgets/sheet_titles.dart';
 import 'package:hh_express/features/orders/components/dashed_line.dart';
 import 'package:hh_express/features/orders/components/order_info_list_tile.dart';
-import 'package:hh_express/features/product_details/components/image_indicator.dart';
 import 'package:hh_express/features/product_details/view/modalSheet/bottom_bar.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/spacers.dart';
+import 'package:hh_express/models/bill_moedl.dart';
+import 'package:hh_express/models/cart/cart_order_model/cart_order_model.dart';
 import 'package:hh_express/settings/consts.dart';
 
-class BuyProdSheetBody extends StatefulWidget {
-  const BuyProdSheetBody({super.key});
-  @override
-  State<BuyProdSheetBody> createState() => _BuyProdSheetBodyState();
-}
+class BuyProdSheetBody extends StatelessWidget {
+  const BuyProdSheetBody({super.key, this.bill, required this.model});
 
-class _BuyProdSheetBodyState extends State<BuyProdSheetBody>
-    with SingleTickerProviderStateMixin {
-  late TabController tabController;
-  @override
-  void initState() {
-    super.initState();
-    tabController = TabController(length: 3, vsync: this);
-  }
+  final BillModel? bill;
+  final CartOrderModel model;
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 700.h,
-      child: Column(
-        children: [
-          BottomSheetTitle(
-            title: context.l10n.buy,
-            isPadded: true,
-          ),
-          AppSpacing.vertical_10,
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  Container(
-                    height: 260.h,
-                    margin: AppPaddings.horiz_16,
-                    child: ClipRRect(
-                      borderRadius: AppBorderRadiuses.border_6,
-                      child: TabBarView(
-                        controller: tabController,
-                        children: List.generate(
-                          tabController.length,
-                          (index) {
-                            return CachedNetworkImage(
-                              placeholder: (context, url) =>
-                                  const MyShimerPlaceHolder(),
-                              height: 260.h,
-                              fit: BoxFit.cover,
-                              imageUrl: AssetsPath.exampleImage2,
-                            );
-                          },
-                        ),
-                      ),
+    return Column(
+      children: [
+        BottomSheetTitle(
+          title: context.l10n.buy,
+          isPadded: true,
+        ),
+        AppSpacing.vertical_10,
+        Expanded(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Container(
+                  height: 260.h,
+                  width: double.infinity,
+                  margin: AppPaddings.horiz_16.add(AppPaddings.vertic_15),
+                  child: ClipRRect(
+                    borderRadius: AppBorderRadiuses.border_6,
+                    child: CachedNetworkImage(
+                      placeholder: (context, url) =>
+                          const MyShimerPlaceHolder(),
+                      height: 260.h,
+                      fit: BoxFit.cover,
+                      imageUrl: model.product.image,
                     ),
                   ),
-                  ImageIndicator(
-                    controller: tabController,
-                  ),
-                  const _ProdBuyInfo()
-                ],
-              ),
+                ),
+                _ProdBuyInfo(bill, model)
+              ],
             ),
           ),
-          const BuyProdBottomBar(),
-        ],
-      ),
+        ),
+        if (bill != null) const BuyProdBottomBar(),
+      ],
     );
   }
 }
 
 class _ProdBuyInfo extends StatelessWidget {
-  const _ProdBuyInfo();
+  const _ProdBuyInfo(this.bill, this.model);
 
+  final BillModel? bill;
+  final CartOrderModel model;
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    final titles = [
-      l10n.prodName,
-      l10n.color,
-      l10n.size,
-      l10n.products,
+    final billTitles = [
+      '${l10n.products} (${model.quantity})',
       l10n.delivery,
       l10n.perKilogram,
       l10n.totalPrice,
+    ];
+    final billInfo = [
+      bill?.total,
+      bill?.delivery_cost,
+      bill?.weight_cost,
+      bill?.sub_total,
     ];
     return Container(
       margin: AppPaddings.all_16.copyWith(top: 0),
@@ -106,24 +90,33 @@ class _ProdBuyInfo extends StatelessWidget {
       alignment: Alignment.topRight,
       child: Column(
         children: [
-          for (int i = 0; i < 3; i++)
-            OrderInfoListTile(
-              title: titles[i],
-              content: 'Some sdg  fdg dfg fd gf gf  df h gfh fg',
-            ),
-          const DashedLine(isLoading: false),
-          for (int i = 3; i < 6; i++)
-            OrderInfoListTile(
-              title: titles[i],
-              content: 'Some',
-            ),
-          const DashedLine(isLoading: false),
           OrderInfoListTile(
-            title: titles.last,
-            content: '643 TMT',
-            contentBold: true,
-            titleBold: true,
-          )
+            title: l10n.prodName,
+            content: model.product.name,
+          ),
+          ...(model.propertyValues ?? [])
+              .map(
+                (e) => OrderInfoListTile(
+                  title: e.property,
+                  content: e.value,
+                ),
+              )
+              .toList(),
+          if (bill != null) const DashedLine(isLoading: false),
+          if (bill != null)
+            for (int i = 0; i < billInfo.length; i++)
+              OrderInfoListTile(
+                title: billTitles[i],
+                content: billInfo[i] ?? '',
+              ),
+          if (bill != null) const DashedLine(isLoading: false),
+          if (bill != null)
+            OrderInfoListTile(
+              title: billTitles.last,
+              content: billInfo.last,
+              contentBold: true,
+              titleBold: true,
+            )
         ],
       ),
     );
