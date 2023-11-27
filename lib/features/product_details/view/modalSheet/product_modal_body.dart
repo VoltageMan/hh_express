@@ -20,12 +20,10 @@ class BuyProdSheetBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    'REbuildd';
     return Column(
       children: [
-        BottomSheetTitle(
-          title: context.l10n.buy,
-          isPadded: true,
-        ),
+        BottomSheetTitle(title: context.l10n.buy, isPadded: true),
         AppSpacing.vertical_10,
         Expanded(
           child: SingleChildScrollView(
@@ -51,7 +49,7 @@ class BuyProdSheetBody extends StatelessWidget {
             ),
           ),
         ),
-        if (bill != null) const BuyProdBottomBar(),
+        if (bill != null) BuyProdBottomBar(quantity: model.quantity),
       ],
     );
   }
@@ -72,10 +70,10 @@ class _ProdBuyInfo extends StatelessWidget {
       l10n.totalPrice,
     ];
     final billInfo = [
-      bill?.total,
-      bill?.delivery_cost,
-      bill?.weight_cost,
-      bill?.sub_total,
+      '${bill?.total} TMT',
+      '${bill?.delivery_cost} TMT',
+      '${bill?.weight_cost} TMT',
+      '${bill?.sub_total} TMT',
     ];
     return Container(
       margin: AppPaddings.all_16.copyWith(top: 0),

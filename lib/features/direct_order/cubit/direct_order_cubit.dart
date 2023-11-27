@@ -26,4 +26,28 @@ class DirectOrderCubit extends Cubit<DirectOrderState> {
     }
     return emit(state.copyWith(apiState: APIState.error));
   }
+
+  Future<void> updateQuantity(int quantity) async {
+    if (_isUpdating) return;
+    final order = state.cartModel!.orders.first;
+    _isUpdating = true;
+    final response = await _repo.getInstance(
+      CartUpdateModel(
+        productId: order.product.id,
+        properties: (order.propertyValues ?? []).map((e) => e.id).toList(),
+        quantity: quantity,
+      ),
+    );
+    _isUpdating = false;
+    if (response != null) {
+      return emit(
+        DirectOrderState(
+          apiState: APIState.success,
+          cartModel: response,
+        ),
+      );
+    }
+  }
+
+  bool _isUpdating = false;
 }

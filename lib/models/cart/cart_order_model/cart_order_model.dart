@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:equatable/equatable.dart';
 import 'package:hh_express/models/property/values/property_value_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -7,7 +8,7 @@ import 'package:hh_express/models/cart/cart_product_model/cart_product_model.dar
 part 'cart_order_model.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class CartOrderModel {
+class CartOrderModel extends Equatable {
   final int quantity;
   @JsonKey(name: 'purchase')
   final CartProductModel product;
@@ -43,4 +44,7 @@ class CartOrderModel {
   String toString() {
     return 'CartOrderModel(quantity: $quantity, selectedPropsId: ${propertyValues}, product: $product, id: $id)';
   }
+
+  @override
+  List<Object?> get props => [quantity, propertyValues, id, product];
 }

@@ -9,6 +9,8 @@ import 'package:hh_express/features/categories/view/body.dart';
 import 'package:hh_express/features/chat/bloc/chat_bloc.dart';
 import 'package:hh_express/features/chat/bloc/chat_events.dart';
 import 'package:hh_express/features/components/widgets/sheet_titles.dart';
+import 'package:hh_express/features/direct_order/cubit/direct_order_cubit.dart';
+import 'package:hh_express/features/direct_order/view/direct_order_body.dart';
 import 'package:hh_express/features/favors/view/favors_body.dart';
 import 'package:hh_express/features/filter/components/sheet_body.dart';
 import 'package:hh_express/features/order_history/view/screens/orders_sheet_body.dart';
@@ -22,6 +24,7 @@ import 'package:hh_express/helpers/spacers.dart';
 import 'package:hh_express/helpers/widgets/sliver_pinnded_container.dart';
 import 'package:hh_express/models/addres/address_model.dart';
 import 'package:hh_express/models/cart/cart_order_model/cart_order_model.dart';
+import 'package:hh_express/models/cart/cart_update/cart_update_model.dart';
 import 'package:hh_express/settings/consts.dart';
 import 'package:hh_express/settings/enums.dart';
 import 'package:image_picker/image_picker.dart';
@@ -80,21 +83,24 @@ class ModelBottomSheetHelper {
     _sheetShown = false;
   }
 
-  static Future<void> showBuyProd() async {
+  static Future<void> showBuyProd(CartUpdateModel model) async {
     _sheetShown = true;
-    // await showModalBottomSheet(
-    //   context: appRouter.currentContext,
-    //   useRootNavigator: true,
-    //   isScrollControlled: true,
-    //   shape: RoundedRectangleBorder(
-    //     borderRadius: BorderRadius.only(
-    //         topLeft: Radius.circular(10), topRight: Radius.circular(10)),
-    //   ),
-    //   builder: (context) {
-    //     _currentContext = context;
-    //     return BuyProdSheetBody();
-    //   },
-    // );
+    await showModalBottomSheet(
+      context: appRouter.currentContext,
+      useRootNavigator: true,
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+      ),
+      builder: (context) {
+        _currentContext = context;
+        return BlocProvider(
+          create: (context) => DirectOrderCubit()..init(model),
+          child: DirectOrderSheetBody(model: model),
+        );
+      },
+    );
 
     _sheetShown = false;
   }
@@ -369,7 +375,3 @@ class _VideoSimmilarProdsSheetState extends State<VideoSimmilarProdsSheet> {
     );
   }
 }
-
-
-
-

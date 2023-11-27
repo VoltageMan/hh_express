@@ -9,7 +9,7 @@ final class DirectOrderState extends Equatable {
   final CartModel? cartModel;
   final APIState apiState;
   @override
-  List<Object?> get props => [apiState, cartModel];
+  List<Object?> get props => [apiState, cartModel, cartModel];
 
   DirectOrderState copyWith({
     CartModel? cartModel,

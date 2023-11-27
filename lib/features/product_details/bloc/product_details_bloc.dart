@@ -6,6 +6,7 @@ import 'package:hh_express/data/local/secured_storage.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/overlay_helper.dart';
 import 'package:hh_express/helpers/routes.dart';
+import 'package:hh_express/models/cart/cart_update/cart_update_model.dart';
 import 'package:hh_express/models/product_details/product_details_model.dart';
 import 'package:hh_express/repositories/product_details/product_details_repository.dart';
 import 'package:hh_express/settings/enums.dart';
@@ -22,7 +23,6 @@ class ProductDetailsBloc extends Cubit<ProductDetailsState> {
         );
   int? currentProdId;
   final repo = getIt<ProductDetailsRepo>();
-
   Future<void> init(int id) async {
     currentProdId = id;
     final cancleToken = CancelToken();
@@ -101,5 +101,13 @@ class ProductDetailsBloc extends Cubit<ProductDetailsState> {
           appRouter.currentContext.l10n.unauthorized, APIState.error);
     }
     return val;
+  }
+
+  CartUpdateModel get getUpdateModel {
+    return CartUpdateModel(
+      productId: currentProdId!,
+      properties: state.selectedProps.values.toList(),
+      quantity: 1,
+    );
   }
 }

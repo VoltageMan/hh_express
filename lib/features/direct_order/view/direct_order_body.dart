@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/features/categories/view/body.dart';
 import 'package:hh_express/features/direct_order/cubit/direct_order_cubit.dart';
 import 'package:hh_express/features/product_details/view/modalSheet/product_modal_body.dart';
@@ -13,8 +14,8 @@ class DirectOrderSheetBody extends StatelessWidget {
   final CartUpdateModel model;
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => DirectOrderCubit()..init(model),
+    return SizedBox(
+      height: 700.h,
       child: BlocBuilder<DirectOrderCubit, DirectOrderState>(
         bloc: context.read<DirectOrderCubit>(),
         builder: (context, state) {
