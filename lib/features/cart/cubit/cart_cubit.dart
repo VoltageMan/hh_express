@@ -91,6 +91,10 @@ class CartCubit extends Cubit<CartState> {
     final data = await _repo.completeCart(uuid);
     var value = false;
     if (data != null) {
+      SnackBarHelper.showTopSnack(
+        'succses',
+        APIState.success,
+      );
       emit(
         CartState(
           apiState: CartAPIState.success,
@@ -99,8 +103,19 @@ class CartCubit extends Cubit<CartState> {
       );
       value = true;
     }
-    SnackBarHelper.showMessageSnack(
-        value ? 'succses' : 'some things went wrong');
+
+    OverlayHelper.remove();
+  }
+
+  Future<void> completeInstance(String uuid, String addressUuid) async {
+    OverlayHelper.showLoading();
+    final data = await _repo.completeInstance(uuid, addressUuid);
+    if (data) {
+      SnackBarHelper.showTopSnack(
+        'succses',
+        APIState.success,
+      );
+    }
     OverlayHelper.remove();
   }
 }

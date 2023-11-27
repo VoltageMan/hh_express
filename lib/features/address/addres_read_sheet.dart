@@ -14,8 +14,10 @@ class AddressReadSheet extends StatelessWidget {
   const AddressReadSheet({
     super.key,
     this.forComplete = false,
+    this.instanceUuid,
   });
   final bool forComplete;
+  final String? instanceUuid;
 
   @override
   Widget build(BuildContext context) {
@@ -35,9 +37,15 @@ class AddressReadSheet extends StatelessWidget {
                     final addressCubit = context.read<AddressCubit>();
                     final selectedIndex = addressCubit.selectedAddresIndex;
                     if (selectedIndex < 0) return;
-                    final uuid = addressCubit.state.models[selectedIndex].uuid;
+                    final addressUuid =
+                        addressCubit.state.models[selectedIndex].uuid;
                     final cartCubit = context.read<CartCubit>();
-                    await cartCubit.complete(uuid);
+                    if (instanceUuid != null) {
+                      await cartCubit.completeInstance(
+                          instanceUuid!, addressUuid);
+                    } else {
+                      await cartCubit.complete(addressUuid);
+                    }
                     addressCubit.selectedAddresIndex = -1;
                     ModelBottomSheetHelper.doPop();
                   },

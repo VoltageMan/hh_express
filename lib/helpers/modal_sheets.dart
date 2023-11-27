@@ -148,7 +148,7 @@ class ModelBottomSheetHelper {
     _sheetShown = false;
   }
 
-  static Future<void> showAddressSelecSheet() async {
+  static Future<void> showAddressSelecSheet({String? instanceUuid}) async {
     final context = appRouter.currentContext;
     await showModalBottomSheet(
       context: context,
@@ -161,7 +161,10 @@ class ModelBottomSheetHelper {
       builder: (context) {
         _sheetShown = true;
         _currentContext = context;
-        return AddressReadSheet(forComplete: true);
+        return AddressReadSheet(
+          instanceUuid: instanceUuid,
+          forComplete: true,
+        );
       },
     );
     _sheetShown = false;

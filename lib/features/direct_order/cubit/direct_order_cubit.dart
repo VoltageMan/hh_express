@@ -49,5 +49,11 @@ class DirectOrderCubit extends Cubit<DirectOrderState> {
     }
   }
 
+  Future<bool> complete(String address) async {
+    final response =
+        await _repo.completeInstance(state.cartModel!.uuid, address);
+    return response;
+  }
+
   bool _isUpdating = false;
 }

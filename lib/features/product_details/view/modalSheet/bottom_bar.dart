@@ -39,7 +39,11 @@ class BuyProdBottomBar extends StatelessWidget {
           Expanded(
             child: MyDarkTextButton(
               title: l10n.buy,
-              onTap: () {},
+              onTap: () async {
+                ModelBottomSheetHelper.doPop();
+                ModelBottomSheetHelper.showAddressSelecSheet(
+                    instanceUuid: cubit.state.cartModel!.uuid);
+              },
             ),
           ),
         ],
