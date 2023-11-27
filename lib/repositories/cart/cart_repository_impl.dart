@@ -50,7 +50,28 @@ class CartRepoImpl extends CartRepo with DioClientMixin {
     return null;
   }
 
-  Future getCartDetails(String id) async {}
+  @override
+  Future<CartModel?> getInstance(CartUpdateModel model) async {
+    final response = await dio.post(
+      endPoint: EndPoints.cartInstance,
+      data: model.toJson(),
+    );
+    if (response.success) {
+      final model = CartModel.fromJson(response.data[APIKeys.cart]);
+      return model;
+    }
+    return null;
+  }
 
-  Future getCartList() async {}
+  @override
+  Future<bool> completeInstance(String cartUuid, String addressUuid) async {
+    final response = await dio.post(
+      endPoint: EndPoints.cartCompleteInstance,
+      data: {
+        APIKeys.cartUuid: cartUuid,
+        APIKeys.addressUuid: addressUuid,
+      },
+    );
+    return response.success;
+  }
 }

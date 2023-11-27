@@ -247,6 +247,8 @@ class EndPoints {
   static const cartComplete = 'api/v1/cart/complete';
   static const currentCart = 'api/v1/cart/current';
   static const cartUpdate = 'api/v1/cart/update';
+  static const cartCompleteInstance = 'api/v1/cart/instant/complete';
+  static const cartInstance = 'api/v1/cart/instant/update';
   static const clearCart = 'api/v1/cart/flush';
   static const createAddres = 'api/v1/address/create';
   static const addressList = 'api/v1/address/list';
@@ -263,6 +265,7 @@ class EndPoints {
   static String notificationDelete(int id) => 'api/v1/notification/$id/delete';
   //?
   static String cartFetch(String uuid) => 'api/v1/cart/$uuid/fetch';
+  static String orderDatails(String uuid) => 'api/v1/cart/order/$uuid/detail';
   static String prodDetails(int id) => 'api/v1/product/$id';
   static String addressFetch(String uuid) => 'api/v1/address/$uuid/fetch';
   static String addressUpdate(String uuid) => 'api/v1/address/$uuid/update';
@@ -272,6 +275,8 @@ class APIKeys {
   static const mainCategories = 'main_categories';
   static const address = 'address';
   static const cart = 'cart';
+  static const cartUuid = 'cart_uuid';
+  static const addressUuid = 'address_uuid';
   static const subCategories = 'sub_categories';
   static const activCategory = 'active_category';
   static const accsesToken = 'access_token';
