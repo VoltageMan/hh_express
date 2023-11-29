@@ -46,8 +46,8 @@ class _ProdDetailsBottomBarState extends State<ProdDetailsBottomBar> {
                 child: MyDarkTextButton(
                   title: l10n.buy,
                   onTap: () {
-                    if (prodBloc.isNotAllPropsSelected() ||
-                        prodBloc.isUnauthorized()) return;
+                    if (prodBloc.isUnauthorized() ||
+                        prodBloc.isNotAllPropsSelected()) return;
                     ModelBottomSheetHelper.showBuyProd(prodBloc.getUpdateModel);
                     return;
                   },
@@ -59,8 +59,8 @@ class _ProdDetailsBottomBarState extends State<ProdDetailsBottomBar> {
                   quantity: quantity,
                   title: l10n.addToCart,
                   onAdd: () async {
-                    if (prodBloc.isNotAllPropsSelected() ||
-                        prodBloc.isUnauthorized()) return;
+                    if (prodBloc.isUnauthorized() ||
+                        prodBloc.isNotAllPropsSelected()) return;
                     final updated = await cartCubit.cartUpdate(
                       CartUpdateModel(
                         productId: widget.id,
