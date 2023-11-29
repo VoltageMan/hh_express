@@ -85,7 +85,7 @@ class AppTheme {
       textColor: AppColors.white,
       backgroundColor: AppColors.mainOrange,
       alignment: Alignment.center,
-      padding: EdgeInsets.all(3.h),
+      padding: EdgeInsets.all(3.5.h),
       textStyle: TextStyle(
         fontWeight: FontWeight.w700,
         fontSize: 8.sp,

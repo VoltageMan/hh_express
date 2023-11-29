@@ -76,6 +76,7 @@ class CartBadge extends StatelessWidget {
       builder: (context, state) {
         if (state.apiState != CartAPIState.success ||
             state.cart!.orders.isEmpty) return SizedBox();
+        final count = 8;
         return Container(
           margin: EdgeInsets.only(left: 25.h, bottom: 30.h),
           padding: EdgeInsets.all(2.5.h),
@@ -85,14 +86,15 @@ class CartBadge extends StatelessWidget {
           ),
           child: Container(
             height: 18.h,
-            padding: theme.badgeTheme.padding,
+            padding: theme.badgeTheme.padding!
+                .add(count <= 9 ? EdgeInsets.all(1.h) : EdgeInsets.zero),
             decoration: BoxDecoration(
               color: theme.badgeTheme.backgroundColor,
               shape: BoxShape.circle,
             ),
             child: FittedBox(
               child: Text(
-                '${state.cart?.orders.length}',
+                '$count',
                 style: theme.badgeTheme.textStyle!,
                 textAlign: TextAlign.center,
               ),
