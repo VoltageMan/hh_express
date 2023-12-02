@@ -44,10 +44,8 @@ class DeliveryWidget extends StatelessWidget {
                         child: SvgPicture.network(
                           e.icon,
                           placeholderBuilder: (context) {
-                            return Icon(
-                              Icons.car_repair_outlined,
-                              color: Colors.green,
-                            );
+                            return SizedBox.square(
+                                dimension: AppSpacing.getTextHeight(10));
                           },
                         ),
                       ),
