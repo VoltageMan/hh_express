@@ -15,12 +15,6 @@ class FilterRepoImpl extends FilterRepo with DioClientMixin {
     final props = data
         .map((e) => PropertyModel.fromJson(e as Map<String, dynamic>))
         .toList();
-    final colorIndex = props.indexWhere((prop) {
-      return APIKeys.colors.any((color) => prop.name == color);
-    });
-    if (colorIndex != -1) {
-      props[colorIndex].paint();
-    }
 
     return props..log(message: ' The Props');
   }

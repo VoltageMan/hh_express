@@ -15,7 +15,11 @@ class PropertyModel {
   });
 
   factory PropertyModel.fromJson(Map<String, dynamic> json) {
-    return _$PropertyModelFromJson(json);
+    final model = _$PropertyModelFromJson(json);
+    if (model.values.any((element) => element.icon != null)) {
+      model.paint();
+    }
+    return model;
     // final valList = json.values.toList().first as List;
     // final name = json.keys.toList().first;
     // final values = valList.map((e) => PropertyValue.fromJson(e)).toList();

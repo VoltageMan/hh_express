@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/features/categories/view/body.dart';
 import 'package:hh_express/features/components/widgets/product_pagination_bottom.dart';
 import 'package:hh_express/features/home/view/components/product_builder.dart';
@@ -17,6 +18,16 @@ class _MoreSimProdsBodyState extends State<MoreSimProdsBody> {
   final scrollController = ScrollController();
   @override
   void initState() {
+    scrollController.addListener(() {
+      if (scrollController.position.pixels >=
+          (scrollController.position.maxScrollExtent - 15.h)) {
+        final state = cubit.state;
+        if (state.apiState != ProductAPIState.success) {
+          return;
+        }
+        cubit.loadMore();
+      }
+    });
     super.initState();
   }
 
@@ -26,9 +37,10 @@ class _MoreSimProdsBodyState extends State<MoreSimProdsBody> {
     super.dispose();
   }
 
+  late final cubit = context.read<MoreSimProdsCubit>();
+
   @override
   Widget build(BuildContext context) {
-    final cubit = context.read<MoreSimProdsCubit>();
     return BlocBuilder<MoreSimProdsCubit, MoreSimProdsState>(
       builder: (context, state) {
         final apiState = state.apiState;
