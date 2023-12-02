@@ -52,6 +52,33 @@ class _ProdDetailsBodyState extends State<ProdDetailsBody>
     );
   }
 
+  void pushToImageDetails(
+    List<String> images,
+    int initIndex,
+    Function(int) onChange,
+  ) {
+    final page = PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => ImageDetails(
+        images: images,
+        initialIndex: initIndex,
+        onChange: onChange,
+      ),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const begin = Offset(0.0, 1.0);
+        const end = Offset.zero;
+        const curve = Curves.easeInOut;
+        var tween =
+            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+        var offsetAnimation = animation.drive(tween);
+        return SlideTransition(
+          position: offsetAnimation,
+          child: child,
+        );
+      },
+    );
+    Navigator.push(context, page);
+  }
+
   bool rebuilded = false;
   @override
   Widget build(BuildContext context) {
@@ -102,17 +129,12 @@ class _ProdDetailsBodyState extends State<ProdDetailsBody>
                           .map(
                             (image) => GestureDetector(
                               onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => ImageDetails(
-                                      images: product.images,
-                                      initialIndex: tabController!.index,
-                                      onChange: (val) {
-                                        tabController?.animateTo(val);
-                                      },
-                                    ),
-                                  ),
+                                pushToImageDetails(
+                                  product.images,
+                                  tabController!.index,
+                                  (val) {
+                                    tabController?.animateTo(val);
+                                  },
                                 );
                               },
                               child: CachedNetworkImage(

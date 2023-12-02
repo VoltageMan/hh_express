@@ -46,38 +46,45 @@ class _ImageDetailsState extends State<ImageDetails>
   Widget build(BuildContext context) {
     final mqHeight = MediaQuery.sizeOf(context).height;
     final images = widget.images;
-    return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SizedBox(
-            height: mqHeight * 0.7,
-            child: TabBarView(
-              controller: controller,
-              children: List.generate(
-                controller.length,
-                (index) {
-                  return PhotoView(
-                    minScale: 0.0,
-                    loadingBuilder: (context, event) =>
-                        ProdDetailsImagePlaceHolder(),
-                    backgroundDecoration: BoxDecoration(
-                      color: context.theme.scaffoldBackgroundColor,
-                    ),
-                    imageProvider: CachedNetworkImageProvider(
-                      images[index],
-                    ),
-                  );
-                },
+    return GestureDetector(
+      onPanUpdate: (details) {
+        if (details.delta.dy > 5) {
+          Navigator.of(context).pop();
+        }
+      },
+      child: Scaffold(
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: mqHeight * 0.7,
+              child: TabBarView(
+                controller: controller,
+                children: List.generate(
+                  controller.length,
+                  (index) {
+                    return PhotoView(
+                      minScale: 0.0,
+                      loadingBuilder: (context, event) =>
+                          ProdDetailsImagePlaceHolder(),
+                      backgroundDecoration: BoxDecoration(
+                        color: context.theme.scaffoldBackgroundColor,
+                      ),
+                      imageProvider: CachedNetworkImageProvider(
+                        images[index],
+                      ),
+                    );
+                  },
+                ),
               ),
             ),
-          ),
-          SizedBox(
-            height: 70.h,
-          ),
-          ImageIndicator(controller: controller)
-        ],
+            SizedBox(
+              height: 70.h,
+            ),
+            ImageIndicator(controller: controller)
+          ],
+        ),
       ),
     );
   }
