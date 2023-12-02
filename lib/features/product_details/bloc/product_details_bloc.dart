@@ -42,7 +42,7 @@ class ProductDetailsBloc extends Cubit<ProductDetailsState> {
         ProductDetailsState(
           state: ProdDetailsAPIState.success,
           product: product,
-          selectedProps: {},
+          selectedProps: getDefaultProps(product),
         ),
       );
     }
@@ -109,5 +109,15 @@ class ProductDetailsBloc extends Cubit<ProductDetailsState> {
       properties: state.selectedProps.values.toList(),
       quantity: 1,
     );
+  }
+
+  Map<String, int> getDefaultProps(ProductDetailsModel model) {
+    final propList =
+        model.properties.map((e) => {e.name: e.values.first.id}).toList();
+    final Map<String, int> joinedMap = {};
+    propList.forEach((element) {
+      joinedMap.addAll(element);
+    });
+    return joinedMap;
   }
 }
