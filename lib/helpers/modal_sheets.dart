@@ -272,6 +272,7 @@ class ModelBottomSheetHelper {
         }
       }
     }
+    _sheetShown = false;
   }
 
   static Future<void> showVideoSimmilarProds(BuildContext context) async {
