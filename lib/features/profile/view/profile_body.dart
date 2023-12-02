@@ -46,31 +46,39 @@ class _ProfileBodyState extends State<ProfileBody> {
     );
   }
 
-  final List<String> icons = [
-    AssetsPath.phoneIcon,
-    AssetsPath.locationIcon,
-    AssetsPath.ordersIcon,
-    AssetsPath.favorFilled,
-    AssetsPath.langIcon,
-  ];
   get l10n => context.l10n;
+
+  String get firstIcon {
+    return LocalStorage.getToken == null
+        ? AssetsPath.phoneIcon
+        : AssetsPath.backIcon;
+  }
+
+  List<String> get icons => [
+        firstIcon,
+        AssetsPath.locationIcon,
+        AssetsPath.ordersIcon,
+        AssetsPath.favorFilled,
+        AssetsPath.langIcon,
+      ];
   get langs => {
         'tr': l10n.turkmen,
         'ru': l10n.russian,
         'en': l10n.english,
       };
-  late final favorsState = context.read<FavorsCubit>();
-  late final orderState = context.read<OrderHistoryCubit>();
-  late final addressState = context.read<AddressCubit>();
-  late final authBloc = context.read<AuthBloc>();
-  late List<String> contents;
+
   List<String> get titles => [
-        l10n.phoneNumber,
+        LocalStorage.getToken == null ? l10n.phoneNumber : l10n.logOut,
         l10n.address,
         l10n.myOrders,
         l10n.favorites,
         l10n.programLang,
       ];
+  late final favorsState = context.read<FavorsCubit>();
+  late final orderState = context.read<OrderHistoryCubit>();
+  late final addressState = context.read<AddressCubit>();
+  late final authBloc = context.read<AuthBloc>();
+  late List<String> contents;
   @override
   Widget build(BuildContext context) {
     setContents();

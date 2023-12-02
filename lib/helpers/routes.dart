@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hh_express/features/auth/view/auth_screen.dart' as auth;
 import 'package:hh_express/features/chat/screens/chat/chat.dart';
 import 'package:hh_express/features/filter/details/view/filter_details.dart';
+import 'package:hh_express/features/more_simmilar_products/view/more_sim_prods.dart';
 import 'package:hh_express/features/products_by_category/view/products_by_category.dart';
 import 'package:hh_express/features/mainScreen/view/main_screen.dart';
 import 'package:hh_express/features/notifications/view/notification_screen.dart';
@@ -38,6 +39,7 @@ class AppRoutes {
   static const prodDetails = '/prodDetails';
   static const videoDetails = '/videoDetails';
   static const chat = '/chat';
+  static const moreSimmilarProducts = '/moreSimmilarProducts';
 }
 
 final appRouter = GoRouter(
@@ -90,6 +92,14 @@ final appRouter = GoRouter(
             child: child,
           ),
         );
+      },
+    ),
+    GoRoute(
+      path: AppRoutes.moreSimmilarProducts,
+      name: AppRoutes.moreSimmilarProducts.toRouteName,
+      builder: (context, state) {
+        final slug = state.queryParameters['slug'];
+        return MoreSimProdsScreen(slug!);
       },
     ),
     GoRoute(

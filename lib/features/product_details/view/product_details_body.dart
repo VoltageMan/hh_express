@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hh_express/features/categories/view/body.dart';
 import 'package:hh_express/features/home/view/components/product_widget.dart';
 import 'package:hh_express/features/product_details/bloc/product_details_bloc.dart';
@@ -12,6 +13,7 @@ import 'package:hh_express/features/product_details/components/image_place_holde
 import 'package:hh_express/features/product_details/components/property_builder.dart';
 import 'package:hh_express/features/product_details/view/image_details.dart';
 import 'package:hh_express/helpers/extentions.dart';
+import 'package:hh_express/helpers/routes.dart';
 import 'package:hh_express/helpers/spacers.dart';
 import 'package:hh_express/settings/consts.dart';
 import 'package:hh_express/settings/enums.dart';
@@ -196,7 +198,11 @@ class _ProdDetailsBodyState extends State<ProdDetailsBody>
                       style: AppTheme.titleMedium14(context),
                     ),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        context.pushNamed(
+                            AppRoutes.moreSimmilarProducts.toRouteName,
+                            queryParameters: {'slug': product.categorySlug});
+                      },
                       child: Text(
                         l10n.more,
                         style: textTheme.bodyLarge,

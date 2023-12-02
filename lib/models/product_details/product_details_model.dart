@@ -7,18 +7,20 @@ part 'product_details_model.g.dart';
 @JsonSerializable(fieldRename: FieldRename.snake)
 class ProductDetailsModel {
   final int id;
-   bool isFavorite;
+  bool isFavorite;
   final String name;
   final String description;
   final String price;
   final String salePrice;
+  final String categorySlug;
   @JsonKey(name: 'discount_price')
   final String? discount;
   final List<String> images;
   final List<PropertyModel> properties;
   final List<ProductModel> similarProducts;
 
-   ProductDetailsModel({
+  ProductDetailsModel({
+    required this.categorySlug,
     required this.isFavorite,
     required this.id,
     required this.images,

@@ -63,7 +63,7 @@
     "more": "Yene",
     "theAddress":"Salgyňyz",
     "selecTAddress":"Adres Salgynyzy",
-    "address": "Slagy",
+    "address": "Salgy",
     "someThingWent":"Yalňyşlylar yüze çykdy",
     "succsess":"Üstünlik",
     "socketExeption":"Servere baglanyp bolamdy",
@@ -75,5 +75,8 @@
     "addToFavors":"Halanlaryma goş"
     ,
   "uuid":"Belgisi",
-  "comeDate":"Gelmeli senesi"
+  "comeDate":"Gelmeli senesi",
+  "logOut" :"Çykmak",
+  "moreSimProds":"Menzeş harytlar"
+
 }

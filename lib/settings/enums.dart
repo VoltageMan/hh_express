@@ -23,6 +23,15 @@ enum SearchAPIState {
   success,
 }
 
+enum PaginatedApiState {
+  init,
+  loading,
+  loadingMore,
+  error,
+  errorMore,
+  success,
+}
+
 enum VideoAPIState {
   init,
   loading,

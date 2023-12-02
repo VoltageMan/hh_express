@@ -36,6 +36,12 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
   }
 
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
+  }
+
   late final HomeBloc bloc;
   late final ScrollController scrollController;
 

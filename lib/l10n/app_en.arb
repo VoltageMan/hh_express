@@ -74,5 +74,7 @@
   "contiansWrongSymbols":"Field contains wrong symbols", 
   "addToFavors":"Add to favorites",
   "uuid":"Mark",
-  "comeDate":"Come date"
+  "comeDate":"Come date",
+  "moreSimProds":"More simmilar products",
+  "logOut":"Log out"
 }

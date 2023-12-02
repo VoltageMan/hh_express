@@ -220,6 +220,7 @@ class AssetsPath {
   static const favorIcon = 'assets/icons/profileIcons/favor.svg';
   static const locationIcon = 'assets/icons/profileIcons/location.svg';
   static const profileIcon = 'assets/icons/profileIcons/profile.svg';
+  static const backIcon = 'assets/icons/profileIcons/back.svg';
   static const phoneIcon = 'assets/icons/profileIcons/phone.svg';
   static const ordersIcon = 'assets/icons/profileIcons/orders.svg';
   static const forvardIcon = 'assets/icons/forvard.svg';
