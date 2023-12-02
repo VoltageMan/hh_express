@@ -20,14 +20,14 @@ class DeliveryWidget extends StatelessWidget {
         Padding(
           padding: AppPaddings.bottom12_top20.add(AppPaddings.horiz_16),
           child: Text(
-            'Teslimat',
+            models?.title ?? '',
             style: AppTheme.titleMedium14(context),
           ),
         ),
         ...List.generate(
-          models.length,
+          models?.data.length ?? 0,
           (index) {
-            final e = models[index];
+            final e = models!.data[index];
             return Padding(
               padding: AppPaddings.vertic_8,
               child: Row(

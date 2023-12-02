@@ -37,12 +37,10 @@ class ProductRepoImpl extends ProductRepo with DioClientMixin {
   }
 
   @override
-  Future<List<DeliveryInfoModel>?> getDeliveryInfo() async {
+  Future<DeliveryInfoModel?> getDeliveryInfo() async {
     final response = await dio.get(endPoint: EndPoints.deliveryInfo);
     if (response.success) {
-      final dataList =
-          (response.data as Map<String, dynamic>)[APIKeys.deliveryInfo] as List;
-      return dataList.map((e) => DeliveryInfoModel.fromMap(e)).toList();
+      return DeliveryInfoModel.fromMap(response.data[APIKeys.deliveryInfo]);
     }
     return null;
   }

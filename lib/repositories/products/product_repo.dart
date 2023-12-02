@@ -8,5 +8,5 @@ abstract class ProductRepo {
     String? search,
     int? videoId,
   });
-  Future<List<DeliveryInfoModel>?> getDeliveryInfo();
+  Future<DeliveryInfoModel?> getDeliveryInfo();
 }

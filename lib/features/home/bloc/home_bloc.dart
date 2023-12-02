@@ -14,8 +14,9 @@ part 'home_state.dart';
 
 class HomeBloc extends Cubit<HomeState> {
   HomeBloc()
-      : super(
-            HomeState(state: ProductAPIState.init, deliveryInfo: List.empty()));
+      : super(HomeState(
+          state: ProductAPIState.init,
+        ));
 
   final _repo = getIt<ProductRepo>();
   double lastPosition = 0;
@@ -37,8 +38,8 @@ class HomeBloc extends Cubit<HomeState> {
       properties: _filters.map((e) => e.id).toList(),
       page: 0,
     );
-    List<DeliveryInfoModel>? deliveryInfo;
-    if (state.deliveryInfo.isEmpty) {
+    DeliveryInfoModel? deliveryInfo;
+    if (state.deliveryInfo == null) {
       deliveryInfo = await _repo.getDeliveryInfo();
     } else {
       deliveryInfo = state.deliveryInfo;
