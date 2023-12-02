@@ -23,7 +23,6 @@ class RemoveAllSeleteds extends StatelessWidget {
       },
       child: Container(
         height: 30.sp,
-        margin: AppPaddings.bottom_10,
         padding: AppPaddings.horiz10_vertic5,
         decoration: BoxDecoration(
           borderRadius: AppBorderRadiuses.border_6,

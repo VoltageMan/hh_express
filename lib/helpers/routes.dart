@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hh_express/features/auth/view/auth_screen.dart' as auth;
 import 'package:hh_express/features/chat/screens/chat/chat.dart';
 import 'package:hh_express/features/filter/details/view/filter_details.dart';
+import 'package:hh_express/features/filter/selected_details/selected_filter_details.dart';
 import 'package:hh_express/features/more_simmilar_products/view/more_sim_prods.dart';
 import 'package:hh_express/features/products_by_category/view/products_by_category.dart';
 import 'package:hh_express/features/mainScreen/view/main_screen.dart';
@@ -40,6 +41,7 @@ class AppRoutes {
   static const videoDetails = '/videoDetails';
   static const chat = '/chat';
   static const moreSimmilarProducts = '/moreSimmilarProducts';
+  static const filterSelecteds = '/filterSelecteds';
 }
 
 final appRouter = GoRouter(
@@ -174,6 +176,15 @@ final appRouter = GoRouter(
           child: FilterDetailsScreen(
             model: state.extra as PropertyModel,
           ),
+        );
+      },
+    ),
+    GoRoute(
+      path: AppRoutes.filterSelecteds,
+      name: AppRoutes.filterSelecteds.toRouteName,
+      pageBuilder: (context, state) {
+        return CupertinoPage(
+          child: SelectedFilterDetails(),
         );
       },
     )

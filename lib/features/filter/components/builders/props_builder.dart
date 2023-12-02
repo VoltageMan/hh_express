@@ -21,8 +21,7 @@ class FilterPropertyBuilder extends StatelessWidget {
   final PropertyModel prop;
   @override
   Widget build(BuildContext context) {
-    final buttonTheme =
-        Theme.of(context).textButtonTheme.style as MyButtonStyle;
+    final buttonTheme = context.theme.textButtonTheme.style as MyButtonStyle;
     final bloc = context.read<FilterBloc>();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

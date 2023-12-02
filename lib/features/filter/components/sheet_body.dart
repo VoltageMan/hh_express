@@ -82,12 +82,6 @@ class _FilterSheetBodyState extends State<FilterSheetBody> {
                           )..log();
                         },
                       ),
-                      FilterSwithListTile(
-                        title: context.l10n.news,
-                      ).toSliverBox,
-                      FilterSwithListTile(
-                        title: 'Köp Satylanlar',
-                      ).toSliverBox,
                     ],
                   ),
                 ),
