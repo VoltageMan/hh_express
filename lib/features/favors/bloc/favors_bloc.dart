@@ -24,9 +24,7 @@ class FavorsCubit extends Cubit<FavorsState> {
     }
     emit(
       FavorsState(
-        apiState: state.pagination == null
-            ? FavorsAPIState.loading
-            : FavorsAPIState.loadingMore,
+        apiState: FavorsAPIState.loading,
         models: List.empty(
           growable: true,
         ),
@@ -38,6 +36,7 @@ class FavorsCubit extends Cubit<FavorsState> {
     if (response != null) {
       return emit(
         FavorsState(
+          pagination: response.pagination,
           apiState: FavorsAPIState.success,
           models: List.from(state.models)..addAll(response.data),
         ),
@@ -45,9 +44,7 @@ class FavorsCubit extends Cubit<FavorsState> {
     }
     emit(
       FavorsState(
-        apiState: state.pagination == null
-            ? FavorsAPIState.error
-            : FavorsAPIState.errorMore,
+        apiState: FavorsAPIState.error,
         models: List.from(state.models),
         pagination: state.pagination,
       ),
@@ -83,5 +80,36 @@ class FavorsCubit extends Cubit<FavorsState> {
   int findIndex(int id) {
     final idList = state.models.map((e) => e.id).toList();
     return idList.indexOf(id);
+  }
+
+  Future<void> loadMore() async {
+    if (state.pagination == null ||
+        state.pagination!.currentPage == state.pagination!.lastPage) return;
+    emit(
+      FavorsState(
+        apiState: FavorsAPIState.loadingMore,
+        pagination: state.pagination,
+        models: state.models,
+      ),
+    );
+
+    final response =
+        await _repo.getFavors((state.pagination?.currentPage ?? 0) + 1);
+    if (response != null) {
+      return emit(
+        FavorsState(
+          apiState: FavorsAPIState.success,
+          models: List.from(state.models)..addAll(response.data),
+          pagination: response.pagination,
+        ),
+      );
+    }
+    emit(
+      FavorsState(
+        apiState: FavorsAPIState.errorMore,
+        models: List.from(state.models),
+        pagination: state.pagination,
+      ),
+    );
   }
 }

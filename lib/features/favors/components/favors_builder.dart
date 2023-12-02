@@ -21,6 +21,21 @@ class _FavrosBuilderState extends State<FavrosBuilder> {
 
   final scrollController = ScrollController();
   @override
+  void initState() {
+    scrollController.addListener(() {
+      if (scrollController.position.pixels >=
+          (scrollController.position.maxScrollExtent - 15.h)) {
+        final state = cubit.state;
+        if (state.apiState != FavorsAPIState.success) {
+          return;
+        }
+        cubit.loadMore();
+      }
+    });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 340.h,
@@ -35,7 +50,7 @@ class _FavrosBuilderState extends State<FavrosBuilder> {
           if (apiState == FavorsAPIState.init) return SizedBox();
           if (apiState == FavorsAPIState.error) return CategoryErrorBody();
           final isLoading = apiState == FavorsAPIState.loading;
-          if (state.models.isEmpty && apiState != FavorsAPIState.loading) {
+          if (state.models.isEmpty && !isLoading) {
             return Center(
               child: Text(
                 context.l10n.empty,

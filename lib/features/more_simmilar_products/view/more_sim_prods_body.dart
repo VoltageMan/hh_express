@@ -15,6 +15,10 @@ class MoreSimProdsBody extends StatefulWidget {
 
 class _MoreSimProdsBodyState extends State<MoreSimProdsBody> {
   final scrollController = ScrollController();
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   void dispose() {
