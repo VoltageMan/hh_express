@@ -117,20 +117,29 @@ class _VideoDetailsState extends State<VideoDetails> {
                                   width: 45.sp,
                                   alignment: Alignment.center,
                                   decoration: BoxDecoration(
-                                    color: Colors.black,
+                                    color: AppColors.darkGrey,
                                     border: AppBorderRadiuses.defBorder,
                                     borderRadius: AppBorderRadiuses.border_6,
                                   ),
                                   child: ClipRRect(
                                     borderRadius: AppBorderRadiuses.border_4,
-                                    child: CachedNetworkImage(
-                                      imageUrl: AssetsPath.exampleImage2,
-                                      fit: BoxFit.cover,
-                                      errorWidget: (context, url, error) {
-                                        return Icon(Icons.image_outlined);
+                                    child: BlocBuilder<SimmilarProdsCubit,
+                                        SimmilarProdsState>(
+                                      builder: (context, state) {
+                                        if (state.prods == null ||
+                                            state.prods!.isEmpty) {
+                                          return MyShimerPlaceHolder();
+                                        }
+                                        return CachedNetworkImage(
+                                          imageUrl: state.prods!.first.image,
+                                          fit: BoxFit.cover,
+                                          errorWidget: (context, url, error) {
+                                            return Icon(Icons.image_outlined);
+                                          },
+                                          placeholder: (context, url) =>
+                                              MyShimerPlaceHolder(),
+                                        );
                                       },
-                                      placeholder: (context, url) =>
-                                          MyShimerPlaceHolder(),
                                     ),
                                   ),
                                 ),
