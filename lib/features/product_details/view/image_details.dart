@@ -10,42 +10,27 @@ class ImageDetails extends StatefulWidget {
   ImageDetails({
     super.key,
     required this.images,
-    required this.initialIndex,
-    required this.onChange,
+    required this.initIndex,
   });
   final List<String> images;
-  final int initialIndex;
-  Function(int) onChange;
+  final int initIndex;
+
   @override
   State<ImageDetails> createState() => _ImageDetailsState();
 }
 
-class _ImageDetailsState extends State<ImageDetails>
-    with SingleTickerProviderStateMixin {
-  @override
-  void initState() {
-    controller = TabController(
-      length: widget.images.length,
-      vsync: this,
-      initialIndex: widget.initialIndex,
-    );
-    controller.addListener(() {
-      widget.onChange(controller.index);
-    });
-    super.initState();
-  }
+class _ImageDetailsState extends State<ImageDetails> {
+  late final pageController = PageController(initialPage: widget.initIndex);
 
-  late final TabController controller;
   @override
   void dispose() {
-    controller.dispose();
+    pageController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final mqHeight = MediaQuery.sizeOf(context).height;
-    final images = widget.images;
     return GestureDetector(
       onPanUpdate: (details) {
         if (details.delta.dy > 5) {
@@ -59,30 +44,31 @@ class _ImageDetailsState extends State<ImageDetails>
           children: [
             SizedBox(
               height: mqHeight * 0.7,
-              child: TabBarView(
-                controller: controller,
-                children: List.generate(
-                  controller.length,
-                  (index) {
-                    return PhotoView(
-                      minScale: 0.0,
-                      loadingBuilder: (context, event) =>
-                          ProdDetailsImagePlaceHolder(),
-                      backgroundDecoration: BoxDecoration(
-                        color: context.theme.scaffoldBackgroundColor,
-                      ),
-                      imageProvider: CachedNetworkImageProvider(
-                        images[index],
-                      ),
-                    );
-                  },
-                ),
+              child: PageView.builder(
+                controller: pageController,
+                itemCount: widget.images.length,
+                itemBuilder: (context, index) {
+                  return PhotoView(
+                    minScale: 0.0,
+                    loadingBuilder: (context, event) =>
+                        ProdDetailsImagePlaceHolder(),
+                    backgroundDecoration: BoxDecoration(
+                      color: context.theme.scaffoldBackgroundColor,
+                    ),
+                    imageProvider: CachedNetworkImageProvider(
+                      widget.images[index],
+                    ),
+                  );
+                },
               ),
             ),
             SizedBox(
               height: 70.h,
             ),
-            ImageIndicator(controller: controller)
+            ImageIndicator(
+              controller: pageController,
+              total: widget.images.length,
+            )
           ],
         ),
       ),

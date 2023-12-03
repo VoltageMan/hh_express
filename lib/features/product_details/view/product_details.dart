@@ -15,9 +15,7 @@ class ProductDetails extends StatelessWidget {
       },
       child: Scaffold(
         appBar: ProdDetailsAppBar(),
-        body: ProdDetailsBody(
-          id: id,
-        ),
+        body: ProdDetailsBody(id: id),
         bottomNavigationBar: ProdDetailsBottomBar(
           id: id,
         ),

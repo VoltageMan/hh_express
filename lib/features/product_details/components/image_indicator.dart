@@ -3,9 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/settings/consts.dart';
 
 class ImageIndicator extends StatefulWidget {
-  const ImageIndicator({super.key, required this.controller});
-  final TabController controller;
-
+  const ImageIndicator(
+      {super.key, required this.controller, required this.total});
+  final PageController controller;
+  final int total;
   @override
   State<ImageIndicator> createState() => _ImageIndicatorState();
 }
@@ -13,16 +14,19 @@ class ImageIndicator extends StatefulWidget {
 class _ImageIndicatorState extends State<ImageIndicator> {
   @override
   void initState() {
-    _currentIndex.value = widget.controller.index;
-    widget.controller.addListener(() {
-      _currentIndex.value = widget.controller.index;
-    });
+    _currentIndex.value = (widget.controller.page ?? 0).round();
+    widget.controller.addListener(listener);
     super.initState();
   }
 
   @override
   void dispose() {
+    widget.controller.removeListener(listener);
     super.dispose();
+  }
+
+  void listener() {
+    _currentIndex.value = (widget.controller.page ?? 0).round();
   }
 
   final _currentIndex = ValueNotifier<int>(0);
@@ -38,7 +42,7 @@ class _ImageIndicatorState extends State<ImageIndicator> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: List.generate(
-            widget.controller.length,
+            widget.total,
             (index) {
               return ValueListenableBuilder(
                 valueListenable: _currentIndex,

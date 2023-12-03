@@ -15,22 +15,14 @@ class PropertyModel {
   });
 
   factory PropertyModel.fromJson(Map<String, dynamic> json) {
-    final model = _$PropertyModelFromJson(json);
-    if (model.values.any((element) => element.icon != null)) {
-      model.paint();
-    }
-    return model;
-    // final valList = json.values.toList().first as List;
-    // final name = json.keys.toList().first;
-    // final values = valList.map((e) => PropertyValue.fromJson(e)).toList();
-    // return PropertyModel(
-    //   name: name,
-    //   values: values,
-    // );
+    return _$PropertyModelFromJson(json)..paint();
   }
   Map<String, dynamic> toJson() => _$PropertyModelToJson(this);
 
   void paint() {
+    if (this.values.any((element) => element.icon == null)) {
+      return;
+    }
     this.isColor = true;
     return this.values.forEach((element) => element.isColor = true);
   }

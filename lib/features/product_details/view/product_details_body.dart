@@ -28,7 +28,7 @@ class ProdDetailsBody extends StatefulWidget {
 
 class _ProdDetailsBodyState extends State<ProdDetailsBody>
     with SingleTickerProviderStateMixin {
-  TabController? tabController;
+  final pageController = PageController();
   @override
   void initState() {
     bloc = context.read<ProductDetailsBloc>()..init(widget.id);
@@ -37,20 +37,11 @@ class _ProdDetailsBodyState extends State<ProdDetailsBody>
 
   @override
   void dispose() {
-    tabController?.dispose();
-    // bloc.screenDispose();
+    pageController.dispose();
     super.dispose();
   }
 
   late final ProductDetailsBloc bloc;
-  void setTabController(int length) {
-    if (tabController != null) return;
-    tabController = TabController(
-      length: length,
-      vsync: this,
-      animationDuration: AppDurations.duration_500ms,
-    );
-  }
 
   void pushToImageDetails(
     List<String> images,
@@ -60,8 +51,7 @@ class _ProdDetailsBodyState extends State<ProdDetailsBody>
     final page = PageRouteBuilder(
       pageBuilder: (context, animation, secondaryAnimation) => ImageDetails(
         images: images,
-        initialIndex: initIndex,
-        onChange: onChange,
+        initIndex: (pageController.page ?? 0).round(),
       ),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         const begin = Offset(0.0, 1.0);
@@ -114,7 +104,6 @@ class _ProdDetailsBodyState extends State<ProdDetailsBody>
         final product = state.product!;
         final hasDiscount = product.discount != null;
         final l10n = context.l10n;
-        setTabController(product.images.length);
         return ListView.custom(
           shrinkWrap: true,
           childrenDelegate: SliverChildListDelegate(
@@ -123,37 +112,37 @@ class _ProdDetailsBodyState extends State<ProdDetailsBody>
                 height: 300.h,
                 child: Stack(
                   children: [
-                    TabBarView(
-                      controller: tabController,
-                      children: product.images
-                          .map(
-                            (image) => GestureDetector(
-                              onTap: () {
-                                pushToImageDetails(
-                                  product.images,
-                                  tabController!.index,
-                                  (val) {
-                                    tabController?.animateTo(val);
-                                  },
-                                );
-                              },
-                              child: CachedNetworkImage(
-                                imageUrl: image,
-                                //! errorWidget
-                                errorWidget: (context, url, error) =>
-                                    ProdDetailsImagePlaceHolder(),
-                                placeholder: (context, url) =>
-                                    ProdDetailsImagePlaceHolder(),
-                                height: 300.h,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          )
-                          .toList(),
+                    PageView.builder(
+                      itemCount: product.images.length,
+                      controller: pageController,
+                      itemBuilder: (context, index) => GestureDetector(
+                        onTap: () {
+                          pushToImageDetails(
+                            product.images,
+                            index,
+                            (val) {
+                              pageController.jumpToPage(val);
+                            },
+                          );
+                        },
+                        child: CachedNetworkImage(
+                          imageUrl: product.images[index],
+                          //! errorWidget
+                          errorWidget: (context, url, error) =>
+                              ProdDetailsImagePlaceHolder(),
+                          placeholder: (context, url) =>
+                              ProdDetailsImagePlaceHolder(),
+                          height: 300.h,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
                     ),
                     Align(
                       alignment: Alignment.bottomCenter,
-                      child: ImageIndicator(controller: tabController!),
+                      child: ImageIndicator(
+                        controller: pageController,
+                        total: product.images.length,
+                      ),
                     )
                   ],
                 ),
