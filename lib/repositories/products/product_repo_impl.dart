@@ -17,8 +17,9 @@ class ProductRepoImpl extends ProductRepo with DioClientMixin {
     int? videoId,
   }) async {
     final response = await dio.get(
-        endPoint: _endPoint(slugs, properties, page, videoId),
-        queryParameters: search != null ? {'search': search} : null);
+      endPoint: _endPoint(slugs, properties, page, videoId),
+      queryParameters: search != null ? {'search': search} : null,
+    );
     if (response.success) {
       // converting paginationModel from json
       final data = response.data[APIKeys.products];
@@ -47,16 +48,18 @@ class ProductRepoImpl extends ProductRepo with DioClientMixin {
 
   String _endPoint(
       List<String> slugs, List<int> properties, int page, int? videoId) {
+    final videoParam = videoId == null ? '' : '&video_id=$videoId';
     if (slugs.isEmpty && properties.isEmpty) {
-      return '${EndPoints.products}?${APIKeys.page}=$page';
+      return '${EndPoints.products}?${APIKeys.page}=$page$videoParam';
     }
     List<String> slugList = List.empty();
     List<String> propertyList = List.empty();
+
     if (slugs.isNotEmpty) {
       slugList = List.generate(
         slugs.length,
         (index) {
-          return '${APIKeys.categories}${APIKeys.urlDecoder}=${slugs[index]}';
+          return '${APIKeys.categories}${APIKeys.urlDecoder}=${slugs[index]}$videoParam';
         },
       );
     }
@@ -64,14 +67,13 @@ class ProductRepoImpl extends ProductRepo with DioClientMixin {
       propertyList = List.generate(
         properties.length,
         (index) {
-          return '${APIKeys.properties}${APIKeys.urlDecoder}=${properties[index]}';
+          return '${APIKeys.properties}${APIKeys.urlDecoder}=${properties[index]}$videoParam';
         },
       );
     }
     final propertiesUrl = propertyList.join('&');
     final slugsUrl = slugList.join('&');
-    final videoParam = videoId == null ? '' : 'video_id=$videoId';
     final joiner = propertiesUrl.isNotEmpty && slugsUrl.isNotEmpty ? '&' : '';
-    return '${EndPoints.products}?$propertiesUrl$joiner$slugsUrl&${APIKeys.page}=$page&ishome=true$videoId';
+    return '${EndPoints.products}?$propertiesUrl$joiner$slugsUrl&${APIKeys.page}=$page&ishome=true$videoParam';
   }
 }

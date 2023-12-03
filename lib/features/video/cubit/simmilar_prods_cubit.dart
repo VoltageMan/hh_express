@@ -82,4 +82,8 @@ class SimmilarProdsCubit extends Cubit<SimmilarProdsState> {
       ),
     );
   }
+
+  void clear() {
+    emit(SimmilarProdsState(state: ProductAPIState.init));
+  }
 }

@@ -26,10 +26,11 @@ class VideoDetails extends StatefulWidget {
 
 class _VideoDetailsState extends State<VideoDetails> {
   late VideoPlayerController _controller;
+  late final simCubit = context.read<SimmilarProdsCubit>();
+
   @override
   void initState() {
     super.initState();
-    final simCubit = context.read<SimmilarProdsCubit>();
     simCubit.videoId = widget.model.id;
     simCubit.init();
     _controller = VideoPlayerController.networkUrl(Uri.parse(widget.model.url))
@@ -43,6 +44,7 @@ class _VideoDetailsState extends State<VideoDetails> {
   @override
   void dispose() {
     _controller.dispose();
+    simCubit.clear();
     super.dispose();
   }
 
