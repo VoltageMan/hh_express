@@ -7,32 +7,62 @@ import 'package:hh_express/settings/consts.dart';
 import 'package:hh_express/settings/theme.dart';
 
 class OrderStateWDate extends StatelessWidget {
-  const OrderStateWDate({super.key, this.model});
+  const OrderStateWDate({super.key, this.model, required this.isLast});
   final OrderStateModel? model;
+  final bool isLast;
   @override
   Widget build(BuildContext context) {
     final isLoading = model == null;
     if (isLoading) return _LoadingWidget();
     final theme = Theme.of(context).textTheme;
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        FittedBox(
-          child: Text(
-            model!.state,
-            maxLines: 1,
-            style: AppTheme.titleLarge12(context),
+    final height = AppSpacing.getTextHeight(12);
+    return Padding(
+      padding: isLast ? EdgeInsets.zero : AppPaddings.bottom_28,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Container(
+            height: height * 1.6,
+            alignment: Alignment.center,
+            padding: AppPaddings.all_4,
+            margin: AppPaddings.right_6,
+            decoration: BoxDecoration(
+              color: model!.completed_at != null
+                  ? AppColors.mainOrange
+                  : AppColors.lightGrey,
+              shape: BoxShape.circle,
+            ),
+            child: FittedBox(
+              child: Icon(
+                model!.completed_at != null ? Icons.check_rounded : Icons.close,
+                color: AppColors.lightGrey,
+              ),
+            ),
           ),
-        ),
-        FittedBox(
-          child: Text(
-            model?.completed_at ?? '00.00.0/00:00',
-            maxLines: 1,
-            style: theme.titleSmall,
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                FittedBox(
+                  child: Text(
+                    model!.state,
+                    maxLines: 1,
+                    style: AppTheme.titleLarge12(context),
+                  ),
+                ),
+                FittedBox(
+                  child: Text(
+                    model?.completed_at ?? '00.00.0/00:00',
+                    maxLines: 1,
+                    style: theme.titleSmall,
+                  ),
+                )
+              ],
+            ),
           ),
-        )
-      ],
+        ],
+      ),
     );
   }
 }
