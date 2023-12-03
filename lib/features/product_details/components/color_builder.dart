@@ -29,7 +29,7 @@ class _ProdColorBuilderState extends State<ProdColorBuilder> {
         Padding(
           padding: AppPaddings.bottom12_top20.add(AppPaddings.horiz_16),
           child: Text(
-            'Renk saylan',
+            '${model.name}',
             style: AppTheme.titleMedium14(context),
           ),
         ),

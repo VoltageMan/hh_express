@@ -21,9 +21,7 @@ class SimmilarProdsCubit extends Cubit<SimmilarProdsState> {
       return;
     }
     emit(
-      SimmilarProdsState(
-        state: ProductAPIState.loading,
-      ),
+      SimmilarProdsState(state: ProductAPIState.loading),
     );
     final data = await _repo.getProducts(
       videoId: videoId,

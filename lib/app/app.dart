@@ -79,7 +79,11 @@ class _MyAppState extends State<MyApp> {
                   return Navigator(
                     onGenerateRoute: (settings) => MaterialPageRoute(
                       builder: (context) {
-                        return child!;
+                        return MediaQuery(
+                          data: MediaQuery.of(context)
+                              .copyWith(textScaleFactor: 1),
+                          child: child!,
+                        );
                       },
                     ),
                   );
