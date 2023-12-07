@@ -7,11 +7,11 @@ class PropertyModel {
   final String name;
   final List<PropertyValue> values;
   @JsonKey(includeFromJson: false)
-  bool? isColor;
+  bool isColor;
   PropertyModel({
     required this.values,
     required this.name,
-    this.isColor,
+    this.isColor = false,
   });
 
   factory PropertyModel.fromJson(Map<String, dynamic> json) {

@@ -1,12 +1,12 @@
 name: hh_express
 description: A new Flutter project.
 
-publish_to: 'none' 
+publish_to: "none"
 
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.0.0 <4.0.0'
+  sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
   flutter:
@@ -48,6 +48,7 @@ dependencies:
   dart_pusher_channels: ^1.1.1
   image_picker: ^1.0.4
   # flutter_avif: ^1.4.0
+  better_player: ^0.0.83
   web_socket_channel: ^2.4.0
   another_flushbar: ^1.12.30
 
@@ -64,10 +65,6 @@ flutter_launcher_icons:
   ios: true
   image_path: "assets/images/app_icon.png"
   min_sdk_android: 21
-  
-  
-
-  
 
 flutter:
   uses-material-design: true
