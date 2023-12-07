@@ -143,11 +143,6 @@ class AppBorderRadiuses {
 }
 
 class AppColors {
-  static bool isColorProp(String name) {
-    return ['colors', 'reňkler', 'цвета']
-        .any((element) => element.toLowerCase() == name.toLowerCase());
-  }
-
   static const red = Color(0xFFDB3022);
   static const superAppColor = Color.fromRGBO(62, 82, 188, 1);
   static const superAppShadowColor = Color.fromRGBO(51, 67, 152, 1);
