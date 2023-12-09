@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 import 'package:hh_express/app/setup.dart';
 import 'package:hh_express/models/pagination/pagination_model.dart';
 import 'package:hh_express/models/products/product_model.dart';

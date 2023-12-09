@@ -1,6 +1,8 @@
+import 'package:dio/dio.dart';
 import 'package:hh_express/data/remote/dio_client.dart';
 import 'package:hh_express/models/delivery_info/deliery_info_model.dart';
 import 'package:hh_express/models/pagination/pagination_model.dart';
+import 'package:hh_express/models/product_details/product_details_model.dart';
 import 'package:hh_express/models/products/product_model.dart';
 import 'package:hh_express/repositories/products/product_repo.dart';
 import 'package:hh_express/settings/consts.dart';
@@ -8,6 +10,19 @@ import 'package:injectable/injectable.dart';
 
 @Injectable(as: ProductRepo)
 class ProductRepoImpl extends ProductRepo with DioClientMixin {
+  @override
+  Future<ProductDetailsModel?> getDetails(
+      int id, CancelToken cancelToken) async {
+    final response = await dio.get(
+      endPoint: EndPoints.prodDetails(id),
+      cancelToken: cancelToken,
+    );
+    if (response.success) {
+      return ProductDetailsModel.fromJson(Map.from(response.data));
+    }
+    return null;
+  }
+
   @override
   Future<Map<String, dynamic>?> getProducts({
     required List<String> slugs,

@@ -9,6 +9,7 @@ import 'package:hh_express/helpers/routes.dart';
 import 'package:hh_express/models/cart/cart_update/cart_update_model.dart';
 import 'package:hh_express/models/product_details/product_details_model.dart';
 import 'package:hh_express/repositories/product_details/product_details_repository.dart';
+import 'package:hh_express/repositories/products/product_repo.dart';
 import 'package:hh_express/settings/enums.dart';
 
 part 'product_details_state.dart';
@@ -22,7 +23,7 @@ class ProductDetailsBloc extends Cubit<ProductDetailsState> {
           ),
         );
   int? currentProdId;
-  final repo = getIt<ProductDetailsRepo>();
+  final repo = getIt<ProductRepo>();
   Future<void> init(int id) async {
     currentProdId = id;
     final cancleToken = CancelToken();
@@ -33,10 +34,7 @@ class ProductDetailsBloc extends Cubit<ProductDetailsState> {
         cancelToken: cancleToken,
       ),
     );
-    final product = await repo.get(
-      id,
-      cancleToken,
-    );
+    final product = await repo.getDetails(id, cancleToken);
     if (product != null) {
       return emit(
         ProductDetailsState(

@@ -12,7 +12,7 @@ ProductModel _$ProductModelFromJson(Map<String, dynamic> json) => ProductModel(
       id: json['id'] as int,
       image: json['images'] as String,
       name: json['name'] as String,
-      categorySlug: json['category_slug'] as String,
+      categorySlug: json['category_slug'] as String? ?? 'null',
       discount: json['discount_price'] as String?,
       price: json['price'] as String,
       salePrice: json['sale_price'] as String,

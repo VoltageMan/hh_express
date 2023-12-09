@@ -31,6 +31,7 @@ class _MyVideoPlayerWidgetState extends State<MyVideoPlayerWidget> {
 
   @override
   void initState() {
+    initVideo();
     vdCubit.stream.listen(listener);
     super.initState();
   }

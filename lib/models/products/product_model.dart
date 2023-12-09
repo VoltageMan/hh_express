@@ -21,7 +21,7 @@ class ProductModel {
     required this.id,
     required this.image,
     required this.name,
-    required this.categorySlug,
+    this.categorySlug = 'null',
     this.discount,
     required this.price,
     required this.salePrice,

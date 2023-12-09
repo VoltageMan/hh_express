@@ -31,19 +31,15 @@ import 'package:hh_express/repositories/notifications/notifications_repo_impl.da
     as _i18;
 import 'package:hh_express/repositories/order/order_repo.dart' as _i19;
 import 'package:hh_express/repositories/order/order_repo_impl.dart' as _i20;
-import 'package:hh_express/repositories/product_details/product_details_repository.dart'
-    as _i21;
-import 'package:hh_express/repositories/product_details/product_details_repository_impl.dart'
-    as _i22;
-import 'package:hh_express/repositories/products/product_repo.dart' as _i23;
+import 'package:hh_express/repositories/products/product_repo.dart' as _i21;
 import 'package:hh_express/repositories/products/product_repo_impl.dart'
-    as _i24;
+    as _i22;
 import 'package:hh_express/repositories/profile/favorites/favorites_repository.dart'
     as _i13;
 import 'package:hh_express/repositories/profile/favorites/favorites_repository_impl.dart'
     as _i14;
-import 'package:hh_express/repositories/video/video_repo.dart' as _i25;
-import 'package:hh_express/repositories/video/video_repo_impl.dart' as _i26;
+import 'package:hh_express/repositories/video/video_repo.dart' as _i23;
+import 'package:hh_express/repositories/video/video_repo_impl.dart' as _i24;
 import 'package:injectable/injectable.dart' as _i2;
 
 extension GetItInjectableX on _i1.GetIt {
@@ -66,9 +62,8 @@ extension GetItInjectableX on _i1.GetIt {
     gh.factory<_i15.FilterRepo>(() => _i16.FilterRepoImpl());
     gh.factory<_i17.NotificationsRepo>(() => _i18.NotificationsRepoImpl());
     gh.factory<_i19.OrderRepo>(() => _i20.OrderRepoImpl());
-    gh.factory<_i21.ProductDetailsRepo>(() => _i22.ProductDetailsRepoImpl());
-    gh.factory<_i23.ProductRepo>(() => _i24.ProductRepoImpl());
-    gh.factory<_i25.VideoRepo>(() => _i26.VideoRepoImpl());
+    gh.factory<_i21.ProductRepo>(() => _i22.ProductRepoImpl());
+    gh.factory<_i23.VideoRepo>(() => _i24.VideoRepoImpl());
     return this;
   }
 }

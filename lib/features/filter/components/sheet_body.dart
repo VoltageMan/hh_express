@@ -8,7 +8,6 @@ import 'package:hh_express/features/components/widgets/sheet_titles.dart';
 import 'package:hh_express/features/filter/bloc/filter_bloc.dart';
 import 'package:hh_express/features/filter/components/builders/props_builder.dart';
 import 'package:hh_express/features/filter/components/builders/selected_props_builder.dart';
-import 'package:hh_express/features/filter/components/siwtch_listile.dart';
 import 'package:hh_express/features/home/bloc/home_bloc.dart';
 import 'package:hh_express/features/product_details/view/product_details_body.dart';
 import 'package:hh_express/features/products_by_category/bloc/products_by_category_bloc.dart';
