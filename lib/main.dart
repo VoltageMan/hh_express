@@ -7,10 +7,6 @@ import 'package:hh_express/app/setup.dart';
 import 'package:hh_express/settings/consts.dart';
 
 void main() async {
-  await WidgetsFlutterBinding.ensureInitialized();
-  await SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-  ]);
   configureDependencies(getIt);
 
   final mySystemTheme = SystemUiOverlayStyle.dark.copyWith(
@@ -18,7 +14,13 @@ void main() async {
       systemNavigationBarIconBrightness: Brightness.dark);
 
   SystemChrome.setSystemUIOverlayStyle(mySystemTheme);
-  runZonedGuarded(() => runApp(const MyApp()), (error, stack) {
+  runZonedGuarded(() async {
+    await WidgetsFlutterBinding.ensureInitialized();
+    await SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+    ]);
+    return runApp(const MyApp());
+  }, (error, stack) {
     print('${error} , $stack');
   });
 }

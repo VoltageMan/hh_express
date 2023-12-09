@@ -14,6 +14,7 @@ class VideoCubit extends Cubit<VideoState> {
   final _repo = getIt<VideoRepo>();
 
   Future<void> loadMore({bool forRefresh = false}) async {
+    if (state.pagination!.currentPage == state.pagination!.lastPage) return;
     emit(
       VideoState(
         apiState: VideoAPIState.loadingMore,

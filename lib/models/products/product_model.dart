@@ -12,6 +12,7 @@ class ProductModel {
   final String? discount;
   @JsonKey(name: 'images')
   final String image;
+  final String categorySlug;
   final bool isFavorite;
 
   const ProductModel({
@@ -20,6 +21,7 @@ class ProductModel {
     required this.id,
     required this.image,
     required this.name,
+    required this.categorySlug,
     this.discount,
     required this.price,
     required this.salePrice,
@@ -29,13 +31,3 @@ class ProductModel {
       _$ProductModelFromJson(json);
   Map<String, dynamic> toJson() => _$ProductModelToJson(this);
 }
-
-final some = {
-  "id": 120,
-  "name": "Est delectus veritatis.",
-  "description": "  est quia voluptas.",
-  "sale_price": "27.1",
-  "price": "27.1",
-  "discount_price": "0",
-  "images": "http://216.250.9.74/storage/503/conversions/download-1-thumb.webp"
-};

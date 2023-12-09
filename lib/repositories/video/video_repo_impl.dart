@@ -6,9 +6,7 @@ import 'package:hh_express/repositories/video/video_repo.dart';
 import 'package:hh_express/settings/consts.dart';
 import 'package:injectable/injectable.dart';
 
-
-
-@Injectable(as: VideoRepo )
+@Injectable(as: VideoRepo)
 class VideoRepoImpl with DioClientMixin implements VideoRepo {
   @override
   Future<PaginatedDataModel<List<HomeVideoModel>>?> getVideos(int page) async {

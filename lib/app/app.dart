@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/app/setup.dart';
+import 'package:hh_express/app/test_screen.dart';
 import 'package:hh_express/features/address/cubit/address_cubit.dart';
 import 'package:hh_express/features/auth/bloc/auth_bloc.dart';
 import 'package:hh_express/features/cart/cubit/cart_cubit.dart';
@@ -57,7 +58,6 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(create: (context) => OrderHistoryCubit()),
         BlocProvider(create: (context) => FavorsCubit()),
         BlocProvider(create: (context) => VideoCubit()),
-        BlocProvider(create: (context) => SimmilarProdsCubit())
       ],
       child: ScreenUtilInit(
         designSize: const Size(360, 800),
@@ -79,10 +79,11 @@ class _MyAppState extends State<MyApp> {
                   return Navigator(
                     onGenerateRoute: (settings) => MaterialPageRoute(
                       builder: (context) {
+                        final showTest = false;
                         return MediaQuery(
                           data: MediaQuery.of(context)
                               .copyWith(textScaleFactor: 1),
-                          child: child!,
+                          child: showTest ? TestScreen() : child!,
                         );
                       },
                     ),

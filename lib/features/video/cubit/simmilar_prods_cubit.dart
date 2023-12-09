@@ -10,7 +10,9 @@ import 'package:hh_express/settings/enums.dart';
 part 'simmilar_prods_state.dart';
 
 class SimmilarProdsCubit extends Cubit<SimmilarProdsState> {
-  SimmilarProdsCubit() : super(SimmilarProdsState(state: ProductAPIState.init));
+  SimmilarProdsCubit(this.slug)
+      : super(SimmilarProdsState(state: ProductAPIState.init));
+  final String slug;
   int videoId = 0;
   final _repo = getIt<ProductRepo>();
 
@@ -24,8 +26,7 @@ class SimmilarProdsCubit extends Cubit<SimmilarProdsState> {
       SimmilarProdsState(state: ProductAPIState.loading),
     );
     final data = await _repo.getProducts(
-      videoId: videoId,
-      slugs: List.empty(),
+      slugs: [slug],
       properties: List.empty(),
       page: 0,
     );
@@ -55,9 +56,8 @@ class SimmilarProdsCubit extends Cubit<SimmilarProdsState> {
       ),
     );
     final data = await _repo.getProducts(
-      slugs: List.empty(),
+      slugs: [slug],
       properties: List.empty(),
-      videoId: videoId,
       page: state.pagination!.currentPage + 1,
     );
     if (data != null) {
@@ -79,9 +79,5 @@ class SimmilarProdsCubit extends Cubit<SimmilarProdsState> {
         prods: List.from(state.prods ?? List.empty()),
       ),
     );
-  }
-
-  void clear() {
-    emit(SimmilarProdsState(state: ProductAPIState.init));
   }
 }

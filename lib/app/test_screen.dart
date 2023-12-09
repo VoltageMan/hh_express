@@ -1,17 +1,12 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/app/setup.dart';
 import 'package:hh_express/data/local/secured_storage.dart';
-import 'package:hh_express/features/components/widgets/place_holder.dart';
+import 'package:hh_express/features/product_details/view/product_details_body.dart';
 import 'package:hh_express/helpers/extentions.dart';
-import 'package:hh_express/helpers/modal_sheets.dart';
-import 'package:hh_express/helpers/routes.dart';
 import 'package:hh_express/helpers/spacers.dart';
-import 'package:hh_express/models/products/product_model.dart';
-import 'package:hh_express/repositories/product_details/product_details_repository.dart';
-import 'package:hh_express/settings/consts.dart';
-import 'package:hh_express/settings/theme.dart';
+import 'package:hh_express/repositories/video/video_repo.dart';
+import 'package:cached_video_player/cached_video_player.dart' as vv;
 
 class TestScreen extends StatefulWidget {
   const TestScreen({super.key});
@@ -21,128 +16,58 @@ class TestScreen extends StatefulWidget {
 }
 
 class _TestScreenState extends State<TestScreen> {
-  final repo = getIt<ProductDetailsRepo>();
+  final repo = getIt<VideoRepo>();
+  @override
+  void initState() {
+    repo.getVideos(1);
+    pageController.addListener(() {
+      final currentPage = (pageController.page ?? 0).toInt()..log();
+      if (currentIndex != currentPage) {
+        currentIndex.value = currentPage;
+      }
+    });
+    LocalStorage.init();
+    super.initState();
+  }
+
+  final list = [
+    'https://v.gozle.com.tm/3/media/video/6y6qVIYqtYA/video.m3u8',
+    'https://bravo.horjuntv.com.tm/onlinetv2/2022/12/17/942146LUUGEMLKN/942146LUUGEMLKN.m3u8',
+    'https://bravo.horjuntv.com.tm/onlinetv1/2023/01/23/94718KVQIlSOSJk/94718KVQIlSOSJk.m3u8',
+    'https://v.gozle.com.tm/3/media/video/C-BZzAkZRbs/video.m3u8',
+  ];
+  final pageController = PageController();
+  vv.CachedVideoPlayerController? controller;
+  final currentIndex = ValueNotifier<int>(0);
   @override
   Widget build(BuildContext context) {
-    LocalStorage.init();
     return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          SliverList.builder(
-            itemCount: 20,
-            itemBuilder: (context, index) {
-              return SimmilarVideoWidget();
-            },
-          )
-        ],
+      body: PageView.builder(
+        controller: pageController,
+        itemCount: list.length,
+        itemBuilder: (context, index) {
+          // return MyCachedNetworkImage(
+          //   index: index,
+          //   pageController: currentIndex,
+          //   src: list[index],
+          // );
+        },
       ),
     );
   }
 }
 
-class SimmilarVideoWidget extends StatelessWidget {
-  const SimmilarVideoWidget({
-    super.key,
-    this.model,
-  });
-  final ProductModel? model;
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        ModelBottomSheetHelper.doPop();
-        appRouter.pushReplacement(AppRoutes.prodDetails, extra: model!.id);
-      },
-      child: Container(
-        height: ((AppSpacing.getTextHeight(67)..log()) + 38.h)..log(),
-        width: double.infinity,
-        margin: AppPaddings.horiz_16.add(AppPaddings.vertic_12),
-        child: Row(
-          children: [
-            AspectRatio(
-              aspectRatio: 115 / 139,
-              child: ClipRRect(
-                borderRadius: AppBorderRadiuses.border_6,
-                child: CachedNetworkImage(
-                  // todo remove start with
-                  imageUrl: model?.image ?? AssetsPath.macBook,
-                  // todo error widget
-                  errorWidget: (context, url, error) {
-                    return Center(
-                      child: Icon(
-                        Icons.image_outlined,
-                        color: AppColors.darkBlue,
-                      ),
-                    );
-                  },
-                  fit: BoxFit.cover,
-                  placeholder: (context, url) => const MyShimerPlaceHolder(),
-                ),
-              ),
-            ),
-            AppSpacing.horizontal_15,
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    '${model?.description}',
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: AppTheme.displaySmall12(context),
-                  ),
-                  AppSpacing.vertical_12,
-                  Text(
-                    '${model?.salePrice} TMT',
-                    style: AppTheme.titleLargeW600(context),
-                  ),
-                  Text(
-                    '${model?.price} TMT',
-                    style: AppTheme.displaySmall12(context).copyWith(),
-                  ),
-                  AppSpacing.vertical_12,
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Container(
-                        margin: AppPaddings.right_6,
-                        decoration: ShapeDecoration(
-                          color: Color(0xFF0B1427),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(6)),
-                        ),
-                        padding: AppPaddings.horiz10_vertic5,
-                        child: Text(
-                          context.l10n.buy,
-                          maxLines: 1,
-                          style: context.theme.textTheme.labelMedium,
-                        ),
-                      ),
-                      Flexible(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Color(0xFF0B1427),
-                            borderRadius: BorderRadius.circular(6),
-                          ),
-                          padding: AppPaddings.horiz10_vertic5,
-                          child: FittedBox(
-                            child: Text(
-                              context.l10n.addToCart,
-                              maxLines: 1,
-                              style: context.theme.textTheme.labelMedium,
-                            ),
-                          ),
-                        ),
-                      )
-                    ],
-                  )
-                ],
-              ),
-            )
-          ],
-        ),
-      ),
-    );
-  }
-}
+
+// enableAudioTracks: false,
+// enableSubtitles: false,
+// enableMute: false,
+// enableQualities: false,
+// enableOverflowMenu: false,
+// enablePip: false,
+// enableProgressBarDrag: false,
+// enableFullscreen: false,
+// enableSkips: false,
+// enableProgressBar: false,
+// enablePlayPause: false,
+// enablePlaybackSpeed: false,
+// enableProgressText: false,

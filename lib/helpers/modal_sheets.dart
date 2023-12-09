@@ -19,6 +19,7 @@ import 'package:hh_express/features/product_details/view/modalSheet/product_moda
 import 'package:hh_express/features/product_details/view/product_details_body.dart';
 import 'package:hh_express/features/profile/view/sheets/change_lang_sheet.dart';
 import 'package:hh_express/features/video/cubit/simmilar_prods_cubit.dart';
+import 'package:hh_express/features/video/modal_sheet_body.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/routes.dart';
 import 'package:hh_express/helpers/spacers.dart';
@@ -277,7 +278,7 @@ class ModelBottomSheetHelper {
     HapticFeedback.vibrate();
   }
 
-  static Future<void> showVideoSimmilarProds(BuildContext context) async {
+  static Future<void> showVideoSimmilarProds(String slug) async {
     await showModalBottomSheet(
       context: appRouter.currentContext,
       useRootNavigator: true,
@@ -291,7 +292,7 @@ class ModelBottomSheetHelper {
       builder: (ctx) {
         _sheetShown = true;
         _currentContext = ctx;
-        return VideoSimmilarProdsSheet();
+        return VideoSimmilarProdsSheet(slug);
       },
     );
     _sheetShown = false;
@@ -299,7 +300,9 @@ class ModelBottomSheetHelper {
 }
 
 class VideoSimmilarProdsSheet extends StatefulWidget {
-  const VideoSimmilarProdsSheet({super.key});
+  const VideoSimmilarProdsSheet(this.slug);
+
+  final String slug;
   @override
   State<VideoSimmilarProdsSheet> createState() =>
       _VideoSimmilarProdsSheetState();
@@ -324,60 +327,67 @@ class _VideoSimmilarProdsSheetState extends State<VideoSimmilarProdsSheet> {
     super.initState();
   }
 
-  late final cubit = context.read<SimmilarProdsCubit>();
+  late final cubit = context.read<SimmilarProdsCubit>()..init();
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: AppBorderRadiuses.border_10,
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
+    return BlocProvider(
+      create: (context) => SimmilarProdsCubit(widget.slug),
+      child: Builder(builder: (context) {
+        return ClipRRect(
           borderRadius: AppBorderRadiuses.border_10,
-        ),
-        height: MediaQuery.sizeOf(context).height - 92.h - AppSpacing.topPad,
-        width: double.infinity,
-        child: BlocBuilder<SimmilarProdsCubit, SimmilarProdsState>(
-          bloc: cubit,
-          builder: (context, state) {
-            final apiState = state.state;
-            if (apiState == ProductAPIState.init) return SizedBox();
-            if (apiState == ProductAPIState.error) return CategoryErrorBody();
-            if (apiState == ProductAPIState.loading) return CenterLoading();
-            return CustomScrollView(
-              controller: scrollController,
-              slivers: [
-                SliverPersistentHeader(
-                  pinned: true,
-                  delegate: SliverPinndedContainer(
-                    height: AppSpacing.getTextHeight(16 + 32.sp),
-                    widget: Padding(
-                      padding: AppPaddings.all_16,
-                      child: BottomSheetTitle(
-                        title:
-                            '${context.l10n.all} (${state.pagination?.count ?? 0})',
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: AppBorderRadiuses.border_10,
+            ),
+            height:
+                MediaQuery.sizeOf(context).height - 92.h - AppSpacing.topPad,
+            width: double.infinity,
+            child: BlocBuilder<SimmilarProdsCubit, SimmilarProdsState>(
+              bloc: cubit,
+              builder: (context, state) {
+                final apiState = state.state;
+                if (apiState == ProductAPIState.init) return SizedBox();
+                if (apiState == ProductAPIState.error)
+                  return CategoryErrorBody();
+                if (apiState == ProductAPIState.loading) return CenterLoading();
+                return CustomScrollView(
+                  controller: scrollController,
+                  slivers: [
+                    SliverPersistentHeader(
+                      pinned: true,
+                      delegate: SliverPinndedContainer(
+                        height: AppSpacing.getTextHeight(16 + 32.sp),
+                        widget: Padding(
+                          padding: AppPaddings.all_16,
+                          child: BottomSheetTitle(
+                            title:
+                                '${context.l10n.all} (${state.pagination?.count ?? 0})',
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                ),
-                SliverList.builder(
-                  itemCount: state.prods!.length,
-                  itemBuilder: (context, index) => SimmilarVideoWidget(
-                    model: state.prods![index],
-                  ),
-                ),
-                if (apiState == ProductAPIState.loadingMoreError)
-                  CategoryErrorBody(
-                    onTap: () {
-                      cubit.loadMore();
-                    },
-                  ).toSliverBox,
-                if (apiState == ProductAPIState.loadingMore)
-                  CenterLoading().toSliverBox
-              ],
-            );
-          },
-        ),
-      ),
+                    SliverList.builder(
+                      itemCount: state.prods!.length,
+                      itemBuilder: (context, index) => SimmilarVideoWidget(
+                        model: state.prods![index],
+                      ),
+                    ),
+                    if (apiState == ProductAPIState.loadingMoreError)
+                      CategoryErrorBody(
+                        onTap: () {
+                          cubit.loadMore();
+                        },
+                      ).toSliverBox,
+                    if (apiState == ProductAPIState.loadingMore)
+                      CenterLoading().toSliverBox
+                  ],
+                );
+              },
+            ),
+          ),
+        );
+      }),
     );
   }
 }

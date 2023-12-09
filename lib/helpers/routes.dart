@@ -147,9 +147,10 @@ final appRouter = GoRouter(
       name: AppRoutes.videoDetails.toRouteName,
       pageBuilder: (context, state) {
         final data = state.extra as HomeVideoModel;
+        final index = (state.queryParameters['index'] as String).toInt;
         return CustomTransitionPage(
           child: VideoDetails(
-            model: data,
+            index: index,
           ),
           transitionsBuilder: (context, animation, secondaryAnimation, child) =>
               SlideTransition(
