@@ -50,7 +50,7 @@ dependencies:
   # better_player: ^0.0.83
   web_socket_channel: ^2.4.0
   another_flushbar: ^1.12.30
-  cached_video_player: ^2.0.4
+  cached_video_player_fork: ^2.1.1
 
 dev_dependencies:
   json_serializable: ^6.7.1

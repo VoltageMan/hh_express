@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:hh_express/data/remote/dio_client.dart';
+import 'package:hh_express/features/terms_of_usage/usage_terms_model.dart';
 import 'package:hh_express/models/delivery_info/deliery_info_model.dart';
 import 'package:hh_express/models/pagination/pagination_model.dart';
 import 'package:hh_express/models/product_details/product_details_model.dart';
@@ -57,6 +58,15 @@ class ProductRepoImpl extends ProductRepo with DioClientMixin {
     final response = await dio.get(endPoint: EndPoints.deliveryInfo);
     if (response.success) {
       return DeliveryInfoModel.fromMap(response.data[APIKeys.deliveryInfo]);
+    }
+    return null;
+  }
+
+  @override
+  Future<UsageTermsModel?> getTermsOfUsage() async {
+    final response = await dio.get(endPoint: EndPoints.termsOfUsage);
+    if (response.success) {
+      return UsageTermsModel.fromMap(response.data[APIKeys.termsOfUsage]);
     }
     return null;
   }

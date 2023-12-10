@@ -1,35 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_keyboard_size/flutter_keyboard_size.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hh_express/features/address/addres_read_sheet.dart';
 import 'package:hh_express/features/address/view/address_field.dart';
-import 'package:hh_express/features/categories/view/body.dart';
 import 'package:hh_express/features/chat/bloc/chat_bloc.dart';
 import 'package:hh_express/features/chat/bloc/chat_events.dart';
-import 'package:hh_express/features/components/widgets/sheet_titles.dart';
 import 'package:hh_express/features/direct_order/cubit/direct_order_cubit.dart';
 import 'package:hh_express/features/direct_order/view/direct_order_body.dart';
 import 'package:hh_express/features/favors/view/favors_body.dart';
 import 'package:hh_express/features/filter/components/sheet_body.dart';
 import 'package:hh_express/features/order_history/view/screens/orders_sheet_body.dart';
 import 'package:hh_express/features/product_details/view/modalSheet/product_modal_body.dart';
-import 'package:hh_express/features/product_details/view/product_details_body.dart';
 import 'package:hh_express/features/profile/view/sheets/change_lang_sheet.dart';
-import 'package:hh_express/features/video/sim_prods/cubit/simmilar_prods_cubit.dart';
-import 'package:hh_express/features/video/modal_sheet_body.dart';
 import 'package:hh_express/features/video/sim_prods/sim_prods_sheet.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/routes.dart';
-import 'package:hh_express/helpers/spacers.dart';
-import 'package:hh_express/helpers/widgets/sliver_pinnded_container.dart';
 import 'package:hh_express/models/addres/address_model.dart';
 import 'package:hh_express/models/cart/cart_order_model/cart_order_model.dart';
 import 'package:hh_express/models/cart/cart_update/cart_update_model.dart';
-import 'package:hh_express/settings/consts.dart';
-import 'package:hh_express/settings/enums.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ModelBottomSheetHelper {
@@ -280,6 +270,7 @@ class ModelBottomSheetHelper {
   }
 
   static Future<void> showVideoSimmilarProds(String slug, int id) async {
+    _sheetShown = true;
     await showModalBottomSheet(
       context: appRouter.currentContext,
       useRootNavigator: true,
@@ -291,7 +282,6 @@ class ModelBottomSheetHelper {
         ),
       ),
       builder: (ctx) {
-        _sheetShown = true;
         _currentContext = ctx;
         return VideoSimmilarProdsSheet(slug, id);
       },

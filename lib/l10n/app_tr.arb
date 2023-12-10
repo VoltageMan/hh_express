@@ -76,6 +76,8 @@
   "uuid":"Belgisi",
   "comeDate":"Gelmeli senesi",
   "logOut" :"Çykmak",
-  "moreSimProds":"Menzeş harytlar"
+  "moreSimProds":"Menzeş harytlar",
+  "confirm":"Tassyklamak",
+  "termsOfUsage":"Ulanyjylyk şertleri"
 
 }

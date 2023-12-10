@@ -3,7 +3,6 @@ import 'package:hh_express/app/setup.dart';
 import 'package:hh_express/data/local/secured_storage.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/repositories/video/video_repo.dart';
-import 'package:cached_video_player/cached_video_player.dart' as vv;
 
 class TestScreen extends StatefulWidget {
   const TestScreen({super.key});
@@ -34,7 +33,6 @@ class _TestScreenState extends State<TestScreen> {
     'https://v.gozle.com.tm/3/media/video/C-BZzAkZRbs/video.m3u8',
   ];
   final pageController = PageController();
-  vv.CachedVideoPlayerController? controller;
   final currentIndex = ValueNotifier<int>(0);
   @override
   Widget build(BuildContext context) {

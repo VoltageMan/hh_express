@@ -1,9 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/features/components/widgets/place_holder.dart';
-import 'package:hh_express/features/video/view/details/cubit/video_details_cubit.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/routes.dart';
 import 'package:hh_express/models/videos/video_model.dart';
@@ -37,6 +35,8 @@ class VideoWidget extends StatelessWidget {
                 ClipRRect(
                   borderRadius: AppBorderRadiuses.border_6,
                   child: CachedNetworkImage(
+                    height: index % 2 == 0 ? 205.h : 107.h,
+                    fit: BoxFit.cover,
                     imageUrl: model!.product.image,
                     placeholder: (context, url) => MyShimerPlaceHolder(),
                     width: double.infinity,

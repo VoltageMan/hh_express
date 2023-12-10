@@ -89,7 +89,6 @@ class HomeSearchFieldDummy extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        'dsfdsfd'.log();
         context.push(AppRoutes.search);
       },
       child: Container(
@@ -110,9 +109,12 @@ class HomeSearchFieldDummy extends StatelessWidget {
                 iconSize: 20.8.h,
               ),
             ),
-            Text(
-              l10n.searchHint,
-              style: inputTheme.hintStyle,
+            Padding(
+              padding: EdgeInsets.only(left: 2.w, top: 2.h),
+              child: Text(
+                l10n.searchHint,
+                style: inputTheme.hintStyle,
+              ),
             ),
           ],
         ),

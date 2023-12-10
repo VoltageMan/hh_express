@@ -8,7 +8,6 @@ import 'package:hh_express/helpers/overlay_helper.dart';
 import 'package:hh_express/helpers/routes.dart';
 import 'package:hh_express/models/cart/cart_update/cart_update_model.dart';
 import 'package:hh_express/models/product_details/product_details_model.dart';
-import 'package:hh_express/repositories/product_details/product_details_repository.dart';
 import 'package:hh_express/repositories/products/product_repo.dart';
 import 'package:hh_express/settings/enums.dart';
 

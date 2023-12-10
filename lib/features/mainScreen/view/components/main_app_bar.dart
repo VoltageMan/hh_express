@@ -99,7 +99,6 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
                   : Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        // const Expanded(child: HomeSearchField()),
                         Expanded(child: HomeSearchFieldDummy()),
                         Padding(
                           padding: AppPaddings.horiz_16,

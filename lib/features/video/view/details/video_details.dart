@@ -23,8 +23,6 @@ class VideoDetails extends StatefulWidget {
 }
 
 class _VideoDetailsState extends State<VideoDetails> {
-  late dynamic _controller;
-
   @override
   void initState() {
     vdCubit.changePage(widget.index);
@@ -33,7 +31,8 @@ class _VideoDetailsState extends State<VideoDetails> {
 
   @override
   void dispose() {
-    _controller.dispose();
+    pageController.dispose();
+
     super.dispose();
   }
 
@@ -44,8 +43,9 @@ class _VideoDetailsState extends State<VideoDetails> {
     return homeVideoBloc.state.models[vdCubit.state.currentPage];
   }
 
-  void comeBackListener() {
+  void comeBackListener() async {
     '${appRouter.location} locatiooon'.log();
+    await Future.delayed(AppDurations.duration_500ms);
     if (appRouter.location.split('?').first == AppRoutes.videoDetails) {
       vdCubit.changePage(vdCubit.state.lastPage);
       appRouter.removeListener(comeBackListener);
@@ -109,8 +109,8 @@ class _VideoDetailsState extends State<VideoDetails> {
                       children: [
                         GestureDetector(
                           onTap: () {
-                            if (appRouter.location != AppRoutes.videoDetails)
-                              return;
+                            if (appRouter.location.split('?').first !=
+                                AppRoutes.videoDetails) return;
                             appRouter.currentContext.pop();
                           },
                           child: Icon(
@@ -130,9 +130,9 @@ class _VideoDetailsState extends State<VideoDetails> {
                             appRouter.addListener(comeBackListener);
                           },
                           child: Icon(
-                            Icons.arrow_forward_rounded,
+                            Icons.chevron_right_rounded,
                             color: context.theme.scaffoldBackgroundColor,
-                            size: 28.sp,
+                            size: 30.sp,
                           ),
                         ),
                       ],

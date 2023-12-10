@@ -17,6 +17,7 @@ import 'package:hh_express/helpers/splash_screen.dart';
 import 'package:hh_express/models/categories/category_model.dart';
 import 'package:hh_express/models/property/property_model.dart';
 import 'package:hh_express/models/videos/video_model.dart';
+import 'package:hh_express/settings/consts.dart';
 
 enum EnumNavRoutes { home, video, category, cart, profile }
 
@@ -72,7 +73,14 @@ final appRouter = GoRouter(
       path: AppRoutes.search,
       name: AppRoutes.search.toRouteName,
       pageBuilder: (context, state) {
-        return CupertinoPage(
+        return CustomTransitionPage(
+          transitionDuration: AppDurations.duration_250ms,
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return FadeTransition(
+              opacity: animation,
+              child: child,
+            );
+          },
           child: SearchScreen(),
         );
       },

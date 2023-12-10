@@ -231,7 +231,7 @@ class AssetsPath {
   //!
 }
 
-class EndPoints {
+sealed class EndPoints {
   static const baseUrl = 'http://216.250.9.74/';
   static const logIn = 'api/v1/auth/login';
   static const register = 'api/v1/auth/register';
@@ -256,6 +256,7 @@ class EndPoints {
   static const favorsList = 'api/v1/favorite/list';
   static const favorsSwitch = 'api/v1/favorite';
   static const deliveryInfo = '/api/v1/state';
+  static const termsOfUsage = '/api/v1/terms-of-usage';
   static const videoList = '/api/v1/video/list';
 
   static String notificationDelete(int id) => 'api/v1/notification/$id/delete';
@@ -269,6 +270,7 @@ class EndPoints {
 
 class APIKeys {
   static const mainCategories = 'main_categories';
+  static const termsOfUsage = 'terms-of-usage';
   static const address = 'address';
   static const cart = 'cart';
   static const cartUuid = 'cart_uuid';

@@ -76,6 +76,9 @@
   "uuid":"Mark",
   "comeDate":"Come date",
   "moreSimProds":"More simmilar products",
-  "logOut":"Log out"
+  "logOut":"Log out",
+  "confirm":"Confirm",
+  "termsOfUsage":"Terms of usage"
+
   
 }
