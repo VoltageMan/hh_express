@@ -56,7 +56,6 @@ class OverlayHelper {
 }
 
 class SnackBarHelper {
-  static final _keys = List<GlobalKey>.empty(growable: true);
   static SnackBar _snackBar(String message) {
     final needMargin = appRouter.location == AppRoutes.mainScreen;
     return SnackBar(
@@ -77,11 +76,6 @@ class SnackBarHelper {
 
   static void showTopSnack(String message, APIState state, {String? title}) {
     final context = appRouter.currentContext;
-    if (_keys.isNotEmpty) {
-      (_keys.last.currentWidget as Flushbar?)?.dismiss();
-      _keys.removeLast();
-    }
-    _keys.add(GlobalKey());
     topFlush(message, state, title: title).show(context);
   }
 
@@ -100,11 +94,10 @@ class SnackBarHelper {
     return Flushbar(
       margin: AppPaddings.all_12..add(AppPaddings.top_6),
       borderRadius: AppBorderRadiuses.border_10,
-      key: _keys.last,
       flushbarPosition: FlushbarPosition.TOP,
       title: title,
       animationDuration: AppDurations.duration_500ms,
-      duration: Duration(seconds: 3),
+      duration: Duration(seconds: 2),
       messageText: Text(
         message,
         maxLines: 2,

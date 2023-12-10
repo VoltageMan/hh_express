@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hh_express/features/categories/view/mainCategories/main_category_builder.dart';
 import 'package:hh_express/features/categories/view/simpleCategories/simple_categories_builder.dart';
+import 'package:hh_express/helpers/extentions.dart';
+import 'package:hh_express/helpers/spacers.dart';
 import 'package:hh_express/settings/consts.dart';
 
 class CategoryBody extends StatefulWidget {
@@ -37,26 +41,27 @@ class CategoryErrorBody extends StatelessWidget {
   final VoidCallback? onTap;
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        SizedBox(width: double.infinity),
-        Icon(
-          Icons.error_outline,
-          color: AppColors.appOrange,
-        ),
-        ElevatedButton(
-          onPressed: () {
-            if (onTap != null) {
-              onTap!.call();
-              return;
-            }
-          },
-          child: Text(
-            'Try again',
+        Text(
+          '${l10n.someThingWent}',
+          textAlign: TextAlign.center,
+          style: context.theme.textTheme.bodyLarge!.copyWith(
+            fontSize: 19.sp,
+            fontWeight: FontWeight.w500,
           ),
-        )
+        ),
+        AppSpacing.vertical_20,
+        IconButton(
+          icon: SvgPicture.asset(
+            AssetsPath.reloadIcon,
+            color: AppColors.darkGrey,
+          ),
+          onPressed: onTap,
+        ),
       ],
     );
   }

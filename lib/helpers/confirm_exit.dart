@@ -54,8 +54,8 @@ class Confirm {
       builder: (context) {
         currentContext = context;
         return ConfirmingDialog(
-          title: 'loging out',
-          content: 'Are u sure that u want to logout?',
+          title: context.l10n.logOut,
+          content: context.l10n.exitConfirm,
           onConfirm: () => onlogOut(context),
         );
       },

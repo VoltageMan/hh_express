@@ -201,6 +201,7 @@ class AssetsPath {
   static const splashBackPng = 'assets/images/splash_back.png';
   //! icons
   static const deliveryPlaneIcon = 'assets/icons/delivery_plane.svg';
+  static const reloadIcon = 'assets/icons/reload.svg';
   static const deliveryTrackIcon = 'assets/icons/delivery_track.svg';
   static const logoIcon = 'assets/icons/logo.svg';
   static const searchIcon = 'assets/icons/search.svg';
