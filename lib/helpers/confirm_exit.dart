@@ -106,36 +106,3 @@ class ConfirmingDialog extends StatelessWidget {
     );
   }
 }
-
-// todo made only one dynamic dialog for messageing
-class LogOutDialog extends StatelessWidget {
-  const LogOutDialog({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context).textButtonTheme.style as MyButtonStyle;
-    return AlertDialog(
-      content: Text(
-        'Do you really wnt to "log-out"?',
-      ),
-      actions: [
-        TextButton(
-          style: theme,
-          onPressed: () => Navigator.pop(context),
-          child: Text(
-            context.l10n.cancle,
-            style: theme.myTextStyle,
-          ),
-        ),
-        TextButton(
-          onPressed: () async {},
-          style: theme,
-          child: Text(
-            context.l10n.exit,
-            style: theme.myTextStyle,
-          ),
-        ),
-      ],
-    );
-  }
-}
