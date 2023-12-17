@@ -23,7 +23,7 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   void dispose() {
     if (mounted) {
-      chatBloc.pusher.disconnect();
+      chatBloc.pusher?.disconnect();
     }
     super.dispose();
   }
@@ -52,9 +52,7 @@ class _ChatScreenState extends State<ChatScreen> {
               child: CircularProgressIndicator.adaptive(),
             )
           : chatBLoc.state.messagesListState == APIState.error
-              ? Center(
-                  child: Text(chatBLoc.state.errorMessage!),
-                )
+              ? _centerText(chatBLoc.state.errorMessage!)
               : ChatWithBackground(
                   msgs: chatBLoc.state.messages ?? {},
                 ),
@@ -76,4 +74,12 @@ class _ChatScreenState extends State<ChatScreen> {
   //     ),
   //   ];
   // }
+}
+
+Widget _centerText(String text) {
+  return Center(
+    child: Text(
+      text,
+    ),
+  );
 }

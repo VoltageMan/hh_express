@@ -14,5 +14,4 @@ abstract class ProductRepo {
   Future<DeliveryInfoModel?> getDeliveryInfo();
   Future<UsageTermsModel?> getTermsOfUsage();
   Future<ProductDetailsModel?> getDetails(int id, CancelToken cancelToken);
-
 }

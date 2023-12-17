@@ -41,6 +41,7 @@ class HomeBloc extends Cubit<HomeState> {
     DeliveryInfoModel? deliveryInfo;
     if (state.deliveryInfo == null) {
       deliveryInfo = await _repo.getDeliveryInfo();
+      
     } else {
       deliveryInfo = state.deliveryInfo;
     }

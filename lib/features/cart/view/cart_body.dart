@@ -18,6 +18,7 @@ class CartScreen extends StatelessWidget with DioClientMixin {
   CartScreen({super.key});
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return BlocBuilder<CartCubit, CartState>(
       builder: (context, state) {
         'cartREBuild'.log();
@@ -32,13 +33,13 @@ class CartScreen extends StatelessWidget with DioClientMixin {
         if (state.apiState == CartAPIState.unAuthorized) {
           return Center(
             child: Text(
-              'Unauthorized',
+              l10n.unauthorized,
             ),
           );
         }
         if (state.cart!.orders.isEmpty) {
           return Center(
-            child: Text('Cart is empty'),
+            child: Text(l10n.empty),
           );
         }
         return Stack(

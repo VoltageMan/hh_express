@@ -47,14 +47,14 @@ class CategoryErrorBody extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          '${l10n.someThingWent}',
+          '${l10n.socketExeption}',
           textAlign: TextAlign.center,
           style: context.theme.textTheme.bodyLarge!.copyWith(
             fontSize: 19.sp,
             fontWeight: FontWeight.w500,
           ),
         ),
-        AppSpacing.vertical_20,
+        SizedBox(width: double.infinity, height: 20.h),
         IconButton(
           icon: SvgPicture.asset(
             AssetsPath.reloadIcon,

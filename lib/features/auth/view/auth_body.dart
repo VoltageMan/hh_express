@@ -139,10 +139,11 @@ class _AuthBodyState extends State<AuthBody>
               children: [
                 TextSpan(
                   // todo localization
-                  text: 'Already have an account?',
+                  text:
+                      '${(!forSingUp ? l10n.createNewAcc : l10n.alreadyHaveacc)}  ',
                 ),
                 TextSpan(
-                  text: forSingUp ? l10n.singIn : l10n.registration,
+                  text: !forSingUp ? l10n.create : l10n.logIn,
                   style: TextStyle(
                     color: AppColors.mainOrange,
                   ),

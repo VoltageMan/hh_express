@@ -27,7 +27,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
-  static final appKey = GlobalKey();
   @override
   State<MyApp> createState() => _MyAppState();
 }
@@ -43,9 +42,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(
-          create: (context) => NotificationCubit(),
-        ),
+        BlocProvider(create: (context) => NotificationCubit()),
         BlocProvider(create: (context) => ChatBloc()),
         BlocProvider(create: (context) => HomeBloc()),
         BlocProvider(create: (context) => AuthBloc()),
@@ -68,7 +65,6 @@ class _MyAppState extends State<MyApp> {
             builder: (context, locale, child) {
               locale.log();
               return MaterialApp.router(
-                key: MyApp.appKey,
                 title: 'Yuan Shop',
                 supportedLocales: AppLocalizations.supportedLocales,
                 routerConfig: appRouter,

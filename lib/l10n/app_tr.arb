@@ -78,6 +78,10 @@
   "logOut" :"Ulgamdan çykmak",
   "moreSimProds":"Menzeş harytlar",
   "confirm":"Tassyklamak",
-  "termsOfUsage":"Ulanyjylyk şertleri"
+  "termsOfUsage":"Ulanyjylyk şertleri",
+  "createNewAcc":"Täze hasap döretmek",
+  "create":"Döret", 
+  "alreadyHaveacc":"Eýýam hasabynyz barmy?",
+  "logIn":"Girmer"
 
 }

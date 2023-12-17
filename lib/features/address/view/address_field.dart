@@ -51,7 +51,6 @@ class _AddressFieldState extends State<AddressField> {
             title: l10n.address,
             isPadded: true,
           ),
-          AppSpacing.vertical_40,
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
