@@ -87,10 +87,6 @@ class SnackBarHelper {
   }
 
   static Flushbar topFlush(String message, APIState state, {String? title}) {
-    final colors = {
-      APIState.success: Color.fromARGB(255, 86, 209, 90),
-      APIState.error: const Color.fromARGB(255, 255, 89, 77),
-    };
     return Flushbar(
       margin: AppPaddings.all_12..add(AppPaddings.top_6),
       borderRadius: AppBorderRadiuses.border_10,
@@ -103,7 +99,7 @@ class SnackBarHelper {
         maxLines: 2,
         style: TextStyle(color: Colors.white),
       ),
-      backgroundColor: colors[state] ?? Color.fromARGB(255, 74, 174, 255),
+      backgroundColor: Colors.black,
     );
   }
 }

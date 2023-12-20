@@ -79,8 +79,11 @@
   "moreSimProds":"Больше схожих товаров",
   "logOut":"Выйти",
   "confirm":"Подтвердить",
-  "termsOfUsage":"Условия пользование"
+  "termsOfUsage":"Условия пользование",
 
-
+  "createNewAcc":"Создать новый аккаунт",
+  "create":"Создать", 
+  "alreadyHaveacc":"Уже иммеете аккаунт?",
+  "logIn":"Войти"
 
 }

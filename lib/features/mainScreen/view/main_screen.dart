@@ -11,7 +11,6 @@ import 'package:hh_express/helpers/confirm_exit.dart';
 import 'package:hh_express/helpers/modal_sheets.dart';
 import 'dart:developer';
 
-
 class MainScreen extends StatefulWidget {
   const MainScreen({
     super.key,
@@ -35,16 +34,15 @@ class _MainScreenState extends State<MainScreen> {
   void dispose() {
     // TODO: implement dispose
     super.dispose();
-    bodies = null;
   }
 
-  List<Widget>? bodies = [
-    HomeScreen(),
-    HomeVideos(),
-    CategoryBody(),
-    CartScreen(),
-    ProfileBody(),
-  ];
+  List<Widget>? get bodies => [
+        HomeScreen(),
+        HomeVideos(),
+        CategoryBody(),
+        CartScreen(),
+        ProfileBody(),
+      ];
   bool _dialogShown = false;
   @override
   Widget build(BuildContext context) {

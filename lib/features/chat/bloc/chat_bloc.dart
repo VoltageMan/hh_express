@@ -5,6 +5,8 @@ import 'package:hh_express/data/local/secured_storage.dart';
 import 'package:hh_express/features/chat/bloc/chat_events.dart';
 import 'package:hh_express/features/chat/bloc/chat_state.dart';
 import 'package:hh_express/features/chat/models/message.dart';
+import 'package:hh_express/helpers/extentions.dart';
+import 'package:hh_express/helpers/routes.dart';
 import 'package:hh_express/repositories/chat/chat_repository.dart';
 import 'package:hh_express/settings/enums.dart';
 
@@ -36,6 +38,14 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
     ///Getting messages page, if page is first - connect to websocket.
     on<GetMessagesListEvent>((event, emit) async {
+      if (LocalStorage.getToken == null) {
+        return emit(
+          ChatState(
+            messagesListState: APIState.error,
+            errorMessage: appRouter.currentContext.l10n.unauthorized,
+          ),
+        );
+      }
       emit(
         state.update(
           messagesListState: APIState.loading,
@@ -104,7 +114,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   }
 
   final _authEndpoint = 'http://216.250.9.74/api/broadcasting/auth';
-  late PusherChannelsClient pusher;
+  PusherChannelsClient? pusher;
 
   void connectToWebsocket(int conversationId) async {
     late PusherChannelsOptions options;
@@ -131,8 +141,8 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     PusherChannelsPackageLogger.enableLogs();
     final token = LocalStorage.getToken;
 
-    await pusher.connect();
-    final channel = pusher.privateChannel('User.Chat.$conversationId',
+    await pusher?.connect();
+    final channel = pusher?.privateChannel('User.Chat.$conversationId',
         authorizationDelegate:
             EndpointAuthorizableChannelTokenAuthorizationDelegate
                 .forPrivateChannel(
@@ -142,10 +152,10 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
             //TODO: show dialog with error.
           },
         ));
-    channel.bind('MessageCreated').listen((event) {
+    channel?.bind('MessageCreated').listen((event) {
       final message = Message.fromJson(event.data);
       add(AddMessageToListEvent(message: message));
     });
-    channel.subscribe();
+    channel?.subscribe();
   }
 }
