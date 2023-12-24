@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/features/auth/bloc/auth_bloc.dart';
 import 'package:hh_express/helpers/confirm_exit.dart';
+import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/spacers.dart';
 import 'package:hh_express/settings/consts.dart';
 
@@ -36,16 +37,17 @@ class _TermsOfUseWidgetState extends State<TermsOfUseWidget> {
             },
           ),
         ),
-        AppSpacing.horizontal_12,
+        AppSpacing.horizontal_4,
         Text.rich(
           TextSpan(
             style: theme.textTheme.bodyMedium,
             children: [
-              const TextSpan(
-                text: 'Sertler bilen ',
+              TextSpan(
+                text: (context.l10n.termsAccept.split(' ')..removeLast())
+                    .join(' '),
               ),
               TextSpan(
-                text: 'ylalasyan',
+                text: (' ' + context.l10n.termsAccept.split(' ').last),
                 recognizer: TapGestureRecognizer()
                   ..onTap = () async {
                     Confirm.confirmTerms(context);

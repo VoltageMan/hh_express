@@ -8,11 +8,15 @@ import 'package:hh_express/features/components/widgets/place_holder.dart';
 import 'package:hh_express/features/components/widgets/svg_icons.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/modal_sheets.dart';
+import 'package:hh_express/helpers/overlay_helper.dart';
 import 'package:hh_express/helpers/spacers.dart';
 import 'package:hh_express/models/cart/cart_order_model/cart_order_model.dart';
+import 'package:hh_express/models/cart/cart_product_model/cart_product_model.dart';
 import 'package:hh_express/models/cart/cart_update/cart_update_model.dart';
 import 'package:hh_express/settings/consts.dart';
+import 'package:hh_express/settings/enums.dart';
 import 'package:hh_express/settings/theme.dart';
+import 'package:hh_express/features/favors/bloc/favors_bloc.dart';
 
 class CartWidget extends StatelessWidget {
   const CartWidget({
@@ -109,7 +113,6 @@ class CartWidget extends StatelessWidget {
                           iconSize: 19.sp,
                           onTap: () async {
                             final cubit = context.read<CartCubit>();
-                            model.propertyValues!.length.log();
                             await cubit.cartUpdate(
                               CartUpdateModel(
                                 productId: product.id,
@@ -128,12 +131,32 @@ class CartWidget extends StatelessWidget {
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          Text(
-                            'Halanlaryma goş',
-                            style: context.theme.textTheme.bodySmall,
+                          Flexible(
+                            flex: 7,
+                            child: GestureDetector(
+                              onTap: () async {
+                                final l10n = context.l10n;
+                                final response = await context
+                                    .read<FavorsCubit>()
+                                    .switchFavor(model.product);
+                                if (response != null) {
+                                  SnackBarHelper.showTopSnack(
+                                      response
+                                          ? l10n.addedToFavors
+                                          : l10n.removedFromFavors,
+                                      APIState.success);
+                                }
+                              },
+                              child: FittedBox(
+                                child: Text(
+                                  context.l10n.addToFavors,
+                                  style: context.theme.textTheme.bodySmall,
+                                ),
+                              ),
+                            ),
                           ),
                           SizedBox(
-                            width: 23.w,
+                            width: 8.w,
                           ),
                           CartCount(
                             count: model.quantity,
@@ -151,9 +174,6 @@ class CartWidget extends StatelessWidget {
                                   quantity: newCount,
                                 ),
                               );
-                              // if (val) {
-                              //   model = model.copyWith(quantity: newCount);
-                              // }
                             },
                             onRemove: () async {
                               if (model.quantity == 0) return;

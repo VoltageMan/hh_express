@@ -15,7 +15,7 @@ class MoreSimProdsScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => MoreSimProdsCubit(slug)..init(),
       child: Scaffold(
-        // todo localization
+        
         appBar: AppBar(
           title: Text(context.l10n.moreSimProds),
           leading: GestureDetector(

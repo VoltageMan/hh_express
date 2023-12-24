@@ -138,7 +138,7 @@ class _AuthBodyState extends State<AuthBody>
               style: AppTheme.bodyMedium14(context),
               children: [
                 TextSpan(
-                  // todo localization
+                
                   text:
                       '${(!forSingUp ? l10n.createNewAcc : l10n.alreadyHaveacc)}  ',
                 ),

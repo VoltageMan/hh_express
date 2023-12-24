@@ -14,15 +14,19 @@ class DirectOrderSheetBody extends StatelessWidget {
   final CartUpdateModel model;
   @override
   Widget build(BuildContext context) {
+    final bloc = context.read<DirectOrderCubit>();
     return SizedBox(
       height: 700.h,
       child: BlocBuilder<DirectOrderCubit, DirectOrderState>(
-        bloc: context.read<DirectOrderCubit>(),
+        bloc: bloc,
         builder: (context, state) {
           final apiState = state.apiState;
           if (apiState == APIState.init) return SizedBox();
           if (apiState == APIState.loading) return CenterLoading();
-          if (apiState == APIState.error) return CategoryErrorBody();
+          if (apiState == APIState.error)
+            return CategoryErrorBody(
+              onTap: () => bloc.init(model),
+            );
           return BuyProdSheetBody(
             model: state.cartModel!.orders.first,
             bill: BillModel.fromCartModel(state.cartModel!),

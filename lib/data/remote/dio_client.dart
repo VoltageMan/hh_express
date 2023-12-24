@@ -139,7 +139,6 @@ ApiResponse _handleException(Object e, StackTrace? stack) {
       appRouter.currentContext.l10n.socketExeption,
       APIState.error,
     );
-    'MY log Soceet Exeptionnn'.log();
     return ApiResponse(
       data: {},
       error: 'SocketExeption',
@@ -151,7 +150,7 @@ ApiResponse _handleException(Object e, StackTrace? stack) {
     '${e.requestOptions.data} MyDioExeption'.log();
     SnackBarHelper.showTopSnack(
       e.response!.data['message'] ??
-          appRouter.currentContext.l10n.someThingWent,
+          appRouter.currentContext.l10n.socketExeption,
       APIState.error,
     );
     return ApiResponse.fromJson(e.response!.data);

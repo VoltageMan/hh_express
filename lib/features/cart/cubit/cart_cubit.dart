@@ -2,11 +2,13 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hh_express/app/setup.dart';
 import 'package:hh_express/data/local/secured_storage.dart';
+import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/overlay_helper.dart';
 import 'package:hh_express/models/cart/cart_model/cart_model.dart';
 import 'package:hh_express/models/cart/cart_update/cart_update_model.dart';
 import 'package:hh_express/repositories/cart/cart_repository.dart';
 import 'package:hh_express/settings/enums.dart';
+import 'package:hh_express/helpers/routes.dart';
 
 part 'cart_state.dart';
 
@@ -61,8 +63,9 @@ class CartCubit extends Cubit<CartState> {
       );
       value = true;
     }
+    final l10n = appRouter.currentContext.l10n;
     SnackBarHelper.showMessageSnack(
-        data != null ? 'success' : 'some things went wrong');
+        data != null ? l10n.succsess : l10n.socketExeption);
     emit(
       CartState(
         apiState: CartAPIState.success,

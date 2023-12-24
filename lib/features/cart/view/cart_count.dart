@@ -24,6 +24,7 @@ class _CartCountState extends State<CartCount> {
   Widget build(BuildContext context) {
     return BlocBuilder<CartCubit, CartState>(builder: (context, state) {
       return Expanded(
+        flex: 5,
         child: Stack(
           alignment: Alignment.center,
           children: [

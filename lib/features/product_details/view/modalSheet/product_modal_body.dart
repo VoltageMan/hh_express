@@ -20,7 +20,6 @@ class BuyProdSheetBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    'REbuildd';
     return Column(
       children: [
         BottomSheetTitle(title: context.l10n.buy, isPadded: true),

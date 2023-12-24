@@ -16,7 +16,7 @@
     "code": "Код",
     "phoneNumber": "Номер телефона",
     "name": "Имя",
-    "registerTitle": "Введите свой номер телефона, чтобы перейти на платформу hh",
+    "registerTitle": "Введите свой номер телефона, чтобы перейти на платформу Yuan_shop",
     "news": "Новые",
     "mostSold": "По продажам",
     "userName": "Имя пользовотеля",
@@ -50,7 +50,7 @@
     "came": "Пришло",
     "buy": "Купить",
     "addToCart": "Добавить в корзину",
-    "aboutProd": "О товоре",
+    "aboutProd": "О товаре",
     "prodName": "Название продукта",
     "color": "Цвет",
     "size": "Размер",
@@ -65,25 +65,28 @@
     "address": "Адресс",
     "someThingWent":"Что-то пошло не так",
     "selecTAddress":"Выберите адрес",
-    "succsess":"Успех",
-    "socketExeption":"Подключение было прервано",
+    "succsess":"Успешно",
+    "socketExeption":"Не удалось подключится к серверу",
     "tryAgain":"Повторить попытку",
     "unauthorized":"Не зарегистрирован",
     "empty":"Путсо",
     "least5Symbols":"Поле должно быть минимум 5 символов",
     "contiansWrongSymbols":"Поле содержит не поддерживаемые символы",
-  "addToFavors":"Добавить в избранные"
-  ,
+  "addToFavors":"Добавить в избранные",
   "uuid":"Номер",
   "comeDate":"Дата прихода",
   "moreSimProds":"Больше схожих товаров",
   "logOut":"Выйти",
   "confirm":"Подтвердить",
   "termsOfUsage":"Условия пользование",
-
   "createNewAcc":"Создать новый аккаунт",
   "create":"Создать", 
   "alreadyHaveacc":"Уже иммеете аккаунт?",
-  "logIn":"Войти"
+  "logIn":"Войти", 
+  "addedToFavors": "Успешно добавлено в избранные",
+  "removedFromFavors": "Удалено из избранных",
+  "termsAccept":"Принять условия пользование"
+
+,  "nothingFound": "Ничего не найдено"
 
 }

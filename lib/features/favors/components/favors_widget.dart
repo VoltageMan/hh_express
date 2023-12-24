@@ -83,8 +83,9 @@ class _FavorsWidgetState extends State<FavorsWidget> {
                 if (widget.model == null) return;
                 final val = await cubit.switchFavor(widget.model!);
                 if (val != null) {
-                  isFavor = val;
-                  setState(() {});
+                  setState(() {
+                    isFavor = val;
+                  });
                 }
               },
               style: ElevatedButton.styleFrom(

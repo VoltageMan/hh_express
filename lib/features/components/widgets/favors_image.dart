@@ -29,10 +29,7 @@ class FavorsImage extends StatelessWidget {
                 radius: BorderRadius.zero,
               )
             : CachedNetworkImage(
-                // todo remove start with
-                imageUrl:
-                    imgPath!.startsWith('http') ? imgPath! : AssetsPath.macBook,
-                // todo error widget
+                imageUrl: imgPath!,
                 errorWidget: (context, url, error) {
                   return Center(
                     child: Icon(

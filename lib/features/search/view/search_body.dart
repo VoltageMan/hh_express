@@ -47,11 +47,7 @@ class _SearchBodyState extends State<SearchBody> {
       bloc: cubit,
       builder: (context, state) {
         final apiState = state.apiState;
-        if (apiState == SearchAPIState.init)
-          return Center(
-            //todo localization
-            child: Text('type some things'),
-          );
+        if (apiState == SearchAPIState.init) return SizedBox();
         if (apiState == SearchAPIState.error)
           return CategoryErrorBody(
             onTap: () {
@@ -62,7 +58,7 @@ class _SearchBodyState extends State<SearchBody> {
           return Center(
               child: Text(
             //todo localization
-            'nothing found',
+            context.l10n.nothingFound,
           ));
         }
         return RefreshIndicator(

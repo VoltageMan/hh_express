@@ -59,12 +59,14 @@ class FavorsCubit extends Cubit<FavorsState> {
     final data = await _repo.switchFavor(model.id);
     if (data != null) {
       final newList = List<CartProductModel>.from(state.models);
-      if (data) {
-        newList.add(model);
-      } else {
-        final index = findIndex(model.id);
-        newList.removeAt(index);
-      }
+      try {
+        if (data) {
+          newList.add(model);
+        } else {
+          final index = findIndex(model.id);
+          newList.removeAt(index);
+        }
+      } catch (e) {}
       emit(state.copyWith(models: List.from(newList)));
       _isSwitching = false;
       return data;

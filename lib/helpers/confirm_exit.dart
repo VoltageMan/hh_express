@@ -8,7 +8,7 @@ import 'package:hh_express/settings/theme.dart';
 
 class Confirm {
   static Future<void> onlogOut(BuildContext context) async {
-    final bloc = await context.read<AuthBloc>().logOut();
+     await context.read<AuthBloc>().logOut();
     Navigator.pop(currentContext!);
   }
 
@@ -54,8 +54,8 @@ class Confirm {
       builder: (context) {
         currentContext = context;
         return ConfirmingDialog(
-          title: context.l10n.logOut,
-          content: context.l10n.exitConfirm,
+          title: l10n.logOut,
+          content: l10n.exitConfirm,
           onConfirm: () => onlogOut(context),
         );
       },
