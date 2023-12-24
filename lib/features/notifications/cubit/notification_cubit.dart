@@ -54,6 +54,13 @@ class NotificationCubit extends Cubit<NotificationState> {
   }
 
   Future<void> getNotificationsCount() async {
+    if (LocalStorage.getToken == null) {
+      return emit(
+        NotificationState(
+          apiState: APIState.error,
+        ),
+      );
+    }
     emit(
       NotificationState(
         apiState: APIState.loading,
