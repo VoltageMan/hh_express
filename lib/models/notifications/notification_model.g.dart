@@ -9,7 +9,7 @@ part of 'notification_model.dart';
 NotificationModel _$NotificationModelFromJson(Map<String, dynamic> json) =>
     NotificationModel(
       date: json['date'] as String?,
-      subTitle: json['subTitle'] as String,
+      subTitle: json['description'] as String,
       title: json['title'] as String,
       id: json['id'] as int,
       is_seen: json['is_seen'] as bool? ?? true,

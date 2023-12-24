@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/features/mainScreen/view/components/navBar/cart_icon.dart';
 import 'package:hh_express/features/components/widgets/svg_icons.dart';
+import 'package:hh_express/features/notifications/cubit/notification_cubit.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/settings/consts.dart';
 
@@ -34,6 +36,8 @@ class MyNavBar extends StatelessWidget {
           (index) => index == 3
               ? CartIcon(
                   onTap: () {
+                    final notifCubit = context.read<NotificationCubit>();
+                    notifCubit.getNotificationsCount();
                     bodyIndex.value = index;
                   },
                 )
@@ -42,6 +46,7 @@ class MyNavBar extends StatelessWidget {
                     bodyIndex.value = index;
                   },
                   child: Container(
+                    // TODO: Write in English!!!
                     // gyralaryna basanda basylanok, without color
                     // color: AppColors.transparent,
                     height: 72.h,
