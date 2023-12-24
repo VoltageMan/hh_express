@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hh_express/app/setup.dart';
+import 'package:hh_express/data/local/secured_storage.dart';
 import 'package:hh_express/features/notifications/cubit/notification_state.dart';
 import 'package:hh_express/models/notifications/notification_model.dart';
 import 'package:hh_express/repositories/notifications/notifications_repo.dart';
@@ -15,6 +16,13 @@ class NotificationCubit extends Cubit<NotificationState> {
   final _repo = getIt<NotificationsRepo>();
 
   Future<void> getNotifications() async {
+    if (LocalStorage.getToken == null) {
+      return emit(
+        NotificationState(
+          apiState: APIState.error,
+        ),
+      );
+    }
     emit(
       NotificationState(
         apiState: APIState.loading,

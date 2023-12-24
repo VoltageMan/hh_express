@@ -1,4 +1,6 @@
 {
+  "notifications":"Notifications",
+
     "helloWorld": "qq",
     "searchHint": "Поиск...",
     "home": "Главная",

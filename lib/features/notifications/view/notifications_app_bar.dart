@@ -29,7 +29,7 @@ class NotificationsAppBar extends StatelessWidget
           const PopLeadingIconButton(),
           Center(
             child: Text(
-              'Notifcations',
+              context.l10n.notifications,
               style: theme.textTheme.titleMedium,
             ),
           ),
