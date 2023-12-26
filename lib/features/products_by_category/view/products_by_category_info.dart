@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hh_express/features/categories/bloc/category_bloc.dart';
 import 'package:hh_express/features/components/widgets/place_holder.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/settings/consts.dart';
@@ -17,6 +19,7 @@ class ProductsByCategoryInfo extends StatelessWidget {
   final String? subTitle;
   @override
   Widget build(BuildContext context) {
+    final catState = context.read<CategoryBloc>().state;
     final l10n = context.l10n;
     final isLoading = total == null;
     return SliverPadding(
@@ -36,7 +39,7 @@ class ProductsByCategoryInfo extends StatelessWidget {
                   margin: AppPaddings.vertic_4,
                 )
               : Text(
-                  'Diňe oglan üçin',
+                  catState.mains![catState.activIndex!].name,
                   style: AppTheme.titleLarge18(context),
                 ),
           isLoading

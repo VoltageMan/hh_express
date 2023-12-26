@@ -87,6 +87,8 @@
   "addedToFavors": "Halanlaryma üstünlikli goşuldy",
   "removedFromFavors": "Halanlarymdan aýryldy",
   "termsAccept":"Şertler bilen ylalaşýan", 
-  "nothingFound": "Hiç zat tapylmady"
+  "nothingFound": "Hiç zat tapylmady",
+   "loading":"Ýüklenýar..."
+
 
 }

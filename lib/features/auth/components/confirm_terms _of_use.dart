@@ -44,10 +44,11 @@ class _TermsOfUseWidgetState extends State<TermsOfUseWidget> {
             children: [
               TextSpan(
                 text: (context.l10n.termsAccept.split(' ')..removeLast())
-                    .join(' '),
+                        .join(' ') +
+                    ' ',
               ),
               TextSpan(
-                text: (' ' + context.l10n.termsAccept.split(' ').last),
+                text: (context.l10n.termsAccept.split(' ').last),
                 recognizer: TapGestureRecognizer()
                   ..onTap = () async {
                     Confirm.confirmTerms(context);

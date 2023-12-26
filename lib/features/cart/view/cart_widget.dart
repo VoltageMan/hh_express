@@ -139,11 +139,15 @@ class CartWidget extends StatelessWidget {
                                     .read<FavorsCubit>()
                                     .switchFavor(model.product);
                                 if (response != null) {
-                                  SnackBarHelper.showTopSnack(
-                                      response
-                                          ? l10n.addedToFavors
-                                          : l10n.removedFromFavors,
-                                      APIState.success);
+                                  // zero delayed cause of throwing error "package:flutter/src/widgets/navigator.dart': Failed assertion: line 2216 pos 12: '!_debugLocked': is not true"
+                                  Future.delayed(
+                                    Duration.zero,
+                                    () => SnackBarHelper.showTopSnack(
+                                        response
+                                            ? l10n.addedToFavors
+                                            : l10n.removedFromFavors,
+                                        APIState.success),
+                                  );
                                 }
                               },
                               child: FittedBox(

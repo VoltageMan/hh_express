@@ -83,12 +83,11 @@
   "termsOfUsage":"Условия пользование",
   "createNewAcc":"Создать новый аккаунт",
   "create":"Создать", 
-  "alreadyHaveacc":"Уже иммеете аккаунт?",
+  "alreadyHaveacc":"Уже имеете аккаунт?",
   "logIn":"Войти", 
   "addedToFavors": "Успешно добавлено в избранные",
   "removedFromFavors": "Удалено из избранных",
-  "termsAccept":"Принять условия пользование"
-
-,  "nothingFound": "Ничего не найдено"
-
+  "termsAccept":"Принять условия пользование",
+  "nothingFound": "Ничего не найдено",
+   "loading":"Загрузка..."
 }

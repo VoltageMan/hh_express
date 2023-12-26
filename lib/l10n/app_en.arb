@@ -87,5 +87,6 @@
   "addedToFavors": "Successfully added to favorites",
   "termsAccept":"Accept teerms of usage",
   "removedFromFavors": "Removed from favorites",
-  "nothingFound": "Nothing found"
+  "nothingFound": "Nothing found", 
+  "loading":"Loading..."
 }

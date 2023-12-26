@@ -36,7 +36,7 @@ class OverlayHelper {
                     'GestureTap'.log();
                   },
                   child: Text(
-                    'Loading...',
+                    context.l10n.loading,
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 20,
@@ -44,7 +44,9 @@ class OverlayHelper {
                   ),
                 ),
                 AppSpacing.vertical_10,
-                CircularProgressIndicator()
+                CircularProgressIndicator(
+                  color: AppColors.appOrange,
+                )
               ],
             ),
           ),
