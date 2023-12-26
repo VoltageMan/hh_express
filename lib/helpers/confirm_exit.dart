@@ -8,24 +8,33 @@ import 'package:hh_express/settings/theme.dart';
 
 class Confirm {
   static Future<void> onlogOut(BuildContext context) async {
-     await context.read<AuthBloc>().logOut();
-    Navigator.pop(currentContext!);
+    await context.read<AuthBloc>().logOut();
+    Navigator.pop(_currentContext!);
   }
 
   static void onConfirmExit(BuildContext context) {
     Confirm.exit = true;
-    Navigator.pop(currentContext!);
+    Navigator.pop(_currentContext!);
   }
 
   static bool exit = false;
-  static BuildContext? currentContext;
+  static bool _isDialogShown = false;
+  static BuildContext? _currentContext;
+  static bool doPop() {
+    if (_isDialogShown) {
+      Navigator.pop(_currentContext!);
+      return false;
+    }
+    return true;
+  }
 
   static Future<bool> confirmExit(BuildContext context) async {
     exit = false;
     await showDialog(
       context: context,
       builder: (context) {
-        currentContext = context;
+        _currentContext = context;
+        _isDialogShown = true;
         return ConfirmingDialog(
           title: 'Confirm exit',
           content: context.l10n.exitConfirm,
@@ -33,7 +42,7 @@ class Confirm {
         );
       },
     );
-    log('$exit after tap');
+    _isDialogShown = false;
     return exit;
   }
 
@@ -41,10 +50,13 @@ class Confirm {
     await showDialog(
       context: context,
       builder: (context) {
-        currentContext = context;
+        _currentContext = context;
+        _isDialogShown = true;
+        _currentContext = context;
         return UsageTermsDialog();
       },
     );
+    _isDialogShown = false;
   }
 
   static Future<void> showLogOutDialog(BuildContext context) async {
@@ -52,7 +64,8 @@ class Confirm {
     await showDialog(
       context: context,
       builder: (context) {
-        currentContext = context;
+        _currentContext = context;
+        _isDialogShown = true;
         return ConfirmingDialog(
           title: l10n.logOut,
           content: l10n.exitConfirm,
@@ -60,6 +73,7 @@ class Confirm {
         );
       },
     );
+    _isDialogShown = false;
   }
 }
 

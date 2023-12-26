@@ -47,7 +47,7 @@ class _MainScreenState extends State<MainScreen> {
           return false;
         }
         if (_dialogShown) {
-          Navigator.pop(Confirm.currentContext!);
+          Confirm.doPop();
           return false;
         }
         log('pop Scoup');
