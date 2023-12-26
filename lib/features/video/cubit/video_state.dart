@@ -2,7 +2,7 @@
 part of 'video_cubit.dart';
 
 final class VideoState extends Equatable {
-  final VideoAPIState apiState;
+  final ProductAPIState apiState;
   final List<HomeVideoModel> models;
   final PaginationModel? pagination;
   VideoState({
@@ -14,7 +14,7 @@ final class VideoState extends Equatable {
   List<Object?> get props => [apiState, pagination, models];
 
   VideoState copyWith({
-    VideoAPIState? apiState,
+    ProductAPIState? apiState,
     List<HomeVideoModel>? models,
     PaginationModel? pagination,
   }) {

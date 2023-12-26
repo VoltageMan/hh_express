@@ -45,38 +45,37 @@ class MyNavBar extends StatelessWidget {
                   onTap: () {
                     bodyIndex.value = index;
                   },
-                  child: Container(
-                    // TODO: Write in English!!!
-                    // gyralaryna basanda basylanok, without color
-                    // color: AppColors.transparent,
+                  child: SizedBox(
                     height: 72.h,
                     width: 72.w,
-                    alignment: Alignment.center,
-                    child: ValueListenableBuilder(
-                      valueListenable: bodyIndex,
-                      builder: (context, bodyIndex, child) {
-                        final isSelected = bodyIndex == index;
-                        return Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            MyImageIcon(
-                              path: AssetsPath.navBarIcons[index],
-                              color: isSelected
-                                  ? theme.selectedItemColor
-                                  : theme.unselectedItemColor,
-                              iconSize: 18.h,
-                              contSize: 18.h,
-                            ),
-                            Text(
-                              navBarTitles[index],
-                              style: isSelected
-                                  ? theme.selectedLabelStyle
-                                  : theme.unselectedLabelStyle,
-                            )
-                          ],
-                        );
-                      },
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: ValueListenableBuilder(
+                        valueListenable: bodyIndex,
+                        builder: (context, bodyIndex, child) {
+                          final isSelected = bodyIndex == index;
+                          return Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              MyImageIcon(
+                                path: AssetsPath.navBarIcons[index],
+                                color: isSelected
+                                    ? theme.selectedItemColor
+                                    : theme.unselectedItemColor,
+                                iconSize: 18.h,
+                                contSize: 18.h,
+                              ),
+                              Text(
+                                navBarTitles[index],
+                                style: isSelected
+                                    ? theme.selectedLabelStyle
+                                    : theme.unselectedLabelStyle,
+                              )
+                            ],
+                          );
+                        },
+                      ),
                     ),
                   ),
                 ),

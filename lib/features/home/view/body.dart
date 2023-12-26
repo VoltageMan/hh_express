@@ -5,6 +5,7 @@ import 'package:hh_express/features/categories/view/body.dart';
 import 'package:hh_express/features/components/widgets/product_pagination_bottom.dart';
 import 'package:hh_express/features/home/bloc/home_bloc.dart';
 import 'package:hh_express/features/home/view/components/product_builder.dart';
+import 'package:hh_express/settings/consts.dart';
 import 'package:hh_express/settings/enums.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -17,9 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     bloc = context.read<HomeBloc>()..init();
-    scrollController = ScrollController(
-      initialScrollOffset: bloc.lastPosition,
-    );
+    scrollController = ScrollController(initialScrollOffset: bloc.lastPosition);
     scrollController.addListener(() {
       bloc.lastPosition = scrollController.position.pixels;
       if (scrollController.position.pixels >=
@@ -67,8 +66,11 @@ class _HomeScreenState extends State<HomeScreen> {
           child: CustomScrollView(
             controller: scrollController,
             slivers: [
-              HomeProdBuilder(
-                prods: state.prods,
+              SliverPadding(
+                padding: AppPaddings.bottom_10,
+                sliver: HomeProdBuilder(
+                  prods: state.prods,
+                ),
               ),
               ProductPaginationBottom(
                 isLastPage:

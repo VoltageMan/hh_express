@@ -16,6 +16,7 @@ final class ProductPaginationBottom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverList.list(
+      
       children: [
         if (state == ProductAPIState.loadingMoreError)
           CategoryErrorBody(

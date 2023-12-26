@@ -4,7 +4,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hh_express/features/categories/view/mainCategories/main_category_builder.dart';
 import 'package:hh_express/features/categories/view/simpleCategories/simple_categories_builder.dart';
 import 'package:hh_express/helpers/extentions.dart';
-import 'package:hh_express/helpers/spacers.dart';
 import 'package:hh_express/settings/consts.dart';
 
 class CategoryBody extends StatefulWidget {

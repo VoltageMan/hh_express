@@ -30,12 +30,6 @@ class _MainScreenState extends State<MainScreen> {
     super.initState();
   }
 
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-  }
-
   List<Widget>? get bodies => [
         HomeScreen(),
         HomeVideos(),
@@ -48,9 +42,6 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        // if(OverlayHelper.){
-        //   return
-        // }
         final val = ModelBottomSheetHelper.doPop();
         if (!val) {
           return false;
@@ -70,20 +61,13 @@ class _MainScreenState extends State<MainScreen> {
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.white,
         appBar: MainAppBar(),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
-              child: ValueListenableBuilder(
-                valueListenable: bodyIndex,
-                builder: (contetx, val, child) {
-                  return bodies![val];
-                },
-              ),
-            ),
-            const MyNavBar()
-          ],
+        body: ValueListenableBuilder(
+          valueListenable: bodyIndex,
+          builder: (contetx, val, child) {
+            return bodies![val];
+          },
         ),
+        bottomNavigationBar: const MyNavBar(),
       ),
     );
   }

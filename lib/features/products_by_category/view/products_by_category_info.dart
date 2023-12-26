@@ -31,15 +31,6 @@ class ProductsByCategoryInfo extends StatelessWidget {
         children: [
           isLoading
               ? MyShimerPlaceHolder(
-                  height: 15.h,
-                  width: 66.w,
-                )
-              : Text(
-                  '$title',
-                  style: AppTheme.bodyLargeW500(context),
-                ),
-          isLoading
-              ? MyShimerPlaceHolder(
                   height: 20.h,
                   width: 144.w,
                   margin: AppPaddings.vertic_4,
@@ -47,6 +38,15 @@ class ProductsByCategoryInfo extends StatelessWidget {
               : Text(
                   'Diňe oglan üçin',
                   style: AppTheme.titleLarge18(context),
+                ),
+          isLoading
+              ? MyShimerPlaceHolder(
+                  height: 15.h,
+                  width: 66.w,
+                )
+              : Text(
+                  '$title',
+                  style: AppTheme.bodyLargeW500(context),
                 ),
           isLoading
               ? MyShimerPlaceHolder(

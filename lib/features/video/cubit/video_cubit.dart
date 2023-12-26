@@ -9,15 +9,15 @@ import 'package:hh_express/settings/enums.dart';
 part 'video_state.dart';
 
 class VideoCubit extends Cubit<VideoState> {
-  VideoCubit() : super(VideoState(apiState: VideoAPIState.init));
+  VideoCubit() : super(VideoState(apiState: ProductAPIState.init));
+  double lastPosition = 0;
 
   final _repo = getIt<VideoRepo>();
-
   Future<void> loadMore({bool forRefresh = false}) async {
     if (state.pagination!.currentPage == state.pagination!.lastPage) return;
     emit(
       VideoState(
-        apiState: VideoAPIState.loadingMore,
+        apiState: ProductAPIState.loadingMore,
         models: List.from(state.models),
         pagination: state.pagination,
       ),
@@ -27,7 +27,7 @@ class VideoCubit extends Cubit<VideoState> {
     if (response != null) {
       return emit(
         VideoState(
-          apiState: VideoAPIState.success,
+          apiState: ProductAPIState.success,
           models: List.from(state.models)..addAll(response.data),
           pagination: response.pagination,
         ),
@@ -35,7 +35,7 @@ class VideoCubit extends Cubit<VideoState> {
     }
     emit(
       VideoState(
-        apiState: VideoAPIState.errorMore,
+        apiState: ProductAPIState.loadingMoreError,
         models: List.from(state.models),
         pagination: state.pagination,
       ),
@@ -44,14 +44,14 @@ class VideoCubit extends Cubit<VideoState> {
 
   Future<void> init({bool forUpdate = false}) async {
     final apiState = state.apiState;
-    if (apiState != VideoAPIState.init &&
-        apiState != VideoAPIState.error &&
+    if (apiState != ProductAPIState.init &&
+        apiState != ProductAPIState.error &&
         !forUpdate) {
       return;
     }
     emit(
       VideoState(
-        apiState: VideoAPIState.loading,
+        apiState: ProductAPIState.loading,
         models: List.empty(),
         pagination: state.pagination,
       ),
@@ -60,7 +60,7 @@ class VideoCubit extends Cubit<VideoState> {
     if (response != null) {
       return emit(
         VideoState(
-          apiState: VideoAPIState.success,
+          apiState: ProductAPIState.success,
           models: List.from(response.data),
           pagination: response.pagination,
         ),
@@ -68,7 +68,7 @@ class VideoCubit extends Cubit<VideoState> {
     }
     emit(
       VideoState(
-        apiState: VideoAPIState.error,
+        apiState: ProductAPIState.error,
         models: List.empty(),
         pagination: state.pagination,
       ),

@@ -11,7 +11,6 @@ import 'package:hh_express/helpers/modal_sheets.dart';
 import 'package:hh_express/helpers/overlay_helper.dart';
 import 'package:hh_express/helpers/spacers.dart';
 import 'package:hh_express/models/cart/cart_order_model/cart_order_model.dart';
-import 'package:hh_express/models/cart/cart_product_model/cart_product_model.dart';
 import 'package:hh_express/models/cart/cart_update/cart_update_model.dart';
 import 'package:hh_express/settings/consts.dart';
 import 'package:hh_express/settings/enums.dart';

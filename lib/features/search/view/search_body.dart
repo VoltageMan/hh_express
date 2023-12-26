@@ -68,6 +68,7 @@ class _SearchBodyState extends State<SearchBody> {
           child: ScrollConfiguration(
             behavior: MyBehavior(),
             child: CustomScrollView(
+              keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
               controller: scrollController,
               physics: AlwaysScrollableScrollPhysics(),
               slivers: [
@@ -84,6 +85,7 @@ class _SearchBodyState extends State<SearchBody> {
             ),
           ),
         );
+        
       },
     );
   }

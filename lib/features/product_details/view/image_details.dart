@@ -33,6 +33,7 @@ class _ImageDetailsState extends State<ImageDetails> {
     final mqHeight = MediaQuery.sizeOf(context).height;
     return GestureDetector(
       onPanUpdate: (details) {
+        'sdfs'.log();
         if (details.delta.dy > 5) {
           Navigator.of(context).pop();
         }
@@ -44,27 +45,30 @@ class _ImageDetailsState extends State<ImageDetails> {
           children: [
             SizedBox(
               height: mqHeight * 0.7,
-              child: PageView.builder(
+              child: PageView(
                 controller: pageController,
-                itemCount: widget.images.length,
-                itemBuilder: (context, index) {
-                  return PhotoView(
-                    minScale: 0.0,
-                    loadingBuilder: (context, event) =>
-                        ProdDetailsImagePlaceHolder(),
-                    backgroundDecoration: BoxDecoration(
-                      color: context.theme.scaffoldBackgroundColor,
-                    ),
-                    imageProvider: CachedNetworkImageProvider(
-                      widget.images[index],
-                    ),
-                  );
-                },
+                children: List.generate(
+                  widget.images.length,
+                  (index) {
+                    return PhotoView(
+                      minScale: 0.0,
+                      enablePanAlways: true,
+                      gestureDetectorBehavior: HitTestBehavior.translucent,
+                      enableRotation: true,
+                      loadingBuilder: (context, event) =>
+                          ProdDetailsImagePlaceHolder(),
+                      backgroundDecoration: BoxDecoration(
+                        color: context.theme.scaffoldBackgroundColor,
+                      ),
+                      imageProvider: CachedNetworkImageProvider(
+                        widget.images[index],
+                      ),
+                    );
+                  },
+                ),
               ),
             ),
-            SizedBox(
-              height: 70.h,
-            ),
+            70.verticalSpace,
             ImageIndicator(
               controller: pageController,
               total: widget.images.length,
