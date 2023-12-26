@@ -37,6 +37,7 @@ class _MyVideoPlayerWidgetState extends State<MyVideoPlayerWidget> {
   }
 
   void listener(VideoDetailsState state) {
+    if (!mounted) return;
     if (state.currentPage == widget.index) {
       initVideo();
       return;
@@ -45,6 +46,7 @@ class _MyVideoPlayerWidgetState extends State<MyVideoPlayerWidget> {
   }
 
   Future<void> initVideo({bool reTry = false}) async {
+    if (!mounted) return;
     if (controller != null && !reTry) {
       controller!.play();
       return;
@@ -53,6 +55,7 @@ class _MyVideoPlayerWidgetState extends State<MyVideoPlayerWidget> {
     controller = await CachedVideoPlayerController.network(model.url);
     await controller!.initialize();
     setState(() {});
+
     controller!.play();
   }
 

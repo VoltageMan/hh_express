@@ -46,14 +46,14 @@ class _TestScrennStaee extends State<HomeVideos> {
         bloc: cubit,
         builder: (context, state) {
           final apiState = state.apiState;
-          if (apiState == VideoAPIState.init) return SizedBox();
-          if (apiState == VideoAPIState.error)
+          if (apiState == ProductAPIState.init) return SizedBox();
+          if (apiState == ProductAPIState.error)
             return CategoryErrorBody(
               onTap: () {
                 cubit.init();
               },
             );
-          final isLoading = apiState == VideoAPIState.loading;
+          final isLoading = apiState == ProductAPIState.loading;
           return RefreshIndicator.adaptive(
             onRefresh: () async {
               cubit.init(forUpdate: true);

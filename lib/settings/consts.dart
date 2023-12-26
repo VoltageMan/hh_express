@@ -256,9 +256,9 @@ sealed class EndPoints {
   static const notificationCount = 'api/v1/notification/count';
   static const favorsList = 'api/v1/favorite/list';
   static const favorsSwitch = 'api/v1/favorite';
-  static const deliveryInfo = '/api/v1/state';
-  static const termsOfUsage = '/api/v1/terms-of-usage';
-  static const videoList = '/api/v1/video/list';
+  static const deliveryInfo = 'api/v1/state';
+  static const termsOfUsage = 'api/v1/terms-of-usage';
+  static const videoList = 'api/v1/video/list';
 
   static String notificationDelete(int id) => 'api/v1/notification/$id/delete';
   //?

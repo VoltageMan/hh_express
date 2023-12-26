@@ -58,7 +58,6 @@ class _VideoDetailsState extends State<VideoDetails> {
   @override
   Widget build(BuildContext context) {
     final displayMedium14 = AppTheme.displayMedium14(context);
-
     return WillPopScope(
       onWillPop: () async {
         return ModelBottomSheetHelper.doPop();
@@ -125,7 +124,7 @@ class _VideoDetailsState extends State<VideoDetails> {
                             if (appRouter.location.split('?').first !=
                                 AppRoutes.videoDetails) return;
                             context.push(AppRoutes.prodDetails,
-                                extra: currentModel.id);
+                                extra: currentModel.product.id);
                             vdCubit.changePage(-1);
                             appRouter.addListener(comeBackListener);
                           },

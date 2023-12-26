@@ -32,14 +32,14 @@ enum PaginatedApiState {
   success,
 }
 
-enum VideoAPIState {
-  init,
-  loading,
-  loadingMore,
-  error,
-  errorMore,
-  success,
-}
+// enum VideoAPIState {
+//   init,
+//   loading,
+//   loadingMore,
+//   error,
+//   errorMore,
+//   success,
+// }
 
 enum FavorsAPIState {
   init,
