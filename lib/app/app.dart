@@ -81,7 +81,7 @@ class _MyAppState extends State<MyApp> {
                         return MediaQuery(
                           data: MediaQuery.of(context)
                               .copyWith(textScaleFactor: 1),
-                          child: showTest ? TestScreen() : child!,
+                          child: true ? TestScreen() : child!,
                         );
                       },
                     ),
