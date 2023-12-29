@@ -6,6 +6,7 @@ import 'package:hh_express/app/app.dart';
 import 'package:hh_express/app/setup.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/settings/consts.dart';
+import 'package:restart_app/restart_app.dart';
 
 void main() async {
   configureDependencies(getIt);
@@ -22,6 +23,7 @@ void main() async {
     ]);
     return runApp(const MyApp());
   }, (error, stack) {
+    Restart.restartApp();
     'RunZoneError \nerror:${error}\nstackTrace:$stack'.log();
   });
 }
