@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hh_express/features/categories/view/body.dart';
 import 'package:hh_express/features/orders/view/cubit/order_details_cubit.dart';
 import 'package:hh_express/features/orders/view/details/orders_app_bar.dart';
-import 'package:hh_express/features/orders/view/order_details_body.dart';
+import 'package:hh_express/features/orders/view/details/order_details_body.dart';
 import 'package:hh_express/settings/enums.dart';
 
 class OrderDetailsScreen extends StatelessWidget {

@@ -55,7 +55,7 @@ class OrderHistoryWidget extends StatelessWidget {
           children: [
             FittedBox(
               child: SelectableText(
-                '${model?.uuid}',
+                '${model?.code}',
                 style: theme.textTheme.titleLarge,
                 maxLines: 1,
               ),

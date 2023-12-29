@@ -23,7 +23,7 @@ class OrderInfoWidget extends StatelessWidget {
     ];
     final contents = [
       model!.date,
-      model!.uuid,
+      model!.code,
       '',
       '${model!.deliveryCost} TMT',
       '${model!.weightCost} TMT',

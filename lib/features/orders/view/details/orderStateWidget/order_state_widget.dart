@@ -12,11 +12,10 @@ class OrderStateWidget extends StatelessWidget {
   });
   final List<OrderStateModel>? models;
 
-  int getColLength() {
+  int get getColLength {
     final length = models!.length;
-    final firstAddrer = length % 2 == 1 ? 1 : 0;
-    // if (length == 1) return 0 + firstAddrer;
-    return (length / 2).round() + firstAddrer;
+    if (length == 1) return 1;
+    return (length / 2).round();
   }
 
   @override
@@ -42,10 +41,10 @@ class OrderStateWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: List.generate(
-                      getColLength(),
+                      getColLength,
                       (index) => OrderStateWDate(
                         model: models![index],
-                        isLast: index == 2,
+                        isLast: index == getColLength - 1,
                       ),
                     ),
                   ),
@@ -56,15 +55,15 @@ class OrderStateWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: List.generate(
-                      getColLength(),
+                      getColLength,
                       (index) =>
-                          index == getColLength() && models!.length % 2 == 1
+                          index == getColLength - 1 && models!.length % 2 == 1
                               ? SizedBox(
                                   height: AppSpacing.getTextHeight(12 * 2),
                                 )
                               : OrderStateWDate(
-                                  model: models![getColLength() + index],
-                                  isLast: index == 2,
+                                  model: models![getColLength + index],
+                                  isLast: index == getColLength - 1,
                                 ),
                     ),
                   ),

@@ -12,6 +12,7 @@ class OrderHistoryModel {
   final String status;
   final String statusTrans;
   final String date;
+  final String code;
   final List<CartOrderModel> orders;
 
   const OrderHistoryModel({
@@ -22,6 +23,7 @@ class OrderHistoryModel {
     required this.total,
     required this.subTotal,
     required this.uuid,
+    required this.code,
     required this.date,
   });
 

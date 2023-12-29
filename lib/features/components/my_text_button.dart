@@ -27,7 +27,7 @@ class MyDarkTextButton extends StatelessWidget {
         child: InkWell(
           onTap: onTap,
           child: Container(
-            //todo pad 14
+        
             padding: padding ?? AppPaddings.vertic_15,
             alignment: Alignment.center,
             width: width,

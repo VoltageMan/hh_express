@@ -31,7 +31,6 @@ class LocalStorage {
   static Future<void> _setMyLang() async {
     final myLang = await _storage.read(key: LocalDataKeys.lang.name);
     '$myLang oldLang'.log();
-
     if (myLang != null) {
       locale.value = myLang;
     }

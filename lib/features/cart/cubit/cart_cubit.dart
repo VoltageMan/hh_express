@@ -92,7 +92,7 @@ class CartCubit extends Cubit<CartState> {
   Future<void> complete(String uuid) async {
     OverlayHelper.showLoading();
     final data = await _repo.completeCart(uuid);
-    var value = false;
+   
     if (data != null) {
       SnackBarHelper.showTopSnack(
         'succses',
@@ -104,7 +104,7 @@ class CartCubit extends Cubit<CartState> {
           cart: data,
         ),
       );
-      value = true;
+    
     }
 
     OverlayHelper.remove();

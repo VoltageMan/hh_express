@@ -52,7 +52,7 @@ dependencies:
   another_flushbar: ^1.12.30
   # flutter_phoenix: ^1.1.1
   cached_video_player_fork: ^2.1.1
-  # flutter_phoenix: ^1.1.1
+  flutter_phoenix: ^1.1.1
 
 
 dev_dependencies:

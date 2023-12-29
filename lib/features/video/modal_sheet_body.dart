@@ -37,9 +37,7 @@ class SimmilarVideoWidget extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: AppBorderRadiuses.border_6,
                 child: CachedNetworkImage(
-                  // todo remove start with
                   imageUrl: model?.image ?? AssetsPath.macBook,
-                  // todo error widget
                   errorWidget: (context, url, error) {
                     return Center(
                       child: Icon(

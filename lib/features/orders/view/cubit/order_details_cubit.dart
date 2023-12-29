@@ -13,7 +13,6 @@ class OrderDetailsCubit extends Cubit<OrderDetailsState> {
   final _repo = getIt<OrderRepo>();
   Future<void> init(String uuid) async {
     emit(OrderDetailsState(apiState: APIState.loading));
-
     //! change func
     final data = await _repo.getDetails(uuid);
     if (data != null) {

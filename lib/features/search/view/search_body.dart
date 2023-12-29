@@ -57,7 +57,7 @@ class _SearchBodyState extends State<SearchBody> {
         if (apiState == SearchAPIState.success && state.models!.isEmpty) {
           return Center(
               child: Text(
-            //todo localization
+          
             context.l10n.nothingFound,
           ));
         }

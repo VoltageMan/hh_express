@@ -6,6 +6,7 @@ import 'package:hh_express/features/chat/bloc/chat_events.dart';
 import 'package:hh_express/features/chat/bloc/chat_state.dart';
 import 'package:hh_express/features/chat/models/message.dart';
 import 'package:hh_express/helpers/extentions.dart';
+import 'package:hh_express/helpers/overlay_helper.dart';
 import 'package:hh_express/helpers/routes.dart';
 import 'package:hh_express/repositories/chat/chat_repository.dart';
 import 'package:hh_express/settings/enums.dart';
@@ -150,6 +151,8 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
           headers: {'Authorization': 'Bearer $token'},
           onAuthFailed: (exception, trace) {
             //TODO: show dialog with error.
+            SnackBarHelper.showTopSnack(
+                appRouter.currentContext.l10n.socketExeption, APIState.init);
           },
         ));
     channel?.bind('MessageCreated').listen((event) {

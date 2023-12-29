@@ -19,9 +19,11 @@ class CartModel extends Equatable {
     required this.date,
     required this.status,
     required this.statusTrans,
+    required this.code,
     this.orders = const [],
   });
   final String uuid;
+  final String code;
   final String total;
   final String subTotal;
   final String weightCost;
