@@ -1,5 +1,4 @@
-{
-  "notifications":"Уведомления",
+{   "notifications":"Notifications",
   "helloWorld": "Hello World!",
   "searchHint": "Search...",
   "home": "Home",
@@ -89,4 +88,5 @@
   "removedFromFavors": "Removed from favorites",
   "nothingFound": "Nothing found", 
   "loading":"Loading..."
+  ,"details":"Details"
 }

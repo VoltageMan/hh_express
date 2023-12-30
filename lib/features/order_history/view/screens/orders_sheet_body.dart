@@ -42,7 +42,7 @@ class OrderHistoryBuilder extends StatefulWidget {
 }
 
 class _OrderHistoryBuilderState extends State<OrderHistoryBuilder> {
-  late final cubit = context.read<OrderHistoryCubit>()..init();
+  late final cubit = context.read<OrderHistoryCubit>()..init(forUpdate: true);
   final scrollController = ScrollController();
 
   @override
@@ -71,9 +71,7 @@ class _OrderHistoryBuilderState extends State<OrderHistoryBuilder> {
         if (apiState == OrderHistoryAPIState.init) return SizedBox();
         if (apiState == OrderHistoryAPIState.error)
           return CategoryErrorBody(
-            onTap: () {
-              cubit.init();
-            },
+            onTap: () => cubit.init(),
           );
         if (apiState == OrderHistoryAPIState.unauthorized)
           return Center(
@@ -81,11 +79,15 @@ class _OrderHistoryBuilderState extends State<OrderHistoryBuilder> {
               context.l10n.unauthorized,
             ),
           );
+        if (apiState == OrderHistoryAPIState.success && state.models.isEmpty)
+          return Center(
+            child: Text(
+              context.l10n.empty,
+            ),
+          );
         final isLoading = apiState == OrderHistoryAPIState.loading;
         return RefreshIndicator(
-          onRefresh: () async {
-            cubit.init(forUpdate: true);
-          },
+          onRefresh: () async => cubit.init(forUpdate: true),
           child: CustomScrollView(
             controller: scrollController,
             slivers: [

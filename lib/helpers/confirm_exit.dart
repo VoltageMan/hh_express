@@ -35,7 +35,7 @@ class Confirm {
         _currentContext = context;
         _isDialogShown = true;
         return ConfirmingDialog(
-          title: 'Confirm exit',
+          title: context.l10n.exit,
           content: context.l10n.exitConfirm,
           onConfirm: () => onConfirmExit(context),
         );

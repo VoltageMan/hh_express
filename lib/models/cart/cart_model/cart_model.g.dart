@@ -18,7 +18,7 @@ CartModel _$CartModelFromJson(Map<String, dynamic> json) => CartModel(
       date: json['date'] as String,
       status: json['status'] as String,
       statusTrans: json['status_trans'] as String,
-      code: json['code'] as String,
+      code: json['code'] as String? ?? ' ',
       orders: (json['orders'] as List<dynamic>?)
               ?.map((e) => CartOrderModel.fromJson(e as Map<String, dynamic>))
               .toList() ??

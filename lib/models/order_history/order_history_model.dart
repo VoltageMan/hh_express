@@ -23,7 +23,7 @@ class OrderHistoryModel {
     required this.total,
     required this.subTotal,
     required this.uuid,
-    required this.code,
+    this.code = '  ',
     required this.date,
   });
 

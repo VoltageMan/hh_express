@@ -37,7 +37,6 @@ class _MainScreenState extends State<MainScreen> {
         CartScreen(),
         ProfileBody(),
       ];
-  bool _dialogShown = false;
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -46,14 +45,11 @@ class _MainScreenState extends State<MainScreen> {
         if (!val) {
           return false;
         }
-        if (_dialogShown) {
-          Confirm.doPop();
+        if (!Confirm.doPop()) {
           return false;
         }
         log('pop Scoup');
-        _dialogShown = true;
         final exit = await Confirm.confirmExit(context);
-        _dialogShown = false;
         return exit;
       },
       child: Scaffold(

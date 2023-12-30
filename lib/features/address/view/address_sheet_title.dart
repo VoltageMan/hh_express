@@ -20,30 +20,33 @@ class AddressSheetTitle extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          !forComplete
-              ? GestureDetector(
-                  onTap: () async {
-                    final state = context.read<AddressCubit>().state;
-                    if (state.state != AddressApiState.succses) {
-                      return;
-                    }
-                    ModelBottomSheetHelper.doPop();
-                    await ModelBottomSheetHelper.showAddressUpdateSheet(null);
+          GestureDetector(
+            onTap: () async {
+              final state = context.read<AddressCubit>().state;
+              if (state.state != AddressApiState.succses) {
+                return;
+              }
+              ModelBottomSheetHelper.doPop();
+              await ModelBottomSheetHelper.showAddressUpdateSheet(null);
+              if (forComplete) {
+                ModelBottomSheetHelper.showAddressSelecSheet();
 
-                    /// 1 index of it self to return addres sheet back
-                    ModelBottomSheetHelper.showProfileSheets(1);
-                  },
-                  child: SizedBox.square(
-                    dimension: 22.sp,
-                    child: FittedBox(
-                      child: Icon(
-                        Icons.add_rounded,
-                        color: AppColors.darkBlue,
-                      ),
-                    ),
-                  ),
-                )
-              : SizedBox.square(dimension: 20.sp),
+                return;
+              }
+
+              /// 1 index of it self to return addres sheet back
+              ModelBottomSheetHelper.showProfileSheets(1);
+            },
+            child: SizedBox.square(
+              dimension: 22.sp,
+              child: FittedBox(
+                child: Icon(
+                  Icons.add_rounded,
+                  color: AppColors.darkBlue,
+                ),
+              ),
+            ),
+          ),
           Text(
             context.l10n.delivery,
             style: AppTheme.titleMedium16(context),

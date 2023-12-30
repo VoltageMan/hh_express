@@ -10,6 +10,7 @@ import 'package:hh_express/features/chat/bloc/chat_bloc.dart';
 import 'package:hh_express/features/favors/bloc/favors_bloc.dart';
 import 'package:hh_express/features/filter/bloc/filter_bloc.dart';
 import 'package:hh_express/features/home/bloc/home_bloc.dart';
+import 'package:hh_express/features/mainScreen/view/components/navBar/nav_bar.dart';
 import 'package:hh_express/features/order_history/cubit/order_history_cubit.dart';
 import 'package:hh_express/features/notifications/cubit/notification_cubit.dart';
 import 'package:hh_express/features/product_details/bloc/product_details_bloc.dart';
@@ -33,6 +34,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   void initState() {
+    bodyIndex.value = 0;
     super.initState();
   }
 

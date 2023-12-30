@@ -7,6 +7,7 @@ import 'package:hh_express/features/components/widgets/place_holder.dart';
 import 'package:hh_express/features/video/cubit/video_cubit.dart';
 import 'package:hh_express/features/video/view/details/cubit/video_details_cubit.dart';
 import 'package:hh_express/features/video/view/details/my_video_player.dart';
+import 'package:hh_express/features/video/view/details/video_details_app_bar.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/modal_sheets.dart';
 import 'package:hh_express/helpers/routes.dart';
@@ -95,49 +96,7 @@ class _VideoDetailsState extends State<VideoDetails> {
                     );
                   },
                 ),
-                Positioned(
-                  top: 0,
-                  left: 0,
-                  child: Container(
-                    width: MediaQuery.sizeOf(context).width,
-                    padding: AppPaddings.horiz16_vertic12
-                        .copyWith(top: AppSpacing.topPad + 16.h),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            if (appRouter.location.split('?').first !=
-                                AppRoutes.videoDetails) return;
-                            appRouter.currentContext.pop();
-                          },
-                          child: Icon(
-                            Icons.arrow_back_rounded,
-                            color: context.theme.scaffoldBackgroundColor,
-                            size: 28.sp,
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () async {
-                            '${appRouter.location}'.log();
-                            if (appRouter.location.split('?').first !=
-                                AppRoutes.videoDetails) return;
-                            context.push(AppRoutes.prodDetails,
-                                extra: currentModel.product.id);
-                            vdCubit.changePage(-1);
-                            appRouter.addListener(comeBackListener);
-                          },
-                          child: Icon(
-                            Icons.chevron_right_rounded,
-                            color: context.theme.scaffoldBackgroundColor,
-                            size: 30.sp,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+                VideoDetailsAppBar(comeBackListener: comeBackListener),
                 Padding(
                   padding: AppPaddings.horiz16_botto20,
                   child: Column(

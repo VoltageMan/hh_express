@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -23,7 +24,8 @@ void main() async {
     ]);
     return runApp(const MyApp());
   }, (error, stack) {
-    Restart.restartApp();
     'RunZoneError \nerror:${error}\nstackTrace:$stack'.log();
+    // Restart.restartApp();
+    exit(0);
   });
 }

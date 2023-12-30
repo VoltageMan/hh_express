@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/features/address/cubit/address_cubit.dart';
@@ -6,6 +7,7 @@ import 'package:hh_express/features/address/view/address_list_tile.dart';
 import 'package:hh_express/features/categories/view/body.dart';
 import 'package:hh_express/features/product_details/view/product_details_body.dart';
 import 'package:hh_express/helpers/extentions.dart';
+import 'package:hh_express/settings/consts.dart';
 import 'package:hh_express/settings/enums.dart';
 import 'package:hh_express/settings/theme.dart';
 
@@ -36,28 +38,24 @@ class _AddressSheetBodyState extends State<AddressSheetBody> {
           if (state.state == AddressApiState.loading) return CenterLoading();
           if (state.state == AddressApiState.unAuthorized)
             return _centerText(context.l10n.unauthorized);
-          if (state.models.isEmpty) return _centerText('empty');
+          if (state.models.isEmpty) return _centerText(context.l10n.empty);
 
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              ...List.generate(
-                state.models.length,
-                (index) {
-                  return AddressListTile(
-                    onTap: () {
-                      if (!widget.forComplite) return;
-                      cubit.selectedAddresIndex = index;
-                      setState(() {});
-                    },
-                    forComplite: widget.forComplite,
-                    isSelected: index == cubit.selectedAddresIndex,
-                    model: state.models[index],
-                  );
+          return ListView.builder(
+            padding: AppPaddings.bottom_10,
+            itemCount: state.models.length,
+            itemBuilder: (context, index) {
+              return AddressListTile(
+                onTap: () {
+                  if (!widget.forComplite) return;
+                  cubit.selectedAddresIndex = index;
+                  setState(() {});
                 },
-              ),
-            ],
-          ).toSingleChildScrollView;
+                forComplite: widget.forComplite,
+                isSelected: index == cubit.selectedAddresIndex,
+                model: state.models[index],
+              );
+            },
+          );
         },
       ),
     );

@@ -88,7 +88,8 @@
   "removedFromFavors": "Halanlarymdan aýryldy",
   "termsAccept":"Şertler bilen ylalaşýan", 
   "nothingFound": "Hiç zat tapylmady",
-   "loading":"Ýüklenýar..."
+   "loading":"Ýüklenýar...", 
+   "details":"Giñişleyin"
 
 
 }

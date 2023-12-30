@@ -146,14 +146,14 @@ class SecondSplash extends StatelessWidget {
                 'made in',
                 textAlign: TextAlign.center,
                 style: theme.displayMedium!.copyWith(
-                  fontFamily: GoogleFonts.nokora().fontFamily,
+                  fontFamily: 'Nokora',
                 ),
               ),
             ),
             Text(
               'China',
               style: theme.displayLarge!.copyWith(
-                fontFamily: GoogleFonts.nokora().fontFamily,
+                fontFamily: 'Nokora',
               ),
             ),
             Align(

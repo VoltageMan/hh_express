@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/features/categories/bloc/category_bloc.dart';
 import 'package:hh_express/features/components/widgets/place_holder.dart';
 import 'package:hh_express/helpers/extentions.dart';
+import 'package:hh_express/helpers/spacers.dart';
 import 'package:hh_express/settings/consts.dart';
 import 'package:hh_express/settings/theme.dart';
 
@@ -51,6 +52,7 @@ class ProductsByCategoryInfo extends StatelessWidget {
                   '$title',
                   style: AppTheme.bodyLargeW500(context),
                 ),
+          AppSpacing.vertical_4,
           isLoading
               ? MyShimerPlaceHolder(
                   height: 15.h,

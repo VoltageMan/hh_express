@@ -225,7 +225,7 @@ class AppTheme {
         fontWeight: FontWeight.w400,
         decoration: TextDecoration.underline,
       ),
-      labelMedium: GoogleFonts.poppins(
+      labelMedium: TextStyle(
         fontSize: 14.sp,
         color: AppColors.white,
         fontWeight: FontWeight.w600,
