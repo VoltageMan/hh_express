@@ -40,7 +40,7 @@ class _TermsOfUseWidgetState extends State<TermsOfUseWidget> {
         AppSpacing.horizontal_4,
         Text.rich(
           TextSpan(
-            style: theme.textTheme.bodyMedium,
+            style: theme.textTheme.bodyMedium?.copyWith(fontSize: 14.sp),
             children: [
               TextSpan(
                 text: (context.l10n.termsAccept.split(' ')..removeLast())
@@ -54,11 +54,11 @@ class _TermsOfUseWidgetState extends State<TermsOfUseWidget> {
                     Confirm.confirmTerms(context);
                   },
                 style: TextStyle(
-                  color: AppColors.mainOrange,
-                  fontWeight: FontWeight.w600,
-                  decoration: TextDecoration.underline,
-                  decorationThickness: 1.5.h,
-                ),
+                    color: AppColors.mainOrange,
+                    fontWeight: FontWeight.w600,
+                    decoration: TextDecoration.underline,
+                    decorationThickness: 1.5.h,
+                    fontSize: 14.sp),
               )
             ],
           ),

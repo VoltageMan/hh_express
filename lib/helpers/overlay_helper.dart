@@ -67,7 +67,6 @@ class SnackBarHelper {
       backgroundColor: Colors.transparent,
       content: Container(
         decoration: BoxDecoration(
-          borderRadius: AppBorderRadiuses.border_10,
           color: Colors.black87,
         ),
         padding: AppPaddings.all_12,
@@ -91,7 +90,6 @@ class SnackBarHelper {
   static Flushbar topFlush(String message, APIState state, {String? title}) {
     return Flushbar(
       margin: AppPaddings.all_12..add(AppPaddings.top_6),
-      borderRadius: AppBorderRadiuses.border_10,
       flushbarPosition: FlushbarPosition.TOP,
       title: title,
       animationDuration: AppDurations.duration_500ms,

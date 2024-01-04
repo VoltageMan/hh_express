@@ -38,7 +38,8 @@ class _AddressSheetBodyState extends State<AddressSheetBody> {
           if (state.state == AddressApiState.loading) return CenterLoading();
           if (state.state == AddressApiState.unAuthorized)
             return _centerText(context.l10n.unauthorized);
-          if (state.models.isEmpty) return _centerText(context.l10n.empty);
+          if (state.models.isEmpty)
+            return _centerText(context.l10n.empty_address);
 
           return ListView.builder(
             padding: AppPaddings.bottom_10,

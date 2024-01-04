@@ -28,7 +28,7 @@ class OrderStateWDate extends StatelessWidget {
             margin: AppPaddings.right_6,
             decoration: BoxDecoration(
               color: model!.completed_at != null
-                  ? AppColors.mainOrange
+                  ? AppColors.green
                   : AppColors.lightGrey,
               shape: BoxShape.circle,
             ),

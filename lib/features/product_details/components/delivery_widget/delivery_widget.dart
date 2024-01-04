@@ -38,14 +38,14 @@ class DeliveryWidget extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.only(left: 20.w, right: 9.w),
                     child: SizedBox.square(
-                      dimension: AppSpacing.getTextHeight(10),
+                      dimension: AppSpacing.getTextHeight(12),
                       child: FittedBox(
                         alignment: Alignment.center,
                         child: SvgPicture.network(
                           e.icon,
                           placeholderBuilder: (context) {
                             return SizedBox.square(
-                                dimension: AppSpacing.getTextHeight(10));
+                                dimension: AppSpacing.getTextHeight(12));
                           },
                         ),
                       ),
@@ -54,7 +54,7 @@ class DeliveryWidget extends StatelessWidget {
                   Expanded(
                     child: Text(
                       e.text,
-                      style: AppTheme.bodyMedium10(context),
+                      style: AppTheme.bodyMedium12(context),
                     ),
                   )
                 ],

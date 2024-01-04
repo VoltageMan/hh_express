@@ -37,7 +37,7 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
         return Container(
           margin: EdgeInsets.only(top: AppSpacing.topPad),
           height: 52.h,
-          padding: AppPaddings.horiz_16,
+          padding: AppPaddings.horiz_8,
           alignment: Alignment.centerLeft,
           decoration: BoxDecoration(
             boxShadow: AppColors.appBarShadow,
@@ -101,7 +101,7 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
                       children: [
                         Expanded(child: HomeSearchFieldDummy()),
                         Padding(
-                          padding: AppPaddings.horiz_16,
+                          padding: AppPaddings.left_12,
                           child: MyImageIcon(
                             path: AssetsPath.filterIcon,
                             iconSize: 20.8.sp,

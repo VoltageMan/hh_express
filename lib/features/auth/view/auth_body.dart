@@ -95,7 +95,7 @@ class _AuthBodyState extends State<AuthBody>
           ),
         ),
         Padding(
-          padding: AppPaddings.horiz_16.copyWith(top: 31.h),
+          padding: AppPaddings.horiz_16.copyWith(top: 21.h),
           child: MyDarkTextButton(
             title: l10n.next,
             onTap: () async {
@@ -131,6 +131,9 @@ class _AuthBodyState extends State<AuthBody>
             },
           ),
         ),
+        SizedBox(
+          height: 50.h,
+        ),
         Padding(
           padding: AppPaddings.horiz_16.copyWith(bottom: 108.h, top: 16.h),
           child: RichText(
@@ -138,7 +141,6 @@ class _AuthBodyState extends State<AuthBody>
               style: AppTheme.bodyMedium14(context),
               children: [
                 TextSpan(
-                
                   text:
                       '${(!forSingUp ? l10n.createNewAcc : l10n.alreadyHaveacc)}  ',
                 ),

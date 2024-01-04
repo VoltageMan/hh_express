@@ -54,8 +54,17 @@ class OrderHistoryWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             FittedBox(
-              child: SelectableText(
-                '${model?.code}',
+              child: SelectableText.rich(
+                TextSpan(
+                    text: '${l10n.order_code}',
+                    style: theme.textTheme.titleLarge
+                        ?.copyWith(color: AppColors.darkGrey),
+                    children: [
+                      TextSpan(
+                        text: '${model?.code}',
+                        style: theme.textTheme.titleLarge,
+                      ),
+                    ]),
                 style: theme.textTheme.titleLarge,
                 maxLines: 1,
               ),

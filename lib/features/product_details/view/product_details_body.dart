@@ -162,7 +162,9 @@ class _ProdDetailsBodyState extends State<ProdDetailsBody>
                   children: [
                     Text(
                       '${AppPaddings.thousandsSeperator(product.salePrice)} TMT',
-                      style: AppTheme.titleMedium16(context),
+                      style: AppTheme.titleMedium16(context).copyWith(
+                        color: AppColors.appOrange,
+                      ),
                     ),
                     AppSpacing.horizontal_8,
                     hasDiscount
@@ -175,12 +177,6 @@ class _ProdDetailsBodyState extends State<ProdDetailsBody>
                   ],
                 ),
               ),
-              ...product.properties.map(
-                (e) {
-                  if (e.isColor) return ProdColorBuilder(model: e);
-                  return PropertyBuilder(model: e);
-                },
-              ).toList(),
               Padding(
                 padding: AppPaddings.bottom12_top20.add(AppPaddings.horiz_16),
                 child: Text(
@@ -195,6 +191,12 @@ class _ProdDetailsBodyState extends State<ProdDetailsBody>
                   style: textTheme.titleSmall,
                 ),
               ),
+              ...product.properties.map(
+                (e) {
+                  if (e.isColor) return ProdColorBuilder(model: e);
+                  return PropertyBuilder(model: e);
+                },
+              ).toList(),
               DeliveryWidget(),
               AppSpacing.vertical_26,
               Padding(

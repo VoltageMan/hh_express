@@ -85,7 +85,7 @@ class CartBadge extends StatelessWidget {
             shape: BoxShape.circle,
           ),
           child: Container(
-            height: 18.h,
+            height: 32.h,
             padding: theme.badgeTheme.padding!
                 .add(count <= 9 ? EdgeInsets.all(1.h) : EdgeInsets.zero),
             decoration: BoxDecoration(
@@ -95,7 +95,7 @@ class CartBadge extends StatelessWidget {
             child: FittedBox(
               child: Text(
                 '$count',
-                style: theme.badgeTheme.textStyle!,
+                style: theme.badgeTheme.textStyle!.copyWith(fontSize: 15.sp),
                 textAlign: TextAlign.center,
                 maxLines: 1,
               ),
