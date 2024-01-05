@@ -40,7 +40,6 @@ class HomeProdWidget extends StatelessWidget {
       },
       child: Container(
         width: 160.w,
-        margin: AppPaddings.homeProdmargin(index),
         padding: AppPaddings.homeProdPadding(index),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -53,7 +52,7 @@ class HomeProdWidget extends StatelessWidget {
                 color: AppColors.lightGrey,
                 borderRadius: AppBorderRadiuses.border_6,
               ),
-              padding: EdgeInsets.symmetric(vertical: 1.5.h, horizontal: 0.w),
+              padding: EdgeInsets.symmetric(vertical: 1.5.h, horizontal: 1.5.w),
               margin: EdgeInsets.only(bottom: 10.h),
               child: ClipRRect(
                 borderRadius: AppBorderRadiuses.border_4,
@@ -131,7 +130,6 @@ class _LoadingWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 160.w,
-      margin: AppPaddings.homeProdmargin(index),
       padding: AppPaddings.homeProdPadding(index),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,

@@ -92,33 +92,32 @@ class CartCubit extends Cubit<CartState> {
   Future<void> complete(String uuid) async {
     OverlayHelper.showLoading();
     final data = await _repo.completeCart(uuid);
-   
-    if (data != null) {
-      SnackBarHelper.showTopSnack(
-        'succses',
-        APIState.success,
-      );
+    final l10n = appRouter.currentContext.l10n;
+    final isSucceed = data != null;
+    if (isSucceed) {
       emit(
         CartState(
           apiState: CartAPIState.success,
           cart: data,
         ),
       );
-    
     }
+    SnackBarHelper.showTopSnack(
+      isSucceed ? l10n.succsess : l10n.socketExeption,
+      isSucceed ? APIState.success : APIState.error,
+    );
 
     OverlayHelper.remove();
   }
 
   Future<void> completeInstance(String uuid, String addressUuid) async {
+    final l10n = appRouter.currentContext.l10n;
     OverlayHelper.showLoading();
     final data = await _repo.completeInstance(uuid, addressUuid);
-    if (data) {
-      SnackBarHelper.showTopSnack(
-        'succses',
-        APIState.success,
-      );
-    }
+    SnackBarHelper.showTopSnack(
+      data ? l10n.succsess : l10n.socketExeption,
+      data ? APIState.success : APIState.error,
+    );
     OverlayHelper.remove();
   }
 }

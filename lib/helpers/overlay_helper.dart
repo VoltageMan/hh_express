@@ -90,7 +90,9 @@ class SnackBarHelper {
   static Flushbar topFlush(String message, APIState state, {String? title}) {
     return Flushbar(
       margin: AppPaddings.all_12..add(AppPaddings.top_6),
+      borderRadius: AppBorderRadiuses.border_8,
       flushbarPosition: FlushbarPosition.TOP,
+      
       title: title,
       animationDuration: AppDurations.duration_500ms,
       duration: Duration(seconds: 2),

@@ -4,6 +4,7 @@ import 'package:hh_express/app/setup.dart';
 import 'package:hh_express/data/local/secured_storage.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/overlay_helper.dart';
+import 'package:hh_express/helpers/routes.dart';
 import 'package:hh_express/models/addres/address_model.dart';
 import 'package:hh_express/models/pagination/pagination_model.dart';
 import 'package:hh_express/repositories/address/address_repo.dart';
@@ -39,8 +40,9 @@ class AddressCubit extends Cubit<AddressState> {
         ),
       );
     }
+    final l10n = appRouter.currentContext.l10n;
     SnackBarHelper.showTopSnack(
-      isSucceed ? 'Succes' : 'some Thins went Wrong',
+      isSucceed ? l10n.succsess : l10n.socketExeption,
       isSucceed ? APIState.success : APIState.error,
     );
     OverlayHelper.remove();
@@ -58,8 +60,7 @@ class AddressCubit extends Cubit<AddressState> {
         models: List.empty(growable: true),
       ),
     );
-    final data = await _repo.read(0)
-      ..log(message: 'AddressData');
+    final data = await _repo.read(0);
     if (data != null) {
       return emit(
         AddressState(
@@ -74,9 +75,9 @@ class AddressCubit extends Cubit<AddressState> {
   }
 
   Future<void> update(AddressModel model) async {
+    final l10n = appRouter.currentContext.l10n;
     if (model.address.length < 5) {
-      SnackBarHelper.showTopSnack(
-          'address Must BeMore Than 5 Symbols', APIState.error);
+      SnackBarHelper.showTopSnack(l10n.least5Symbols, APIState.error);
 
       /// show fail message
       return;
@@ -97,9 +98,8 @@ class AddressCubit extends Cubit<AddressState> {
         ),
       );
     }
-
     SnackBarHelper.showTopSnack(
-      isSucceed ? 'Succes' : 'some Thins went Wrong',
+      isSucceed ? l10n.succsess : l10n.socketExeption,
       isSucceed ? APIState.success : APIState.error,
     );
     OverlayHelper.remove();

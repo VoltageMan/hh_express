@@ -13,18 +13,10 @@ class AppPaddings {
 //! Aligns
 
   static EdgeInsets? homeProdPadding(int index) {
-    if (index < 0) return null;
+    if (index < 0) return AppPaddings.horiz_4;
     return EdgeInsets.only(
       top: 12.h,
       left: 4.w,
-      right: 4.w,
-    );
-  }
-
-  static EdgeInsets? homeProdmargin(int index) {
-    if (index < 0) return null;
-    return EdgeInsets.only(
-      left: index == -1 ? 16.w : 4.w,
       right: 4.w,
     );
   }

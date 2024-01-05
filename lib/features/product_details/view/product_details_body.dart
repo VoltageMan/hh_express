@@ -228,6 +228,7 @@ class _ProdDetailsBodyState extends State<ProdDetailsBody>
                 child: ScrollConfiguration(
                   behavior: MyBehavior(),
                   child: ListView.builder(
+                    padding: AppPaddings.horiz_12,
                     scrollDirection: Axis.horizontal,
                     itemCount: product.similarProducts.length,
                     itemBuilder: (context, index) {
