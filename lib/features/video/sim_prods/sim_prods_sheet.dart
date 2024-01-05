@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/features/categories/view/body.dart';
 import 'package:hh_express/features/components/widgets/sheet_titles.dart';
 import 'package:hh_express/features/product_details/view/product_details_body.dart';
-import 'package:hh_express/features/video/modal_sheet_body.dart';
+import 'package:hh_express/features/video/video_sim_prods_widget.dart';
 import 'package:hh_express/features/video/sim_prods/cubit/simmilar_prods_cubit.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/spacers.dart';

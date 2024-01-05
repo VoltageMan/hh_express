@@ -99,6 +99,6 @@ class ProductRepoImpl extends ProductRepo with DioClientMixin {
     final propertiesUrl = propertyList.join('&');
     final slugsUrl = slugList.join('&');
     final joiner = propertiesUrl.isNotEmpty && slugsUrl.isNotEmpty ? '&' : '';
-    return '${EndPoints.products}?$propertiesUrl$joiner$slugsUrl&${APIKeys.page}=$page&ishome=true$videoParam';
+    return '${EndPoints.products}?$propertiesUrl$joiner$slugsUrl&${APIKeys.page}=$page$videoParam';
   }
 }

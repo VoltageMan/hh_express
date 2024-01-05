@@ -27,7 +27,7 @@ class SimmilarVideoWidget extends StatelessWidget {
         appRouter.push(AppRoutes.prodDetails, extra: model!.id);
       },
       child: Container(
-        height: ((AppSpacing.getTextHeight(67)..log()) + 38.h)..log(),
+        height: (AppSpacing.getTextHeight(67)) + 38.h,
         width: double.infinity,
         margin: AppPaddings.horiz_16.add(AppPaddings.vertic_12),
         child: Row(
@@ -73,40 +73,19 @@ class SimmilarVideoWidget extends StatelessWidget {
                     style: AppTheme.displaySmall12(context).copyWith(),
                   ),
                   AppSpacing.vertical_12,
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Container(
-                        margin: AppPaddings.right_6,
-                        decoration: ShapeDecoration(
-                          color: Color(0xFF0B1427),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(6)),
-                        ),
-                        padding: AppPaddings.horiz10_vertic5,
-                        child: Text(
-                          context.l10n.buy,
-                          maxLines: 1,
-                          style: context.theme.textTheme.labelMedium,
-                        ),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Color(0xFF0B1427),
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                    padding: AppPaddings.horiz10_vertic5,
+                    child: FittedBox(
+                      child: Text(
+                        context.l10n.details,
+                        maxLines: 1,
+                        style: context.theme.textTheme.labelMedium,
                       ),
-                      Flexible(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Color(0xFF0B1427),
-                            borderRadius: BorderRadius.circular(6),
-                          ),
-                          padding: AppPaddings.horiz10_vertic5,
-                          child: FittedBox(
-                            child: Text(
-                              context.l10n.addToCart,
-                              maxLines: 1,
-                              style: context.theme.textTheme.labelMedium,
-                            ),
-                          ),
-                        ),
-                      )
-                    ],
+                    ),
                   )
                 ],
               ),

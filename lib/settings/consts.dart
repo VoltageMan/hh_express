@@ -22,7 +22,7 @@ class AppPaddings {
   }
 
   static EdgeInsets? homeProdmargin(int index) {
-    if (index > 0) return null;
+    if (index < 0) return null;
     return EdgeInsets.only(
       left: index == -1 ? 16.w : 4.w,
       right: 4.w,

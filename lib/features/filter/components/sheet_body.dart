@@ -90,11 +90,7 @@ class _FilterSheetBodyState extends State<FilterSheetBody> {
                   title: l10n.products,
                   child: ValueListenableBuilder(
                     valueListenable: bloc.productCountNotifier,
-                    child: Text(
-                      '${l10n.products}',
-                      style: context.theme.textTheme.labelMedium,
-                    ),
-                    builder: (context, val, child) {
+                    builder: (context, val, _) {
                       return Text(
                         '${l10n.products} (${bloc.getProdCount})',
                         style: context.theme.textTheme.labelMedium,

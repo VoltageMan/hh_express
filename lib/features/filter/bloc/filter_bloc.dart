@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hh_express/app/setup.dart';
+import 'package:hh_express/features/home/bloc/home_bloc.dart';
 import 'package:hh_express/features/products_by_category/bloc/products_by_category_bloc.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/routes.dart';
@@ -57,6 +58,7 @@ final class FilterBloc extends Bloc<FilterEvent, FilterState> {
           newState.prodByCatselecteds.clear();
         }
         emit(newState);
+        switchProdCount();
       },
     );
     on<FilterInit>((event, emit) async {
@@ -93,7 +95,7 @@ final class FilterBloc extends Bloc<FilterEvent, FilterState> {
     add(AddFilterProperty(model: model));
   }
 
-  final List<int> _productCount = [0, 0];
+  late final List<int> _productCount = [getHomeTotal, getProdByCategoryTotal];
 
   /// state mannager for count text of products after filter in bottom button of modal sheet
   final productCountNotifier = ValueNotifier<APIState>(APIState.init);
@@ -126,4 +128,14 @@ final class FilterBloc extends Bloc<FilterEvent, FilterState> {
   }
 
   int get getProdCount => _productCount[forHome ? 0 : 1];
+  int get getProdByCategoryTotal {
+    final prodByCatBloc =
+        appRouter.currentContext.read<ProductsByCategoryBloc>();
+    return prodByCatBloc.state.pagination?.total ?? 0;
+  }
+
+  int get getHomeTotal {
+    final homeBloc = appRouter.currentContext.read<HomeBloc>();
+    return homeBloc.state.pagination?.total ?? 0;
+  }
 }
