@@ -15,9 +15,9 @@ class AppPaddings {
   static EdgeInsets? homeProdPadding(int index) {
     if (index < 0) return AppPaddings.horiz_4;
     return EdgeInsets.only(
-      top: 12.h,
-      left: 4.w,
-      right: 4.w,
+      top: 4.h,
+      left: 1.5.w,
+      right: 1.5.w,
     );
   }
 

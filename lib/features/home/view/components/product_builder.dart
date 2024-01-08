@@ -15,7 +15,7 @@ class HomeProdBuilder extends StatelessWidget {
   Widget build(BuildContext context) {
     final isLoading = prods == null;
     return SliverPadding(
-      padding: AppPaddings.horiz_8,
+      padding: AppPaddings.horiz_6.add(AppPaddings.top_6),
       sliver: SliverDynamicHeightGridView(
         crossAxisCount: 2,
         crossAxisSpacing: 0.w,

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/features/components/widgets/place_holder.dart';
+import 'package:hh_express/features/product_details/components/color_builder.dart';
+import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/spacers.dart';
 import 'package:hh_express/settings/consts.dart';
 import 'package:hh_express/settings/theme.dart';
@@ -17,10 +19,16 @@ class OrderInfoListTile extends StatelessWidget {
   final String? content;
   final bool? titleBold;
   final bool? contentBold;
+
+  bool get isColor {
+    return content?.startsWith('http') ?? false;
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
     final isLoading = title == null;
+    content.log();
     if (isLoading) return _LoadingWidget();
     return Padding(
       padding: titleBold != null || contentBold != null
@@ -38,17 +46,23 @@ class OrderInfoListTile extends StatelessWidget {
             style: titleBold ?? false ? theme.titleLarge : theme.displaySmall,
           ),
           AppSpacing.horizontal_8,
-          Expanded(
-            child: Text(
-              '$content',
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              textAlign: TextAlign.end,
-              style: contentBold ?? false
-                  ? theme.bodyLarge
-                  : AppTheme.bodyMedium14(context),
-            ),
-          ),
+          isColor
+              ? ProdColorWidget(
+                  onTap: () {},
+                  color: content,
+                  isSelected: false,
+                )
+              : Expanded(
+                  child: Text(
+                    '$content',
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.end,
+                    style: contentBold ?? false
+                        ? theme.bodyLarge
+                        : AppTheme.bodyMedium14(context),
+                  ),
+                ),
         ],
       ),
     );

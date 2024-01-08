@@ -39,7 +39,7 @@ class HomeProdWidget extends StatelessWidget {
         context.push(AppRoutes.prodDetails, extra: prod!.id);
       },
       child: Container(
-        width: 160.w,
+        width: index < 0 ? 170.w : double.infinity,
         padding: AppPaddings.homeProdPadding(index),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -47,13 +47,13 @@ class HomeProdWidget extends StatelessWidget {
           children: [
             Container(
               width: double.infinity,
-              height: 200.h,
+              height: 210.h,
               decoration: BoxDecoration(
                 color: AppColors.lightGrey,
                 borderRadius: AppBorderRadiuses.border_6,
               ),
               padding: EdgeInsets.symmetric(vertical: 1.5.h, horizontal: 1.5.w),
-              margin: EdgeInsets.only(bottom: 10.h),
+              margin: EdgeInsets.only(bottom: 6.h),
               child: ClipRRect(
                 borderRadius: AppBorderRadiuses.border_4,
                 child: CachedNetworkImage(
@@ -77,7 +77,7 @@ class HomeProdWidget extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
             ),
             Container(
-              margin: AppPaddings.vertic_10,
+              margin: AppPaddings.vertic_6,
               child: Text(
                 '${prod?.description}',
                 maxLines: 2,

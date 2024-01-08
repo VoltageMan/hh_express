@@ -20,9 +20,11 @@ class BuyProdSheetBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Column(
       children: [
-        BottomSheetTitle(title: context.l10n.buy, isPadded: true),
+        BottomSheetTitle(
+            title: bill == null ? l10n.details : l10n.buy, isPadded: true),
         AppSpacing.vertical_10,
         Expanded(
           child: SingleChildScrollView(
@@ -95,7 +97,7 @@ class _ProdBuyInfo extends StatelessWidget {
               .map(
                 (e) => OrderInfoListTile(
                   title: e.property,
-                  content: e.value,
+                  content: e.icon != null ? e.icon : e.value,
                 ),
               )
               .toList(),

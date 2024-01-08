@@ -17,8 +17,10 @@ class FavorsWidget extends StatefulWidget {
   FavorsWidget({
     super.key,
     this.model,
+    this.onWidgetTap,
   });
   final CartProductModel? model;
+  final VoidCallback? onWidgetTap;
   @override
   State<FavorsWidget> createState() => _FavorsWidgetState();
 }
@@ -31,16 +33,17 @@ class _FavorsWidgetState extends State<FavorsWidget> {
     final isLoading = widget.model == null;
     if (isLoading) return _LoadingWidget();
     return GestureDetector(
-      onTap: () {
-        ModelBottomSheetHelper.doPop();
-        appRouter
-            .push(AppRoutes.prodDetails, extra: widget.model!.id)
-            .then((value) {
-          if (appRouter.location != AppRoutes.mainScreen) return;
-          // 3 index of favors modal sheet
-          ModelBottomSheetHelper.showProfileSheets(3);
-        });
-      },
+      onTap: widget.onWidgetTap ??
+          () {
+            ModelBottomSheetHelper.doPop();
+            appRouter
+                .push(AppRoutes.prodDetails, extra: widget.model!.id)
+                .then((value) {
+              if (appRouter.location != AppRoutes.mainScreen) return;
+              // 3 index of favors modal sheet
+              ModelBottomSheetHelper.showProfileSheets(3);
+            });
+          },
       child: Container(
         margin: AppPaddings.horiz16_botto10,
         height: 100.h,

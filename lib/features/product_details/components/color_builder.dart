@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/features/components/widgets/place_holder.dart';
-import 'package:hh_express/features/filter/components/prop_widegets/filter_color.dart';
 import 'package:hh_express/features/product_details/bloc/product_details_bloc.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/models/property/property_model.dart';
@@ -52,7 +51,7 @@ class _ProdColorBuilderState extends State<ProdColorBuilder> {
                       padding:
                           isSelected ? EdgeInsets.zero : AppPaddings.top_12,
                       child: ProdColorWidget(
-                        color: item,
+                        color: item.icon,
                         isSelected: isSelected,
                         onTap: () {
                           bloc.selecProp(model.name, item.id);
@@ -91,7 +90,7 @@ class ProdColorWidget extends StatelessWidget {
     required this.color,
     required this.isSelected,
   });
-  final PropertyValue color;
+  final String? color;
   final bool isSelected;
   final VoidCallback onTap;
 
@@ -114,7 +113,7 @@ class ProdColorWidget extends StatelessWidget {
         child: ClipRRect(
           borderRadius: AppBorderRadiuses.border_6,
           child: CachedNetworkImage(
-            imageUrl: color.icon ?? AssetsPath.exampleColor,
+            imageUrl: color ?? AssetsPath.exampleColor,
             height: 34.sp,
             width: 34.sp,
             placeholder: (context, url) {

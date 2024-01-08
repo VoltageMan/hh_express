@@ -5,6 +5,7 @@ import 'package:hh_express/features/favors/components/favors_widget.dart';
 import 'package:hh_express/features/orders/view/details/orderInfo/order_info_widget.dart';
 import 'package:hh_express/features/orders/view/details/orderStateWidget/order_state_widget.dart';
 import 'package:hh_express/helpers/extentions.dart';
+import 'package:hh_express/helpers/modal_sheets.dart';
 import 'package:hh_express/models/cart/cart_model/cart_model.dart';
 import 'package:hh_express/settings/consts.dart';
 import 'package:hh_express/settings/theme.dart';
@@ -35,6 +36,9 @@ class OrderDetailsBody extends StatelessWidget {
               .map(
                 (e) => FavorsWidget(
                   model: e.product,
+                  onWidgetTap: () {
+                    ModelBottomSheetHelper.showOrderDetails(e);
+                  },
                 ),
               )
               .toList(),

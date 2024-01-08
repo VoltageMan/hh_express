@@ -109,7 +109,7 @@ class _ProdDetailsBodyState extends State<ProdDetailsBody>
           childrenDelegate: SliverChildListDelegate(
             [
               SizedBox(
-                height: 300.h,
+                height: 350.h,
                 child: Stack(
                   children: [
                     PageView.builder(
