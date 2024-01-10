@@ -47,7 +47,7 @@ class CartInfoWidget extends StatelessWidget {
             isLoading: false,
           ),
           OrderInfoListTile(
-            title: 'Jemi bahasy',
+            title: l10n.totalPrice,
             content: isLoading ? null : '${content.last} TMT',
             contentBold: true,
             titleBold: true,
