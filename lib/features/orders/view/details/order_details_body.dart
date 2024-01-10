@@ -45,7 +45,7 @@ class OrderDetailsBody extends StatelessWidget {
           Padding(
             padding: AppPaddings.left_18,
             child: Text(
-              'Gelmeli wagty',
+              context.l10n.comeTime,
               style: titlesTheme,
             ),
           ),
