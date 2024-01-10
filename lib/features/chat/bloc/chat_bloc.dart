@@ -10,6 +10,7 @@ import 'package:hh_express/helpers/overlay_helper.dart';
 import 'package:hh_express/helpers/routes.dart';
 import 'package:hh_express/repositories/chat/chat_repository.dart';
 import 'package:hh_express/settings/enums.dart';
+import 'package:hh_express/settings/consts.dart';
 
 class ChatBloc extends Bloc<ChatEvent, ChatState> {
   ChatBloc() : super(ChatState()) {
@@ -114,14 +115,14 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     );
   }
 
-  final _authEndpoint = 'http://216.250.9.74/api/broadcasting/auth';
+  final _authEndpoint = '${EndPoints.baseUrl}api/broadcasting/auth';
   PusherChannelsClient? pusher;
 
   void connectToWebsocket(int conversationId) async {
     late PusherChannelsOptions options;
 
     options = const PusherChannelsOptions.fromHost(
-      host: '216.250.9.74',
+      host: EndPoints.host,
       port: 6001,
       scheme: 'ws',
       key: 'asmanKbdgI',

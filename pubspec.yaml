@@ -71,8 +71,6 @@ flutter:
   assets:
     - assets/fonts/Rubik/
     - assets/fonts/
-    - assets/data/
-    - assets/data/main_cat_images/
     - assets/images/
     - assets/icons/navBarIcons/
     - assets/icons/profileIcons/

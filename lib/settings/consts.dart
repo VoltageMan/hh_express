@@ -225,6 +225,7 @@ class AssetsPath {
 }
 
 sealed class EndPoints {
+  static const host = '216.250.9.74';
   static const baseUrl = 'http://216.250.9.74/';
   static const logIn = 'api/v1/auth/login';
   static const register = 'api/v1/auth/register';
