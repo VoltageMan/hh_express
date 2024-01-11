@@ -148,13 +148,12 @@ class _ProdDetailsBodyState extends State<ProdDetailsBody>
                 ),
               ),
               Padding(
-                padding: AppPaddings.horiz16_vertic12,
+                padding: AppPaddings.horiz_16.add(AppPaddings.vertic_10),
                 child: Text(
                   '${product.name}',
                   style: textTheme.titleMedium,
                 ),
               ),
-              AppSpacing.vertical_4,
               Padding(
                 padding: AppPaddings.horiz_16,
                 child: Wrap(
@@ -178,7 +177,7 @@ class _ProdDetailsBodyState extends State<ProdDetailsBody>
                 ),
               ),
               Padding(
-                padding: AppPaddings.bottom12_top20.add(AppPaddings.horiz_16),
+                padding: AppPaddings.vertic_10.add(AppPaddings.horiz_16),
                 child: Text(
                   l10n.description,
                   style: AppTheme.titleMedium14(context),
@@ -198,7 +197,6 @@ class _ProdDetailsBodyState extends State<ProdDetailsBody>
                 },
               ).toList(),
               DeliveryWidget(),
-              AppSpacing.vertical_26,
               Padding(
                 padding: AppPaddings.top_20.add(AppPaddings.horiz_16),
                 child: Row(

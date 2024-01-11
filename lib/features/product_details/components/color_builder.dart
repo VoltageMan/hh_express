@@ -6,7 +6,6 @@ import 'package:hh_express/features/components/widgets/place_holder.dart';
 import 'package:hh_express/features/product_details/bloc/product_details_bloc.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/models/property/property_model.dart';
-import 'package:hh_express/models/property/values/property_value_model.dart';
 import 'package:hh_express/settings/consts.dart';
 import 'package:hh_express/settings/theme.dart';
 
@@ -30,7 +29,7 @@ class _ProdColorBuilderState extends State<ProdColorBuilder> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: AppPaddings.bottom12_top20.add(AppPaddings.horiz_16),
+          padding: AppPaddings.vertic_10.add(AppPaddings.horiz_16),
           child: Text(
             '${model.name}',
             style: AppTheme.titleMedium14(context),

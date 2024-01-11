@@ -22,9 +22,10 @@ void main() async {
       DeviceOrientation.portraitUp,
     ]);
     return runApp(const MyApp());
-  }, (error, stack) {
+  }, (error, stack) async {
     'RunZoneError \nerror:${error}\nstackTrace:$stack'.log();
     // Restart.restartApp();
+    await Future.delayed(Duration.zero);
     exit(0);
   });
 }

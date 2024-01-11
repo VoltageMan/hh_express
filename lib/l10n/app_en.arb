@@ -90,5 +90,6 @@
   "removedFromFavors": "Removed from favorites",
   "nothingFound": "Nothing was found", 
   "loading":"Loading..."
-  ,"details":"Details"
+  ,"details":"Details", 
+  "feedBack":"Feed back"
 }

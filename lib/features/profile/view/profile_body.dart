@@ -41,7 +41,8 @@ class _ProfileBodyState extends State<ProfileBody> {
         favorsState.state.models.isNotEmpty
             ? favorsState.state.models.first.name
             : '',
-        langs[locale.value]!
+        langs[locale.value]!,
+        '',
       ],
     );
   }
@@ -60,6 +61,7 @@ class _ProfileBodyState extends State<ProfileBody> {
         AssetsPath.ordersIcon,
         AssetsPath.favorFilled,
         AssetsPath.langIcon,
+        AssetsPath.phoneCall,
       ];
   get langs => {
         'tr': l10n.turkmen,
@@ -73,6 +75,7 @@ class _ProfileBodyState extends State<ProfileBody> {
         l10n.myOrders,
         l10n.favorites,
         l10n.programLang,
+        l10n.feedBack,
       ];
   late final favorsState = context.read<FavorsCubit>();
   late final orderState = context.read<OrderHistoryCubit>();
@@ -106,7 +109,6 @@ class _ProfileBodyState extends State<ProfileBody> {
               iconPath: icons[index],
               onTap: () {
                 authBloc.state.log();
-                // return;
                 if (index == 0) {
                   if (LocalStorage.getToken != null) {
                     Confirm.showLogOutDialog(context);

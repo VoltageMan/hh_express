@@ -205,6 +205,7 @@ class AssetsPath {
 
   static const addresIcon = 'assets/icons/delivery_address.svg';
   static const langIcon = 'assets/icons/profileIcons/lang.svg';
+  static const phoneCall = 'assets/icons/profileIcons/phone_call.svg';
   static const favorIcon = 'assets/icons/profileIcons/favor.svg';
   static const locationIcon = 'assets/icons/profileIcons/location.svg';
   static const profileIcon = 'assets/icons/profileIcons/profile.svg';
