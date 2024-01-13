@@ -125,38 +125,28 @@ class _DioClient {
 
 ApiResponse _handleException(Object e, StackTrace? stack) {
   final isDioExeption = e is DioException;
+  final seMessaeg = appRouter.currentContext.l10n.socketExeption;
 
   if (!isDioExeption) {
     SnackBarHelper.showTopSnack(
-      e.toString(),
+      seMessaeg,
       APIState.error,
     );
     return ApiResponse.unknownError;
   }
-
-  if (e.error is SocketException || e.response?.statusCode == 104) {
-    SnackBarHelper.showTopSnack(
-      appRouter.currentContext.l10n.socketExeption,
-      APIState.error,
-    );
-    return ApiResponse(
-      data: {},
-      error: 'SocketExeption',
-      message: 'Socket Exeption Show Some TellSomeThing',
-      success: false,
-    );
-  }
   if (e.response != null && e.response!.data is Map) {
     '${e.requestOptions.data} MyDioExeption'.log();
     SnackBarHelper.showTopSnack(
-      e.response!.data['message'] ??
-          appRouter.currentContext.l10n.socketExeption,
+      e.response!.data['message'] ?? seMessaeg,
       APIState.error,
     );
     return ApiResponse.fromJson(e.response!.data);
   }
+  if (e.type == DioExceptionType.connectionTimeout ||
+      e.type == DioExceptionType.sendTimeout ||
+      e.type == DioExceptionType.cancel) return ApiResponse.unknownError;
   SnackBarHelper.showTopSnack(
-    e.message ?? e.error.toString(),
+    seMessaeg,
     APIState.error,
   );
   return ApiResponse.unknownError;

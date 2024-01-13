@@ -37,6 +37,7 @@ class VideoWidget extends StatelessWidget {
                   child: CachedNetworkImage(
                     height: index % 2 == 0 ? 205.h : 107.h,
                     fit: BoxFit.cover,
+                    errorWidget: (context, url, error) => MyShimerPlaceHolder(),
                     imageUrl: model!.product.image,
                     placeholder: (context, url) => MyShimerPlaceHolder(),
                     width: double.infinity,
