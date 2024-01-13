@@ -1,5 +1,4 @@
 import 'package:hh_express/data/remote/dio_client.dart';
-import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/models/property/property_model.dart';
 import 'package:hh_express/repositories/filters/filters_repository.dart';
 import 'package:hh_express/settings/consts.dart';

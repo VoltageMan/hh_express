@@ -71,6 +71,17 @@ class ProductRepoImpl extends ProductRepo with DioClientMixin {
     return null;
   }
 
+  @override
+  Future<List<String>?> getFeedBack() async {
+    final response = await dio.get(endPoint: EndPoints.feedBack);
+    if (response.success) {
+      return (response.data[APIKeys.feedBack] as List)
+          .map((e) => e as String)
+          .toList();
+    }
+    return null;
+  }
+
   String _endPoint(
       List<String> slugs, List<int> properties, int page, int? videoId) {
     final videoParam = videoId == null ? '' : '&video_id=$videoId';

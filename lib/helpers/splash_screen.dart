@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hh_express/data/local/secured_storage.dart';
 import 'package:hh_express/features/address/cubit/address_cubit.dart';
 import 'package:hh_express/features/auth/bloc/auth_bloc.dart';

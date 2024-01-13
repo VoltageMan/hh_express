@@ -10,6 +10,7 @@ import 'package:hh_express/features/chat/bloc/chat_events.dart';
 import 'package:hh_express/features/direct_order/cubit/direct_order_cubit.dart';
 import 'package:hh_express/features/direct_order/view/direct_order_body.dart';
 import 'package:hh_express/features/favors/view/favors_body.dart';
+import 'package:hh_express/features/feed_back/view/feed_back.dart';
 import 'package:hh_express/features/filter/components/sheet_body.dart';
 import 'package:hh_express/features/order_history/view/screens/orders_sheet_body.dart';
 import 'package:hh_express/features/product_details/view/modalSheet/product_modal_body.dart';
@@ -123,11 +124,13 @@ class ModelBottomSheetHelper {
       OrdersSheetBody(),
       FavorsBody(),
       ChangeLangSheet(),
+      FeedBackSheet(),
     ];
     await showModalBottomSheet(
       context: appRouter.currentContext,
       useRootNavigator: true,
       isScrollControlled: true,
+      useSafeArea: true,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
             topLeft: Radius.circular(10), topRight: Radius.circular(10)),

@@ -8,6 +8,7 @@ import 'package:hh_express/features/cart/cubit/cart_cubit.dart';
 import 'package:hh_express/features/categories/bloc/category_bloc.dart';
 import 'package:hh_express/features/chat/bloc/chat_bloc.dart';
 import 'package:hh_express/features/favors/bloc/favors_bloc.dart';
+import 'package:hh_express/features/feed_back/cubit/feed_back_cubit.dart';
 import 'package:hh_express/features/filter/bloc/filter_bloc.dart';
 import 'package:hh_express/features/home/bloc/home_bloc.dart';
 import 'package:hh_express/features/mainScreen/view/components/navBar/nav_bar.dart';
@@ -57,6 +58,7 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(create: (context) => FavorsCubit()),
         BlocProvider(create: (context) => VideoCubit()),
         BlocProvider(create: (context) => VideoDetailsCubit()),
+        BlocProvider(create: (context) => FeedBackCubit()..init())
       ],
       child: ScreenUtilInit(
         designSize: const Size(360, 800),

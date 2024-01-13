@@ -12,6 +12,7 @@ abstract class ProductRepo {
     int? videoId,
   });
   Future<DeliveryInfoModel?> getDeliveryInfo();
+  Future<List<String>?> getFeedBack();
   Future<UsageTermsModel?> getTermsOfUsage();
   Future<ProductDetailsModel?> getDetails(int id, CancelToken cancelToken);
 }
