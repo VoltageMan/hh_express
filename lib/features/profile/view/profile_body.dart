@@ -31,7 +31,7 @@ class _ProfileBodyState extends State<ProfileBody> {
   void setContents() {
     contents = List.from(
       [
-        authBloc.state.user != null ? '+${authBloc.state.user!.entity}' : '',
+        authBloc.state.user != null ? '+${authBloc.state.user!.name}' : '',
         addressState.state.models.isNotEmpty
             ? addressState.state.models.first.address
             : '',
@@ -49,14 +49,8 @@ class _ProfileBodyState extends State<ProfileBody> {
 
   get l10n => context.l10n;
 
-  String get firstIcon {
-    return LocalStorage.getToken == null
-        ? AssetsPath.phoneIcon
-        : AssetsPath.backIcon;
-  }
-
   List<String> get icons => [
-        firstIcon,
+        AssetsPath.profileIcon,
         AssetsPath.locationIcon,
         AssetsPath.ordersIcon,
         AssetsPath.favorFilled,
@@ -70,7 +64,7 @@ class _ProfileBodyState extends State<ProfileBody> {
       };
 
   List<String> get titles => [
-        LocalStorage.getToken == null ? l10n.phoneNumber : l10n.logOut,
+        LocalStorage.getToken == null ? l10n.auth : l10n.myProfile,
         l10n.address,
         l10n.myOrders,
         l10n.favorites,
@@ -110,11 +104,10 @@ class _ProfileBodyState extends State<ProfileBody> {
               onTap: () {
                 authBloc.state.log();
                 if (index == 0) {
-                  if (LocalStorage.getToken != null) {
-                    Confirm.showLogOutDialog(context);
-                    return;
-                  }
-                  GoRouter.of(context).push(AppRoutes.auth, extra: true);
+                  final isAuthed = LocalStorage.getToken != null;
+                  GoRouter.of(context).push(
+                      isAuthed ? AppRoutes.auth : AppRoutes.auth,
+                      extra: true);
                   return;
                 }
                 index.log();

@@ -2,14 +2,17 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hh_express/app/setup.dart';
+import 'package:hh_express/helpers/confirm_exit.dart';
+import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/models/delivery_info/deliery_info_model.dart';
 import 'package:hh_express/models/pagination/pagination_model.dart';
 import 'package:hh_express/models/products/product_model.dart';
 import 'package:hh_express/models/property/values/property_value_model.dart';
+import 'package:hh_express/models/state/state_model.dart';
 import 'package:hh_express/repositories/products/product_repo.dart';
 import 'package:hh_express/settings/consts.dart';
 import 'package:hh_express/settings/enums.dart';
-
+import 'package:package_info_plus/package_info_plus.dart';
 part 'home_state.dart';
 
 class HomeBloc extends Cubit<HomeState> {
@@ -38,25 +41,26 @@ class HomeBloc extends Cubit<HomeState> {
       properties: _filters.map((e) => e.id).toList(),
       page: 0,
     );
-    DeliveryInfoModel? deliveryInfo;
+    StateModel? stateInfo;
     if (state.deliveryInfo == null) {
-      deliveryInfo = await _repo.getDeliveryInfo();
-      
-    } else {
-      deliveryInfo = state.deliveryInfo;
+      final stateInfoData = await _repo.getDeliveryInfo();
+
+      stateInfo = stateInfoData;
     }
-    if (data != null && deliveryInfo != null) {
+    if (data != null && stateInfo != null) {
+      notificateAboutUpdate(stateInfo.appVersion);
       return emit(
         HomeState(
           state: ProductAPIState.success,
           pagination: data[APIKeys.pagination],
           prods: List.from(data[APIKeys.products]),
-          deliveryInfo: deliveryInfo,
+          deliveryInfo: stateInfo.deliveryInfo,
         ),
       );
     }
-    return emit(HomeState(
-        deliveryInfo: state.deliveryInfo, state: ProductAPIState.error));
+    return emit(
+      HomeState(deliveryInfo: state.deliveryInfo, state: ProductAPIState.error),
+    );
   }
 
   Future<void> loadMore() async {
@@ -100,5 +104,13 @@ class HomeBloc extends Cubit<HomeState> {
     _filters = List.from(props);
     lastPosition = 0;
     init(forUpdate: true);
+  }
+
+  Future<void> notificateAboutUpdate(String lastAppVersion) async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    final currentAppVersion = packageInfo.version..log();
+    if (lastAppVersion != currentAppVersion) {
+      Confirm.showUpdateNotificationDialog();
+    }
   }
 }

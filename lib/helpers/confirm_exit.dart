@@ -1,9 +1,13 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hh_express/features/auth/bloc/auth_bloc.dart';
 import 'package:hh_express/features/terms_of_usage/usage_terms_widget.dart';
 import 'package:hh_express/helpers/extentions.dart';
+import 'package:hh_express/helpers/routes.dart';
 import 'package:hh_express/settings/theme.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Confirm {
   static Future<void> onlogOut(BuildContext context) async {
@@ -74,6 +78,40 @@ class Confirm {
     );
     _isDialogShown = false;
   }
+
+  static Future<void> showUpdateNotificationDialog() async {
+    final context = appRouter.currentContext;
+    final l10n = context.l10n;
+    await showDialog(
+      context: context,
+      builder: (context) {
+        _currentContext = context;
+        _isDialogShown = true;
+        return ConfirmingDialog(
+          title: l10n.updateTitle,
+          content: l10n.updateTitle,
+          confirmText: l10n.update,
+          cancleText: l10n.later,
+          onConfirm: sendToUpdateStore,
+        );
+      },
+    );
+    _isDialogShown = false;
+  }
+
+  static Future<void> sendToUpdateStore() async {
+    final appId =
+        Platform.isAndroid ? 'YOUR_ANDROID_PACKAGE_ID' : 'YOUR_IOS_APP_ID';
+    final url = Uri.parse(
+      Platform.isAndroid
+          ? "market://details?id=$appId"
+          : "https://apps.apple.com/app/id$appId",
+    );
+    await launchUrl(
+      url,
+      mode: LaunchMode.externalApplication,
+    );
+  }
 }
 
 class ConfirmingDialog extends StatelessWidget {
@@ -82,7 +120,11 @@ class ConfirmingDialog extends StatelessWidget {
     required this.content,
     required this.title,
     required this.onConfirm,
+    this.confirmText,
+    this.cancleText,
   });
+  final String? confirmText;
+  final String? cancleText;
   final String title;
   final String content;
   final VoidCallback onConfirm;
@@ -103,7 +145,7 @@ class ConfirmingDialog extends StatelessWidget {
           style: theme,
           onPressed: () => Navigator.pop(context),
           child: Text(
-            l10n.cancle,
+            cancleText ?? l10n.cancle,
             style: theme.myTextStyle,
           ),
         ),
@@ -111,7 +153,7 @@ class ConfirmingDialog extends StatelessWidget {
           onPressed: onConfirm,
           style: theme,
           child: Text(
-            l10n.exit,
+            confirmText ?? l10n.exit,
             style: theme.myTextStyle,
           ),
         ),

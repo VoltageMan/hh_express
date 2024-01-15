@@ -5,6 +5,7 @@ import 'package:hh_express/models/delivery_info/deliery_info_model.dart';
 import 'package:hh_express/models/pagination/pagination_model.dart';
 import 'package:hh_express/models/product_details/product_details_model.dart';
 import 'package:hh_express/models/products/product_model.dart';
+import 'package:hh_express/models/state/state_model.dart';
 import 'package:hh_express/repositories/products/product_repo.dart';
 import 'package:hh_express/settings/consts.dart';
 import 'package:injectable/injectable.dart';
@@ -54,10 +55,10 @@ class ProductRepoImpl extends ProductRepo with DioClientMixin {
   }
 
   @override
-  Future<DeliveryInfoModel?> getDeliveryInfo() async {
+  Future<StateModel?> getDeliveryInfo() async {
     final response = await dio.get(endPoint: EndPoints.deliveryInfo);
     if (response.success) {
-      return DeliveryInfoModel.fromMap(response.data[APIKeys.deliveryInfo]);
+      return StateModel.fromMap(response.data);
     }
     return null;
   }

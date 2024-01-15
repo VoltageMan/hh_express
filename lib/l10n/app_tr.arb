@@ -94,7 +94,11 @@
    "details":"Giñişleyin"
    , 
   "feedBack":"Biz bilen habarlaşmak"
-
-
+  ,
+  "update": "Täzelemek",
+"later":"Soňrak",
+  "updateTitle": "Goşundynyñ wersiyasyny tazeläñ!",
+  "myProfile":"Meniň profilim",
+  "auth":"Hasaba girmek"
 
 }

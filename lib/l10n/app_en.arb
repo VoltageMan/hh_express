@@ -91,5 +91,10 @@
   "nothingFound": "Nothing was found", 
   "loading":"Loading..."
   ,"details":"Details", 
-  "feedBack":"Feed back"
+  "feedBack":"Feed back",
+  "update": "Update",
+  "updateTitle": "Please update application!", 
+  "later":"Later",
+  "myProfile":"My profile", 
+  "auth" :"Authentification"
 }

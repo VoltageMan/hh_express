@@ -267,6 +267,7 @@ sealed class EndPoints {
 class APIKeys {
   static const mainCategories = 'main_categories';
   static const termsOfUsage = 'terms-of-usage';
+  static const appVersion = 'app_version';
   static const feedBack = 'feedback';
   static const address = 'address';
   static const cart = 'cart';

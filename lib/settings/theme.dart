@@ -60,6 +60,7 @@ class AppTheme {
           );
 
   static final lightTheme = ThemeData(
+    useMaterial3: false,
     primaryColor: AppColors.mainOrange,
     colorScheme: ColorScheme.fromSwatch(
       accentColor: AppColors.darkBlue,

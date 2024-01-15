@@ -26,6 +26,6 @@ void main() async {
     'RunZoneError \nerror:${error}\nstackTrace:$stack'.log();
     // Restart.restartApp();
     await Future.delayed(Duration.zero);
-    exit(0);
+    // exit(0);
   });
 }

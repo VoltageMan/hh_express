@@ -68,6 +68,7 @@ class _MyAppState extends State<MyApp> {
             builder: (context, locale, child) {
               locale.log();
               return MaterialApp.router(
+                
                 title: 'Yuan Shop',
                 supportedLocales: AppLocalizations.supportedLocales,
                 routerConfig: appRouter,
