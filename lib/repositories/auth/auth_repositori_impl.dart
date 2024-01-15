@@ -51,6 +51,15 @@ class AuthRepoImpl extends AuthRepo with DioClientMixin {
   }
 
   @override
+  Future<bool> deleteAcc() async {
+    final response = await dio.post(endPoint: EndPoints.deleteAcc);
+    if (response.success) {
+      await LocalStorage.deleteToken();
+    }
+    return response.success;
+  }
+
+  @override
   Future<UserModel?> authMe() async {
     if (LocalStorage.getToken == null) return null;
     final response = await dio.get(endPoint: EndPoints.authMe);

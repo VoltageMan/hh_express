@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/features/auth/bloc/auth_bloc.dart';
 import 'package:hh_express/features/terms_of_usage/usage_terms_widget.dart';
 import 'package:hh_express/helpers/extentions.dart';
@@ -12,6 +13,11 @@ import 'package:url_launcher/url_launcher.dart';
 class Confirm {
   static Future<void> onlogOut(BuildContext context) async {
     await context.read<AuthBloc>().logOut();
+    Navigator.pop(_currentContext!);
+  }
+
+  static Future<void> onDeleteAcc(BuildContext context) async {
+    await context.read<AuthBloc>().deleteAcc();
     Navigator.pop(_currentContext!);
   }
 
@@ -79,6 +85,24 @@ class Confirm {
     _isDialogShown = false;
   }
 
+  static Future<void> showDeleteAccDialog(BuildContext context) async {
+    final l10n = context.l10n;
+    await showDialog(
+      context: context,
+      builder: (context) {
+        _currentContext = context;
+        _isDialogShown = true;
+        return ConfirmingDialog(
+          title: l10n.delete,
+          content: l10n.deleteAccConfirm,
+          confirmText: l10n.delete,
+          onConfirm: () => onDeleteAcc(context),
+        );
+      },
+    );
+    _isDialogShown = false;
+  }
+
   static Future<void> showUpdateNotificationDialog() async {
     final context = appRouter.currentContext;
     final l10n = context.l10n;
@@ -139,6 +163,9 @@ class ConfirmingDialog extends StatelessWidget {
       ),
       content: Text(
         content,
+        style: context.theme.textTheme.titleLarge!.copyWith(
+          fontSize: 16.sp,
+        ),
       ),
       actions: [
         TextButton(

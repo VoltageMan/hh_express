@@ -5,6 +5,7 @@ import 'package:hh_express/features/chat/screens/chat/chat.dart';
 import 'package:hh_express/features/filter/details/view/filter_details.dart';
 import 'package:hh_express/features/filter/selected_details/selected_filter_details.dart';
 import 'package:hh_express/features/more_simmilar_products/view/more_sim_prods.dart';
+import 'package:hh_express/features/my_profile/view/my_profile_screen.dart';
 import 'package:hh_express/features/products_by_category/view/products_by_category.dart';
 import 'package:hh_express/features/mainScreen/view/main_screen.dart';
 import 'package:hh_express/features/notifications/view/notification_screen.dart';
@@ -16,7 +17,6 @@ import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/splash_screen.dart';
 import 'package:hh_express/models/categories/category_model.dart';
 import 'package:hh_express/models/property/property_model.dart';
-import 'package:hh_express/models/videos/video_model.dart';
 import 'package:hh_express/settings/consts.dart';
 
 enum EnumNavRoutes { home, video, category, cart, profile }
@@ -41,6 +41,7 @@ class AppRoutes {
   static const prodDetails = '/prodDetails';
   static const videoDetails = '/videoDetails';
   static const chat = '/chat';
+  static const myProfile = '/myProfile';
   static const moreSimmilarProducts = '/moreSimmilarProducts';
   static const filterSelecteds = '/filterSelecteds';
 }
@@ -113,6 +114,22 @@ final appRouter = GoRouter(
       },
     ),
     GoRoute(
+      path: AppRoutes.myProfile,
+      name: AppRoutes.myProfile.toRouteName,
+      pageBuilder: (context, state) {
+        return CustomTransitionPage(
+          child: MyProfileScreen(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+              CupertinoPageTransition(
+            linearTransition: true,
+            primaryRouteAnimation: animation,
+            secondaryRouteAnimation: secondaryAnimation,
+            child: child,
+          ),
+        );
+      },
+    ),
+    GoRoute(
       path: AppRoutes.orderDetails,
       name: AppRoutes.orderDetails.toRouteName,
       builder: (context, state) {
@@ -154,7 +171,6 @@ final appRouter = GoRouter(
       path: AppRoutes.videoDetails,
       name: AppRoutes.videoDetails.toRouteName,
       pageBuilder: (context, state) {
-        final data = state.extra as HomeVideoModel;
         final index = (state.queryParameters['index'] as String).toInt;
         return CustomTransitionPage(
           child: VideoDetails(

@@ -136,9 +136,6 @@ class AppBorderRadiuses {
 
 class AppColors {
   static const red = Color(0xFFDB3022);
-  static const superAppColor = Color.fromRGBO(62, 82, 188, 1);
-  static const superAppShadowColor = Color.fromRGBO(51, 67, 152, 1);
-  static const primaryColor = Color.fromARGB(255, 24, 107, 140);
   static const black = Color(0xFF222222);
   static const lightGray = Color(0xFF9B9B9B);
   static const darkGray = Color(0xFF979797);
@@ -233,6 +230,7 @@ sealed class EndPoints {
   static const feedBack = 'api/v1/feedback';
   static const authMe = 'api/v1/auth/me';
   static const logOut = 'api/v1/auth/logout';
+  static const deleteAcc = 'api/v1/auth/delete';
   static const category = 'api/v1/category/list';
   static const products = 'api/v1/product/list';
   static const properties = 'api/v1/property/list';

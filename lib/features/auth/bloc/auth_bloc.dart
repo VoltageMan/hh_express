@@ -30,6 +30,7 @@ class AuthBloc extends Cubit<AuthState> {
   }
 
   Future<void> authMe() async {
+    if (state.user != null) return;
     emit(
       AuthState(
         user: state.user,
@@ -165,9 +166,50 @@ class AuthBloc extends Cubit<AuthState> {
       ),
     );
     OverlayHelper.showLoading();
-    'request.log'.log();
+
     final response = await _repo.logOut();
     if (response) {
+      appRouter.pop();
+      reInitOtherScreens();
+      OverlayHelper.remove();
+      SnackBarHelper.showTopSnack(
+        appRouter.currentContext.l10n.succsess,
+        APIState.success,
+      );
+      emit(
+        AuthState(
+          apiState: APIState.success,
+          termsConfirmed: state.termsConfirmed,
+        ),
+      );
+      return response;
+    }
+    emit(
+      AuthState(
+        user: state.user,
+        apiState: APIState.error,
+        message: 'somehings went wrong',
+        termsConfirmed: state.termsConfirmed,
+      ),
+    );
+
+    OverlayHelper.remove();
+    return false;
+  }
+
+  Future<bool> deleteAcc() async {
+    emit(
+      AuthState(
+        user: state.user,
+        apiState: APIState.loading,
+        termsConfirmed: state.termsConfirmed,
+      ),
+    );
+    OverlayHelper.showLoading();
+
+    final response = await _repo.deleteAcc();
+    if (response) {
+      appRouter.pop();
       reInitOtherScreens();
       OverlayHelper.remove();
       SnackBarHelper.showTopSnack(

@@ -96,5 +96,10 @@
   "updateTitle": "Please update application!", 
   "later":"Later",
   "myProfile":"My profile", 
-  "auth" :"Authentification"
+  "auth" :"Authentification", 
+  "delete":"delete",
+  "account":"Account",
+
+
+  "deleteAccConfirm":"Do you really want to delete accout?"
 }

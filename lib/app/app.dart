@@ -12,6 +12,7 @@ import 'package:hh_express/features/feed_back/cubit/feed_back_cubit.dart';
 import 'package:hh_express/features/filter/bloc/filter_bloc.dart';
 import 'package:hh_express/features/home/bloc/home_bloc.dart';
 import 'package:hh_express/features/mainScreen/view/components/navBar/nav_bar.dart';
+import 'package:hh_express/features/my_profile/view/my_profile_screen.dart';
 import 'package:hh_express/features/order_history/cubit/order_history_cubit.dart';
 import 'package:hh_express/features/notifications/cubit/notification_cubit.dart';
 import 'package:hh_express/features/product_details/bloc/product_details_bloc.dart';
@@ -68,7 +69,6 @@ class _MyAppState extends State<MyApp> {
             builder: (context, locale, child) {
               locale.log();
               return MaterialApp.router(
-                
                 title: 'Yuan Shop',
                 supportedLocales: AppLocalizations.supportedLocales,
                 routerConfig: appRouter,
@@ -83,7 +83,7 @@ class _MyAppState extends State<MyApp> {
                       builder: (context) {
                         return MediaQuery(
                           data: MediaQuery.of(context)
-                              .copyWith(textScaleFactor: 1),
+                              .copyWith(textScaler: TextScaler.linear(1)),
                           child: child!,
                         );
                       },

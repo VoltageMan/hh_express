@@ -31,7 +31,7 @@ class _ProfileBodyState extends State<ProfileBody> {
   void setContents() {
     contents = List.from(
       [
-        authBloc.state.user != null ? '+${authBloc.state.user!.name}' : '',
+        authBloc.state.user != null ? authBloc.state.user!.name : '',
         addressState.state.models.isNotEmpty
             ? addressState.state.models.first.address
             : '',
@@ -106,7 +106,7 @@ class _ProfileBodyState extends State<ProfileBody> {
                 if (index == 0) {
                   final isAuthed = LocalStorage.getToken != null;
                   GoRouter.of(context).push(
-                      isAuthed ? AppRoutes.auth : AppRoutes.auth,
+                      isAuthed ? AppRoutes.myProfile : AppRoutes.auth,
                       extra: true);
                   return;
                 }

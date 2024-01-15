@@ -6,5 +6,6 @@ abstract class AuthRepo {
   Future<UserModel?> logIn(AuthModel loginReqModel);
   Future<UserModel?> register(AuthModel loginReqModel);
   Future<bool> logOut();
+  Future<bool> deleteAcc();
   Future<UserModel?> authMe();
 }

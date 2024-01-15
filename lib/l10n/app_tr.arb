@@ -9,7 +9,7 @@
     "profile": "Profilim",
     "exit": "Çykmak",
     "cancle": "Goý bolsun",
-    "exitConfirm": "Siz hakykatdan hem çykmak isleyarsinizmi?",
+    "exitConfirm": "Siz hakykatdan hem çykmak isleýärsinizmi?",
     "filter": "Filter",
     "removeAll": "Hemmesini aýyr",
     "all": "Hemme",
@@ -100,5 +100,9 @@
   "updateTitle": "Goşundynyñ wersiyasyny tazeläñ!",
   "myProfile":"Meniň profilim",
   "auth":"Hasaba girmek"
-
+  , 
+  "delete":"pozmak",
+  "account":"Hasabym",
+  "info":"Maglumat",
+  "deleteAccConfirm":"Siz hakykatdan hem hasabyňyzy pozmak isleýärsinizmi?"
 }
