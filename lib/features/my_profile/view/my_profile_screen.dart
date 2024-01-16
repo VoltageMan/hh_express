@@ -8,6 +8,7 @@ import 'package:hh_express/features/my_profile/view/my_profile_tile.dart';
 import 'package:hh_express/features/product_details/view/product_details_body.dart';
 import 'package:hh_express/helpers/confirm_exit.dart';
 import 'package:hh_express/helpers/extentions.dart';
+import 'package:hh_express/helpers/modal_sheets.dart';
 import 'package:hh_express/settings/consts.dart';
 
 class MyProfileScreen extends StatefulWidget {
@@ -25,7 +26,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        return Confirm.doPop();
+        return Confirm.doPop() && ModelBottomSheetHelper.doPop();
       },
       child: Scaffold(
         appBar: AppBar(
@@ -54,7 +55,6 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                 setState(() {});
               });
             }
-            final user = authBloc.state.user!;
             return Padding(
               padding: AppPaddings.all_16,
               child: Column(
@@ -63,14 +63,24 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                 children: [
                   Text(l10n.account),
                   16.verticalSpace,
-                  MyProfileTile(
-                    icons: null,
-                    contents: ['+${user.entity}', user.name],
-                    titles: [l10n.phoneNumber, l10n.userName],
-                    onTaps: [
-                      () {},
-                      () {},
-                    ],
+                  BlocBuilder<AuthBloc, AuthState>(
+                    bloc: authBloc,
+                    builder: (context, state) {
+                      return MyProfileTile(
+                        icons: null,
+                        contents: [
+                          '+${state.user?.entity ?? ''}',
+                          state.user?.name ?? ' '
+                        ],
+                        titles: [l10n.phoneNumber, l10n.userName],
+                        onTaps: [
+                          () {},
+                          () {
+                            ModelBottomSheetHelper.showEditUserNameSheet();
+                          },
+                        ],
+                      );
+                    },
                   ),
                   Padding(
                     padding: AppPaddings.vertic_16,

@@ -15,6 +15,7 @@ import 'package:hh_express/features/filter/components/sheet_body.dart';
 import 'package:hh_express/features/order_history/view/screens/orders_sheet_body.dart';
 import 'package:hh_express/features/product_details/view/modalSheet/product_modal_body.dart';
 import 'package:hh_express/features/profile/view/sheets/change_lang_sheet.dart';
+import 'package:hh_express/features/profile/view/sheets/change_user_name.dart';
 import 'package:hh_express/features/video/sim_prods/sim_prods_sheet.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/routes.dart';
@@ -71,6 +72,27 @@ class ModelBottomSheetHelper {
       builder: (context) {
         _currentContext = context;
         return const ChangeLangSheet();
+      },
+    );
+
+    _sheetShown = false;
+  }
+
+  static Future<void> showEditUserNameSheet() async {
+    _sheetShown = true;
+    await showModalBottomSheet(
+      context: appRouter.currentContext,
+      useRootNavigator: true,
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(10.r),
+          topRight: Radius.circular(10.r),
+        ),
+      ),
+      builder: (context) {
+        _currentContext = context;
+        return const ChangeUserNameSheet();
       },
     );
 

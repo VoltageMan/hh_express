@@ -237,6 +237,7 @@ sealed class EndPoints {
   static const cartComplete = 'api/v1/cart/complete';
   static const currentCart = 'api/v1/cart/current';
   static const cartUpdate = 'api/v1/cart/update';
+  static const userUpdate = 'api/v1/auth/update';
   static const cartCompleteInstance = 'api/v1/cart/instant/complete';
   static const cartInstance = 'api/v1/cart/instant/update';
   static const clearCart = 'api/v1/cart/flush';

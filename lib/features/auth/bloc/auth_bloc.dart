@@ -6,6 +6,7 @@ import 'package:hh_express/features/cart/cubit/cart_cubit.dart';
 import 'package:hh_express/features/favors/bloc/favors_bloc.dart';
 import 'package:hh_express/features/order_history/cubit/order_history_cubit.dart';
 import 'package:hh_express/helpers/extentions.dart';
+import 'package:hh_express/helpers/modal_sheets.dart';
 import 'package:hh_express/helpers/overlay_helper.dart';
 import 'package:hh_express/helpers/routes.dart';
 import 'package:hh_express/models/auth/auth_model.dart';
@@ -74,6 +75,39 @@ class AuthBloc extends Cubit<AuthState> {
       ),
     );
     return false;
+  }
+
+  Future<void> editUser(String newName) async {
+    final l10n = appRouter.currentContext.l10n;
+    if (newName.length < 5) {
+      SnackBarHelper.showTopSnack(l10n.least5Symbols, APIState.error);
+      return;
+    }
+    final userData = state.user!;
+    OverlayHelper.showLoading();
+    final response = await _repo.update(
+      UserModel(
+        entity: userData.entity,
+        name: newName,
+        id: userData.id,
+      ),
+    );
+    if (response != null) {
+      emit(
+        AuthState(
+          apiState: state.apiState,
+          termsConfirmed: state.termsConfirmed,
+          message: state.message,
+          user: response,
+        ),
+      );
+    }
+    SnackBarHelper.showTopSnack(
+      response == null ? l10n.someThingWent : l10n.succsess,
+      APIState.init,
+    );
+    ModelBottomSheetHelper.doPop();
+    OverlayHelper.remove();
   }
 
   bool checkTerms() {

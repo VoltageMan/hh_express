@@ -10,6 +10,19 @@ import 'package:injectable/injectable.dart';
 @Injectable(as: AuthRepo)
 class AuthRepoImpl extends AuthRepo with DioClientMixin {
   @override
+  Future<UserModel?> update(UserModel model) async {
+    final response = await dio.post(
+      endPoint: EndPoints.userUpdate,
+      data: model.toJson(),
+    );
+    if (response.success) {
+      final newModel = UserModel.fromJson(response.data[APIKeys.user]);
+      return newModel;
+    }
+    return null;
+  }
+
+  @override
   Future<UserModel?> logIn(AuthModel model) async {
     final response = await dio.post(
       endPoint: EndPoints.logIn,

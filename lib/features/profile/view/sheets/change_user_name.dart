@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_keyboard_size/flutter_keyboard_size.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hh_express/features/auth/bloc/auth_bloc.dart';
 import 'package:hh_express/features/auth/components/auth_field.dart';
 import 'package:hh_express/features/components/my_text_button.dart';
 import 'package:hh_express/features/components/widgets/sheet_titles.dart';
@@ -16,13 +17,19 @@ class ChangeUserNameSheet extends StatefulWidget {
 
 class _ChangeUserNameSheetState extends State<ChangeUserNameSheet> {
   final controller = TextEditingController();
+  @override
+  void initState() {
+    controller.text = authBloc.state.user!.name;
+    super.initState();
+  }
 
   @override
   void dispose() {
-    
     controller.dispose();
     super.dispose();
   }
+
+  late final authBloc = context.read<AuthBloc>();
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +53,8 @@ class _ChangeUserNameSheetState extends State<ChangeUserNameSheet> {
             child: MyDarkTextButton(
               title: context.l10n.save,
               onTap: () async {
-                Navigator.pop(context);
+                final newName = controller.text;
+                await authBloc.editUser(newName);
               },
             ),
           ),

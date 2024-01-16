@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hh_express/app/setup.dart';
 import 'package:hh_express/helpers/confirm_exit.dart';
 import 'package:hh_express/helpers/extentions.dart';
-import 'package:hh_express/models/delivery_info/deliery_info_model.dart';
 import 'package:hh_express/models/pagination/pagination_model.dart';
 import 'package:hh_express/models/products/product_model.dart';
 import 'package:hh_express/models/property/values/property_value_model.dart';
