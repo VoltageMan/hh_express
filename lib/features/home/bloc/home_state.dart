@@ -7,13 +7,13 @@ class HomeState extends Equatable {
     required this.state,
     this.pagination,
     this.prods,
-    this.deliveryInfo,
+    this.stateInfo,
   });
   final ProductAPIState state;
   final List<ProductModel>? prods;
-  final DeliveryInfoModel? deliveryInfo;
+  final StateModel? stateInfo;
   final PaginationModel? pagination;
 
   @override
-  List<Object?> get props => [state, prods, deliveryInfo, pagination];
+  List<Object?> get props => [state, prods, stateInfo, pagination];
 }

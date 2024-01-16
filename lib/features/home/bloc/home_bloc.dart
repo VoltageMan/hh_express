@@ -24,6 +24,7 @@ class HomeBloc extends Cubit<HomeState> {
   final _repo = getIt<ProductRepo>();
   double lastPosition = 0;
   List<PropertyValue> _filters = List.empty();
+
   Future<void> init({bool forUpdate = false}) async {
     if (state.state != ProductAPIState.init &&
         state.state != ProductAPIState.error &&
@@ -32,7 +33,7 @@ class HomeBloc extends Cubit<HomeState> {
     }
     emit(
       HomeState(
-        deliveryInfo: state.deliveryInfo,
+        stateInfo: state.stateInfo,
         state: ProductAPIState.loading,
       ),
     );
@@ -42,10 +43,12 @@ class HomeBloc extends Cubit<HomeState> {
       page: 0,
     );
     StateModel? stateInfo;
-    if (state.deliveryInfo == null) {
+    if (state.stateInfo == null) {
       final stateInfoData = await _repo.getDeliveryInfo();
 
       stateInfo = stateInfoData;
+    } else {
+      stateInfo = state.stateInfo;
     }
     if (data != null && stateInfo != null) {
       notificateAboutUpdate(stateInfo.appVersion);
@@ -54,19 +57,19 @@ class HomeBloc extends Cubit<HomeState> {
           state: ProductAPIState.success,
           pagination: data[APIKeys.pagination],
           prods: List.from(data[APIKeys.products]),
-          deliveryInfo: stateInfo.deliveryInfo,
+          stateInfo: stateInfo,
         ),
       );
     }
     return emit(
-      HomeState(deliveryInfo: state.deliveryInfo, state: ProductAPIState.error),
+      HomeState(stateInfo: state.stateInfo, state: ProductAPIState.error),
     );
   }
 
   Future<void> loadMore() async {
     emit(
       HomeState(
-        deliveryInfo: state.deliveryInfo,
+        stateInfo: state.stateInfo,
         state: ProductAPIState.loadingMore,
         pagination: state.pagination,
         prods: List.from(
@@ -82,7 +85,7 @@ class HomeBloc extends Cubit<HomeState> {
     if (data != null) {
       return emit(
         HomeState(
-          deliveryInfo: state.deliveryInfo,
+          stateInfo: state.stateInfo,
           state: ProductAPIState.success,
           pagination: data[APIKeys.pagination],
           prods: List.from(state.prods ?? List.empty())
@@ -92,7 +95,7 @@ class HomeBloc extends Cubit<HomeState> {
     }
     return emit(
       HomeState(
-        deliveryInfo: state.deliveryInfo,
+        stateInfo: state.stateInfo,
         state: ProductAPIState.loadingMoreError,
         pagination: state.pagination,
         prods: List.from(state.prods ?? List.empty()),

@@ -12,7 +12,7 @@ class DeliveryWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final models = context.read<HomeBloc>().state.deliveryInfo;
+    final models = context.read<HomeBloc>().state.stateInfo?.deliveryInfo;
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
