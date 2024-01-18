@@ -99,7 +99,6 @@
   "auth" :"Authentification", 
   "delete":"delete",
   "account":"Account",
-
-
+  "deleteAcc":"Delete account",
   "deleteAccConfirm":"Do you really want to delete accout?"
 }

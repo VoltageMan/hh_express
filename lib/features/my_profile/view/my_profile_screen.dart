@@ -89,7 +89,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                   MyProfileTile(
                     icons: [Icons.arrow_forward_ios, Icons.delete_outlined],
                     contents: ['', ''],
-                    titles: [l10n.logOut, 'Hasabymy pozmak'],
+                    titles: [l10n.logOut, l10n.deleteAcc],
                     onTaps: [
                       () async {
                         await Confirm.showLogOutDialog(context);

@@ -104,5 +104,6 @@
   "delete":"pozmak",
   "account":"Hasabym",
   "info":"Maglumat",
+  "deleteAcc":"Hasabymy pozmak",
   "deleteAccConfirm":"Siz hakykatdan hem hasabyňyzy pozmak isleýärsinizmi?"
 }
