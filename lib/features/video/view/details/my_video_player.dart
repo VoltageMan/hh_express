@@ -55,7 +55,6 @@ class _MyVideoPlayerWidgetState extends State<MyVideoPlayerWidget> {
     controller = await CachedVideoPlayerController.network(model.url);
     await controller!.initialize();
     setState(() {});
-
     controller!.play();
   }
 

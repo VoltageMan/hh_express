@@ -39,11 +39,11 @@ class SimmilarProdsCubit extends Cubit<SimmilarProdsState> {
         SimmilarProdsState(
           state: ProductAPIState.success,
           pagination: PaginationModel(
-            count: 3,
+            count: data.similarProducts.length,
             currentPage: 1,
             lastPage: 1,
             perPage: 0,
-            total: 3,
+            total: data.similarProducts.length,
           ),
           prods: List.from(data.similarProducts),
         ),

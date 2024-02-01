@@ -84,7 +84,7 @@ class _VideoSimmilarProdsSheetState extends State<VideoSimmilarProdsSheet> {
                           padding: AppPaddings.all_16,
                           child: BottomSheetTitle(
                             title:
-                                '${context.l10n.all} (${state.pagination?.count ?? 0})',
+                                '${context.l10n.all} (${state.pagination?.total ?? 0})',
                           ),
                         ),
                       ),
