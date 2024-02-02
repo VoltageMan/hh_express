@@ -135,8 +135,7 @@ Future<ApiResponse> _handleException(Object e, StackTrace? stack) async {
     return ApiResponse.unknownError;
   }
   if (e.response != null && e.response!.statusCode == 401) {
-    await LocalStorage.deleteToken();
-    appRouter.currentContext.read<AuthBloc>().reInitOtherScreens();
+    await appRouter.currentContext.read<AuthBloc>().deleteToken();
   }
   if (e.response != null && e.response!.data is Map) {
     '${e.requestOptions.data} MyDioExeption'.log();

@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hh_express/app/setup.dart';
+import 'package:hh_express/data/local/secured_storage.dart';
 import 'package:hh_express/features/address/cubit/address_cubit.dart';
 import 'package:hh_express/features/cart/cubit/cart_cubit.dart';
 import 'package:hh_express/features/favors/bloc/favors_bloc.dart';
@@ -319,6 +320,17 @@ class AuthBloc extends Cubit<AuthState> {
         user: state.user,
         apiState: APIState.error,
         message: message,
+        termsConfirmed: state.termsConfirmed,
+      ),
+    );
+  }
+
+  Future<void> deleteToken() async {
+    await LocalStorage.deleteToken();
+    reInitOtherScreens();
+    emit(
+      AuthState(
+        apiState: APIState.success,
         termsConfirmed: state.termsConfirmed,
       ),
     );
