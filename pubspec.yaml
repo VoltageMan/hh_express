@@ -48,7 +48,7 @@ dependencies:
   another_flushbar: ^1.12.30
   restart_app: ^1.2.1
   cached_video_player_fork: ^2.1.1
-  package_info_plus: ^5.0.1
+  package_info_plus: ^4.2.0
 
 dev_dependencies:
   json_serializable: ^6.7.1
