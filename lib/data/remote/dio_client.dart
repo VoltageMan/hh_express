@@ -1,7 +1,8 @@
-
 import 'package:dio/dio.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hh_express/data/local/secured_storage.dart';
 import 'package:hh_express/data/remote/interceptors/log_interceptor.dart';
+import 'package:hh_express/features/auth/bloc/auth_bloc.dart';
 import 'package:hh_express/helpers/extentions.dart';
 import 'package:hh_express/helpers/overlay_helper.dart';
 import 'package:hh_express/helpers/routes.dart';
@@ -97,7 +98,7 @@ class _DioClient {
       return ApiResponse.fromJson(res.data as Map<String, dynamic>);
     } catch (e, s) {
       'ERROR GET'.log();
-      return _handleException(e, s);
+      return await _handleException(e, s);
     }
   }
 
@@ -122,7 +123,7 @@ class _DioClient {
   }
 }
 
-ApiResponse _handleException(Object e, StackTrace? stack) {
+Future<ApiResponse> _handleException(Object e, StackTrace? stack) async {
   final isDioExeption = e is DioException;
   final seMessaeg = appRouter.currentContext.l10n.socketExeption;
 
@@ -132,6 +133,10 @@ ApiResponse _handleException(Object e, StackTrace? stack) {
       APIState.error,
     );
     return ApiResponse.unknownError;
+  }
+  if (e.response != null && e.response!.statusCode == 401) {
+    await LocalStorage.deleteToken();
+    appRouter.currentContext.read<AuthBloc>().reInitOtherScreens();
   }
   if (e.response != null && e.response!.data is Map) {
     '${e.requestOptions.data} MyDioExeption'.log();
