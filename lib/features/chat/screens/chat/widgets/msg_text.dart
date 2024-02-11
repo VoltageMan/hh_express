@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/features/chat/models/message.dart';
 
 class MessageText extends StatelessWidget {
@@ -14,8 +15,8 @@ class MessageText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      constraints: const BoxConstraints(
-        maxWidth: 250,
+      constraints: BoxConstraints(
+        maxWidth: MediaQuery.sizeOf(context).width * 0.65,
       ),
       child: msg.image != null
           ? Image.file(
@@ -30,10 +31,8 @@ class MessageText extends StatelessWidget {
                 )
               : Text(
                   msg.body,
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyMedium!
-                      .copyWith(color: Colors.white),
+                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                      color: Colors.black, fontWeight: FontWeight.w400),
                 ),
     );
   }

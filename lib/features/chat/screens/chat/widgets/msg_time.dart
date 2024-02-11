@@ -15,7 +15,7 @@ class MessageTime extends StatelessWidget {
       msg.hour,
       style: TextStyle(
         fontSize: 12,
-        color: Colors.white,
+        color: Color.fromARGB(255, 95, 136, 87),
       ),
     );
   }

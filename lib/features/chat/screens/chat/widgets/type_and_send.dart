@@ -4,6 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/features/chat/bloc/chat_bloc.dart';
 import 'package:hh_express/features/chat/bloc/chat_events.dart';
 import 'package:hh_express/helpers/modal_sheets.dart';
+import 'package:hh_express/settings/consts.dart';
+import 'package:hh_express/settings/theme.dart';
 
 class TypeAndSend extends StatefulWidget {
   const TypeAndSend({
@@ -29,6 +31,7 @@ class _TypeAndSendState extends State<TypeAndSend> {
   @override
   Widget build(BuildContext context) {
     final bloc = BlocProvider.of<ChatBloc>(context);
+
     return BottomAppBar(
       padding:
           EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
@@ -41,6 +44,11 @@ class _TypeAndSendState extends State<TypeAndSend> {
           Expanded(
             child: TextField(
               controller: _text,
+              style: TextStyle(
+                fontWeight: FontWeight.w400,
+                color: AppColors.darkBlue,
+                fontSize: 15.sp,
+              ),
               decoration: const InputDecoration(
                 hintText: "Type a message...",
                 border: InputBorder.none,

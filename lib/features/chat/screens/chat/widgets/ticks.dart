@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hh_express/features/chat/models/message.dart';
 import 'package:hh_express/settings/consts.dart';
 
@@ -12,25 +13,16 @@ class Ticks extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 25,
-      height: 25,
-      decoration: const BoxDecoration(
-        shape: BoxShape.circle,
-      ),
-      child: Center(
-        child: msg.is_seen
-            ? const Icon(
-                Icons.done_all,
-                color: AppColors.white,
-                size: 18,
-              )
-            : const Icon(
-                Icons.done,
-                color: AppColors.white,
-                size: 18,
-              ),
-      ),
-    );
+    return msg.is_seen
+        ? const Icon(
+            Icons.done_all,
+            color: Color.fromARGB(255, 95, 136, 87),
+            size: 18,
+          )
+        : const Icon(
+            Icons.done,
+            color: Color.fromARGB(255, 95, 136, 87),
+            size: 18,
+          );
   }
 }
